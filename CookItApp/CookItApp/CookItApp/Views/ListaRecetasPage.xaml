@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.ListaRecetasPage"
+             BackgroundColor="{StaticResource colorBackground}">
+    <ContentPage.Content>
+        
+        <!-- Grid principal que da formato a la pagina-->
+        <Grid x:Name="gridPrincipal"
+              BackgroundColor="{StaticResource colorBackground}"
+              Margin="0"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+            
+            <!-- Grid secundaria que guarda la barra de navegacion donde se busca receta-->
+            <Grid Grid.Column="0" 
+                  Grid.Row="0"
+                  Padding="1"
+                  Margin="0"
+                  BackgroundColor="{StaticResource colorPrimaryVariant}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                <Entry x:Name="txtBusquedaReceta"
+                       Grid.Column="0"
+                       Margin="1,0,1,0"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Fill"
+                       TextColor="Black"
+                       FontSize="8"
+                       Placeholder="Busque recetas por nombre"/>
+                
+                <Image  Grid.Column="1"
+                        x:Name="BtnBuscar"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource estiloBotonImagen}"
+                        Source="iconSearch.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnBuscar_Clicked"
+                                                  NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image  Grid.Column="2"
+                        x:Name="BtnFiltros"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,0,1,0"
+                        Style="{StaticResource estiloBotonImagen}"
+                        Source="filter_list.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnFiltros_Clicked"
+                                                  NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+            </Grid>
+            
+            <!-- Grid secundaria donde esta la lista de recetas con foto y datos-->
+            <Grid Grid.Column="0" Grid.Row="1">
+                <ListView x:Name="ListaRecetas" 
+                          ItemsSource="{Binding Recetas}" 
+                          SeparatorColor="LightGray" 
+                          BackgroundColor="{StaticResource colorBackground}" 
+                          ItemSelected="RecetaSeleccionada"
+                          RowHeight="80"
+                          Margin="0,1,0,0"> 
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:Name="dtListaRecetas">
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*" />
+                                            <ColumnDefinition Width="6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="fondoFrutillas.jpg"
+                                               HorizontalOptions="CenterAndExpand"
+                                               Grid.Column="0"
+                                               VerticalOptions="CenterAndExpand"
+                                               Aspect="AspectFill" />
+                                        <Grid Grid.Column="1"
+                                              Margin="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="2*"></RowDefinition>
+                                                <RowDefinition Height="4*"></RowDefinition>
+                                                <RowDefinition Height="2*"></RowDefinition>
+                                                <RowDefinition Height="2*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="0"
+                                                   Text="{Binding _Titulo}" 
+                                                   FontSize="Micro"
+                                                   FontAttributes="Bold"
+                                                   VerticalOptions="Start"
+                                                   HorizontalOptions="Start"
+                                                   LineBreakMode="TailTruncation"
+                                                   TextColor="{StaticResource colorOnBackground}"/>
+
+                                            <Label Grid.Row="1"
+                                                   Text="Aca va la descripcion que todavia no esta, este texto esta muy largo para probar a ver que pasa si el texto
+                                                   es demasiado largo para entrar en la caja de una, estaria bueno que se corte pero sino seguimos probando." 
+                                                   FontSize="Micro"
+                                                   MaxLines="2"
+                                                   VerticalOptions="Start"
+                                                   HorizontalOptions="Start"
+                                                   LineBreakMode="TailTruncation"
+                                                   TextColor="{StaticResource colorOnBackground}"/>
+
+                                            <Label Grid.Row="2"
+                                                   Text="{Binding _Dificultad, StringFormat='Dificultad: {0}/5'}"
+                                                   FontSize="Micro" 
+                                                   VerticalOptions="Start"
+                                                   HorizontalOptions="Start"
+                                                   TextColor="{StaticResource bluePinkDark}"/>
+
+                                            <Label Grid.Row="3"
+                                                   Text="{Binding _PuntajeTotal, StringFormat='Puntaje: {0}/5'}"
+                                                   FontSize="Micro"
+                                                   VerticalOptions="Start"
+                                                   HorizontalOptions="Start"
+                                                   TextColor="{StaticResource bluePinkDark}"/>
+                                        </Grid>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

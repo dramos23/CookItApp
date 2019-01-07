@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.LoginPage">
+    <Grid>
+
+        <Image Source="fondoFrutillas.jpg" Aspect="AspectFill"/>
+        <BoxView Color="LightSlateGray" Opacity="0.8"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--<Image Grid.Row="0" Source="" WidthRequest="100" HeightRequest="100" Margin="0,50,0,30"/>-->
+
+            <StackLayout Grid.Row="1" Padding="30,20" VerticalOptions="Center" >
+                <Entry x:Name="entryEmail"  Placeholder="Correo eléctronico" PlaceholderColor="Silver"/>
+                <Entry x:Name="entryPass" Placeholder="Contraseña" PlaceholderColor="Silver" IsPassword="True"/>
+                <Button x:Name="btnIngresar" Text="Iniciar sesión" BackgroundColor="Silver" BorderRadius="20" TextColor="Black" Clicked="PrcIngresar"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblRecuperar" Text="Recuperar contraseña?" FontAttributes="Bold" TextColor="Black" />
+                    <Label x:Name="lblRegistro"  Text="Registrarse" HorizontalOptions="EndAndExpand" FontAttributes="Bold" TextColor="Black" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" HorizontalOptions="Center" Margin="0,0,0,50">
+                <Label Text="Iniciar sesión con" HorizontalOptions="Center"/>
+                <StackLayout Orientation="Horizontal">
+                    <Image Grid.Row="0" Source="" WidthRequest="45" HeightRequest="45"/>
+                    <Image Grid.Row="0" Source="" WidthRequest="45" HeightRequest="45"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>

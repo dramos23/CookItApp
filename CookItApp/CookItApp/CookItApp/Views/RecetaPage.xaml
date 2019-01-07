@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="CookItApp.Views.RecetaPage"
+             BackgroundColor="{StaticResource orangeLight}">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Grid RowSpacing="0" ColumnSpacing="0"
+              AbsoluteLayout.LayoutBounds="0,0,1,.5"
+              AbsoluteLayout.LayoutFlags="All">
+
+                <Grid Opacity=".5" BackgroundColor="{StaticResource orangeLight}" HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand" />
+
+                <StackLayout Padding="10, 10, 10, 35" VerticalOptions="EndAndExpand">
+                    <StackLayout Spacing="0" Padding="10">
+                        <StackLayout Orientation="Horizontal">
+                            <Image WidthRequest="75"
+                                               HeightRequest="75" 
+                                               Source="fondoFrutillas.jpg"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Aspect="AspectFill" />
+
+                            <Label Text="{Binding _Receta._Titulo}"
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource asphaltPrimary}">
+                            </Label>
+                        </StackLayout>
+
+                        <StackLayout Padding="0, 8">
+                            <Label Text="Esta es la descripcion, hay que habilitarla despues. Seguro que es tremendo plato."
+                               Style="{StaticResource BasketFoodsDescriptionLabelStyle}"
+                               TextColor="{StaticResource grayPrimary}"/>
+
+                            <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="0, 4">
+                                <Label Text="{Binding _Receta._Dificultad, StringFormat='Dificultad: {0}/5'}"
+                                                    FontSize="Micro" TextColor="{StaticResource bluePinkDark}"
+                                                    LineBreakMode="TailTruncation" />
+
+                                <Label Text="{Binding _Receta._PuntajeTotal, StringFormat='Puntaje: {0}/5'}"
+                                                     FontSize="Micro" TextColor="{StaticResource bluePinkDark}"
+                                                     LineBreakMode="TailTruncation" />
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <syncfusion:SfListView Margin="0,8"
+                                           x:Name="ListaIngredientes"
+                                           ItemsSource="{Binding _IngredientesReceta}"
+                                           ItemSize="100"
+                                           BackgroundColor="{StaticResource orangeLight}">
+                        <syncfusion:SfListView.LayoutManager>
+                            <syncfusion:GridLayout SpanCount="3"></syncfusion:GridLayout>
+                        </syncfusion:SfListView.LayoutManager>
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="5">
+                                    <Grid BackgroundColor="{StaticResource orangeLight}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackLayout Spacing="4" Orientation="Horizontal">
+                                            <Label Text="{Binding _Ingrediente._Nombre}" 
+                                                            FontSize="Micro"
+                                                                   LineBreakMode="TailTruncation"
+                                                                   TextColor="{StaticResource asphaltPrimary}" />
+                                            <Label Text="{Binding _CantidadMedida}"
+                                                                   FontSize="Micro" TextColor="{StaticResource asphaltPrimary}"
+                                                                   LineBreakMode="TailTruncation" />
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                            <ImageButton x:Name="btnComentarios"
+                                    Source="botonComentarios.png"
+                                    WidthRequest="60"
+                                    HeightRequest="54"
+                                    Padding="1"
+                                    BackgroundColor="{StaticResource blueDark}"
+                                    Clicked="BtnComentarios_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                            <Button x:Name="btnPrepararReceta"
+                                    IsEnabled="True"
+                                Clicked="BtnPrepararReceta_Clicked"
+                                Text="Preparar"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                            <Button x:Name="btnAgregarFavoritos"
+                                Clicked="BtnAgregarFavoritos_Clicked"
+                                Text="Favoritos"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
