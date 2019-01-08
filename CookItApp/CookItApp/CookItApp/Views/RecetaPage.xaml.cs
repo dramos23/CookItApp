@@ -60,7 +60,7 @@ namespace CookItApp.Views
         private async void BtnPrepararReceta_Clicked(object sender, EventArgs e)
         {
             CargarDatosPrueba();
-            await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._Pasos[0]));
+            await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._Pasos[0], Usuario));
         }
 
         private async void BtnAgregarFavoritos_Clicked(object sender, EventArgs e)

@@ -1,58 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="{StaticResource orangeLight}"
-             x:Class="CookItApp.Views.PasoRecetaPage">
+             xmlns:videoplayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
+             x:Class="CookItApp.Views.PasoRecetaPage"
+             BackgroundColor="{StaticResource colorBackground}">
     <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0"
-              AbsoluteLayout.LayoutBounds="0,0,1,.5"
-              AbsoluteLayout.LayoutFlags="All">
+        <Grid x:Name="gridPrimaria" Padding="5,5,5,5" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <!--Control, se genera desde codebehind -->
+            <Grid Grid.Row="0" Grid.Column ="0" x:Name="layoutControl"  HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+                <Grid x:Name="gridTimer" Opacity="0" Grid.Column="0" Grid.ColumnSpan="50">
 
-            <Grid BackgroundColor="{StaticResource orangeLight}" HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand" />
+                    <Label Grid.Row="0" Grid.Column="0" x:Name="lblTimer" Grid.ColumnSpan="3"/>
+                    <Image x:Name="imgPlayTimer"
+                           Grid.Row="1" Grid.Column="0"
+                       Source="playTimer.png"
+                       Style="{StaticResource estiloBotonImagenGrande}"/>
 
-            <StackLayout Padding="10, 10, 10, 35" VerticalOptions="EndAndExpand">
-                <StackLayout Spacing="0" Padding="10">
-                    <StackLayout Orientation="Vertical">
-                        <!--Control, se genera desde codebehind -->
-                        <StackLayout x:Name="layoutControl"  HorizontalOptions="Center" VerticalOptions="Center"
-                             HeightRequest="150"
-                             WidthRequest="150">
-                            <Label x:Name="lblTimer" Text=""></Label>
-                        </StackLayout>
-                        <!--Texto-->
-                        <StackLayout>
-                        <Label Style="{StaticResource BasketFoodsDescriptionLabelStyle}" 
-                           VerticalOptions="Start" 
-                           HorizontalOptions="Start"
-                           TextColor="{StaticResource bluePinkDark}"
-                           Text="{Binding _Paso._Texto}">
-                            </Label>
-                        </StackLayout>
-                        <!--Botones-->
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                            <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                <ImageButton x:Name="btnAnterior"
-                                    Source="flechaAnterior.png"
-                                    WidthRequest="60"
-                                    HeightRequest="54"
-                                    Padding="1"
-                                    Clicked="BtnAnterior_Clicked"
-                                    BackgroundColor="{StaticResource blueDark}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
-                                <ImageButton x:Name="btnSiguiente"
-                                    Source="flechaSiguiente.png"
-                                    WidthRequest="60"
-                                    HeightRequest="54"
-                                    Padding="1"
-                                    Clicked="BtnSiguiente_Clicked"
-                                    BackgroundColor="{StaticResource blueDark}"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
+
+                    <Image x:Name="imgPausarTimer"
+                           Grid.Row="1" Grid.Column="1"
+                           Source="pauseTimer.png"                           
+                       Style="{StaticResource estiloBotonImagenGrande}"/>
+
+
+                    <Image x:Name="imgResetearTimer"
+                           Grid.Row="1" Grid.Column="2"
+                           Source="resetTimer.png"
+                       Style="{StaticResource estiloBotonImagenGrande}"/>
+
+                </Grid>
+
+                <videoplayer:VideoPlayer Grid.Column="0" Grid.ColumnSpan ="50" x:Name="videoPlayer"
+                                         HorizontalOptions="CenterAndExpand"
+                                         VerticalOptions="CenterAndExpand"                                         
+                                         AutoPlay="False"
+                                         Opacity="0"/>
+            </Grid>
+            <!-- Segunda fila, descripcion de paso-->
+            <Grid Grid.Row="1" Padding="0">
+                <Label Margin="5,0,0,0" 
+                       FontSize="15"
+                       x:Name="txtDescripcion"
+                       VerticalOptions="Start" 
+                       HorizontalOptions="Start"
+                       LineBreakMode="WordWrap"
+                       TextColor="Black"
+                       Text="{Binding Descripcion}">
+                </Label>
+            </Grid>
+            <!--Tercera fila, botones-->
+            <Grid Grid.Row="2">
+                <Image x:Name="btnAnterior"
+                       Grid.Column="0"
+                       Source="flechaAnterior.png"
+                       HeightRequest="80"
+                       WidthRequest="80"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center">
+                </Image>
+
+                <Image x:Name="btnVolverReceta"
+                       Grid.Column="1"
+                       HeightRequest="80"
+                       WidthRequest="80"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Source="volverReceta.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="btnVolverReceta_Clicked" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image x:Name="btnSiguiente"
+                       HeightRequest="80"
+                       WidthRequest="80"
+                       Grid.Column="2"
+                       Source="flechaSiguiente.png"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

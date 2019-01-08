@@ -126,6 +126,13 @@
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
 
+            <Style x:Key="estiloBotonImagenGrande" TargetType="Image">
+                <Setter Property="WidthRequest" Value="80"/>
+                <Setter Property="HeightRequest" Value="80"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
             <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderRadius" Value="4" />
