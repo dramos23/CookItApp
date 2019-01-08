@@ -10,11 +10,21 @@ namespace CookItApp.ViewModels
     {
         public ObservableCollection<Receta> Recetas { get; set; }
 
-        public RecetasListVM()
+        public RecetasListVM(List<Receta> recetas)
         {
+
+
             this.Recetas = new ObservableCollection<Receta>();
             //Aca se tienen que cargar las recetas desde el API. Obviamente, despues se cargarian con filtros.
-            CargarRecetas();
+            if (recetas == null)
+            {
+                CargarRecetas(null);
+            }
+            else
+            {
+                CargarRecetas(recetas);
+            }
+
             CargarDatosPrueba();
         }
 
@@ -32,9 +42,12 @@ namespace CookItApp.ViewModels
             Recetas.Add(Rec);
         }
 
-        private void CargarRecetas()
+        private void CargarRecetas(List<Receta> receta)
         {
-            List<Receta> recetas = App.RecetaDataBase.ObtenerList();
+            List<Receta> recetas = new List<Receta>();
+
+            recetas = receta ?? App.RecetaDataBase.ObtenerList();
+
             if (recetas != null)
             {
                 foreach (Receta r in recetas)

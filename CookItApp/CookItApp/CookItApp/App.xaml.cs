@@ -36,9 +36,10 @@ namespace CookItApp
             
             InitializeComponent();
 
-
+            
             Usuario usuario = App.UsuarioDatabase.Obtener();
-            if (usuario == null) {
+            if (usuario == null)
+            {
                 MainPage = new NavigationPage(new LoginPage())
                 {
                     BackgroundColor = Color.Black
@@ -50,7 +51,7 @@ namespace CookItApp
                 usuario._Perfil = perfil;
                 MainPage = new NavigationPage(new MasterPage(usuario));
             }
-            
+
         }
 
         protected override void OnStart()
