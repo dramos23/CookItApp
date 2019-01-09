@@ -28,11 +28,10 @@ namespace CookItApp.Views
             InitializeComponent();
             _PasoRecetaVM = new PasoRecetaVM(rec, pas);
             Usuario = usr;
-            //Borrar despues, es para pruebas.
-
             GenerarControl();
             GenerarBotonesAtrasSiguiente();
             BindearDescripcion();
+            Navigation.RemovePage(this);
             BindingContext = _PasoRecetaVM;
         }
 
@@ -362,12 +361,28 @@ namespace CookItApp.Views
             }
         }
 
-        private async void btnVolverReceta_Clicked(object sender, EventArgs e)
+        private void btnVolverReceta_Clicked(object sender, EventArgs e)
+        {
+            VolverReceta();
+        }
+
+        private async void VolverReceta()
         {
             await Navigation.PushAsync(new RecetaPage(_PasoRecetaVM._Receta, Usuario));
         }
 
-        //Metodo que overridea 
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (_PasoRecetaVM.HayAnterior()) PasoAnterior();
+            else
+            {
+                VolverReceta();
+            }
+
+            return true;
+        }
+
 
     }
 }

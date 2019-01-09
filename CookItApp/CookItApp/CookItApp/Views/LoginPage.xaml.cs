@@ -91,7 +91,6 @@ namespace CookItApp.Views
                     //}
                     await Navigation.PushAsync(new CargaRecursos(Usuario, "INS"), true);
                     Navigation.RemovePage(this);
-
                 }
                 else
                 {
