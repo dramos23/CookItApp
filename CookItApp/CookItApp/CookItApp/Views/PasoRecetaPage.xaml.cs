@@ -1,5 +1,7 @@
-﻿using CookItApp.Models;
+﻿using CookItApp.MarkupExtensions;
+using CookItApp.Models;
 using CookItApp.ViewModels;
+using Octane.Xamarin.Forms.VideoPlayer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,42 +14,79 @@ using Xamarin.Forms.Xaml;
 
 namespace CookItApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PasoRecetaPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class PasoRecetaPage : ContentPage
+    {
         private PasoRecetaVM _PasoRecetaVM;
         Stopwatch timer;
+        Usuario Usuario;
+        private double width;
+        private double height;
 
-		public PasoRecetaPage (Receta rec, PasoReceta pas)
-		{
+        public PasoRecetaPage(Receta rec, PasoReceta pas, Usuario usr)
+        {
             InitializeComponent();
             _PasoRecetaVM = new PasoRecetaVM(rec, pas);
-            //Borrar despues, es para pruebas.
-            
+            Usuario = usr;
             GenerarControl();
-            VisibilidadBotones();
+            GenerarBotonesAtrasSiguiente();
+            BindearDescripcion();
+            Navigation.RemovePage(this);
             BindingContext = _PasoRecetaVM;
-		}
-
-        private void VisibilidadBotones()
-        {
-            if (!_PasoRecetaVM.HaySiguiente()) btnSiguiente.IsVisible = false;
-            if (!_PasoRecetaVM.HayAnterior()) btnAnterior.IsVisible = false;
         }
+
+        private void BindearDescripcion()
+        {
+            txtDescripcion.Text = _PasoRecetaVM._Paso._Descripcion;
+        }
+
+        private void GenerarBotonesAtrasSiguiente()
+        {
+            if (_PasoRecetaVM.HaySiguiente())
+            {
+                btnSiguiente.IsVisible = true;
+                var tapSiguiente = new TapGestureRecognizer();
+                tapSiguiente.Tapped += (s, e) => {
+                    BtnSiguiente_Clicked(s, e);
+                };
+                btnSiguiente.GestureRecognizers.Add(tapSiguiente);
+            }
+            else
+            {
+                btnSiguiente.IsVisible = false;
+                btnSiguiente.GestureRecognizers.Clear();
+            }
+            if (_PasoRecetaVM.HayAnterior())
+            {
+                btnAnterior.IsVisible = true;
+                var tapAnterior = new TapGestureRecognizer();
+                tapAnterior.Tapped += (s, e) => {
+                    BtnAnterior_Clicked(s, e);
+                };
+                btnAnterior.GestureRecognizers.Add(tapAnterior);
+                btnAnterior.GestureRecognizers.Add(tapAnterior);
+            }
+            else
+            {
+                btnAnterior.IsVisible = false;
+                btnAnterior.GestureRecognizers.Clear();
+            }
+        }
+
         public void GenerarControl()
         {
             PasoReceta paso = _PasoRecetaVM._Paso;
-            if(paso._UrlVideo != null)
+            if (paso._UrlVideo != null)
             {
                 GenerarControlVideo(paso);
                 return;
             }
-            if(paso._TiempoReloj != 0)
+            if (paso._TiempoReloj != 0)
             {
                 GenerarControlReloj(paso);
                 return;
             }
-            if(paso._Foto != null)
+            if (paso._Foto != null)
             {
                 GenerarControlImagen(paso);
             }
@@ -68,13 +107,9 @@ namespace CookItApp.Views
 
         private void GenerarControlVideo(PasoReceta paso)
         {
-            WebView vid = new WebView
-            {
-                Source = "https://www.youtube.com/watch?v=8RdswF5bbSA",
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand
-            };
-            layoutControl.Children.Add(vid);
+            videoPlayer.Source = YouTubeVideoIdExtension.Convert(paso._UrlVideo);
+            videoPlayer.Opacity = 1;
+            videoPlayer.Play();
         }
 
 
@@ -82,83 +117,150 @@ namespace CookItApp.Views
         {
             timer = new Stopwatch();
             AgregarLabelATimer();
-            List<ImageButton> listaBot = new List<ImageButton>();
+            AgregarEventosTapTimer();
+            gridTimer.Opacity = 1;
+            /*
+            Image start = GenerarBotonStart();
+            Image stop = GenerarBotonStop();
+            Image reset = GenerarBotonReset();
 
-            ImageButton btnStart = new ImageButton
-            {
-                Source = "playTimer.png"
-            };
-            btnStart.Clicked += BtnStart_Clicked;
-            listaBot.Add(btnStart);
-
-            ImageButton btnStop = new ImageButton
-            {
-                Source = "pauseTimer.png"
-            };
-            btnStop.Clicked += BtnStop_Clicked;
-            listaBot.Add(btnStop);
-
-            ImageButton btnReset = new ImageButton
-            {
-                Source = "resetTimer.png"
-            };
-            btnReset.Clicked += BtnReset_Clicked;
-            listaBot.Add(btnReset);
-
-            ConfigurarLayoutBotonesTimer(listaBot);            
+            layoutControl.Children.Add(start);
+            layoutControl.Children.Add(stop);
+            layoutControl.Children.Add(reset);
+            */
         }
 
+        private void AgregarEventosTapTimer()
+        {
+            var tapReset = new TapGestureRecognizer();
+            tapReset.Tapped += (s, e) => {
+                ResetearTimer(s, e);
+            };
+            imgResetearTimer.GestureRecognizers.Add(tapReset);
+
+            var tapStop = new TapGestureRecognizer();
+            tapStop.Tapped += (s, e) => {
+                DetenerTimer(s, e);
+            };
+            imgPausarTimer.GestureRecognizers.Add(tapStop);
+
+            var tapStart = new TapGestureRecognizer();
+            tapStart.Tapped += (s, e) => {
+                ComenzarTimer(s, e);
+            };
+            imgPlayTimer.GestureRecognizers.Add(tapStart);
+        }
+
+        /*
+       private Image GenerarBotonReset()
+       {
+           Image btnReset = new Image
+           {
+               Source = "resetTimer.png",
+               Style = Application.Current.Resources["estiloBotonImagenGrande"] as Style
+           };
+
+           
+           btnReset.GestureRecognizers.Add(tapGestureRecognizer);
+           Grid.SetRow(btnReset, 2);
+           Grid.SetColumn(btnReset, 1);
+           return btnReset;
+       }
+
+       private Image GenerarBotonStop()
+       {
+           Image btnStop = new Image
+           {
+               Source = "pauseTimer.png",
+               Style = Application.Current.Resources["estiloBotonImagenGrande"] as Style
+           };
+
+           var tapGestureRecognizer = new TapGestureRecognizer();
+           tapGestureRecognizer.Tapped += (s, e) => {
+               DetenerTimer();
+           };
+           btnStop.GestureRecognizers.Add(tapGestureRecognizer);
+           Grid.SetRow(btnStop, 1);
+           Grid.SetColumn(btnStop, 1);
+
+           return btnStop;
+       }
+
+       private Image GenerarBotonStart()
+       {
+           Image btnStart = new Image
+           {
+               Source = "playTimer.png",
+               Style = Application.Current.Resources["estiloBotonImagenGrande"] as Style
+           };
+
+           var tapStart = new TapGestureRecognizer();
+           tapStart.Tapped += (s, e) => {
+               ComenzarTimer();
+           };
+           btnStart.GestureRecognizers.Add(tapStart);
+           Grid.SetRow(btnStart, 0);
+           Grid.SetColumn(btnStart, 1);
+
+           return btnStart;
+       }
+       */
         private void AgregarLabelATimer()
         {
             TimeSpan ts = TimeSpan.FromSeconds(_PasoRecetaVM._Paso._TiempoReloj);
 
             lblTimer = new Label
             {
-                FontSize = 35,
-                TextColor = Color.ForestGreen,
+                FontSize = 80,
+                TextColor = Color.Black,
                 HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.End,
                 Text = ts.ToString(@"h\:mm\:ss")
             };
-            layoutControl.Children.Add(lblTimer);
+
+            Grid.SetRow(lblTimer, 0);
+            Grid.SetColumn(lblTimer, 0);
+            Grid.SetColumnSpan(lblTimer, 3);
+            gridTimer.Children.Add(lblTimer);
         }
 
-        private void ConfigurarLayoutBotonesTimer(List<ImageButton> listaBot)
-        {
-            StackLayout layoutBotonesExterior = GenerarPrimerLayoutBotonesTimer();
+        //private void ConfigurarLayoutBotonesTimer(List<ImageButton> listaBot)
+        //{
+        //    StackLayout layoutBotonesExterior = GenerarPrimerLayoutBotonesTimer();
 
-            foreach (ImageButton butt in listaBot)
-            {
-                butt.WidthRequest = 50;
-                butt.HeightRequest = 50;
-                StackLayout layoutBotonesInterior = GenerarSegundoLayoutBotonesTimer();
-                layoutBotonesInterior.Children.Add(butt);
-                layoutBotonesExterior.Children.Add(layoutBotonesInterior);
-            }
+        //    foreach (ImageButton butt in listaBot)
+        //    {
+        //        butt.WidthRequest = 50;
+        //        butt.HeightRequest = 50;
+        //        StackLayout layoutBotonesInterior = GenerarSegundoLayoutBotonesTimer();
+        //        layoutBotonesInterior.Children.Add(butt);
+        //        layoutBotonesExterior.Children.Add(layoutBotonesInterior);
+        //    }
 
-            layoutControl.Children.Add(layoutBotonesExterior);
-        }
+        //    layoutControl.Children.Add(layoutBotonesExterior);
+        //}
 
-        private StackLayout GenerarSegundoLayoutBotonesTimer()
-        {
-            StackLayout layoutBotones = new StackLayout
-            {
-                Orientation = StackOrientation.Vertical,
-                HorizontalOptions = LayoutOptions.FillAndExpand
-            };
-            return layoutBotones;
-        }
+        //private StackLayout GenerarSegundoLayoutBotonesTimer()
+        //{
+        //    StackLayout layoutBotones = new StackLayout
+        //    {
+        //        Orientation = StackOrientation.Vertical,
+        //        HorizontalOptions = LayoutOptions.FillAndExpand
+        //    };
+        //    return layoutBotones;
+        //}
 
-        private StackLayout GenerarPrimerLayoutBotonesTimer()
-        {
-            StackLayout layoutBotones = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                HorizontalOptions = LayoutOptions.FillAndExpand
-            };
-            return layoutBotones;
-        }
+        //private StackLayout GenerarPrimerLayoutBotonesTimer()
+        //{
+        //    StackLayout layoutBotones = new StackLayout
+        //    {
+        //        Orientation = StackOrientation.Horizontal,
+        //        HorizontalOptions = LayoutOptions.FillAndExpand
+        //    };
+        //    return layoutBotones;
+        //}
 
-        private void BtnReset_Clicked(object sender, EventArgs e)
+        private void ResetearTimer(object sender, EventArgs e)
         {
             timer.Stop();
             timer.Reset();
@@ -166,12 +268,12 @@ namespace CookItApp.Views
             lblTimer.Text = tiempo.ToString(@"h\:mm\:ss");
         }
 
-        private void BtnStop_Clicked(object sender, EventArgs e)
+        private void DetenerTimer(object sender, EventArgs e)
         {
             timer.Stop();
         }
 
-        private void BtnStart_Clicked(object sender, EventArgs e)
+        private void ComenzarTimer(object sender, EventArgs e)
         {
             if (!timer.IsRunning)
             {
@@ -191,7 +293,7 @@ namespace CookItApp.Views
         }
 
 
-        //Metodo que pasa al siguiente paso de la receta. Si no hay un paso siguiente no hace nada.
+        //Metodo que pasa al siguiente paso de la receta. Si no hay un paso siguiente no hace nada (no deberia verse la flecha en este caso).
         public async void PasoSiguiente()
         {
             int idPaso = _PasoRecetaVM._Paso._IdPasoReceta;
@@ -200,7 +302,8 @@ namespace CookItApp.Views
                 //Se pone la variable "idPaso" sin modificarla porque el ID de PasoReceta empieza en 1, y el indice de la lista
                 //en 0.
                 PasoReceta proxPaso = _PasoRecetaVM._Receta._Pasos[idPaso];
-                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, proxPaso));
+                videoPlayer.Pause();
+                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, proxPaso, Usuario));
             }
             catch
             {
@@ -208,15 +311,16 @@ namespace CookItApp.Views
             }
         }
 
-        //Metodo que vuelve al paso anterior de la receta. Si no hay un paso anterior no hace nada.
+        //Metodo que vuelve al paso anterior de la receta. Si no hay un paso anterior no hace nada (no deberia verse la flecha en este caso).
         public async void PasoAnterior()
         {
             int idPaso = _PasoRecetaVM._Paso._IdPasoReceta;
             try
             {
-                //Se hace idPaso -2 porque el id de PasoReceta empieza en 1 y el indice de la lista en 0. Si se pusiera
-                PasoReceta pasoAnterior = _PasoRecetaVM._Receta._Pasos[idPaso -2];
-                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, pasoAnterior));
+                //Se hace idPaso -2 porque el id de PasoReceta empieza en 1 y el indice de la lista en 0.
+                videoPlayer.Pause();
+                PasoReceta pasoAnterior = _PasoRecetaVM._Receta._Pasos[idPaso - 2];
+                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, pasoAnterior, Usuario));
             }
             catch
             {
@@ -233,6 +337,52 @@ namespace CookItApp.Views
         {
             PasoAnterior();
         }
+
+        //No anda esto por ahora.
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            if (width != this.width || height != this.height)
+            {
+                //Se guardan los valores de alto (height) y ancho (width)
+                this.width = width;
+                this.height = height;
+                Grid.SetColumnSpan(videoPlayer, 50);
+                Grid.SetColumnSpan(gridTimer, 50);
+
+                if (width > height)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private void btnVolverReceta_Clicked(object sender, EventArgs e)
+        {
+            VolverReceta();
+        }
+
+        private async void VolverReceta()
+        {
+            await Navigation.PushAsync(new RecetaPage(_PasoRecetaVM._Receta, Usuario));
+        }
+
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (_PasoRecetaVM.HayAnterior()) PasoAnterior();
+            else
+            {
+                VolverReceta();
+            }
+
+            return true;
+        }
+
 
     }
 }

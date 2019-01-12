@@ -30,7 +30,6 @@ namespace CookItApp.Views
             Receta = receta;
             VMReceta = new RecetaVM(Receta);
             BindingContext = VMReceta;
-
             //Se generan el ViewModel que precisa la página xaml para mostrar los datos. La Receta "rec" se recibe cuando un usuario clickea la receta
             //desde el buscador de recetas, generando una instancia de esta página.
             //BindingContext = _VMReceta;
@@ -109,6 +108,21 @@ namespace CookItApp.Views
             };
 
             Receta._Pasos = pasos;
+
         }
+            
+        protected override bool OnBackButtonPressed()
+        {
+            Navigation.PushAsync(new ListaRecetasPage(Usuario));
+
+            var stackNav = Navigation.NavigationStack.ToList();
+            foreach (var navPage in stackNav)
+            {
+                Navigation.RemovePage(navPage);
+            }
+
+            return true;
+        }
+
     }
 }
