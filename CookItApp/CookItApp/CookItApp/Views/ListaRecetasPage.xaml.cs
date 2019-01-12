@@ -2,7 +2,6 @@
 using CookItApp.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace CookItApp.Views
 		{
 			InitializeComponent ();
             this.Usuario = Usuario;
-            _VMRecetas = new RecetasListVM(null);
+            _VMRecetas = new RecetasListVM();
             BindingContext = _VMRecetas;
         }
 
@@ -51,11 +50,11 @@ namespace CookItApp.Views
             }
         }
 
-        //private async void BtnBuscar_Clicked(object sender, EventArgs e)
-        //{
-        //    await BtnBuscar.ScaleTo(1.2, 100);
-        //    await BtnBuscar.ScaleTo(1, 100);
-        //}
+        private async void BtnBuscar_Clicked(object sender, EventArgs e)
+        {
+            await BtnBuscar.ScaleTo(1.2, 100);
+            await BtnBuscar.ScaleTo(1, 100);
+        }
 
         private async void BtnFiltros_Clicked(object sender, EventArgs e)
         {
@@ -293,25 +292,6 @@ namespace CookItApp.Views
             };
             grid.Children.Add(img);
             Grid.SetColumn(img, 0);
-        }
-
-        private void BuscarReceta_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var keyword = BuscarReceta.Text;
-            if (keyword.Length >= 1)
-            {
-                List<Receta> resultado = App.RecetaDataBase.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();                
-                _VMRecetas = new RecetasListVM(resultado);
-                BindingContext = _VMRecetas;
-
-            }
-            else
-            {
-                List<Receta> resultado = App.RecetaDataBase.ObtenerList().ToList();
-                _VMRecetas = new RecetasListVM(resultado);
-                BindingContext = _VMRecetas;
-            }
-
         }
 
 
