@@ -179,37 +179,7 @@
     <BundleResource Include="Resources\fondoFrutillas.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\aptoCeliacosOff.png" />
-    <BundleResource Include="Resources\aptoCeliacosOn.png" />
-    <BundleResource Include="Resources\aptoDiabeticosOff.png" />
-    <BundleResource Include="Resources\aptoDiabeticosOn.png" />
-    <BundleResource Include="Resources\aptoVeganosOff.png" />
-    <BundleResource Include="Resources\aptoVeganosOn.png" />
-    <BundleResource Include="Resources\aptoVegetarianosOff.png" />
-    <BundleResource Include="Resources\aptoVegetarianosOn.png" />
-    <BundleResource Include="Resources\flechaAnterior.png" />
-    <BundleResource Include="Resources\flechaSiguiente.png" />
-    <BundleResource Include="Resources\iconCancel.png" />
-    <BundleResource Include="Resources\iconOk.png" />
-    <BundleResource Include="Resources\pauseTimer.png" />
     <Content Include="Resources\photo.png" />
     <BundleResource Include="Resources\update.png" />
-    <BundleResource Include="Resources\playTimer.png" />
-    <BundleResource Include="Resources\porCaloriasOff.png" />
-    <BundleResource Include="Resources\porCaloriasOn.png" />
-    <BundleResource Include="Resources\porDificultadOff.png" />
-    <BundleResource Include="Resources\porDificultadOn.png" />
-    <BundleResource Include="Resources\porEstacionOff.png" />
-    <BundleResource Include="Resources\porEstacionOn.png" />
-    <BundleResource Include="Resources\porMomentoDiaOff.png" />
-    <BundleResource Include="Resources\porMomentoDiaOn.png" />
-    <BundleResource Include="Resources\porPrecioOff.png" />
-    <BundleResource Include="Resources\porPrecioOn.png" />
-    <BundleResource Include="Resources\porPuntajeOff.png" />
-    <BundleResource Include="Resources\porPuntajeOn.png" />
-    <BundleResource Include="Resources\porTiempoOff.png" />
-    <BundleResource Include="Resources\porTiempoOn.png" />
-    <BundleResource Include="Resources\resetTimer.png" />
-    <BundleResource Include="Resources\volverReceta.png" />
   </ItemGroup>
 </Project>

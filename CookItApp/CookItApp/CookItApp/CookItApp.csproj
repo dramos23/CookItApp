@@ -11,16 +11,16 @@
 
   <ItemGroup>
     <Compile Remove="Dominio\**" />
+    <Compile Remove="Views\NewFolder\**" />
     <EmbeddedResource Remove="Dominio\**" />
+    <EmbeddedResource Remove="Views\NewFolder\**" />
     <None Remove="Dominio\**" />
+    <None Remove="Views\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AiForms.Layouts" Version="1.1.0" />
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Octane.Xam.VideoPlayer" Version="2.2.0" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.180" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="16.3.0.36" />
@@ -32,24 +32,6 @@
   <ItemGroup>
     <Compile Update="Views\CargaRecursos.xaml.cs">
       <DependentUpon>CargaRecursos</DependentUpon>
-    </Compile>
-    <Compile Update="Views\PopupFiltros\PopupFiltroPuntaje.xaml.cs">
-      <DependentUpon>PopupFiltroPuntaje.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\PopupFiltros\PopupFiltroDificultad.xaml.cs">
-      <DependentUpon>PopupFiltroDificultad.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\PopupFiltros\PopupFiltroEstacion.xaml.cs">
-      <DependentUpon>PopupFiltroEstacion.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\PopupFiltros\PopupFiltroMomentoDia.xaml.cs">
-      <DependentUpon>PopupFiltroMomentoDia.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\PopupFiltros\PopupFiltroCalorias.xaml.cs">
-      <DependentUpon>PopupFiltroCalorias.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\PopupFiltros\PopupFiltroTiempo.xaml.cs">
-      <DependentUpon>PopupFiltroTiempo.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -79,9 +61,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PasoRecetaPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\PopupFiltros\PopupFiltroPrecio.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PruebaRecetas.xaml">
