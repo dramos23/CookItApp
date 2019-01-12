@@ -1,5 +1,6 @@
 ﻿using CookItApp.Models;
 using CookItApp.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,8 +60,8 @@ namespace CookItApp.Views
 
         private async void BtnFiltros_Clicked(object sender, EventArgs e)
         {
-            await BtnFiltros.ScaleTo(1.2, 100);
-            await BtnFiltros.ScaleTo(1, 100);
+            var pagFiltros = new FiltrosView();
+            await PopupNavigation.Instance.PushAsync(pagFiltros);
         }
 
         //Metodo que detecta el evento de rotacion del celular y cambia el layout de la página.
@@ -295,8 +296,13 @@ namespace CookItApp.Views
             Grid.SetColumn(img, 0);
         }
 
+        //Falta integrar los filtros del viewmodel de filtros
         private void BuscarReceta_TextChanged(object sender, TextChangedEventArgs e)
         {
+            var vm = new object();
+            Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
+            FiltrosVM filtros = vm as FiltrosVM;
+
             var keyword = BuscarReceta.Text;
             if (keyword.Length >= 1)
             {

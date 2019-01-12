@@ -133,6 +133,11 @@
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
 
+            <Style x:Key="estiloEntryGenerico" TargetType="Entry">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+
             <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderRadius" Value="4" />
