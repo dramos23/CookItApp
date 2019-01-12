@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"         
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:layouts="clr-namespace:AiForms.Layouts;assembly=AiForms.Layouts"
+                 xmlns:controles="clr-namespace:CookItApp.Controles"
+                 CloseWhenBackgroundIsClicked="True"
+                 Padding="10"
+                 x:Class="CookItApp.Views.PopupFiltros.PopupFiltroCalorias">
+    <pages:PopupPage.Animation>
+        <controles:AnimacionBase/>
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Content>
+        <StackLayout BackgroundColor="{StaticResource colorPrimaryVariant}" Padding="5,5,5,5" VerticalOptions="Center" HorizontalOptions="Center">
+            <Grid VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="LightGray" Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3.3*"/>
+                    <RowDefinition Height="3.3*"/>
+                    <RowDefinition Height="3.3*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Text="Menos de" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
+                <Entry Grid.Row="0" Grid.Column="1" Keyboard="Numeric" VerticalOptions ="Center" x:Name="entMinimo" />
+                <Label Grid.Row="1" Grid.Column="0" Text="Mas de" FontSize="Small" FontAttributes="Bold" VerticalOptions ="Center" TextColor="{StaticResource colorOnBackground}"/>
+                <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" VerticalOptions ="Center" x:Name="entMaximo" />
+
+                <Image  Grid.Row="2" Grid.Column="0"
+                    Source="iconOk.png"
+                   Style="{StaticResource estiloBotonImagen}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Ok_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Grid.Row="2" Grid.Column="1"
+                    Source="iconCancel.png"
+                   Style="{StaticResource estiloBotonImagen}"
+                       >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Cancel_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+            </Grid>
+        </StackLayout>
+
+    </pages:PopupPage.Content>
+</pages:PopupPage>
+

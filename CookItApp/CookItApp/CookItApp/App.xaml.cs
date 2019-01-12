@@ -214,7 +214,38 @@ namespace CookItApp
                 return _EstacionService;
             }
         }
+        /*<<!-- <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Menos de" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
+            <Entry Grid.Row="0" Grid.Column="1" Keyboard="Numeric" VerticalOptions ="Center" x:Name="entMinimo" />
+            <Label Grid.Row="0" Grid.Column="2" Text="Mas de" FontSize="Small" FontAttributes="Bold" VerticalOptions ="Center" TextColor="{StaticResource colorOnBackground}"/>
+            <Entry Grid.Row="0" Grid.Column="3" Keyboard="Numeric" VerticalOptions ="Center" x:Name="entMaximo" />
 
+            <Image  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                    Source="iconOk.png"
+                   Style="{StaticResource estiloBotonImagen}"
+                        >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Ok_Tapped" NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+                    Source="iconCancel.png"
+                   Style="{StaticResource estiloBotonImagen}"
+                       >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Cancel_Tapped" NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+            -->*/
         
     }
 }

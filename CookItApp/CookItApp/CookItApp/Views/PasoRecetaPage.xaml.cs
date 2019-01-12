@@ -383,6 +383,5 @@ namespace CookItApp.Views
             return true;
         }
 
-
     }
 }
