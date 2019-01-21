@@ -1,4 +1,7 @@
 ﻿using CookItApp.Models;
+using CookItApp.Servicios;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Push;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,7 @@ namespace CookItApp.Views
 		public LoginPage ()
 		{
 			InitializeComponent ();
+            Push.SetEnabledAsync(true);
 
             NavigationPage.SetHasNavigationBar(this, false);
             Init();
@@ -27,6 +31,7 @@ namespace CookItApp.Views
             entryEmail.Completed += (s, e) => entryPass.Focus();
             entryPass.Completed += (s, e) => PrcIngresar(s, e);
             BtnRegistrar();
+            
         }
 
         public async void PrcIngresar(object sender, EventArgs e )
@@ -44,66 +49,47 @@ namespace CookItApp.Views
                 return;
             }
 
-            Usuario = new Usuario(entryEmail.Text, entryPass.Text);
-            
-            if (Usuario.IsValid())
+            System.Guid? uuid = await AppCenter.GetInstallIdAsync();
+
+            if (uuid != null)
             {
+                Usuario = new Usuario(entryEmail.Text, entryPass.Text, uuid, DateTime.Now);
 
-                Token token = await App.RestService.Login(Usuario);
-               
-                if (token._AccessToken != null)
-                {                    
+                if (Usuario.IsValid())
+                {
+                    
+                    Token token = await App.RestService.Login(Usuario);
 
-                    await DisplayAlert("Login", "Ingreso Satisfactorio", "Ok");
+                    if (token != null)
+                    {
+                        if (token._AccessToken != null)
+                        {
 
-                    App.UsuarioDatabase.Guardar(Usuario);
-                    App.TokenDatabase.Guardar(token);
+                            await DisplayAlert("Login", "Ingreso Satisfactorio", "Ok");
 
-                    //bool Continuar = await CargaDatosAplicativo(Usuario, token);
+                            App.DataBase.Usuario.Guardar(Usuario);
+                            App.DataBase.Token.Guardar(token);
 
-                    //if (Continuar) { 
+                            await Navigation.PushAsync(new CargaRecursos(Usuario, "INS"), true);
+                            Navigation.RemovePage(this);
+                        }
+                        else {
+                            await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Login", "Error en el servicio.", "Ok");
+                    }
 
-                    //    if (Usuario._Perfil != null)
-                    //    {
-
-                    //        await Navigation.PushAsync(new MasterPage(Usuario), true);                         
-                    //        Navigation.RemovePage(this);
-
-                    //    }
-                    //    else
-                    //    {
-
-                    //        var action = await DisplayAlert("Complete su perfil", "Desea completar su perfil ahora?", "Ahora No", "Bueno");
-                    //        if (!action)
-                    //        {
-
-
-                    //            await Navigation.PushAsync(new PerfilPage(Usuario), true);                           
-                    //            Navigation.RemovePage(this);
-                    //        }
-                    //        else {
-                    //            await Navigation.PushAsync(new MasterPage(Usuario), true);
-                    //            Navigation.RemovePage(this);
-                    //        }
-
-                    //    }
-
-                    //}
-                    await Navigation.PushAsync(new CargaRecursos(Usuario, "INS"), true);
-                    Navigation.RemovePage(this);
                 }
                 else
                 {
                     await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
                 }
 
+                btnIngresar.IsEnabled = true;
             }
-            else
-            {
-                await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");                
-            }
-
-            btnIngresar.IsEnabled = true;
         }
 
         public void BtnRegistrar() {
@@ -120,35 +106,36 @@ namespace CookItApp.Views
 
         public async Task<bool> CargaDatosAplicativo(Usuario usuario, Token token)
         {
+            
 
             bool retorno = false;
 
-            App.UsuarioDatabase.Guardar(usuario);
-            App.TokenDatabase.Guardar(token);
+            App.DataBase.Usuario.Guardar(usuario);
+            App.DataBase.Token.Guardar(token);
 
             Perfil perfil = await App.PerfilService.Obtener(usuario);
             if (perfil != null)
             {
-                App.PerfilDataBase.Guardar(perfil);
+                App.DataBase.Perfil.Guardar(perfil);
             }
             usuario._Perfil = perfil ?? null;
 
             List<MomentoDia> momentos = await App.MomentoDiaService.ObtenerList();
             if (momentos != null)
             {
-                App.MomentoDiaDataBase.GuardarList(momentos);
+                App.DataBase.MomentoDia.GuardarList(momentos);
             }
             List<Estacion> estaciones = await App.EstacionService.ObtenerList();
             if (estaciones != null)
             {
-                App.EstacionDataBase.GuardarList(estaciones);
+                App.DataBase.Estacion.GuardarList(estaciones);
             }
             if (momentos != null && estaciones != null)
             {
                 List<Receta> recetas = await App.RecetaService.ObtenerList();
                 if (recetas != null)
                 {
-                    App.RecetaDataBase.GuardarList(recetas);
+                    App.DataBase.Receta.GuardarList(recetas);
                     retorno = true;
                 }
             }

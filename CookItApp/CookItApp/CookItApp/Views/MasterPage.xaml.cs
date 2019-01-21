@@ -1,5 +1,7 @@
 ﻿using CookItApp.Models;
 using CookItApp.ViewModels;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Push;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,12 +21,15 @@ namespace CookItApp.Views
 
         protected static Usuario Usuario;
         private MasterPageVM _VMMaster;
+        protected static List<Perfil> _ListPerfiles { get; set; }
 
         public MasterPage (Usuario usuario)
 		{
 			InitializeComponent ();
+            Notificaciones();
             Usuario = usuario;
             ControlPerfil();
+
             MenuList = new List<MasterPageItem>();
 
             var page1 = new MasterPageItem() { Title = "Recetas", Icon = "breakfast.png", TargetType = typeof(ListaRecetasPage) };
@@ -56,6 +61,21 @@ namespace CookItApp.Views
             BindingContext = _VMMaster;
 
         }
+
+        private void Notificaciones()
+        {
+            if (!AppCenter.Configured)
+            {
+                Push.PushNotificationReceived += (sender, e) =>
+                {
+
+                    DisplayAlert(e.Title, e.Message, "OK");
+
+                };
+            }
+        }
+
+
 
         private async void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -99,13 +119,7 @@ namespace CookItApp.Views
 
         private void EliminarDatosBD()
         {
-            int ret;
-            ret = App.PerfilDataBase.BorrarTodo();
-            ret = App.UsuarioDatabase.BorrarTodo();
-            ret = App.TokenDatabase.BorrarTodo();
-            ret = App.RecetaDataBase.BorrarTodo();
-            ret = App.EstacionDataBase.BorrarTodo();
-            ret = App.MomentoDiaDataBase.BorrarTodo();
+            App.DataBase.BorrarTodo();
         }
 
         public static void ActualizarPerfil(Perfil perfil)

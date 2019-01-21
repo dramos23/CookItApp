@@ -4,6 +4,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              x:Class="CookItApp.Views.RecetaPage"
              BackgroundColor="{StaticResource orangeLight}">
+
     <ContentPage.Content>
         <StackLayout>
 
@@ -100,6 +101,11 @@
                             <Button x:Name="btnAgregarFavoritos"
                                 Clicked="BtnAgregarFavoritos_Clicked"
                                 Text="Favoritos"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                            <Button x:Name="btnrETAR"
+                                Clicked="BtnRetar_Clicked"
+                                Text="Retar a un amigo!"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

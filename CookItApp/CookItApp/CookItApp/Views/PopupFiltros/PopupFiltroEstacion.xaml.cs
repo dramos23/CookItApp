@@ -25,7 +25,7 @@ namespace CookItApp.Views.PopupFiltros
 
         private void CargarPickerEstacion()
         {
-            picEstacion.ItemsSource = App.EstacionDataBase.ObtenerList();
+            picEstacion.ItemsSource = App.DataBase.Estacion.ObtenerList();
         }
 
         private void Ok_Tapped(object sender, EventArgs e)

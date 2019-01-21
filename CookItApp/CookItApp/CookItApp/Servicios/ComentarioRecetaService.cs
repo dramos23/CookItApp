@@ -24,7 +24,7 @@ namespace CookItApp.Data
 
         public async Task<Object> Alta(ComentarioReceta obj)
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + obj._IdReceta + "/Comentario"; 
 
             using (HttpClient client = new HttpClient())
@@ -57,7 +57,7 @@ namespace CookItApp.Data
 
         public async Task<Object> Obtener(ComentarioReceta obj)
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + obj._IdReceta + "/Comentario";
 
             HttpClient client = new HttpClient();
@@ -79,7 +79,7 @@ namespace CookItApp.Data
 
         public async Task<Object> Modificar(ComentarioReceta obj)
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + obj._IdReceta + "/Comentario/" + obj._IdComentario;
 
             HttpClient client = new HttpClient();

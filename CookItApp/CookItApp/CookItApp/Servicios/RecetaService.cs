@@ -21,7 +21,7 @@ namespace CookItApp.Data
 
         public async Task<List<Receta>> ObtenerList()
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web;
 
             using (HttpClient client = new HttpClient())
@@ -51,7 +51,7 @@ namespace CookItApp.Data
 
         public async Task<Receta> Obtener(Receta obj)
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + obj._IdReceta;
 
             HttpClient client = new HttpClient();
@@ -137,7 +137,7 @@ namespace CookItApp.Data
 
         //public async Task<List<Receta>> GetResponse<T>(string weburl) where T : class
         //{
-        //    var token = App.TokenDatabase.Obtener();
+        //    var token = App.DataBase.TokenDataBase.Obtener();
         //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token._AccessToken);
         //    try
         //    {

@@ -1,16 +1,19 @@
 ﻿
 using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CookItWebApi.Models
+namespace CookItApp.Models
 { 
     public abstract class IngredienteConCantidad
     {
         public int _IdIngrediente { set; get; }
   
         public int _Cantidad { get; set; }
+        [JsonIgnore]
+        [Ignore]
         public Ingrediente _Ingrediente { get; set; }
 
         [JsonIgnore]

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using SQLite;
 
 namespace CookItApp.Models
 {
@@ -11,6 +8,7 @@ namespace CookItApp.Models
     {
         public int _IdReceta { set; get; }
         [JsonIgnore]
+        [Ignore]
         public virtual Receta _Receta { set; get; }        
         public int _IdPasoReceta { set; get; }
         

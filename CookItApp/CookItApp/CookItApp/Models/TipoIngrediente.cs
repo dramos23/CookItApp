@@ -1,4 +1,4 @@
-﻿namespace CookItWebApi.Models
+﻿namespace CookItApp.Models
 {
     public class TipoIngrediente
     {

@@ -1,56 +1,63 @@
 ﻿using CookItApp.Models;
 using SQLite;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Xamarin.Forms;
 
-namespace CookItApp.Data
+namespace CookItApp.Controladores
 {
-    public class TokenDataBaseController
+    public class HistorialRecetaDatabaseController
     {
         static readonly object locker = new object();
 
         SQLiteConnection database;
 
-        public TokenDataBaseController()
+        public HistorialRecetaDatabaseController()
         {
             database = DependencyService.Get<ISQLIte>().GetConnection();
-            database.CreateTable<Token>();
+            database.CreateTable<HistorialReceta>();
         }
 
-        public Token Obtener()
+        public List<HistorialReceta> ObtenerList()
         {
             lock (locker)
             {
-                if (database.Table<Token>().Count() == 0)
+                if (database.Table<HistorialReceta>().Count() == 0)
                 {
                     return null;
                 }
                 else
                 {
-                    return database.Table<Token>().First();
+                    return database.Table<HistorialReceta>().ToList();
                 }
             }
         }
 
-        public int Guardar(Token token)
+        public int GuardarList(List<HistorialReceta> obj)
         {
+
             lock (locker)
             {
-                if (token._Id != 0)
+
+                int ret = BorrarTodo();
+                if (obj != null)
                 {
-                    database.Update(token);
-                    return token._Id;
+                    return database.InsertAll(obj);
                 }
                 else
                 {
-                    return database.Insert(token);
+                    return 0;
                 }
+
             }
         }
+
         public int BorrarTodo()
         {
             lock (locker)
             {
-                return database.DeleteAll<Token>();
+                return database.DeleteAll<HistorialReceta>();
             }
         }
     }

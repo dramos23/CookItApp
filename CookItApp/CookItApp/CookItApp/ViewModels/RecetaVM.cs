@@ -1,6 +1,5 @@
 ﻿using CookItApp.Data;
 using CookItApp.Models;
-using CookItWebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,10 +20,17 @@ namespace CookItApp.ViewModels
         }
 
         public void CargarDatos(Receta r) {
-            if (_IngredientesReceta.Count != 0) return;
-            foreach (IngredienteReceta ir in r._IngredientesReceta) {
+
+            if (_IngredientesReceta.Count != 0)
+            {
+                return;
+            }
+
+            foreach (IngredienteReceta ir in r._ListaIngredientesReceta) {
+
                 ir._CantidadMedida = ir._Cantidad + ir._Ingrediente._Medida.ToString();
                 this._IngredientesReceta.Add(ir);
+
             }
         }
     }

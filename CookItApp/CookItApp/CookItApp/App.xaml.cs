@@ -1,24 +1,20 @@
-﻿
-using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using CookItApp.Views;
 using CookItApp.Data;
+using CookItApp.Servicios;
 using CookItApp.Models;
-using System.Collections.Generic;
+using CookItApp.Views;
+
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Push;
+using CookItApp.Controladores;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CookItApp
 {
     public partial class App : Application
     {
-
-        static TokenDatabaseController _TokenDatabase;
-        static UsuarioDatabaseController _UsuarioDatabase;
-        static PerfilDataBaseController _PerfilDataBase;
-        static MomentoDiaDatabaseController _MomentoDiaDatabase;
-        static EstacionDataBaseController _EstacionDataBase;
-        static RecetaDatabaseController _RecetaDataBase;
+        private static DataBaseController _DataBase;
 
         static UsuarioService _RestService;
         static RecetaService _RecetaService;
@@ -30,14 +26,15 @@ namespace CookItApp
         static PerfilService _PerfilService;
         static MomentoDiaService _MomentoDiaService;
         static EstacionService _EstacionService;
+        static RetoService _RetoService;
 
         public App()
         {
             
             InitializeComponent();
 
-            
-            Usuario usuario = App.UsuarioDatabase.Obtener();
+
+            Usuario usuario = App.DataBase.Usuario.Obtener();
             if (usuario == null)
             {
                 MainPage = new NavigationPage(new LoginPage())
@@ -47,83 +44,42 @@ namespace CookItApp
             }
             else
             {
-                Perfil perfil = App.PerfilDataBase.Obtener(usuario._Email);
+                Perfil perfil = DataBase.Perfil.Obtener(usuario._Email);
                 usuario._Perfil = perfil;
                 MainPage = new NavigationPage(new MasterPage(usuario));
             }
 
+
+
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
-
+            AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
+            bool isEnabled = await Push.IsEnabledAsync();
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+
+            
         }
 
         protected override void OnResume()
         {
+           
             // Handle when your app resumes
         }
 
-
-        public static RecetaDatabaseController RecetaDataBase
+        public static DataBaseController DataBase
         {
             get
             {
-                if (_RecetaDataBase == null) _RecetaDataBase = new RecetaDatabaseController();
-                return _RecetaDataBase;
+                if (_DataBase == null) _DataBase = new DataBaseController();
+                return _DataBase;
             }
         }
 
-        public static UsuarioDatabaseController UsuarioDatabase
-        {
-            get
-            {
-                if (_UsuarioDatabase == null) _UsuarioDatabase = new UsuarioDatabaseController();
-                return _UsuarioDatabase;
-            }
-        }
-
-        public static TokenDatabaseController TokenDatabase
-        {
-            get
-            {
-                if (_TokenDatabase == null) _TokenDatabase = new TokenDatabaseController();
-                return _TokenDatabase;
-            }
-        }
-
-
-        public static PerfilDataBaseController PerfilDataBase
-        {
-            get
-            {
-                if (_PerfilDataBase == null) _PerfilDataBase = new PerfilDataBaseController();
-                return _PerfilDataBase;
-            }
-        }  
-
-        public static MomentoDiaDatabaseController MomentoDiaDataBase
-        {
-            get
-            {
-                if (_MomentoDiaDatabase == null) _MomentoDiaDatabase = new MomentoDiaDatabaseController();
-                return _MomentoDiaDatabase;
-            }
-        }
-
-        public static EstacionDataBaseController EstacionDataBase
-        {
-            get
-            {
-                if (_EstacionDataBase == null) _EstacionDataBase = new EstacionDataBaseController();
-                return _EstacionDataBase;
-            }
-        }
 
         public static UsuarioService RestService
         {
@@ -214,38 +170,16 @@ namespace CookItApp
                 return _EstacionService;
             }
         }
-        /*<<!-- <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.5*"/>
-            <ColumnDefinition Width="2.5*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2.5*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="3*"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Text="Menos de" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
-            <Entry Grid.Row="0" Grid.Column="1" Keyboard="Numeric" VerticalOptions ="Center" x:Name="entMinimo" />
-            <Label Grid.Row="0" Grid.Column="2" Text="Mas de" FontSize="Small" FontAttributes="Bold" VerticalOptions ="Center" TextColor="{StaticResource colorOnBackground}"/>
-            <Entry Grid.Row="0" Grid.Column="3" Keyboard="Numeric" VerticalOptions ="Center" x:Name="entMaximo" />
 
-            <Image  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                    Source="iconOk.png"
-                   Style="{StaticResource estiloBotonImagen}"
-                        >
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Ok_Tapped" NumberOfTapsRequired="1"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
-                    Source="iconCancel.png"
-                   Style="{StaticResource estiloBotonImagen}"
-                       >
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Cancel_Tapped" NumberOfTapsRequired="1"/>
-                </Image.GestureRecognizers>
-            </Image>
-            -->*/
-        
+        public static RetoService RetoService
+        {
+            get
+            {
+                if (_RetoService == null) _RetoService = new RetoService();
+                return _RetoService;
+            }
+        }
+
+
     }
 }

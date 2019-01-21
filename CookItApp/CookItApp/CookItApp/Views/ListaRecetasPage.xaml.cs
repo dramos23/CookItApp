@@ -306,14 +306,14 @@ namespace CookItApp.Views
             var keyword = BuscarReceta.Text;
             if (keyword.Length >= 1)
             {
-                List<Receta> resultado = App.RecetaDataBase.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();                
+                List<Receta> resultado = App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();                
                 _VMRecetas = new RecetasListVM(resultado);
                 BindingContext = _VMRecetas;
 
             }
             else
             {
-                List<Receta> resultado = App.RecetaDataBase.ObtenerList().ToList();
+                List<Receta> resultado = App.DataBase.Receta.ObtenerList().ToList();
                 _VMRecetas = new RecetasListVM(resultado);
                 BindingContext = _VMRecetas;
             }

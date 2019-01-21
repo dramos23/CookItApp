@@ -18,7 +18,7 @@ namespace CookItApp.ViewModels
 
         internal bool HaySiguiente()
         {
-            if (_Paso._IdPasoReceta == _Receta._Pasos.Count) return false;
+            if (_Paso._IdPasoReceta == _Receta._ListaPasosReceta.Count) return false;
             return true;
         }
 

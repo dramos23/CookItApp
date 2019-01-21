@@ -22,7 +22,7 @@ namespace CookItApp.Data
 
         public async Task<List<MomentoDia>> ObtenerList()
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web;
 
             HttpClient client = new HttpClient();            
