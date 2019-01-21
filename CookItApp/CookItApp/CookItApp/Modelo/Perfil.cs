@@ -48,8 +48,9 @@ namespace CookItApp.Models
         public bool _FiltroTiempoPreparacion { set; get; }
         public int _FiltroTiempoPreparacionMin { set; get; }
         public int _FiltroTiempoPreparacionMax { set; get; }
-
-
+/*
+        public List<IngredienteUsuario> _IngredientesUsuario { set; get; }
+*/
         public Perfil() { }
 
         public Perfil(string Email, byte[] Foto, string NombreUsuario, string Nombre, string Apellido, 

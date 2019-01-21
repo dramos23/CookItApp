@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CookItApp.Views;
@@ -33,9 +32,7 @@ namespace CookItApp
 
         public App()
         {
-            
             InitializeComponent();
-
             
             Usuario usuario = App.UsuarioDatabase.Obtener();
             if (usuario == null)

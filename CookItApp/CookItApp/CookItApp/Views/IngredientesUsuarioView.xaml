@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="CookItApp.Views.IngredientesUsuarioView">
+    <ContentPage.Content>
+        <Grid x:Name="gridPrincipal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Padding="0" Margin="5"
+                         Grid.Row="0" Grid.ColumnSpan="3"
+                         x:Name="frmBorrar"
+                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Frame CornerRadius="10"
+                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                   Padding="5"
+                   BackgroundColor="{StaticResource colorSecondaryVariant}"
+                   BorderColor="Black">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+                                                     VerticalOptions="FillAndExpand">
+                        <Image Source="iconTrashOff.png" x:Name="imgTrash" Style="{StaticResource estiloBotonImagen}"/>
+                        <Label FontSize="Medium" TextColor="{StaticResource colorOnBackground}"
+                           HorizontalOptions="Center" VerticalOptions="Center"
+                           Text="Arrastre hasta aqui para borrar"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <Grid Grid.Column="0" Grid.Row="1">
+                <syncfusion:SfListView x:Name="ListaIngredientes"
+                                       ItemsSource="{Binding IngredientesUsuario}"
+                                       ItemSize="50"
+                                       DragStartMode="OnHold,OnDragIndicator"
+                                       SelectionMode="None"
+                                       BackgroundColor="{StaticResource colorBackground}">
+                    <syncfusion:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Black" Padding="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <syncfusion:DragIndicatorView Grid.Column="0" ListView="{x:Reference ListaIngredientes}" 
+                                                                  HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid>
+                                            <Image Source="hamburger.png"
+                                           Grid.Column="0"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </syncfusion:DragIndicatorView>
+                                    <Label Text="{Binding _Ingrediente._Nombre}"
+                                           Grid.Column="1"
+                                           HorizontalOptions="Center" VerticalOptions="Center"
+                                           FontSize="Small" TextColor="{StaticResource colorOnBackground}"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding _CantidadMedida}"
+                                           Grid.Column="2"
+                                           HorizontalOptions="Center" VerticalOptions="Center"
+                                           FontSize="Small" TextColor="{StaticResource colorOnBackground}"
+                                           LineBreakMode="TailTruncation"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </syncfusion:SfListView.ItemTemplate>
+                </syncfusion:SfListView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

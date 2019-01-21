@@ -30,7 +30,7 @@ namespace CookItApp.Views
             var page1 = new MasterPageItem() { Title = "Recetas", Icon = "breakfast.png", TargetType = typeof(ListaRecetasPage) };
             var page2 = new MasterPageItem() { Title = "Historial", Icon = "history.png" /*, TargetType = typeof(View1) */};
             var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png"/*, TargetType = typeof(View1) */};
-            var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png"/*, TargetType = typeof(View1) */};
+            var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png", TargetType = typeof(IngredientesUsuarioView) };
             var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
             var page6 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
             var page7 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
