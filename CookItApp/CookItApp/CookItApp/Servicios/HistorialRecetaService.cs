@@ -22,7 +22,7 @@ namespace CookItApp.Data
 
         public async Task<HistorialReceta> Alta(HistorialReceta obj)
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web;
 
             using (HttpClient client = new HttpClient())
@@ -54,9 +54,9 @@ namespace CookItApp.Data
 
         }
 
-        public async Task<List<HistorialReceta>> ObtenerList(HistorialReceta obj)
+        public async Task<List<HistorialReceta>> ObtenerList(Usuario obj)
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + obj._Email;
 
             HttpClient client = new HttpClient();
@@ -76,30 +76,6 @@ namespace CookItApp.Data
                 }
             }
         }
-
-        public async Task<HistorialReceta> Obtener(HistorialReceta obj)
-        {
-            Token token = App.TokenDatabase.Obtener();
-            string Url = Web + obj._Email + "," + obj._IdHistorialReceta;
-
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
-
-            using (HttpResponseMessage response = await client.GetAsync(Url))
-            {
-                string JsonResult = response.Content.ReadAsStringAsync().Result;
-                try
-                {
-                    HistorialReceta ContentResp = Deseralizar(JsonResult);
-                    return ContentResp;
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
-        }
-
 
         private HistorialReceta Deseralizar(string jsonResult)
         {

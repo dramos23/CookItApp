@@ -301,7 +301,7 @@ namespace CookItApp.Views
             {
                 //Se pone la variable "idPaso" sin modificarla porque el ID de PasoReceta empieza en 1, y el indice de la lista
                 //en 0.
-                PasoReceta proxPaso = _PasoRecetaVM._Receta._Pasos[idPaso];
+                PasoReceta proxPaso = _PasoRecetaVM._Receta._ListaPasosReceta[idPaso];
                 videoPlayer.Pause();
                 await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, proxPaso, Usuario));
             }
@@ -319,7 +319,7 @@ namespace CookItApp.Views
             {
                 //Se hace idPaso -2 porque el id de PasoReceta empieza en 1 y el indice de la lista en 0.
                 videoPlayer.Pause();
-                PasoReceta pasoAnterior = _PasoRecetaVM._Receta._Pasos[idPaso - 2];
+                PasoReceta pasoAnterior = _PasoRecetaVM._Receta._ListaPasosReceta[idPaso - 2];
                 await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, pasoAnterior, Usuario));
             }
             catch

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "751849859301",
+    "firebase_url": "https://proyectoort-d12bc.firebaseio.com",
+    "project_id": "proyectoort-d12bc",
+    "storage_bucket": "proyectoort-d12bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751849859301:android:a372d84a21df648a",
+        "android_client_info": {
+          "package_name": "com.proyectoORT.CookItApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751849859301-8ac1n6fig4usj9oipnve9v3vj9cmms9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfNOLFo0V2_ctvbmhtZtvHSk578cwtYg0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

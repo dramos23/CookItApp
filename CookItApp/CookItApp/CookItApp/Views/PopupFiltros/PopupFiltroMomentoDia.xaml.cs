@@ -25,7 +25,7 @@ namespace CookItApp.Views.PopupFiltros
 
         private void CargarPickerMomentoDia()
         {
-            picMomentoDia.ItemsSource = App.MomentoDiaDataBase.ObtenerList();
+            picMomentoDia.ItemsSource = App.DataBase.MomentoDia.ObtenerList();
         }
 
         private void Ok_Tapped(object sender, EventArgs e)

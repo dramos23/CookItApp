@@ -34,14 +34,21 @@ namespace CookItApp.Data
         }
 
 
-        public int GuardarList(List<Estacion> Estacions)
+        public int GuardarList(List<Estacion> obj)
         {
 
             lock (locker)
             {
 
                 var ret = this.BorrarTodo();
-                return database.InsertAll(Estacions);
+                if (obj != null)
+                {
+                    return database.InsertAll(obj);
+                }
+                else
+                {
+                    return 0;
+                }
 
             }
         }

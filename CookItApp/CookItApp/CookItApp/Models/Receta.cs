@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-using CookItWebApi.Models;
 using Newtonsoft.Json;
-using SQLiteNetExtensions;
-using SQLiteNetExtensions.Attributes;
 using SQLite;
 
 namespace CookItApp.Models
-{ 
+{
     public class Receta
     {
-        [PrimaryKey]
+        
         public int _IdReceta { get; set; }
         public string _Titulo { get; set; }
         public string _Descripcion { get; set; }
-        [ForeignKey(typeof(MomentoDia))]
+        
         public int _IdMomentoDia { get; set; }
         [Ignore]
         [JsonIgnore]
         public MomentoDia _MomentoDia { get; set; }
-        [ForeignKey(typeof(Estacion))]
+        
         public int _IdEstacion { get; set; }
         [Ignore]
         [JsonIgnore]
@@ -41,46 +36,34 @@ namespace CookItApp.Models
         public bool _AptoVegetarianos { get; set; }
         public bool _AptoVeganos { get; set; }
         public bool _Habilitada { get; set; }
+        
         [Ignore]
-        public List<IngredienteReceta> _IngredientesReceta { set; get; }
+        public List<IngredienteReceta> _ListaIngredientesReceta { set; get; }
         [Ignore]
-        public List<PasoReceta> _Pasos { set; get; }
+        public List<PasoReceta> _ListaPasosReceta { set; get; }
         [Ignore]
-        public List<ComentarioReceta> _ComentariosReceta { set; get; }
-
+        public List<ComentarioReceta> _ListaComentariosReceta { set; get; }
 
         public Receta() {
-            _IngredientesReceta = new List<IngredienteReceta>();
-            _Pasos = new List<PasoReceta>();
-            _ComentariosReceta = new List<ComentarioReceta>();
+            _ListaIngredientesReceta = new List<IngredienteReceta>();
+            _ListaPasosReceta = new List<PasoReceta>();
+            _ListaComentariosReceta = new List<ComentarioReceta>();
         }
 
-        public Receta(int IdReceta, string Titulo, string Descripcion, int IdMomentoDia, int IdEstacion, int Dificultad, 
-            int TiempoPreparacion, int CantCalorias, string Email, int CantPlatos, float Costo, 
-            DateTime FechaCreacion, double PuntajeTotal, bool AptoCeliacos, bool AptoDiabeticos, bool AptoVegetarianos, 
-            bool AptoVeganos, bool Habilitada)
+        public int InsertarBD()
         {
-            _IdReceta = IdReceta;
-            _Titulo = Titulo;
-            _Descripcion = Descripcion;
-            _IdMomentoDia = IdMomentoDia;
-            _IdEstacion = IdEstacion;
-            _Dificultad = Dificultad;
-            _TiempoPreparacion = TiempoPreparacion;
-            _CantCalorias = CantCalorias;
-            _Email = Email;
-            _CantPlatos = CantPlatos;
-            _Costo = Costo;
-            _FechaCreacion = FechaCreacion;
-            _PuntajeTotal = PuntajeTotal;
-            _AptoCeliacos = AptoCeliacos;
-            _AptoDiabeticos = AptoDiabeticos;
-            _AptoVegetarianos = AptoVegetarianos;
-            _AptoVeganos = AptoVeganos;
-            _Habilitada = Habilitada;
+
+            int ret = 0;
+
+            if (ret == 0) { ret = App.DataBase.IngredienteReceta.GuardarList(_ListaIngredientesReceta); }
+            if (ret == 0) { ret = App.DataBase.PasoReceta.GuardarList(_ListaPasosReceta); }
+            if (ret == 0) { ret = App.DataBase.ComentarioReceta.GuardarList(_ListaComentariosReceta); }
+            
+
+            return ret;
+
+
         }
-
-
 
         //public string _DificultadString
         //{
@@ -113,6 +96,8 @@ namespace CookItApp.Models
         //        return "iconoEstrella" + _Dificultad + ".png";
         //    }
         //}
+
+
     }
 
 

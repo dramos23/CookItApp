@@ -1,18 +1,16 @@
 ﻿using CookItApp.Models;
 using CookItApp.ViewModels;
-using CookItWebApi.Models;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace CookItApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RecetaPage : ContentPage
     {
      
@@ -21,6 +19,7 @@ namespace CookItApp.Views
         private string Email { get; set; }
         private Usuario Usuario { get; set; }
         
+
 
         public RecetaPage(Receta receta, Usuario usuario)
         {
@@ -59,12 +58,17 @@ namespace CookItApp.Views
         private async void BtnPrepararReceta_Clicked(object sender, EventArgs e)
         {
             CargarDatosPrueba();
-            await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._Pasos[0], Usuario));
+            await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario));
+        }
+
+        private void BtnRetar_Clicked(object sender, EventArgs e)
+        {
+            PopupNavigation.Instance.PushAsync(new PopupApuestaPage(Usuario, Receta));
         }
 
         private async void BtnAgregarFavoritos_Clicked(object sender, EventArgs e)
         {
-            RecetaFavorita rf = new RecetaFavorita
+            RecetaFavorita rf = new RecetaFavorita()
             {
                 _Email = Email,
                 _IdReceta = Receta._IdReceta,
@@ -107,7 +111,7 @@ namespace CookItApp.Views
                 paso3
             };
 
-            Receta._Pasos = pasos;
+            Receta._ListaPasosReceta = pasos;
 
         }
             

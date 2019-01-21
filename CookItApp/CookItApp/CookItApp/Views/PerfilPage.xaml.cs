@@ -1,6 +1,5 @@
 ﻿using CookItApp.Models;
 using CookItApp.ViewModels;
-using CookItWebApi.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
@@ -31,12 +30,12 @@ namespace CookItApp.Views
 
         private void CargarPickerMomentoDia()
         {
-            picMomentoDia.ItemsSource = App.MomentoDiaDataBase.ObtenerList();
+            picMomentoDia.ItemsSource = App.DataBase.MomentoDia.ObtenerList();
         }
 
         private void CargarPickerEstacion()
         {
-            picEstacion.ItemsSource = App.EstacionDataBase.ObtenerList();
+            picEstacion.ItemsSource = App.DataBase.Estacion.ObtenerList();
         }
 
         private void TogCalorias_Toggled(object sender, ToggledEventArgs e)
@@ -131,18 +130,17 @@ namespace CookItApp.Views
 
             if (perfil != null)
             {
-                MasterPage.ActualizarPerfil(perfil);
-                Usuario._Perfil = perfil;
+
 
                 int save = 0;
 
                 if (Usuario._Perfil == null)
                 {
-                    save = App.PerfilDataBase.Guardar(perfil);
+                    save = App.DataBase.Perfil.Guardar(perfil);
                 }
                 else
                 {
-                    save = App.PerfilDataBase.Modificar(perfil);
+                    save = App.DataBase.Perfil.Modificar(perfil);
                 }
 
                 if (save == 1)
@@ -153,6 +151,9 @@ namespace CookItApp.Views
                 {
                     await DisplayAlert("Perfil", "Ha ocurrido un error vuelve a intentarlo.", "Ok");
                 }
+
+                MasterPage.ActualizarPerfil(perfil);
+                Usuario._Perfil = perfil;
 
             }
             else {
@@ -221,10 +222,10 @@ namespace CookItApp.Views
                 _FiltroDificultadMax = (togDificultad.IsToggled == true) ? Convert.ToInt16(entryDificultadMenorIgual.Text) : 0,
 
                 _FiltroMomentoDia = (togFiltrosAutomaticos.IsToggled == true && togMomentoDia.IsToggled == true) ? true : false,
-                _FiltroMomentoDiaId = (togMomentoDia.IsToggled == true) ? picMomentoDia.SelectedIndex : -1,
+                _FiltroMomentoDiaId = (togMomentoDia.IsToggled == true) ? picMomentoDia.SelectedIndex : 0,
                 
                 _FiltroEstacion = (togFiltrosAutomaticos.IsToggled == true && togEstacion.IsToggled == true) ? true : false,
-                _FiltroEstacionId = (togEstacion.IsToggled == true) ? picEstacion.SelectedIndex : -1
+                _FiltroEstacionId = (togEstacion.IsToggled == true) ? picEstacion.SelectedIndex : 0
             };
 
             return p;
@@ -266,33 +267,6 @@ namespace CookItApp.Views
                 return memoryStream.ToArray();
             }
         }
-
-    //    private async void OnTakePhotoButtonClicked(object sender, EventArgs e)
-    //    {
-    //        await CrossMedia.Current.Initialize();
-
-    //        // Take photo
-    //        if (CrossMedia.Current.IsCameraAvailable || CrossMedia.Current.IsTakePhotoSupported)
-    //        {
-    //            photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
-    //            {
-    //                Name = "emotion.jpg",
-    //                PhotoSize = PhotoSize.Small
-    //            });
-
-    //            if (photo != null)
-    //            {
-    //                imgPerfil.Source = ImageSource.FromStream(photo.GetStream);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            await DisplayAlert("No Camera", "Camera unavailable.", "OK");
-    //        }
-
-    //        ((Button)sender).IsEnabled = false;
-    //        //activityIndicator.IsRunning = true;
-    //    }
 }
 
 

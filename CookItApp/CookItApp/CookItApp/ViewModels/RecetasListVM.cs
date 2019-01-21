@@ -35,8 +35,8 @@ namespace CookItApp.ViewModels
                 _Titulo = "Pato a la naranja",
                 _Dificultad = 4,
                 _PuntajeTotal = 3,
-                _IngredientesReceta = new List<CookItWebApi.Models.IngredienteReceta>(),
-                _Pasos = new List<PasoReceta>(),
+                _ListaIngredientesReceta = new List<CookItApp.Models.IngredienteReceta>(),
+                _ListaPasosReceta = new List<PasoReceta>(),
                 _IdReceta = 54
             };
             Recetas.Add(Rec);
@@ -46,7 +46,7 @@ namespace CookItApp.ViewModels
         {
             List<Receta> recetas = new List<Receta>();
 
-            recetas = receta ?? App.RecetaDataBase.ObtenerList();
+            recetas = receta ?? App.DataBase.Receta.ObtenerList();
 
             if (recetas != null)
             {

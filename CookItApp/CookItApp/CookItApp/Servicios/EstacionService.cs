@@ -21,7 +21,7 @@ namespace CookItApp.Data
 
         public async Task<List<Estacion>> ObtenerList()
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web;
 
             using (HttpClient client = new HttpClient())

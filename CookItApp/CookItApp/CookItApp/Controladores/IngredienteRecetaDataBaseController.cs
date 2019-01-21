@@ -1,46 +1,46 @@
 ﻿using CookItApp.Models;
 using SQLite;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using Xamarin.Forms;
 
-namespace CookItApp.Data
+namespace CookItApp.Controladores
 {
-    public class MomentoDiaDataBaseController
+    public class IngredienteRecetaDataBaseController
     {
         static readonly object locker = new object();
 
         SQLiteConnection database;
 
-        public MomentoDiaDataBaseController()
+        public IngredienteRecetaDataBaseController()
         {
             database = DependencyService.Get<ISQLIte>().GetConnection();
-            database.CreateTable<MomentoDia>();
-
+            database.CreateTable<IngredienteReceta>();
         }
 
-        public List<MomentoDia> ObtenerList()
+        public List<IngredienteReceta> ObtenerList()
         {
             lock (locker)
             {
-                if (database.Table<MomentoDia>().Count() == 0)
+                if (database.Table<IngredienteReceta>().Count() == 0)
                 {
                     return null;
                 }
                 else
                 {
-                    return database.Table<MomentoDia>().ToList();
+                    return database.Table<IngredienteReceta>().ToList();
                 }
             }
         }
 
-
-        public int GuardarList(List<MomentoDia> obj)
+        public int GuardarList(List<IngredienteReceta> obj)
         {
 
             lock (locker)
             {
 
-                var ret = this.BorrarTodo();
+                var ret = BorrarTodo();
                 if (obj != null)
                 {
                     return database.InsertAll(obj);
@@ -57,7 +57,7 @@ namespace CookItApp.Data
         {
             lock (locker)
             {
-                return database.DeleteAll<MomentoDia>();
+                return database.DeleteAll<IngredienteReceta>();
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using CookItApp.Models;
-using CookItWebApi.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,7 +30,7 @@ namespace CookItApp.Data
 
         //public async Task<List<IngredienteReceta>> GetResponse<T>(string weburl) where T : class
         //{
-        //    var token = App.TokenDatabase.Obtener();
+        //    var token = App.DataBase.TokenDataBase.Obtener();
         //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token._AccessToken);
         //    try
         //    {
@@ -70,7 +69,7 @@ namespace CookItApp.Data
 
         public async Task<List<IngredienteReceta>> Obtener(Receta receta)
         {
-            Token token = App.TokenDatabase.Obtener();
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + receta._IdReceta + "/IngredienteRecetas";
 
             HttpClient client = new HttpClient();

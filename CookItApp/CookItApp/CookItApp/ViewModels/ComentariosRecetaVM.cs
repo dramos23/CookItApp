@@ -23,15 +23,15 @@ namespace CookItApp.ViewModels
 
         private void GenerarDatosPrueba()
         {
-            _Receta._ComentariosReceta.Add(new ComentarioReceta(_Receta._IdReceta, "pepe@gmail.com", "Me encanto esta receta, es facil de hacer y muy rica.", DateTime.Now, 4));
-            _Receta._ComentariosReceta.Add(new ComentarioReceta(_Receta._IdReceta, "griselda@gmail.com", "Excelente receta, me encanto. Espero ver mas de este cocinero", DateTime.Now, 5));
-            _Receta._ComentariosReceta.Add(new ComentarioReceta(_Receta._IdReceta, "martina@gmail.com", "Esta muy mal explicada, no entendi nada", DateTime.Now, 2));
+            _Receta._ListaComentariosReceta.Add(new ComentarioReceta(_Receta._IdReceta, "pepe@gmail.com", "Me encanto esta receta, es facil de hacer y muy rica.", DateTime.Now, 4));
+            _Receta._ListaComentariosReceta.Add(new ComentarioReceta(_Receta._IdReceta, "griselda@gmail.com", "Excelente receta, me encanto. Espero ver mas de este cocinero", DateTime.Now, 5));
+            _Receta._ListaComentariosReceta.Add(new ComentarioReceta(_Receta._IdReceta, "martina@gmail.com", "Esta muy mal explicada, no entendi nada", DateTime.Now, 2));
         }
 
         public void CargarDatos(Receta r)
         {
             if (_ComentariosReceta.Count != 0) return;
-            foreach (ComentarioReceta cr in r._ComentariosReceta)
+            foreach (ComentarioReceta cr in r._ListaComentariosReceta)
             {
                 this._ComentariosReceta.Add(cr);
             }

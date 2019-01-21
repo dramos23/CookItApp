@@ -1,16 +1,13 @@
 ﻿using CookItApp.Models;
+using Microsoft.AppCenter;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace CookItApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RegisterPage : ContentPage
 	{
 		public RegisterPage ()
@@ -24,20 +21,25 @@ namespace CookItApp.Views
                 await DisplayAlert("Registro", "Error: las contraseñas no coinciden.", "Ok");
             else
             {
-                Usuario user = new Usuario(inpEmail.Text, inpPassword.Text);
-                if (user.IsValid())
-                {
+                System.Guid? uuid = await AppCenter.GetInstallIdAsync();
 
-                    var result = await App.RestService.Registrar(user);
-                    if (result._AccessToken != null)
-                    {                     
-                        await DisplayAlert("Registro", "Registro Satisfactorio", "Ok");
-                        await Navigation.PopAsync();
-                    }
-                }
-                else
+                if (uuid != null)
                 {
-                    await DisplayAlert("Registro", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
+                    Usuario user = new Usuario(inpEmail.Text, inpPassword.Text, uuid, Usuario.Tipo.Local, DateTime.Now);
+                    if (user.IsValid())
+                    {
+
+                        var result = await App.RestService.Registrar(user);
+                        if (result._AccessToken != null)
+                        {
+                            await DisplayAlert("Registro", "Registro Satisfactorio", "Ok");
+                            await Navigation.PopAsync();
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Registro", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
+                    }
                 }
             }
 

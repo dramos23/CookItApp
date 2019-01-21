@@ -3,25 +3,24 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CookItApp.Data
+namespace CookItApp.Servicios
 {
-    public class PerfilService
+    public class RetoService
     {
         public HttpClient client;
         private string Web { get; set; }
 
-        public PerfilService()
+        public RetoService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/Perfiles/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Retos/";
 
         }
 
 
-        public async Task<Perfil> Alta(Perfil obj)
+        public async Task<Reto> Alta(Reto obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -42,10 +41,10 @@ namespace CookItApp.Data
                         string JsonResult = response.Content.ReadAsStringAsync().Result;
                         try
                         {
-                            Perfil ContentResp = Deseralizar(JsonResult);
+                            Reto ContentResp = Deseralizar(JsonResult);
                             return ContentResp;
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
                             return null;
                         }
@@ -56,10 +55,10 @@ namespace CookItApp.Data
         }
 
 
-        public async Task<Perfil> Obtener(Usuario obj)
+        public async Task<List<Reto>> Obtener()
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + obj._Email;
+            string Url = Web;
 
             using (HttpClient client = new HttpClient())
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
@@ -73,37 +72,7 @@ namespace CookItApp.Data
                     string JsonResult = response.Content.ReadAsStringAsync().Result;
                     try
                     {
-                        Perfil ContentResp = Deseralizar(JsonResult);
-                        return ContentResp;
-                    }
-                    catch (Exception)
-                    {
-                        return null;
-                    }
-                }
-                
-            }
-
-        }
-
-        public async Task<List<Perfil>> ObtenerList()
-        {
-            Token token = App.DataBase.Token.Obtener();
-            string Url = Web + "ListEmailNombres";
-
-            using (HttpClient client = new HttpClient())
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
-            {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
-
-                using (HttpResponseMessage response = await client
-                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
-                    .ConfigureAwait(false))
-                {
-                    string JsonResult = response.Content.ReadAsStringAsync().Result;
-                    try
-                    {
-                        List<Perfil> ContentResp = DeseralizarList(JsonResult);
+                        List<Reto> ContentResp = DeseralizarList(JsonResult);
                         return ContentResp;
                     }
                     catch (Exception)
@@ -116,10 +85,10 @@ namespace CookItApp.Data
 
         }
 
-        public async Task<Perfil> Modificar(Perfil obj)
+        public async Task<Reto> Modificar(Reto obj)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + obj._Email;
+            string Url = Web + obj._EmailUsuOri + "," + obj._EmialUsuDes + "," + obj._EstadoReto;
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
@@ -131,7 +100,7 @@ namespace CookItApp.Data
                     string JsonResult = response.Content.ReadAsStringAsync().Result;
                     try
                     {
-                        Perfil ContentResp = Deseralizar(JsonResult);
+                        Reto ContentResp = Deseralizar(JsonResult);
                         return ContentResp;
                     }
                     catch
@@ -142,18 +111,18 @@ namespace CookItApp.Data
             }
         }
 
-        private Perfil Deseralizar(string jsonResult)
+        private Reto Deseralizar(string jsonResult)
         {
 
-            Perfil p = JsonConvert.DeserializeObject<Perfil>(jsonResult);
+            Reto p = JsonConvert.DeserializeObject<Reto>(jsonResult);
             return p;
 
         }
 
-        private List<Perfil> DeseralizarList(string jsonResult)
+        private List<Reto> DeseralizarList(string jsonResult)
         {
 
-            List<Perfil> p = JsonConvert.DeserializeObject<List<Perfil>>(jsonResult);
+            List<Reto> p = JsonConvert.DeserializeObject<List<Reto>>(jsonResult);
             return p;
 
         }

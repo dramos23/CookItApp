@@ -4,13 +4,13 @@ using Xamarin.Forms;
 
 namespace CookItApp.Data
 {
-    public class UsuarioDatabaseController
+    public class UsuarioDataBaseController
     {
         static readonly object locker = new object();
 
         SQLiteConnection database;
 
-        public UsuarioDatabaseController()
+        public UsuarioDataBaseController()
         {
             database = DependencyService.Get<ISQLIte>().GetConnection();
             database.CreateTable<Usuario>();

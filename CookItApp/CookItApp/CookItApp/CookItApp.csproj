@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="AiForms.Layouts" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Push" Version="1.12.0" />
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Octane.Xam.VideoPlayer" Version="2.2.0" />
@@ -83,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PasoRecetaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PopupApuestaPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PopupFiltros\PopupFiltroPrecio.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

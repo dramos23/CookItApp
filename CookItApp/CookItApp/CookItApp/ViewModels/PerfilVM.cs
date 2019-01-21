@@ -30,12 +30,12 @@ namespace CookItApp.ViewModels
         public int FiltroCaloriasMax { set; get; }
         public bool FiltroPaisOrigen { set; get; }
         public bool FiltroMomentoDia { set; get; }
-        public int FiltroMomentoDiaId { set; get; }
+        public int? FiltroMomentoDiaId { set; get; }
         public bool FiltroPuntuacion { set; get; }
         public int FiltroPuntuacionMin { set; get; }
         public int FiltroPuntuacionMax { set; get; }
         public bool FiltroEstacion { set; get; }
-        public int FiltroEstacionId { set; get; }
+        public int? FiltroEstacionId { set; get; }
         public bool FiltroDificultad { set; get; }
         public int FiltroDificultadMin { set; get; }
         public int FiltroDificultadMax { set; get; }
@@ -69,12 +69,12 @@ namespace CookItApp.ViewModels
             FiltroCaloriasMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMax : 0;
             //FiltroPaisOrigen = (user._Perfil != null) ? user._Perfil._FiltroPaisOrigen : 0;
             FiltroMomentoDia = (usuario._Perfil != null) ? usuario._Perfil._FiltroMomentoDia : false;
-            FiltroMomentoDiaId = (usuario._Perfil != null) ? usuario._Perfil._FiltroMomentoDiaId : -1;
+            FiltroMomentoDiaId = (usuario._Perfil != null) ? usuario._Perfil._FiltroMomentoDiaId : 0;
             FiltroPuntuacion = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacion : false;
             FiltroPuntuacionMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMin : 0;
             FiltroPuntuacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMax : 0;
             FiltroEstacion = (usuario._Perfil != null) ? usuario._Perfil._FiltroEstacion : false;
-            FiltroEstacionId = (usuario._Perfil != null) ? usuario._Perfil._FiltroEstacionId : -1;
+            FiltroEstacionId = (usuario._Perfil != null) ? usuario._Perfil._FiltroEstacionId : 0;
             FiltroDificultad = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultad : false;
             FiltroDificultadMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMin : 0;
             FiltroDificultadMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMax : 0;

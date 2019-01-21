@@ -1,16 +1,12 @@
 ﻿using CookItApp.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace CookItApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CargaRecursos : ContentPage
 	{
 		public CargaRecursos (Usuario usuario, string modo)
@@ -29,40 +25,57 @@ namespace CookItApp.Views
 
         public async void CargaDatosAplicativo(Usuario usuario)
         {
-            lblTexto.Text = "Cargando perfil..";
-            Perfil perfil = await App.PerfilService.Obtener(usuario);
-            if (perfil != null)
+            lblTexto.Text = "Cargando ingredientes..";
+            List<MomentoDia> ingredientes = await App.IngredienteService.ObtenerList();
+            if (ingredientes != null)
             {
-                App.PerfilDataBase.Guardar(perfil);
+                App.DataBase.Ingrediente.GuardarList(ingredientes);
             }
-            usuario._Perfil = perfil ?? null;
 
             lblTexto.Text = "Cargando momentos del día..";
             List<MomentoDia> momentos = await App.MomentoDiaService.ObtenerList();
             if (momentos != null)
             {
-                App.MomentoDiaDataBase.GuardarList(momentos);
+                App.DataBase.MomentoDia.GuardarList(momentos);
             }
 
             lblTexto.Text = "Cargando estaciones del año..";
             List<Estacion> estaciones = await App.EstacionService.ObtenerList();
             if (estaciones != null)
             {
-                App.EstacionDataBase.GuardarList(estaciones);
+                App.DataBase.Estacion.GuardarList(estaciones);
             }
-            if (momentos != null && estaciones != null)
+
+            lblTexto.Text = "Cargando recetas..";
+            List<Receta> recetas = await App.RecetaService.ObtenerList();
+            if (recetas != null)
             {
-                lblTexto.Text = "Cargando recetas..";
-                List<Receta> recetas = await App.RecetaService.ObtenerList();
-                if (recetas != null)
-                {
-                    App.RecetaDataBase.GuardarList(recetas);
-
-                    await Navigation.PushAsync(new MasterPage(usuario), true);
-                    Navigation.RemovePage(this);
-
-                }
+                App.DataBase.Receta.GuardarList(recetas);                    
             }
+
+            lblTexto.Text = "Cargando hitorial de recetas..";
+            List<HistorialReceta> historialReceta = await App.HistorialRecetaService.ObtenerList(usuario);
+            if (historialReceta != null)
+            {
+                usuario._ListaHistorialRecetas = historialReceta;
+                App.DataBase.HistorialReceta.GuardarList(historialReceta);
+            }
+
+            lblTexto.Text = "Cargando perfil..";
+            Perfil perfil = await App.PerfilService.Obtener(usuario);
+            if (perfil != null)
+            {
+                App.DataBase.Perfil.Guardar(perfil);
+                perfil.InsertarBD();
+
+                usuario._Perfil = perfil ?? null;
+                await Navigation.PushAsync(new MasterPage(usuario), true);
+                Navigation.RemovePage(this);
+
+            }
+
+
+            
         }
 
         public async void ActualizarRecetario(Usuario usuario)
@@ -73,9 +86,9 @@ namespace CookItApp.Views
             if (momentos != null)
             {
                 lblTexto.Text = "Borrando momentos del día..";
-                App.MomentoDiaDataBase.BorrarTodo();
+                App.DataBase.MomentoDia.BorrarTodo();
                 lblTexto.Text = "Guardando momentos del día..";
-                App.MomentoDiaDataBase.GuardarList(momentos);
+                App.DataBase.MomentoDia.GuardarList(momentos);
             }
 
             lblTexto.Text = "Descargando estaciones del año..";
@@ -83,9 +96,9 @@ namespace CookItApp.Views
             if (estaciones != null)
             {
                 lblTexto.Text = "Borrando estaciones del año..";
-                App.EstacionDataBase.BorrarTodo();
+                App.DataBase.Estacion.BorrarTodo();
                 lblTexto.Text = "Guardando estaciones del año..";
-                App.EstacionDataBase.GuardarList(estaciones);
+                App.DataBase.Estacion.GuardarList(estaciones);
             }
             if (momentos != null && estaciones != null)
             {
@@ -94,9 +107,9 @@ namespace CookItApp.Views
                 if (recetas != null)
                 {
                     lblTexto.Text = "Borrando recetas..";
-                    App.RecetaDataBase.BorrarTodo();
+                    App.DataBase.Receta.BorrarTodo();
                     lblTexto.Text = "Guardando recetas..";
-                    App.RecetaDataBase.GuardarList(recetas);
+                    App.DataBase.Receta.GuardarList(recetas);
 
                     await Navigation.PushAsync(new MasterPage(usuario), true);
                     Navigation.RemovePage(this);
