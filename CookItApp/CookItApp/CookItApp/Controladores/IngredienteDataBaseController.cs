@@ -16,10 +16,10 @@ namespace CookItApp.Controladores
         public IngredienteDataBaseController()
         {
             database = DependencyService.Get<ISQLIte>().GetConnection();
-            database.CreateTable<MomentoDia>();
+            database.CreateTable<Ingrediente>();
         }
 
-        public List<MomentoDia> ObtenerList()
+        public List<Ingrediente> ObtenerList()
         {
             lock (locker)
             {
@@ -29,12 +29,27 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<MomentoDia>().ToList();
+                    return database.Table<Ingrediente>().ToList();
                 }
             }
         }
 
-        public int GuardarList(List<MomentoDia> obj)
+        public Ingrediente Obtener(int IdIngrediente)
+        {
+            lock (locker)
+            {
+                if (database.Table<MomentoDia>().Count() == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return database.Table<Ingrediente>().FirstOrDefault(i => i._IdIngrediente == IdIngrediente);
+                }
+            }
+        }
+
+        public int GuardarList(List<Ingrediente> obj)
         {
 
             lock (locker)
@@ -57,7 +72,7 @@ namespace CookItApp.Controladores
         {
             lock (locker)
             {
-                return database.DeleteAll<MomentoDia>();
+                return database.DeleteAll<Ingrediente>();
             }
         }
     }

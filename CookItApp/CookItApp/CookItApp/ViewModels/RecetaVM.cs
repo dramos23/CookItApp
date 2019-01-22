@@ -10,28 +10,36 @@ namespace CookItApp.ViewModels
     public class RecetaVM
     {
         public Receta _Receta { get; set; }
-        public ObservableCollection<IngredienteReceta> _IngredientesReceta { get; set; }
+        public List<IngredienteReceta> _IngredientesReceta { get; set; }
 
         public RecetaVM(Receta r)
         {
-            this._IngredientesReceta = new ObservableCollection<IngredienteReceta>();
+            this._IngredientesReceta = r._ListaIngredientesReceta;
             this._Receta = r;
-            CargarDatos(r);
+           // CargarDatos(r);
         }
 
-        public void CargarDatos(Receta r) {
+        //public void CargarDatos(Receta r) {
 
-            if (_IngredientesReceta.Count != 0)
-            {
-                return;
-            }
+        //    if (_IngredientesReceta.Count != 0)
+        //    {
+        //        return;
+        //    }
 
-            foreach (IngredienteReceta ir in r._ListaIngredientesReceta) {
+        //    foreach (IngredienteReceta ir in r._ListaIngredientesReceta) {
 
-                ir._CantidadMedida = ir._Cantidad + ir._Ingrediente._Medida.ToString();
-                this._IngredientesReceta.Add(ir);
+        //        try
+        //        {
+        //            ir._CantidadMedida = ir._Cantidad + " " + ir._Ingrediente._Medida.ToString();
+        //            this._IngredientesReceta.Add(ir);
+        //        }
+        //        catch(Exception e) {
 
-            }
-        }
+        //            var msj  = e.Message;
+
+        //        }
+
+        //    }
+        //}
     }
 }

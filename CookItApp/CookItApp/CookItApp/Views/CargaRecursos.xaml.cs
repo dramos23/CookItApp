@@ -26,7 +26,7 @@ namespace CookItApp.Views
         public async void CargaDatosAplicativo(Usuario usuario)
         {
             lblTexto.Text = "Cargando ingredientes..";
-            List<MomentoDia> ingredientes = await App.IngredienteService.ObtenerList();
+            List<Ingrediente> ingredientes = await App.IngredienteService.ObtenerList();
             if (ingredientes != null)
             {
                 App.DataBase.Ingrediente.GuardarList(ingredientes);

@@ -19,7 +19,7 @@ namespace CookItApp.Controladores
             database.CreateTable<IngredienteReceta>();
         }
 
-        public List<IngredienteReceta> ObtenerList()
+        public List<IngredienteReceta> ObtenerList(int IdReceta)
         {
             lock (locker)
             {
@@ -29,10 +29,18 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<IngredienteReceta>().ToList();
+                    List<IngredienteReceta> ingredienteRecetas = database.Table<IngredienteReceta>().Where(ir => ir._IdReceta == IdReceta) .ToList();
+                    foreach(IngredienteReceta ir in ingredienteRecetas)
+                    {
+                        ir._Ingrediente = App.DataBase.Ingrediente.Obtener(ir._IdIngrediente);
+                    }
+
+                    return ingredienteRecetas;
+
                 }
             }
         }
+
 
         public int GuardarList(List<IngredienteReceta> obj)
         {

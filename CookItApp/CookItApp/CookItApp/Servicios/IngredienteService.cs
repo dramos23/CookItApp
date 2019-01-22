@@ -20,7 +20,7 @@ namespace CookItApp.Data
 
         }
 
-        public async Task<List<MomentoDia>> ObtenerList()
+        public async Task<List<Ingrediente>> ObtenerList()
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -33,7 +33,7 @@ namespace CookItApp.Data
                 string JsonResult = response.Content.ReadAsStringAsync().Result;
                 try
                 {
-                    List<MomentoDia> ContentResp = DeseralizarList(JsonResult);
+                    List<Ingrediente> ContentResp = DeseralizarList(JsonResult);
                     return ContentResp;
                 }
                 catch (Exception)
@@ -43,10 +43,10 @@ namespace CookItApp.Data
             }
         }
 
-        private List<MomentoDia> DeseralizarList(string jsonResult)
+        private List<Ingrediente> DeseralizarList(string jsonResult)
         {
 
-            List<MomentoDia> p = JsonConvert.DeserializeObject<List<MomentoDia>>(jsonResult);
+            List<Ingrediente> p = JsonConvert.DeserializeObject<List<Ingrediente>>(jsonResult);
             return p;
 
         }

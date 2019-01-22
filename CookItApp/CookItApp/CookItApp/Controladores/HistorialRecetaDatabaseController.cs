@@ -19,7 +19,7 @@ namespace CookItApp.Controladores
             database.CreateTable<HistorialReceta>();
         }
 
-        public List<HistorialReceta> ObtenerList()
+        public List<HistorialReceta> ObtenerList(Usuario usuario)
         {
             lock (locker)
             {
@@ -29,7 +29,7 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<HistorialReceta>().ToList();
+                    return database.Table<HistorialReceta>().Where(h => h._Email == usuario._Email).ToList();
                 }
             }
         }

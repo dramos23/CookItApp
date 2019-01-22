@@ -33,12 +33,14 @@ namespace CookItApp.Views
             MenuList = new List<MasterPageItem>();
 
             var page1 = new MasterPageItem() { Title = "Recetas", Icon = "breakfast.png", TargetType = typeof(ListaRecetasPage) };
-            var page2 = new MasterPageItem() { Title = "Historial", Icon = "history.png" /*, TargetType = typeof(View1) */};
+            var page2 = new MasterPageItem() { Title = "Historial", Icon = "history.png", TargetType = typeof(HistorialRecetasPage)};
             var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png"/*, TargetType = typeof(View1) */};
             var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png"/*, TargetType = typeof(View1) */};
             var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
-            var page6 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
-            var page7 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
+            var page6 = new MasterPageItem() { Title = "Retos"/*, Icon = "perfil.png", TargetType = typeof(PerfilPage) */};
+            var page7 = new MasterPageItem() { Title = "Notificaciones"/*, Icon = "perfil.png", TargetType = typeof(PerfilPage) */};
+            var page8 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
+            var page9 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
 
             MenuList.Add(page1);
             MenuList.Add(page2);
@@ -47,6 +49,8 @@ namespace CookItApp.Views
             MenuList.Add(page5);
             MenuList.Add(page6);
             MenuList.Add(page7);
+            MenuList.Add(page8);
+            MenuList.Add(page9);
 
             ListMenu.ItemsSource = MenuList;
 

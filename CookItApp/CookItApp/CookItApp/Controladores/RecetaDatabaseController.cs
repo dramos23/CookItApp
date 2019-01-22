@@ -31,6 +31,31 @@ namespace CookItApp.Data
             }
         }
 
+        public Receta Obtener(int idReceta)
+        {
+            lock (locker)
+            {
+                if (database.Table<Receta>().Count() == 0)
+                {
+                    return null;
+                }
+                else
+                {
+
+                    Receta receta = database.Table<Receta>().FirstOrDefault(r => r._IdReceta == idReceta);
+                    List<IngredienteReceta> ingredienteRecetas = App.DataBase.IngredienteReceta.ObtenerList(idReceta);
+                    List<ComentarioReceta> comentarioRecetas = App.DataBase.ComentarioReceta.ObtenerList(idReceta);
+                    List<PasoReceta> pasoRecetas = App.DataBase.PasoReceta.ObtenerList(idReceta);
+
+                    receta._ListaIngredientesReceta = ingredienteRecetas;
+                    receta._ListaComentariosReceta = comentarioRecetas;
+                    receta._ListaPasosReceta = pasoRecetas;
+
+                    return receta;
+                }
+            }
+        }
+
         public void GuardarList(List<Receta> Receta)
         {            
             lock (locker) {
@@ -38,28 +63,7 @@ namespace CookItApp.Data
                 
                 foreach(Receta r in Receta){
 
-                    Receta receta = new Receta()
-                    {
-                        _IdReceta = r._IdReceta,
-                        _Titulo = r._Titulo,
-                        _Descripcion = r._Descripcion,
-                        _IdMomentoDia = r._IdMomentoDia,
-                        _IdEstacion = r._IdEstacion,
-                        _Dificultad = r._Dificultad,
-                        _TiempoPreparacion = r._TiempoPreparacion,
-                        _CantCalorias = r._CantCalorias,
-                        _Email = r._Email,
-                        _CantPlatos = r._CantPlatos,
-                        _Costo = r._Costo,
-                        _FechaCreacion = r._FechaCreacion,
-                        _PuntajeTotal = r._PuntajeTotal,
-                        _AptoCeliacos = r._AptoCeliacos,
-                        _AptoDiabeticos = r._AptoDiabeticos,
-                        _AptoVegetarianos = r._AptoVegetarianos,
-                        _AptoVeganos = r._AptoVeganos,
-                    };
-
-                    database.Insert(receta);
+                    database.Insert(r);
 
                 }
             }

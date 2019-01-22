@@ -19,7 +19,7 @@ namespace CookItApp.Controladores
             database.CreateTable<PasoReceta>();
         }
 
-        public List<PasoReceta> ObtenerList()
+        public List<PasoReceta> ObtenerList(int IdReceta)
         {
             lock (locker)
             {
@@ -29,7 +29,7 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<PasoReceta>().ToList();
+                    return database.Table<PasoReceta>().Where(pr => pr._IdReceta == IdReceta).ToList();
                 }
             }
         }

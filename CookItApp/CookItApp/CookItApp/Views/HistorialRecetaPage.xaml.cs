@@ -14,20 +14,20 @@ using Xamarin.Forms.Xaml;
 namespace CookItApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ListaRecetasPage : ContentPage
+	public partial class HistorialRecetasPage : ContentPage
 	{
-        RecetasListVM _VMRecetas;
+        HistorialRecetasListVM _VMHistorialRecetas;
         Usuario Usuario;
         //Atributos necesarios para revisar si el usuario rotó el celular
         private double width;
         private double height;
 
-        public ListaRecetasPage (Usuario Usuario)
+        public HistorialRecetasPage(Usuario Usuario)
 		{
 			InitializeComponent ();
             this.Usuario = Usuario;
-            _VMRecetas = new RecetasListVM(null);
-            BindingContext = _VMRecetas;
+            _VMHistorialRecetas = new HistorialRecetasListVM(Usuario);
+            BindingContext = _VMHistorialRecetas;
         }
 
 
@@ -41,29 +41,17 @@ namespace CookItApp.Views
                 return;
             }
 
-            Receta rec = App.DataBase.Receta.Obtener(receta._IdReceta);
-            //Receta rec = await App.RecetaService.Obtener(receta);
+            Receta rec = await App.RecetaService.Obtener(receta);
 
             if (rec != null)
             {
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(rec, Usuario));
 
-                ListaRecetas.SelectedItem = null;
+                ListaRecetasVisitadas.SelectedItem = null;
             }
         }
 
-        //private async void BtnBuscar_Clicked(object sender, EventArgs e)
-        //{
-        //    await BtnBuscar.ScaleTo(1.2, 100);
-        //    await BtnBuscar.ScaleTo(1, 100);
-        //}
-
-        private async void BtnFiltros_Clicked(object sender, EventArgs e)
-        {
-            var pagFiltros = new FiltrosView();
-            await PopupNavigation.Instance.PushAsync(pagFiltros);
-        }
 
         //Metodo que detecta el evento de rotacion del celular y cambia el layout de la página.
         protected override void OnSizeAllocated(double width, double height)
@@ -121,13 +109,13 @@ namespace CookItApp.Views
                     gridPrimaria.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(6.5, GridUnitType.Star) });
                 }
 
-                GenerarImagenFotoReceta(gridPrimaria);
-                GenerarTextoListaReceta(gridTexto);
+                //GenerarImagenFotoReceta(gridPrimaria);
+                //GenerarTextoListaReceta(gridTexto);
 
                 return new ViewCell { View = gridPrimaria };
             });
             //Se le da a la lista de recetas el datatemplate que acabamos de crear para que se muestren los controles como los definimos.
-            ListaRecetas.ItemTemplate = dt;
+            ListaRecetasVisitadas.ItemTemplate = dt;
     }
 
         private void GenerarTextoListaReceta(Grid grid)
@@ -154,95 +142,15 @@ namespace CookItApp.Views
             //Para que la descripcion no quede limitada a una sola columna (hay 4) se le dice setea el ColumnSpan a 4, para que pueda ocupar 4 columnas.
             Grid.SetColumnSpan(descripcion, 4);
 
-            Label dificultad = GenerarLabelDificultad();
-            grid.Children.Add(dificultad);
-            Image estrellasDif = GenerarImagenEstrellasDif();
-            grid.Children.Add(estrellasDif);
 
-            Label puntajeTotal = GenerarLabelPuntajeTotal();
-            grid.Children.Add(puntajeTotal);
-            Image estrellasPun = GenerarImagenEstrellasPuntaje();
-            grid.Children.Add(estrellasPun);
-            
-            if(width > height)
-            {
-                Grid.SetColumn(estrellasDif, 1);
-                Grid.SetColumn(estrellasPun, 3);
-                Grid.SetRow(estrellasDif, 2);
-                Grid.SetRow(estrellasPun, 2);
-            }
-            else
-            {
-                Grid.SetColumn(estrellasDif, 1);
-                Grid.SetColumn(estrellasPun, 1);
-                Grid.SetRow(estrellasDif, 2);
-                Grid.SetRow(estrellasPun, 3);
-            }
 
         }
 
-        private Image GenerarImagenEstrellasPuntaje()
-        {
-            Image img = new Image
-            {
-                Margin = 0,
-                HeightRequest = 15,
-                HorizontalOptions = LayoutOptions.StartAndExpand,
-                VerticalOptions = LayoutOptions.Center,
-            };
-            img.SetBinding(Image.SourceProperty, "_RutaFotoPuntajeTotal");
-            if (width < height) Grid.SetColumnSpan(img, 2);
-            return img;
-        }
-
-        private Image GenerarImagenEstrellasDif()
-        {
-            Image img = new Image
-            {
-                Margin = 0,
-                HeightRequest = 15,
-                HorizontalOptions = LayoutOptions.StartAndExpand,
-                VerticalOptions = LayoutOptions.Center,
-            };
-            img.SetBinding(Image.SourceProperty, "_RutaFotoDificultad");
-            if (width < height) Grid.SetColumnSpan(img, 2);
-            return img;
-        }
-
-        private Label GenerarLabelDificultad()
-        {
-            Label dificultad = new Label
-            {
-                Style = Application.Current.Resources["styleLabelDifficulty"] as Style,
-                Text = "Dificultad: "
-            };
-            Grid.SetRow(dificultad, 2);
-            Grid.SetColumn(dificultad, 0);
-            if (width < height) Grid.SetColumnSpan(dificultad, 2);
-            return dificultad;
-        }
 
 
-        private Label GenerarLabelPuntajeTotal()
-        {
-            Label puntaje = new Label
-            {
-                Style = Application.Current.Resources["styleLabelDifficulty"] as Style,
-                Text = "Puntaje: "
-            };
-            if (width > height)
-            {
-                Grid.SetRow(puntaje, 2);
-                Grid.SetColumn(puntaje, 2);
-            }
-            else
-            {
-                Grid.SetRow(puntaje, 3);
-                Grid.SetColumn(puntaje, 0);
-                Grid.SetColumnSpan(puntaje, 2);
-            }
-            return puntaje;
-        }
+
+
+
 
         private Label GenerarLabelDescripcion()
         {
@@ -295,30 +203,6 @@ namespace CookItApp.Views
             };
             grid.Children.Add(img);
             Grid.SetColumn(img, 0);
-        }
-
-        //Falta integrar los filtros del viewmodel de filtros
-        private void BuscarReceta_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var vm = new object();
-            Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
-            FiltrosVM filtros = vm as FiltrosVM;
-
-            var keyword = BuscarReceta.Text;
-            if (keyword.Length >= 1)
-            {
-                List<Receta> resultado = App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();                
-                _VMRecetas = new RecetasListVM(resultado);
-                BindingContext = _VMRecetas;
-
-            }
-            else
-            {
-                List<Receta> resultado = App.DataBase.Receta.ObtenerList().ToList();
-                _VMRecetas = new RecetasListVM(resultado);
-                BindingContext = _VMRecetas;
-            }
-
         }
 
 

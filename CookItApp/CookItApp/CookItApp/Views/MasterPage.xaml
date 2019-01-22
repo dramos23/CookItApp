@@ -8,23 +8,23 @@
 
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
-            <Grid BackgroundColor="Transparent">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid>
                     <Image Source="bg.png" Aspect="AspectFill" />
-                    <StackLayout Padding="0,20,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <StackLayout Padding="0,20,0,0" HorizontalOptions="CenterAndExpand">
                         <!--<Image  Source="{Binding Foto}" Aspect="AspectFit" WidthRequest="60" HeightRequest="60" />-->
                         <image:CircleImage Grid.Row="3" Source="{Binding Foto}" WidthRequest="120" HeightRequest="120" Aspect="AspectFill" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
                         <Label Text="{Binding Nombre}" TextColor="White" FontSize="Large" />
                     </StackLayout>
                 </Grid>
-                <StackLayout Grid.Row="1" Spacing="15">
+                <StackLayout Grid.Row="1" >
                     <ListView x:Name="ListMenu"
-                  RowHeight="60"
-                  SeparatorVisibility="None"
+                  RowHeight="55"
+                  SeparatorVisibility="Default"
                   BackgroundColor="#e8e8e8"
                   ItemSelected="OnMenuItemSelected">
 
@@ -33,10 +33,10 @@
                                 <ViewCell>
                                     <StackLayout>
                                         <!-- Main design for our menu items -->
-                                        <StackLayout VerticalOptions="FillAndExpand"
+                                        <StackLayout VerticalOptions="Center"
                              Orientation="Horizontal"
                              Padding="20,10,0,10"
-                             Spacing="20">
+                             Spacing="10">
 
                                             <Image Source="{Binding Icon}"
                          WidthRequest="30"
