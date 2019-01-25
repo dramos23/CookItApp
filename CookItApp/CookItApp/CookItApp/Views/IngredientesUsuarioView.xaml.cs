@@ -1,20 +1,14 @@
-﻿using Android.Content.Res;
-using Android.Util;
-using CookItApp.Data;
+﻿using CookItApp.Data;
 using CookItApp.Models;
 using CookItApp.ViewModels;
 using Rg.Plugins.Popup.Services;
 using Syncfusion.ListView.XForms;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Android.Content.Res.Resources;
 
 namespace CookItApp.Views
 {

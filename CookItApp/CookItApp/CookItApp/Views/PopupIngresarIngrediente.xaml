@@ -36,7 +36,8 @@
                 <Grid Grid.Column="1" Grid.Row="0">
                     <xforms:SfListView x:Name="ListaIngredientes"
                                        ItemsSource="{Binding Ingredientes}"
-                                       SelectionMode="Single"
+                                       SelectionMode="SingleDeselect"
+                                       SelectionGesture="Tap"
                                        ItemSize="30"
                                        BackgroundColor="{StaticResource colorBackground}">
                         <xforms:SfListView.ItemTemplate>
