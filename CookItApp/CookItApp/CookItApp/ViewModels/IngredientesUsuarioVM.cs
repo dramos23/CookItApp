@@ -1,6 +1,5 @@
 ﻿using CookItApp.Data;
 using CookItApp.Models;
-using CookItWebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

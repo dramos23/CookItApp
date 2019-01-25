@@ -119,7 +119,7 @@ namespace CookItApp.Data
         public async Task<Perfil> Modificar(Perfil obj)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + obj._Email;
+            string Url = Web;
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);

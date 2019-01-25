@@ -31,6 +31,7 @@ namespace CookItApp.ViewModels
                 foreach (HistorialReceta h in HistorialRecetas)
                 {
                     h._Receta = App.DataBase.Receta.Obtener(h._IdReceta);
+                    h._Receta._FotoCompleta = h._Receta._Foto != null ? h._Receta.ImageFoto() : "food.png";
                 }
             }
         }

@@ -16,7 +16,7 @@ namespace CookItApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ListaRecetasPage : ContentPage
 	{
-        RecetasListVM _VMRecetas;
+        RecetaListVM _VMRecetas;
         Usuario Usuario;
         //Atributos necesarios para revisar si el usuario rotó el celular
         private double width;
@@ -26,7 +26,7 @@ namespace CookItApp.Views
 		{
 			InitializeComponent ();
             this.Usuario = Usuario;
-            _VMRecetas = new RecetasListVM(null);
+            _VMRecetas = new RecetaListVM(null);
             BindingContext = _VMRecetas;
         }
 
@@ -41,11 +41,14 @@ namespace CookItApp.Views
                 return;
             }
 
-            Receta rec = App.DataBase.Receta.Obtener(receta._IdReceta);
-            //Receta rec = await App.RecetaService.Obtener(receta);
+            //Receta rec = App.DataBase.Receta.Obtener(receta._IdReceta);
+            Receta rec = await App.RecetaService.Obtener(receta);
 
             if (rec != null)
             {
+                //Agrego receta al historial del usuario
+                AgregarRecetaHistorial(rec);
+                 
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(rec, Usuario));
 
@@ -308,15 +311,35 @@ namespace CookItApp.Views
             if (keyword.Length >= 1)
             {
                 List<Receta> resultado = App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();                
-                _VMRecetas = new RecetasListVM(resultado);
+                _VMRecetas = new RecetaListVM(resultado);
                 BindingContext = _VMRecetas;
 
             }
             else
             {
                 List<Receta> resultado = App.DataBase.Receta.ObtenerList().ToList();
-                _VMRecetas = new RecetasListVM(resultado);
+                _VMRecetas = new RecetaListVM(resultado);
                 BindingContext = _VMRecetas;
+            }
+
+        }
+
+        private async void AgregarRecetaHistorial(Receta receta) {
+
+            HistorialReceta historialReceta = new HistorialReceta()
+            {
+                _Email = Usuario._Email,
+                _IdReceta = receta._IdReceta,
+                _FechaHora = DateTime.Now
+                
+            };
+
+            HistorialReceta historial = await App.HistorialRecetaService.Alta(historialReceta);
+
+            if (historial != null) {
+
+                App.DataBase.HistorialReceta.Guardar(historial);
+
             }
 
         }

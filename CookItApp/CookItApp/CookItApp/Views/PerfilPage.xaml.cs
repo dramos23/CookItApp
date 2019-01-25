@@ -1,4 +1,5 @@
-﻿using CookItApp.Models;
+﻿using Acr.UserDialogs;
+using CookItApp.Models;
 using CookItApp.ViewModels;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -115,52 +116,65 @@ namespace CookItApp.Views
 
         private async void BtnGuardarPerfil_Clicked(object sender, EventArgs e)
         {
-            Perfil p = GenerarPerfil();
-            Perfil perfil = new Perfil();
+                UserDialogs.Instance.ShowLoading("Guardando perfil..");
 
-            if (Usuario._Perfil == null)
-            {
-                perfil = await App.PerfilService.Alta(p);
-            }
-            else
-            {
-                perfil = await App.PerfilService.Modificar(p); 
-            }
-
-
-            if (perfil != null)
-            {
-
-
-                int save = 0;
+                Perfil p = GenerarPerfil();
+                Perfil perfil = new Perfil();
 
                 if (Usuario._Perfil == null)
                 {
-                    save = App.DataBase.Perfil.Guardar(perfil);
+                    perfil = await App.PerfilService.Alta(p);
                 }
                 else
                 {
-                    save = App.DataBase.Perfil.Modificar(perfil);
+                    perfil = await App.PerfilService.Modificar(p);
                 }
 
-                if (save == 1)
+
+                if (perfil != null)
                 {
-                    await DisplayAlert("Perfil", "Se ha actualizado tu perfil.", "Ok");                    
+
+
+                    int save = 0;
+
+                    if (Usuario._Perfil == null)
+                    {
+                        save = App.DataBase.Perfil.Guardar(perfil);
+                    }
+                    else
+                    {
+                        save = App.DataBase.Perfil.Modificar(perfil);
+                    }
+
+                    if (save == 1)
+                    {
+                        UserDialogs.Instance.HideLoading();
+
+                        await DisplayAlert("Perfil", "Se ha actualizado tu perfil.", "Ok");
+                        await scroll.ScrollToAsync(0, (double)ScrollToPosition.End, true);
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        await DisplayAlert("Perfil", "Ha ocurrido un error vuelve a intentarlo.", "Ok");
+                    }
+
+                    MasterPage.ActualizarPerfil(perfil);
+                    Usuario._Perfil = perfil;
+
                 }
                 else
                 {
-                    await DisplayAlert("Perfil", "Ha ocurrido un error vuelve a intentarlo.", "Ok");
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert("Perfil", "Ha ocurrido un error al crear o actualizar su perfil, pongase en contacto con el área de soporte.", "Ok");
                 }
 
-                MasterPage.ActualizarPerfil(perfil);
-                Usuario._Perfil = perfil;
+                
 
-            }
-            else {
-                await DisplayAlert("Perfil", "Ha ocurrido un error al crear o actualizar su perfil, pongase en contacto con el área de soporte.", "Ok");
-            }
 
         }
+
+
 
         private void TogFiltrosAutomaticos_Toggled(object sender, ToggledEventArgs e)
         {
@@ -222,10 +236,10 @@ namespace CookItApp.Views
                 _FiltroDificultadMax = (togDificultad.IsToggled == true) ? Convert.ToInt16(entryDificultadMenorIgual.Text) : 0,
 
                 _FiltroMomentoDia = (togFiltrosAutomaticos.IsToggled == true && togMomentoDia.IsToggled == true) ? true : false,
-                _FiltroMomentoDiaId = (togMomentoDia.IsToggled == true) ? picMomentoDia.SelectedIndex : 0,
+                _FiltroMomentoDiaId = (togMomentoDia.IsToggled == true) ? picMomentoDia.SelectedIndex : 1,
                 
                 _FiltroEstacion = (togFiltrosAutomaticos.IsToggled == true && togEstacion.IsToggled == true) ? true : false,
-                _FiltroEstacionId = (togEstacion.IsToggled == true) ? picEstacion.SelectedIndex : 0
+                _FiltroEstacionId = (togEstacion.IsToggled == true) ? picEstacion.SelectedIndex : 1
             };
 
             return p;

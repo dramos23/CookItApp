@@ -44,6 +44,7 @@
             <Label Text="Hazle un comentario:" />
             <Entry x:Name="ComentaioOrigen" Text="" Placeholder="Comenta"/>
         </StackLayout>
+        <ActivityIndicator x:Name="Indicador"></ActivityIndicator>            
         <Button BackgroundColor="DodgerBlue"
                 FontSize="24"
                 Text="Retar"

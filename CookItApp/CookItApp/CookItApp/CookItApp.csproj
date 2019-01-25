@@ -17,10 +17,11 @@
 
   <ItemGroup>
     <PackageReference Include="AiForms.Layouts" Version="1.1.0" />
-    <PackageReference Include="Microsoft.AppCenter.Push" Version="1.12.0" />
+    <PackageReference Include="Microsoft.AppCenter.Push" Version="1.13.0" />
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Octane.Xam.VideoPlayer" Version="2.2.0" />
+    <PackageReference Include="Plugin.UserDialogs" Version="1.0.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.180" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
@@ -36,6 +37,9 @@
     </Compile>
     <Compile Update="Views\HistorialRecetaPage.xaml.cs">
       <DependentUpon>HistorialRecetaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ListaNotificacionesPage.xaml.cs">
+      <DependentUpon>ListaNotificacionesPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\PopupFiltros\PopupFiltroPuntaje.xaml.cs">
       <DependentUpon>PopupFiltroPuntaje.xaml</DependentUpon>
@@ -76,7 +80,10 @@
     <EmbeddedResource Update="Views\ListaRecetasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ListaUsuariosPage.xaml">
+    <EmbeddedResource Update="Views\ListaNotificacionesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Loading.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">

@@ -6,20 +6,7 @@
     <Grid>
 
         <Image Source="fondoFrutillas.jpg" Aspect="AspectFill"/>
+        <BoxView Color="LightSlateGray" Opacity="0.8"/>
 
-        <Grid>
-            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid  HorizontalOptions="Center">
-                <StackLayout Padding="0,20,0,0" VerticalOptions="CenterAndExpand" Orientation="Vertical">
-                    <ActivityIndicator x:Name="ActIndicador" IsRunning="True" IsEnabled="True" BackgroundColor="Transparent" Color="Silver" WidthRequest="100" HeightRequest="100"></ActivityIndicator>
-                    <Label x:Name="lblTexto" Text="" TextColor="White" FontSize="Medium"/>
-                </StackLayout>
-            </Grid>
-        </Grid>
-        
     </Grid>
 </ContentPage>

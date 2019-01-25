@@ -6,28 +6,22 @@ using System.Text;
 
 namespace CookItApp.ViewModels
 {
-    public class UserInfoListVM : BaseViewModel
+    public class NotificacionListVM : BaseViewModel
     {
-        public ObservableCollection<Usuario> Usuarios { get; set; }
+        public List<Notificacion> Usuarios = new List<Notificacion>();
 
-        public UserInfoListVM()
+        public bool Vacio { get; set; }
+
+        public bool Lista { get; set; }
+
+        public string Text { get; set; }
+
+        public NotificacionListVM()
         {
-            //Se filtra y se pone las recetas que queres mostrar
-
-            //this.Usuarios = new ObservableCollection<UserInfo>();
-            ////Just for tesing
-            //this.Usuarios.Add(new UserInfo
-            //{
-            //    _Email = "dcazesv@gmail.com",
-            //    _Id = 1,
-            //    _Password = "12345"                
-            //});
-            //this.Usuarios.Add(new UserInfo
-            //{
-            //    _Email = "daniel.r.23@gmail.com",
-            //    _Id = 2,
-            //    _Password = "54321"
-            //});
+            Usuarios = App.DataBase.Notificacion.ObtenerList();
+            Vacio = (Usuarios.Count == 0) ? true : false;
+            Lista = (Usuarios.Count == 0) ? false : true;
+            Text = Vacio ? "No tiene notificaciones!." : null;
         }
 
 

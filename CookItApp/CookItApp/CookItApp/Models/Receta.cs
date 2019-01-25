@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using SQLite;
+using Xamarin.Forms;
 
 namespace CookItApp.Models
 {
@@ -36,6 +38,10 @@ namespace CookItApp.Models
         public bool _AptoVegetarianos { get; set; }
         public bool _AptoVeganos { get; set; }
         public bool _Habilitada { get; set; }
+
+        [JsonIgnore]
+        [Ignore]
+        public ImageSource _FotoCompleta { get; set; }
         
         [Ignore]
         public List<IngredienteReceta> _ListaIngredientesReceta { set; get; }
@@ -96,6 +102,16 @@ namespace CookItApp.Models
         //        return "iconoEstrella" + _Dificultad + ".png";
         //    }
         //}
+
+        public ImageSource ImageFoto()
+        {
+
+            Image image = new Image();
+            Stream stream = new MemoryStream(_Foto);
+            image.Source = ImageSource.FromStream(() => { return stream; });
+            return image.Source;
+
+        }
 
 
     }

@@ -4,7 +4,7 @@
              x:Class="CookItApp.Views.PerfilPage">
     <ContentPage.Content>
         
-        <ScrollView Orientation="Vertical">
+        <ScrollView x:Name="scroll" Orientation="Vertical">
             
             <Grid>
 

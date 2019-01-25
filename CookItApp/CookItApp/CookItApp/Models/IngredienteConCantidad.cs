@@ -12,7 +12,7 @@ namespace CookItApp.Models
         public int _IdIngrediente { set; get; }
   
         public int _Cantidad { get; set; }
-        [JsonIgnore]
+        
         [Ignore]
         public Ingrediente _Ingrediente { get; set; }
 
@@ -21,7 +21,13 @@ namespace CookItApp.Models
 
         public IngredienteConCantidad() {
 
-            _CantidadMedida = _Cantidad.ToString() + " " + _Ingrediente._Medida.ToString(); 
+             
+
+        }
+
+        public void CantidadMedida() {
+
+            _CantidadMedida = _Cantidad.ToString() + " " + _Ingrediente._Medida.ToString();
 
         }
 

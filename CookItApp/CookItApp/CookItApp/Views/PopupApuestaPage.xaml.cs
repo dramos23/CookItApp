@@ -61,6 +61,8 @@ namespace CookItApp.Views
 
         private async void RetarUsuario_Clicked(object sender, EventArgs e)
         {
+            Indicador.IsRunning = true;
+
             Reto reto = new Reto
             {
                 _EmailUsuOri = _Usuario._Email,
@@ -77,11 +79,22 @@ namespace CookItApp.Views
                 //rest api
                 Reto r = await App.RetoService.Alta(reto);
 
-                if (r != null) {
+                if (r != null)
+                {
 
-                    //guardo ?
+                    Indicador.IsRunning = false;
+                    await DisplayAlert("Reto", "Reto enviado...", "OK");
 
                 }
+                else {
+
+                    Indicador.IsRunning = false;
+                    await DisplayAlert("Reto", "Aún matiene un reto pendiente con el usuario.", "OK");
+
+
+                }
+
+                Navigation.RemovePage(this);
 
             }
 

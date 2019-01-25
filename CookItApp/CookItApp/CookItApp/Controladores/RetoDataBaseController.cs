@@ -40,8 +40,7 @@ namespace CookItApp.Controladores
             lock (locker)
             {
 
-                int ret = BorrarTodo();
-                if (obj != null)
+                if (obj.Count > 0)
                 {
                     return database.InsertAll(obj);
                 }
