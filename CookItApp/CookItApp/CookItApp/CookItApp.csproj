@@ -31,11 +31,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v8.1\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\CargaRecursos.xaml.cs">
       <DependentUpon>CargaRecursos</DependentUpon>
     </Compile>
     <Compile Update="Views\HistorialRecetaPage.xaml.cs">
       <DependentUpon>HistorialRecetaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PopupIngresarIngrediente.xaml.cs">
+      <DependentUpon>PopupIngresarIngrediente.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\PopupFiltros\PopupFiltroPuntaje.xaml.cs">
       <DependentUpon>PopupFiltroPuntaje.xaml</DependentUpon>

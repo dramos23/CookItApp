@@ -4,16 +4,17 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              x:Class="CookItApp.Views.IngredientesUsuarioView">
     <ContentPage.Content>
-        <Grid x:Name="gridPrincipal">
+        <Grid x:Name="gridPrincipal" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <StackLayout Padding="0" Margin="5"
+            <StackLayout Padding="0"
                          Grid.Row="0" Grid.ColumnSpan="3"
                          x:Name="frmBorrar"
                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -31,6 +32,7 @@
                     </StackLayout>
                 </Frame>
             </StackLayout>
+
             <Grid Grid.Column="0" Grid.Row="1">
                 <syncfusion:SfListView x:Name="ListaIngredientes"
                                        ItemsSource="{Binding IngredientesUsuario}"
@@ -40,37 +42,35 @@
                                        BackgroundColor="{StaticResource colorBackground}">
                     <syncfusion:SfListView.ItemTemplate>
                         <DataTemplate>
-                            <Frame BorderColor="Black" Padding="5">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*"/>
-                                        <ColumnDefinition Width="5*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <syncfusion:DragIndicatorView Grid.Column="0" ListView="{x:Reference ListaIngredientes}" 
-                                                                  HorizontalOptions="Center" VerticalOptions="Center">
-                                        <Grid>
-                                            <Image Source="hamburger.png"
+                            <syncfusion:DragIndicatorView ListView="{x:Reference ListaIngredientes}">
+                                <Frame BorderColor="Black" Padding="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="7.5*"/>
+                                            <ColumnDefinition Width="2.5*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding _Ingrediente._Nombre}"
                                            Grid.Column="0"
-                                           HorizontalOptions="Center" VerticalOptions="Center"/>
-                                        </Grid>
-                                    </syncfusion:DragIndicatorView>
-                                    <Label Text="{Binding _Ingrediente._Nombre}"
+                                           HorizontalOptions="Center" VerticalOptions="Center"
+                                           FontSize="Small" TextColor="{StaticResource colorOnBackground}"
+                                           LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding _CantidadMedida}"
                                            Grid.Column="1"
                                            HorizontalOptions="Center" VerticalOptions="Center"
                                            FontSize="Small" TextColor="{StaticResource colorOnBackground}"
                                            LineBreakMode="TailTruncation"/>
-                                    <Label Text="{Binding _CantidadMedida}"
-                                           Grid.Column="2"
-                                           HorizontalOptions="Center" VerticalOptions="Center"
-                                           FontSize="Small" TextColor="{StaticResource colorOnBackground}"
-                                           LineBreakMode="TailTruncation"/>
-                                </Grid>
-                            </Frame>
+                                    </Grid>
+                                </Frame>
+                            </syncfusion:DragIndicatorView>
                         </DataTemplate>
                     </syncfusion:SfListView.ItemTemplate>
                 </syncfusion:SfListView>
             </Grid>
+            <Image x:Name="imgAgregarIngrediente" Grid.Row="2" Source="iconOk.png" Style="{StaticResource estiloBotonImagen}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnAgregarIng_Tapped" NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

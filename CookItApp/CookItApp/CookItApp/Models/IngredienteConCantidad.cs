@@ -21,6 +21,7 @@ namespace CookItApp.Models
 
         public IngredienteConCantidad() {
 
+            if(_Ingrediente != null)
             _CantidadMedida = _Cantidad.ToString() + " " + _Ingrediente._Medida.ToString(); 
 
         }

@@ -37,7 +37,6 @@
                              Orientation="Horizontal"
                              Padding="20,10,0,10"
                              Spacing="10">
-
                                             <Image Source="{Binding Icon}"
                          WidthRequest="30"
                          HeightRequest="30"
