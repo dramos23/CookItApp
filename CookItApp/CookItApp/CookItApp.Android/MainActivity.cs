@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Microsoft.AppCenter.Push;
@@ -12,7 +13,10 @@ namespace CookItApp.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
             base.OnCreate(savedInstanceState);
+
+            UserDialogs.Init(this);
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);

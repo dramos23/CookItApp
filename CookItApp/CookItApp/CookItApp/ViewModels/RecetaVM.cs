@@ -14,32 +14,17 @@ namespace CookItApp.ViewModels
 
         public RecetaVM(Receta r)
         {
-            this._IngredientesReceta = r._ListaIngredientesReceta;
-            this._Receta = r;
-           // CargarDatos(r);
+            _IngredientesReceta = r._ListaIngredientesReceta;
+            _Receta = r;
+            CargarDato();
         }
 
-        //public void CargarDatos(Receta r) {
-
-        //    if (_IngredientesReceta.Count != 0)
-        //    {
-        //        return;
-        //    }
-
-        //    foreach (IngredienteReceta ir in r._ListaIngredientesReceta) {
-
-        //        try
-        //        {
-        //            ir._CantidadMedida = ir._Cantidad + " " + ir._Ingrediente._Medida.ToString();
-        //            this._IngredientesReceta.Add(ir);
-        //        }
-        //        catch(Exception e) {
-
-        //            var msj  = e.Message;
-
-        //        }
-
-        //    }
-        //}
+        public void CargarDato()
+        {
+            foreach (IngredienteReceta ir in _IngredientesReceta)
+            {
+                ir.CantidadMedida();
+            }
+        }
     }
 }

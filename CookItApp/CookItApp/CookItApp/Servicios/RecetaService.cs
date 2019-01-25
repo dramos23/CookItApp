@@ -82,9 +82,16 @@ namespace CookItApp.Data
 
         private Receta Deseralizar(string jsonResult)
         {
-
-            Receta p = JsonConvert.DeserializeObject<Receta>(jsonResult);
-            return p;
+            try
+            {
+                Receta p = JsonConvert.DeserializeObject<Receta>(jsonResult);
+                return p;
+            }
+            catch(Exception e)
+            {
+                var msj = e.Message;
+                return null;
+            }
 
         }
 

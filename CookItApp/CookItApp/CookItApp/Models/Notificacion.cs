@@ -22,7 +22,9 @@ namespace CookItApp.Models
         public DateTime _FechaHora { get; set; }
         public Estado _Estado { get; set; }
         public string _Titulo { get; set; }
-        public string _Descripción { get; set; }
+        public string _Descripcion { get; set; }
+
+        public ConsoleColor _Color { get { return _Estado == 0 ? ConsoleColor.Gray : ConsoleColor.White; } }
 
         public Notificacion()
         {

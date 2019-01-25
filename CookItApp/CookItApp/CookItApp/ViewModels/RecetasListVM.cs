@@ -6,11 +6,11 @@ using System.Text;
 
 namespace CookItApp.ViewModels
 {
-    public class RecetasListVM
+    public class RecetaListVM
     {
         public ObservableCollection<Receta> Recetas { get; set; }
 
-        public RecetasListVM(List<Receta> recetas)
+        public RecetaListVM(List<Receta> recetas)
         {
 
 

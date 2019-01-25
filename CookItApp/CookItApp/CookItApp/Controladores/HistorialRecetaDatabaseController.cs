@@ -29,7 +29,7 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<HistorialReceta>().Where(h => h._Email == usuario._Email).ToList();
+                    return database.Table<HistorialReceta>().ToList();
                 }
             }
         }
@@ -39,11 +39,29 @@ namespace CookItApp.Controladores
 
             lock (locker)
             {
+                if (obj != null)
+                {
+                    return database.InsertAll(obj);
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+
+
+        public int Guardar(HistorialReceta obj)
+        {
+
+            lock (locker)
+            {
 
                 int ret = BorrarTodo();
                 if (obj != null)
                 {
-                    return database.InsertAll(obj);
+                    return database.Insert(obj);
                 }
                 else
                 {

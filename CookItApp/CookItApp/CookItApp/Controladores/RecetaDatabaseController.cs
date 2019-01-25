@@ -43,13 +43,13 @@ namespace CookItApp.Data
                 {
 
                     Receta receta = database.Table<Receta>().FirstOrDefault(r => r._IdReceta == idReceta);
-                    List<IngredienteReceta> ingredienteRecetas = App.DataBase.IngredienteReceta.ObtenerList(idReceta);
-                    List<ComentarioReceta> comentarioRecetas = App.DataBase.ComentarioReceta.ObtenerList(idReceta);
-                    List<PasoReceta> pasoRecetas = App.DataBase.PasoReceta.ObtenerList(idReceta);
+                    //List<IngredienteReceta> ingredienteRecetas = App.DataBase.IngredienteReceta.ObtenerList(idReceta);
+                    //List<ComentarioReceta> comentarioRecetas = App.DataBase.ComentarioReceta.ObtenerList(idReceta);
+                    //List<PasoReceta> pasoRecetas = App.DataBase.PasoReceta.ObtenerList(idReceta);
 
-                    receta._ListaIngredientesReceta = ingredienteRecetas;
-                    receta._ListaComentariosReceta = comentarioRecetas;
-                    receta._ListaPasosReceta = pasoRecetas;
+                    //receta._ListaIngredientesReceta = ingredienteRecetas ?? null;
+                    //receta._ListaComentariosReceta = comentarioRecetas ?? null;
+                    //receta._ListaPasosReceta = pasoRecetas ?? null;
 
                     return receta;
                 }
@@ -64,6 +64,7 @@ namespace CookItApp.Data
                 foreach(Receta r in Receta){
 
                     database.Insert(r);
+                    r.InsertarBD();
 
                 }
             }

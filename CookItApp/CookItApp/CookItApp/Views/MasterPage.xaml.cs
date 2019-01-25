@@ -37,8 +37,8 @@ namespace CookItApp.Views
             var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png"/*, TargetType = typeof(View1) */};
             var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png", TargetType = typeof(IngredientesUsuarioView) };
             var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
-            var page6 = new MasterPageItem() { Title = "Retos"/*, Icon = "perfil.png", TargetType = typeof(PerfilPage) */};
-            var page7 = new MasterPageItem() { Title = "Notificaciones"/*, Icon = "perfil.png", TargetType = typeof(PerfilPage) */};
+            var page6 = new MasterPageItem() { Title = "Retos", Icon = "reto.png", TargetType = typeof(PerfilPage)};
+            var page7 = new MasterPageItem() { Title = "Notificaciones", Icon = "notifications.png", TargetType = typeof(ListaNotificacionesPage) };
             var page8 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
             var page9 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
 
@@ -70,10 +70,15 @@ namespace CookItApp.Views
         {
             if (!AppCenter.Configured)
             {
-                Push.PushNotificationReceived += (sender, e) =>
+                Push.PushNotificationReceived += async (sender, e) =>
                 {
-
-                    DisplayAlert(e.Title, e.Message, "OK");
+                    if ( e.CustomData.Keys.Contains("Reto"))
+                    {
+                        await DisplayAlert(e.Title, e.Message, "OK");
+                        List<Notificacion> notificacions = App.DataBase.Notificacion.ObtenerList();
+                        await Navigation.PushAsync(new ListaNotificacionesPage(null), true);
+                        Navigation.RemovePage(this);
+                    }                   
 
                 };
             }
@@ -104,6 +109,7 @@ namespace CookItApp.Views
                     Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
                     IsPresented = false;
                 }
+
             }
         }
 

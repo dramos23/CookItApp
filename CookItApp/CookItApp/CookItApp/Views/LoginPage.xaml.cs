@@ -1,4 +1,5 @@
-﻿using CookItApp.Models;
+﻿using Acr.UserDialogs;
+using CookItApp.Models;
 using CookItApp.Servicios;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
@@ -12,42 +13,47 @@ using Xamarin.Forms.Xaml;
 
 namespace CookItApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoginPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LoginPage : ContentPage
+    {
         private Usuario Usuario { get; set; }
 
-		public LoginPage ()
-		{
-			InitializeComponent ();
+        public LoginPage()
+        {
+            InitializeComponent();
             Push.SetEnabledAsync(true);
 
             NavigationPage.SetHasNavigationBar(this, false);
             Init();
-		}
+        }
 
-        public void Init() {
+        public void Init()
+        {
 
             entryEmail.Completed += (s, e) => entryPass.Focus();
             entryPass.Completed += (s, e) => PrcIngresar(s, e);
             BtnRegistrar();
-            
+
         }
 
-        public async void PrcIngresar(object sender, EventArgs e )
+        public async void PrcIngresar(object sender, EventArgs e)
         {
             btnIngresar.IsEnabled = false;
-            if(entryEmail.Text == null)
+            if (entryEmail.Text == null)
             {
-                await DisplayAlert("Login", "Debe ingresar un correo.", "Ok");
+                //await DisplayAlert("Login", "Debe ingresar un correo.", "Ok");
+                await UserDialogs.Instance.AlertAsync("Login", "Debe ingresar un correo.", "Ok");
                 btnIngresar.IsEnabled = true;
                 return;
-            }else if(entryPass.Text == null)
+            }
+            else if (entryPass.Text == null)
             {
                 await DisplayAlert("Login", "Debe ingresar una contraseña.", "Ok");
                 btnIngresar.IsEnabled = true;
                 return;
             }
+
+            UserDialogs.Instance.ShowLoading("Ingresando..");
 
             System.Guid? uuid = await AppCenter.GetInstallIdAsync();
 
@@ -57,15 +63,15 @@ namespace CookItApp.Views
 
                 if (Usuario.IsValid())
                 {
-                    
+
                     Token token = await App.RestService.Login(Usuario);
 
                     if (token != null)
                     {
                         if (token._AccessToken != null)
                         {
-
-                            await DisplayAlert("Login", "Ingreso Satisfactorio", "Ok");
+                            UserDialogs.Instance.HideLoading();
+                            //await DisplayAlert("Login", "Ingreso Satisfactorio", "Ok");
 
                             App.DataBase.Usuario.Guardar(Usuario);
                             App.DataBase.Token.Guardar(token);
@@ -73,26 +79,33 @@ namespace CookItApp.Views
                             await Navigation.PushAsync(new CargaRecursos(Usuario, "INS"), true);
                             Navigation.RemovePage(this);
                         }
-                        else {
+                        else
+                        {
+                            UserDialogs.Instance.HideLoading();
                             await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
                         }
                     }
                     else
                     {
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Login", "Error en el servicio.", "Ok");
                     }
 
                 }
                 else
                 {
+                    UserDialogs.Instance.HideLoading();
                     await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
                 }
 
                 btnIngresar.IsEnabled = true;
             }
+
+            UserDialogs.Instance.HideLoading();
         }
 
-        public void BtnRegistrar() {
+        public void BtnRegistrar()
+        {
 
             //Navigation.PushAsync(new RegisterPage());
             lblRegistro.GestureRecognizers.Add(new TapGestureRecognizer()
@@ -106,7 +119,7 @@ namespace CookItApp.Views
 
         public async Task<bool> CargaDatosAplicativo(Usuario usuario, Token token)
         {
-            
+
 
             bool retorno = false;
 

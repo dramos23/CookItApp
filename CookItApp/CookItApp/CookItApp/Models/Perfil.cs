@@ -9,7 +9,7 @@ namespace CookItApp.Models
     public class Perfil
     {
         
-
+        [PrimaryKey]
         public string _Email { get; set; }
         [JsonIgnore]
         [Ignore]
@@ -30,8 +30,8 @@ namespace CookItApp.Models
         public bool _FiltroCalorias { set; get; }
         public int _FiltroCaloriasMin { set; get; }
         public int _FiltroCaloriasMax { set; get; }
-        public bool _FiltroPaisOrigen { set; get; }
-        public int? _FiltroPaisOrigenId { set; get; }
+        //public bool _FiltroPaisOrigen { set; get; }
+        //public int? _FiltroPaisOrigenId { set; get; }
         public bool _FiltroMomentoDia { set; get; }       
         public int? _FiltroMomentoDiaId { set; get; }
         public bool _FiltroPuntuacion { set; get; }
@@ -50,30 +50,37 @@ namespace CookItApp.Models
         public int _FiltroTiempoPreparacionMax { set; get; }
         
         [Ignore]
-        [JsonIgnore]
+        
         public List<IngredienteUsuario> _ListaIngredientesUsuario { get; set; }
         [Ignore]
-        [JsonIgnore]
+        
         public List<Reto> _ListaRetos { get; set; }
         [Ignore]
-        [JsonIgnore]
+        
         public List<Notificacion> _ListaNotificaciones { get; set; }
         [Ignore]
-        [JsonIgnore]
+        
         public List<RecetaFavorita> _ListaRecetasFavoritas { get; set; }
 
         //COMO SQLlite NO PERMITE INSERTAR UN RANGO DE OBJETOS NO GENERICOS
         //CREO UN MÉTODO PARA QUE EL OBJETO INGRESE SU LISTAS.
 
 
-        public Perfil() { }
+        public Perfil() {
+
+            _ListaIngredientesUsuario = new List<IngredienteUsuario>();
+            _ListaNotificaciones = new List<Notificacion>();
+            _ListaRecetasFavoritas = new List<RecetaFavorita>();
+            _ListaRetos = new List<Reto>();
+
+        }
 
         public Perfil(string Email, byte[] Foto, string NombreUsuario, string Nombre, string Apellido, bool FiltroAutomatico, bool FiltroPrecio, 
             int FiltroPrecioMin, int FiltroPrecioMax, bool FiltroVegetariano, bool FiltroVegano, bool FiltroDiabetico, bool FiltroCeliaco, 
-            bool FiltroCalorias, int FiltroCaloriasMin, int FiltroCaloriasMax, bool FiltroPaisOrigen, int FiltroPaisOrigenId, bool FiltroMomentoDia, 
-            int FiltroMomentoDiaId, bool FiltroPuntuacion, int FiltroPuntuacionMin, int FiltroPuntuacionMax, bool FiltroEstacion, int FiltroEstacionId, 
-            bool FiltroDificultad, int FiltroDificultadMin, int FiltroDificultadMax, bool FiltroCantPlatos, int FiltroCantPlatosMin,
-            int FiltroCantPlatosMax, bool FiltroTiempoPreparacion, int FiltroTiempoPreparacionMin, int FiltroTiempoPreparacionMax)
+            bool FiltroCalorias, int FiltroCaloriasMin, int FiltroCaloriasMax, bool FiltroMomentoDia, int FiltroMomentoDiaId, bool FiltroPuntuacion, 
+            int FiltroPuntuacionMin, int FiltroPuntuacionMax, bool FiltroEstacion, int FiltroEstacionId, bool FiltroDificultad, int FiltroDificultadMin, 
+            int FiltroDificultadMax, bool FiltroCantPlatos, int FiltroCantPlatosMin, int FiltroCantPlatosMax, bool FiltroTiempoPreparacion, 
+            int FiltroTiempoPreparacionMin, int FiltroTiempoPreparacionMax)
         {
             _Email = Email;
             _Foto = Foto;
@@ -91,8 +98,6 @@ namespace CookItApp.Models
             _FiltroCalorias = FiltroCalorias;
             _FiltroCaloriasMin = FiltroCaloriasMin;
             _FiltroCaloriasMax = FiltroCaloriasMax;
-            _FiltroPaisOrigen = FiltroPaisOrigen;
-            _FiltroPaisOrigenId = FiltroPaisOrigenId;
             _FiltroMomentoDia = FiltroMomentoDia;
             _FiltroMomentoDiaId = FiltroMomentoDiaId;
             _FiltroPuntuacion = FiltroPuntuacion;
@@ -170,27 +175,23 @@ namespace CookItApp.Models
                     diccionario.Add("TiempoPreparacionMayorIgual", _FiltroTiempoPreparacionMin.ToString());
                     diccionario.Add("TiempoPreparacionMenorIgual", _FiltroTiempoPreparacionMax.ToString());
                 }
-                if (_FiltroPaisOrigen == true)
-                {
-                    diccionario.Add("Pais", _FiltroPaisOrigenId.ToString());
-                }
+
                 //_FiltroPaisOrigen = FiltroPaisOrigen;
 
             }
             return diccionario;
         }
 
-        public int InsertarBD()
+        public void InsertarBD()
         {
 
             int ret = 0;
 
-            if (ret == 0) { ret = App.DataBase.IngredienteUsuario.GuardarList(_ListaIngredientesUsuario); }
-            if (ret == 0) { ret = App.DataBase.Reto.GuardarList(_ListaRetos); }
-            if (ret == 0) { ret = App.DataBase.Notificacion.GuardarList(_ListaNotificaciones); }
-            if (ret == 0) { ret = App.DataBase.RecetaFavorita.GuardarList(_ListaRecetasFavoritas); }
-
-            return ret;
+            ret = App.DataBase.IngredienteUsuario.GuardarList(_ListaIngredientesUsuario); 
+            ret = App.DataBase.Reto.GuardarList(_ListaRetos); 
+            ret = App.DataBase.Notificacion.GuardarList(_ListaNotificaciones); 
+            ret = App.DataBase.RecetaFavorita.GuardarList(_ListaRecetasFavoritas); 
+          
 
 
         }

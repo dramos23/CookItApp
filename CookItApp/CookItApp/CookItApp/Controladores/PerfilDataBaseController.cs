@@ -38,7 +38,8 @@ namespace CookItApp.Data
             lock (locker)
             {
                 if (database.Table<Perfil>().Count() != 0)
-                {                    
+                {
+                    
                     return database.Update(perfil);
                 }
                 else

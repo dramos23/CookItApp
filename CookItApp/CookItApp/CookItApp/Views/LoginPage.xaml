@@ -26,13 +26,14 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout Grid.Row="2" HorizontalOptions="Center" Margin="0,0,0,50">
+
+            <!--<StackLayout Grid.Row="2" HorizontalOptions="Center" Margin="0,0,0,50">
                 <Label Text="Iniciar sesión con" HorizontalOptions="Center"/>
                 <StackLayout Orientation="Horizontal">
-                    <Image Grid.Row="0" Source="" WidthRequest="45" HeightRequest="45"/>
+                    
                     <Image Grid.Row="0" Source="" WidthRequest="45" HeightRequest="45"/>
                 </StackLayout>
-            </StackLayout>
+            </StackLayout>-->
         </Grid>
 
     </Grid>
