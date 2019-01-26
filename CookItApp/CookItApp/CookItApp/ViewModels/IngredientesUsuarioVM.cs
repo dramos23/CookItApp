@@ -18,6 +18,7 @@ namespace CookItApp.ViewModels
         {
             Usr = usr;
             Vista = vista;
+            IngredientesUsuario = new ObservableCollection<IngredienteUsuario>();
             //    CargarDatos();
             GenerarDatosPrueba();
         }
@@ -37,30 +38,20 @@ namespace CookItApp.ViewModels
         internal void BorrarIngrediente(IngredienteUsuario ing)
         {
             IngredientesUsuario.Remove(ing);
+            //App.DataBase.IngredienteUsuario.Borrar
             //Falta metodo de controlador que borra ingrediente.
-            Vista.RefrescarListaIng(IngredientesUsuario);
+            Vista.RefrescarListaIng();
         }
 
         internal void AgregarIngrediente(IngredienteUsuario ing)
         {
             IngredientesUsuario.Add(ing);
             //Falta metodo de controlador que agrega ingrediente.
-            Vista.RefrescarListaIng(IngredientesUsuario);
+            Vista.RefrescarListaIng();
         }
 
         private void GenerarDatosPrueba()
         {
-            IngredientesUsuario = new ObservableCollection<IngredienteUsuario>();
-            IngredienteUsuario ing = new IngredienteUsuario()
-            {
-                _Cantidad = 500,
-                _CantidadMedida = "500gr",
-                _Ingrediente = new Ingrediente
-                {
-                    _Nombre = "Jamon",
-                    _TipoIngrediente = new TipoIngrediente { _IdTipoIngrediente = 6 }
-                }
-            };
 
             IngredienteUsuario ing2 = new IngredienteUsuario()
             {
@@ -94,7 +85,8 @@ namespace CookItApp.ViewModels
                     _TipoIngrediente = new TipoIngrediente { _IdTipoIngrediente = 10 }
                 }
             };
-            IngredientesUsuario.Add(ing); IngredientesUsuario.Add(ing2); IngredientesUsuario.Add(ing3);
+
+            IngredientesUsuario.Add(ing2); IngredientesUsuario.Add(ing3);
             IngredientesUsuario.Add(ing4);
 
 

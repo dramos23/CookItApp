@@ -11,6 +11,6 @@ namespace CookItApp.Data
         void AgregarIngrediente(IngredienteUsuario ing);
         void BorrarIngrediente(IngredienteUsuario ing);
         void ActualizarIngrediente(IngredienteUsuario ing);
-        void RefrescarListaIng(ObservableCollection<IngredienteUsuario> ings);
+        void RefrescarListaIng();
     }
 }

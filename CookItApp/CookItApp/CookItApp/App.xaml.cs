@@ -33,7 +33,6 @@ namespace CookItApp
             
             InitializeComponent();
 
-
             Usuario usuario = App.DataBase.Usuario.Obtener();
             if (usuario == null)
             {

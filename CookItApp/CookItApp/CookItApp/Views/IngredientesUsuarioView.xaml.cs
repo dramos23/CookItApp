@@ -1,12 +1,10 @@
 ﻿using CookItApp.Data;
 using CookItApp.Models;
 using CookItApp.ViewModels;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.ListView.XForms;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -18,7 +16,7 @@ namespace CookItApp.Views
     public partial class IngredientesUsuarioView : ContentPage, IViewIngUsuario
     {
         Usuario usuario;
-        private IngredientesUsuarioVM viewModel = null;
+        private IngredientesUsuarioVM viewModel;
 
         public IngredientesUsuarioView(Usuario usr)
         {
@@ -28,6 +26,7 @@ namespace CookItApp.Views
             ListaIngredientes.ItemDragging += ListaIngredientes_ItemDragging;
             BindingContext = viewModel;
         }
+
 
         //Evento que se activa cuando se arrastra un elemento
         private async void ListaIngredientes_ItemDragging(object sender, ItemDraggingEventArgs e)
@@ -40,7 +39,7 @@ namespace CookItApp.Views
 
             if (e.Action == DragAction.Dragging)
             {
-                var position = new Point(e.Position.X - this.ListaIngredientes.Bounds.X, e.Position.Y - this.ListaIngredientes.Bounds.Y);
+                var position = new Point(e.Position.X - this.ListaIngredientes.Bounds.X, e.Position.Y - this.ListaIngredientes.Bounds.Y - 100);
                 if (this.frmBorrar.Bounds.Contains(position))
                     imgTrash.Source = "iconTrashOn.png";
                 else
@@ -49,7 +48,7 @@ namespace CookItApp.Views
 
             if (e.Action == DragAction.Drop)
             {
-                var position = new Point(e.Position.X - this.ListaIngredientes.Bounds.X, e.Position.Y - this.ListaIngredientes.Bounds.Y);
+                var position = new Point(e.Position.X - this.ListaIngredientes.Bounds.X, e.Position.Y - this.ListaIngredientes.Bounds.Y - 100);
                 if (this.frmBorrar.Bounds.Contains(position))
                 {
                     await Task.Delay(100);
@@ -76,6 +75,16 @@ namespace CookItApp.Views
         public void RefrescarListaIng(ObservableCollection<IngredienteUsuario> ings)
         {
             ListaIngredientes.ItemsSource = ings;
+        }
+
+        private async void btnAgregarIng_Tapped(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupIngresarIngrediente(usuario, this));
+        }
+
+        public void RefrescarListaIng()
+        {
+            ListaIngredientes.ItemsSource = viewModel.IngredientesUsuario;
         }
     }
 }

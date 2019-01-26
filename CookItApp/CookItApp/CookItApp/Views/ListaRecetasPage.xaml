@@ -15,8 +15,7 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="9*" />
             </Grid.RowDefinitions>
-            
-            
+                        
             <!-- Grid secundaria que guarda la barra de navegacion donde se busca receta-->
             <Grid Grid.Column="0" 
                   Grid.Row="0"
