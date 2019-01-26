@@ -15,15 +15,15 @@ namespace CookItApp.Views
 	public partial class ListaNotificacionesPage : ContentPage
 	{
 
-        NotificacionListVM _ViewModelUsuario;
+        NotificacionListVM _ViewModelNotificacion;
 
 		public ListaNotificacionesPage (Usuario Usuario)
 		{
 			InitializeComponent ();
             //Se inicializa el ViewModelUsuario
-            _ViewModelUsuario = new NotificacionListVM();
+            _ViewModelNotificacion = new NotificacionListVM();
             //Este "BindingContext" le dice a Xamarin que elemento es el que vamos a usar para mostrar cosas visuales en la vista.
-            BindingContext = _ViewModelUsuario;
+            BindingContext = _ViewModelNotificacion;
             //Paso siguiente: crear un "ListView" en el .xaml y atarlo a esto.
 		}
 	}

@@ -3,28 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CookItApp.Views.ListaNotificacionesPage">
 
-    <StackLayout IsVisible="{Binding Vacio}">
-        <!-- Place new controls here -->
+    <!--<StackLayout >
+        --><!-- Place new controls here --><!--
         <Label Text="{Binding Text}" 
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" FontSize="Medium"/>
-    </StackLayout>
+           VerticalOptions="CenterAndExpand" FontSize="Medium" />
+    ItemSelected="OnItemSelected"
+    </StackLayout>-->
 
-
-    <ContentPage.Content>
-        <ListView ItemsSource="{Binding Usuarios}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement" IsVisible="{Binding Lista}">
-            <!-- ItemTemplate define como se va a ver el objeto que estamos mostrando (en este caso, un usuario con 3 atributos simples) -->
+    <StackLayout>
+        <Label Text="{Binding Text}" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" FontSize="Medium" IsVisible="{Binding Vacio}"/>
+        <ListView x:Name="ItemsListView"
+                ItemsSource="{Binding Notificaciones}"
+                VerticalOptions="StartAndExpand"                                                
+                IsVisible="{Binding Lista}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="5,0,5,0" Orientation="Vertical">
-                            <Label Text="{Binding _FechaHora}" VerticalTextAlignment="Center" FontSize="Small" HorizontalOptions="End"/>
-                            <Label Text="{Binding _Titulo}" VerticalTextAlignment="Center" FontSize="Small" />
-                            <Label Text="{Binding _Descripcion}" VerticalTextAlignment="Center" FontSize="Small" />
+                        <StackLayout BackgroundColor="{Binding _Color}">
+                            <Label Text="{Binding _FechaHora}" 
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                HorizontalOptions="End"   
+                                FontSize="13" />
+                            <Label Text="{Binding _Titulo}" 
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Label Text="{Binding _Descripcion}" 
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </ContentPage.Content>
+    </StackLayout>    
+    
 </ContentPage>
