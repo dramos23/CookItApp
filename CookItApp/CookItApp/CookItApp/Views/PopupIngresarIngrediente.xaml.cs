@@ -30,12 +30,24 @@ namespace CookItApp.Views
         
         private void txtIngrediente_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ListaIngredientes.ItemsSource = ViewModel.DevolverListaFiltrada(txtIngrediente.Text);
+            //ListaIngredientes.ItemsSource = ViewModel.DevolverListaFiltrada(txtIngrediente.Text);
+
+            string keyword = txtIngrediente.Text;
+            if (keyword != "")
+            {
+                List<Ingrediente> resultado = ViewModel.Ingredientes.Where(c => c._Nombre.ToLower().Contains(keyword.ToLower())).ToList();
+
+                
+                ListaIngredientes.ItemsSource = resultado;
+
+            }
+
+
         }
 
         private void IngresarIngrediente_Tapped(object sender, EventArgs e)
         {
-            Ingrediente ing = ListaIngredientes.SelectedItem as Ingrediente;
+            Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
             int cantidad = Convert.ToInt32(txtCantidad.Text);
             ViewModel.AgregarIngrediente(ing, cantidad);
         }

@@ -38,7 +38,7 @@ namespace CookItApp.Controladores
         {
             lock (locker)
             {
-                IngredienteUsuario ingredienteUsuario = database.Table<IngredienteUsuario>().Where(i => i._IdIngrediente == obj._IdIngrediente).First();
+                IngredienteUsuario ingredienteUsuario = database.Table<IngredienteUsuario>().FirstOrDefault(i => i._IdIngrediente == obj._IdIngrediente);
 
                 if (ingredienteUsuario != null)
                 {
@@ -68,6 +68,16 @@ namespace CookItApp.Controladores
                     return 0;
                 }
 
+            }
+        }
+
+        public int BorrarTodo(IngredienteUsuario obj)
+        {
+            IngredienteUsuario ingrediente = database.Table<IngredienteUsuario>().FirstOrDefault(iu => iu._IdIngrediente == obj._IdIngrediente);
+
+            lock (locker)
+            {
+                return database.Delete<IngredienteUsuario>(ingrediente);
             }
         }
 

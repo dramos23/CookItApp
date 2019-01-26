@@ -44,7 +44,7 @@ namespace CookItApp.ViewModels
         }
 
         //Se pone mensaje si el usuario ya tiene el ingrediente insertado para avisar que se actualizó la cantidad?
-        public void AgregarIngrediente(Ingrediente ing, int cantidad)
+        public async void AgregarIngrediente(Ingrediente ing, int cantidad)
         {
             IngredienteUsuario ingUs = new IngredienteUsuario
             {
@@ -56,7 +56,16 @@ namespace CookItApp.ViewModels
                 _CantidadMedida = cantidad + ing._Medida.ToString()
             };
 
-            App.DataBase.IngredienteUsuario.Guardar(ingUs);
+
+            IngredienteUsuario ingredienteUsuario = await App.IngredienteUsuarioService.Alta(ingUs);
+            if (ingredienteUsuario != null)
+            {
+                App.DataBase.IngredienteUsuario.Guardar(ingredienteUsuario);
+            }
+            
+
+            
+
 
             if (!Usuario._Perfil._ListaIngredientesUsuario.Contains(ingUs))
             {

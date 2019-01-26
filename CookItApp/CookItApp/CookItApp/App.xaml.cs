@@ -27,6 +27,7 @@ namespace CookItApp
         static MomentoDiaService _MomentoDiaService;
         static EstacionService _EstacionService;
         static RetoService _RetoService;
+        static IngredienteUsuarioService _IngredienteUsuarioService;
 
         public App()
         {
@@ -176,6 +177,15 @@ namespace CookItApp
             {
                 if (_RetoService == null) _RetoService = new RetoService();
                 return _RetoService;
+            }
+        }
+
+        public static IngredienteUsuarioService IngredienteUsuarioService
+        {
+            get
+            {
+                if (_IngredienteUsuarioService == null) _IngredienteUsuarioService = new IngredienteUsuarioService();
+                return _IngredienteUsuarioService;
             }
         }
 
