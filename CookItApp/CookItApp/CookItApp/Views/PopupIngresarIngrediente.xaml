@@ -4,17 +4,16 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controles="clr-namespace:CookItApp.Controles"
-    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    x:Class="CookItApp.Views.PopupIngresarIngrediente"
+             xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="CookItApp.Views.PopupIngresarIngrediente"
              CloseWhenBackgroundIsClicked="True"
              Padding="10">
     <pages:PopupPage.Animation>
         <controles:AnimacionBase/>
     </pages:PopupPage.Animation>
-
     <pages:PopupPage.Content>
-        <Frame BorderColor="Black" CornerRadius="10" HorizontalOptions="Center" VerticalOptions="Center"
-                       Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+        <Frame BorderColor="Black" CornerRadius="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+               BackgroundColor="{StaticResource colorPrimary}">
             <Grid VerticalOptions="Center" HorizontalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="8.5*"/>
@@ -49,9 +48,19 @@
                                 </Frame>
                             </DataTemplate>
                         </xforms:SfListView.ItemTemplate>
+                        <xforms:SfListView.SelectedItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="Black" Padding="5"
+                                       BackgroundColor="{StaticResource colorSecondaryVariant}">
+                                    <Grid>
+                                        <Label FontSize="Small" Text="{Binding _Nombre}" TextColor="{StaticResource colorOnBackground}"/>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </xforms:SfListView.SelectedItemTemplate>
                     </xforms:SfListView>
                 </Grid>
-                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Source="iconOk.png" Style="{StaticResource estiloBotonImagen}">
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Source="iconAgregarIngrediente.png" Style="{StaticResource estiloBotonImagen}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="IngresarIngrediente_Tapped"/>
                     </Image.GestureRecognizers>

@@ -21,7 +21,7 @@ namespace CookItApp.ViewModels
             Ingredientes = new ObservableCollection<Ingrediente>();
             CargarIngredientes();
         }
-
+        
         private void CargarIngredientes()
         {
             Ingredientes.Clear();
@@ -56,17 +56,14 @@ namespace CookItApp.ViewModels
                 _CantidadMedida = cantidad + ing._Medida.ToString()
             };
 
-
+            string aver = ingUs._CantidadMedida;
             IngredienteUsuario ingredienteUsuario = await App.IngredienteUsuarioService.Alta(ingUs);
             if (ingredienteUsuario != null)
             {
                 App.DataBase.IngredienteUsuario.Guardar(ingredienteUsuario);
             }
             
-
-            
-
-
+           
             if (!Usuario._Perfil._ListaIngredientesUsuario.Contains(ingUs))
             {
                 Usuario._Perfil._ListaIngredientesUsuario.Add(ingUs);

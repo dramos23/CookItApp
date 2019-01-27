@@ -381,5 +381,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\GOOGLE.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\iconAgregarIngrediente.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
