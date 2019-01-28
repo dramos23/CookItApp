@@ -1,20 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:CookItApp.ViewModels;assembly=CookItApp"
-             x:Class="CookItApp.Views.ListaNotificacionesPage">
-
-    <ContentPage.BindingContext>
-        <viewModels:NotificacionListVM>
-            
-        </viewModels:NotificacionListVM>
-    </ContentPage.BindingContext>
+             x:Class="CookItApp.Views.RetoListPage">
 
     <ListView x:Name="ListaNotificacion" ItemsSource="{Binding Notificaciones}" HasUnevenRows="True" ItemSelected="ListaNotificacion_ItemSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <StackLayout Padding="10" Orientation="Vertical" BackgroundColor="{Binding _Color}">
+                    <StackLayout Padding="10" Orientation="Vertical">
                         <Label Text="{Binding _FechaHora}" 
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
@@ -59,4 +52,5 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+</ContentPage>
 </ContentPage>

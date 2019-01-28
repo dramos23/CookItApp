@@ -34,6 +34,22 @@ namespace CookItApp.Controladores
             }
         }
 
+
+        public Notificacion Obtener(Notificacion obj)
+        {
+            lock (locker)
+            {
+                if (database.Table<Notificacion>().Count() == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return database.Table<Notificacion>().FirstOrDefault(n => n._NotificacionId == obj._NotificacionId);
+                }
+            }
+        }
+
         public int GuardarList(List<Notificacion> obj)
         {
 
@@ -43,6 +59,34 @@ namespace CookItApp.Controladores
                 if (obj.Count > 0)
                 {
                     return database.InsertAll(obj);
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+
+        public int Modificar(Notificacion obj)
+        {
+
+            lock (locker)
+            {
+                if (obj != null)
+                {
+                    var notificacion = Obtener(obj);
+
+
+                    if (notificacion != null)
+                    {
+                        database.Delete<Notificacion>(notificacion._NotificacionId);
+                        return database.Insert(obj);
+                    }
+                    else
+                    {
+                        return database.Insert(obj);
+                    }
                 }
                 else
                 {

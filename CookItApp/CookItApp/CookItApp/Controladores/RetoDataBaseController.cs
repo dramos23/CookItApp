@@ -34,6 +34,24 @@ namespace CookItApp.Controladores
             }
         }
 
+        public Reto Obtener(Reto reto)
+        {
+            lock (locker)
+            {
+                if (database.Table<Reto>().Count() == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return database.Table<Reto>().FirstOrDefault(r => r._EmailUsuOri == reto._EmailUsuOri && 
+                                                                      r._EmialUsuDes == reto._EmialUsuDes && 
+                                                                      r._RecetaId == reto._RecetaId && 
+                                                                      r._Cumplido == reto._Cumplido);
+                }
+            }
+        }
+
         public int GuardarList(List<Reto> obj)
         {
 

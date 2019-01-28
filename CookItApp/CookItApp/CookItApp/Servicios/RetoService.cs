@@ -55,7 +55,7 @@ namespace CookItApp.Servicios
         }
 
 
-        public async Task<List<Reto>> Obtener()
+        public async Task<List<Reto>> ObtenerList()
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;

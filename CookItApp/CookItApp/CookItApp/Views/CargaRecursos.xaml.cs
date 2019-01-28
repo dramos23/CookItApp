@@ -114,22 +114,22 @@ namespace CookItApp.Views
                 UserDialogs.Instance.ShowLoading("Guardando estaciones del año..");
                 App.DataBase.Estacion.GuardarList(estaciones);
             }
-            if (momentos != null && estaciones != null)
+
+            UserDialogs.Instance.ShowLoading("Descargando recetas..");
+            List<Receta> recetas = await App.RecetaService.ObtenerList();
+            if (recetas != null)
             {
-                UserDialogs.Instance.ShowLoading("Descargando recetas..");
-                List<Receta> recetas = await App.RecetaService.ObtenerList();
-                if (recetas != null)
-                {
-                    UserDialogs.Instance.ShowLoading("Borrando recetas..");
-                    App.DataBase.Receta.BorrarTodo();
-                    UserDialogs.Instance.ShowLoading("Guardando recetas..");
-                    App.DataBase.Receta.GuardarList(recetas);
+                UserDialogs.Instance.ShowLoading("Borrando recetas..");
+                App.DataBase.Receta.BorrarTodo();
+                UserDialogs.Instance.ShowLoading("Guardando recetas..");
+                App.DataBase.Receta.GuardarList(recetas);
 
-                    await Navigation.PushAsync(new MasterPage(usuario), true);
-                    Navigation.RemovePage(this);
-
-                }
             }
+
+            UserDialogs.Instance.HideLoading();
+            await Navigation.PushAsync(new MasterPage(usuario), true);
+            Navigation.RemovePage(this);
+
         }
 
 

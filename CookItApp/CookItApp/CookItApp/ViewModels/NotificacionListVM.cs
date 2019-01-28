@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using Xamarin.Forms;
 
 namespace CookItApp.ViewModels
 {
@@ -35,6 +36,7 @@ namespace CookItApp.ViewModels
                 {
                     foreach (var noti in notificacions)
                     {
+                        noti._Descripcion = ConvertText(noti._Descripcion);
                         Notificaciones.Add(noti);
                         Vacio = false;
                         Lista = true;
@@ -51,5 +53,15 @@ namespace CookItApp.ViewModels
                 Debug.WriteLine(ex);
             }
         }
+
+        private string ConvertText(string value)
+        {
+            if (value != null)
+            {                
+                value = (value as string).Replace("\\n", Environment.NewLine + Environment.NewLine);
+            }
+            return value;
+        }
+
     }
 }

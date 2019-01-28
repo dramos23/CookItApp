@@ -94,46 +94,5 @@ namespace CookItApp.Data
 
         }
 
-
-        //public HttpClient client;
-
-        //public UsuarioService() {
-
-        //    client = new HttpClient();
-        //    client.BaseAddress = new Uri("https://cookitprowebapi.azurewebsites.net/");
-
-        //}
-
-        //public async Task<Token> Login(UserInfo user)
-        //{
-        //    var json = JsonConvert.SerializeObject(user);
-        //    var content = new StringContent(json, Encoding.UTF8, "application/json");            
-        //    var Url = "/api/Account/Login";           
-        //    var response = await PostResponseLogin<Token>(Url, content);
-        //    return response;
-
-        //}
-
-        //public async Task<Token> Register(UserInfo user)
-        //{
-
-        //    var json = JsonConvert.SerializeObject(user);
-        //    var content = new StringContent(json, Encoding.UTF8, "application/json");
-        //    var Url = "/api/Account/Create";
-        //    var response = await PostResponseLogin<Token>(Url, content);
-        //    return response;
-
-        //}
-
-        //public async Task<T> PostResponseLogin<T>(string weburl, StringContent content) where T : class
-        //{
-        //    var response = await client.PostAsync(weburl, content);
-        //    var jsonResult = response.Content.ReadAsStringAsync().Result;
-        //    var responseObject = JsonConvert.DeserializeObject<T>(jsonResult);            
-        //    return responseObject;
-
-        //}
-
-
     }
 }
