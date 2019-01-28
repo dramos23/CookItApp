@@ -27,7 +27,7 @@ namespace CookItApp.Views
             BindingContext = viewModel;
         }
 
-
+        
         //Evento que se activa cuando se arrastra un elemento
         private async void ListaIngredientes_ItemDragging(object sender, ItemDraggingEventArgs e)
         {

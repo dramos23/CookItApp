@@ -31,7 +31,7 @@ namespace CookItApp.Views
         private void TxtIngrediente_TextChanged(object sender, TextChangedEventArgs e)
         {
             //ListaIngredientes.ItemsSource = ViewModel.DevolverListaFiltrada(txtIngrediente.Text);
-
+            
             string keyword = txtIngrediente.Text;
             if (keyword != "")
             {
@@ -41,12 +41,11 @@ namespace CookItApp.Views
                 ListaIngredientes.ItemsSource = resultado;
 
             }
-
-
+            
         }
 
         private void IngresarIngrediente_Tapped(object sender, EventArgs e)
-        {
+        {            
             Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
             int cantidad = Convert.ToInt32(txtCantidad.Text);
             ViewModel.AgregarIngrediente(ing, cantidad);
