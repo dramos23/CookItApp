@@ -12,21 +12,18 @@ using Xamarin.Forms.Xaml;
 namespace CookItApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RetoListPage : ContentPage
+	public partial class RetoPage : ContentPage
 	{
-        RetosListVM _ViewModelRetosList;
+        RetoVM _ViewModelReto;
 
         Usuario _Usuario;
 
-        public RetoListPage (Usuario usuario)
-		{            
+        public RetoPage (Reto reto, Usuario usuario)
+		{
 			InitializeComponent ();
-
             _Usuario = usuario;
-
-            _ViewModelRetosList = new RetosListVM();
-            BindingContext = _ViewModelRetosList;
-
+            _ViewModelReto = new RetoVM(reto);
+            BindingContext = _ViewModelReto;
         }
 
         private async void IrReceta_Clicked(object sender, EventArgs e)
@@ -44,15 +41,6 @@ namespace CookItApp.Views
 
                 await Navigation.PushAsync(new RecetaPage(receta, _Usuario));
 
-            }
-        }
-
-        private async void IrReto_Clicked(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-            if (button?.BindingContext is Reto reto)
-            {
-                await Navigation.PushAsync(new RetoPage(reto, _Usuario));
             }
         }
     }

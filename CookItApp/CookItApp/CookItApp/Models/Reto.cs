@@ -10,10 +10,12 @@ namespace CookItApp.Models
     public class Reto
     {
         public string _EmailUsuOri { get; set; }
+        public string _NomUsuOri { get; set; }
         [JsonIgnore]
         [Ignore]
         public Perfil _PerfilUsuOri { get; set; }
-        public string _EmialUsuDes { get; set; }
+        public string _EmailUsuDes { get; set; }
+        public string _NomUsuDes { get; set; }
         [JsonIgnore]
         [Ignore]
         public Perfil _PerfilUsuDes { get; set; }
@@ -32,11 +34,11 @@ namespace CookItApp.Models
         public string _ComentarioOrigen { get; set; }
         public string _ComentarioDestino { get; set; }
 
-        public Reto(string EmailUsuOri, string EmialUsuDes, int RecetaId, bool Cumplido, DateTime Fecha, 
+        public Reto(string EmailUsuOri, string EmailUsuDes, int RecetaId, bool Cumplido, DateTime Fecha, 
             int IdEstadoReto, byte[] Presentacion, int Puntaje, string ComentarioOrigen, string ComentarioDestino)
         {
             _EmailUsuOri = EmailUsuOri;
-            _EmialUsuDes = EmialUsuDes;
+            _EmailUsuDes = EmailUsuDes;
             _RecetaId = RecetaId;
             _Cumplido = Cumplido;
             _Fecha = Fecha;

@@ -7,58 +7,57 @@ using Xamarin.Forms;
 
 namespace CookItApp.Controladores
 {
-    public class RetoDataBaseController
+    public class EstadoRetoDataBaseController
     {
         static readonly object locker = new object();
 
         SQLiteConnection database;
 
-        public RetoDataBaseController()
+        public EstadoRetoDataBaseController()
         {
             database = DependencyService.Get<ISQLIte>().GetConnection();
-            database.CreateTable<Reto>();
+            database.CreateTable<EstadoReto>();
+
         }
 
-        public List<Reto> ObtenerList()
+        public List<EstadoReto> ObtenerList()
         {
             lock (locker)
             {
-                if (database.Table<Reto>().Count() == 0)
+                if (database.Table<EstadoReto>().Count() == 0)
                 {
                     return null;
                 }
                 else
                 {
-                    return database.Table<Reto>().ToList();
+                    return database.Table<EstadoReto>().ToList();
                 }
             }
         }
 
-        public Reto Obtener(Reto reto)
+        public EstadoReto Obtener(int Id)
         {
             lock (locker)
             {
-                if (database.Table<Reto>().Count() == 0)
+                if (database.Table<EstadoReto>().Count() == 0)
                 {
                     return null;
                 }
                 else
                 {
-                    return database.Table<Reto>().FirstOrDefault(r => r._EmailUsuOri == reto._EmailUsuOri && 
-                                                                      r._EmailUsuDes == reto._EmailUsuDes && 
-                                                                      r._RecetaId == reto._RecetaId && 
-                                                                      r._Cumplido == reto._Cumplido);
+                    return database.Table<EstadoReto>().FirstOrDefault(er => er._IdEstadoReto == Id);
                 }
             }
         }
 
-        public int GuardarList(List<Reto> obj)
+
+        public int GuardarList(List<EstadoReto> obj)
         {
 
             lock (locker)
             {
-
-                if (obj.Count > 0)
+                
+                if (obj != null)
                 {
                     return database.InsertAll(obj);
                 }
@@ -74,7 +73,7 @@ namespace CookItApp.Controladores
         {
             lock (locker)
             {
-                return database.DeleteAll<Reto>();
+                return database.DeleteAll<EstadoReto>();
             }
         }
     }

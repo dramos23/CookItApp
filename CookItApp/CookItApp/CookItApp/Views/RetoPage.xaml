@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.RetoPage">
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10" Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Row="0" Padding="1"  Margin="0">
+
+                    <Label Text="{Binding Reto._Fecha}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="End" FontSize="13" />
+
+                </Grid>
+                <Grid Grid.Row="1" Padding="1"  Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="Estado:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                    <Label Grid.Column="1" Text="{Binding Reto._EstadoReto._Estado}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+
+                </Grid>
+                <Grid Grid.Row="2" Padding="1"  Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="Retador:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                    <Label Grid.Column="1" Text="{Binding Reto._NomUsuOri}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+
+                </Grid>
+                <Grid Grid.Row="3" Padding="1"  Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="Comentario:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" VerticalOptions="Start"/>
+                    <Label Grid.Column="1" Text="{Binding Reto._ComentarioOrigen}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" MaxLines="5" VerticalOptions="Start"/>
+
+                </Grid>
+                <Grid Grid.Row="4" Padding="1"  Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="Receta:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                    <Label Grid.Column="1" Text="{Binding Reto._Receta._Titulo}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+
+                </Grid>
+                <Grid Grid.Row="5" Padding="1"  Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" x:Name="IrReceta" Image="breakfast.png" Clicked="IrReceta_Clicked" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="Ver receta." LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" VerticalOptions="Center"/>
+
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -43,6 +43,13 @@ namespace CookItApp.Views
                 App.DataBase.MomentoDia.GuardarList(momentos);
             }
 
+            UserDialogs.Instance.ShowLoading("Cargando estados reto..");
+            List<EstadoReto> estados = await App.EstadoRetoService.ObtenerList();
+            if (estados != null)
+            {
+                App.DataBase.EstadoReto.GuardarList(estados);
+            }
+
             //lblTexto.Text = "Cargando estaciones del año..";
             UserDialogs.Instance.ShowLoading("Cargando estaciones del año..");
             List<Estacion> estaciones = await App.EstacionService.ObtenerList();

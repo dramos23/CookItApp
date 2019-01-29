@@ -88,7 +88,7 @@ namespace CookItApp.Servicios
         public async Task<Reto> Modificar(Reto obj)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + obj._EmailUsuOri + "," + obj._EmialUsuDes + "," + obj._EstadoReto;
+            string Url = Web + obj._EmailUsuOri + "," + obj._EmailUsuDes + "," + obj._EstadoReto;
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);

@@ -56,7 +56,7 @@ namespace CookItApp.Views
             Reto reto = new Reto()
             {
                 _EmailUsuOri = notificacion._Pk1,
-                _EmialUsuDes = notificacion._Pk2,
+                _EmailUsuDes = notificacion._Pk2,
                 _RecetaId    = Convert.ToInt32(notificacion._Pk3),
                 _Cumplido    = Convert.ToBoolean(notificacion._Pk4),
             };
