@@ -117,13 +117,20 @@ namespace CookItApp.Views
             
         protected override bool OnBackButtonPressed()
         {
-            Navigation.PushAsync(new ListaRecetasPage(Usuario));
-
-            var stackNav = Navigation.NavigationStack.ToList();
-            foreach (var navPage in stackNav)
+            try
             {
-                Navigation.RemovePage(navPage);
+                Navigation.PushAsync(new ListaRecetasPage(Usuario));
+
+                var stackNav = Navigation.NavigationStack.ToList();
+                foreach (var navPage in stackNav)
+                {
+                    Navigation.RemovePage(navPage);
+                }
+            }catch(Exception ex)
+            {
+
             }
+
 
             return true;
         }

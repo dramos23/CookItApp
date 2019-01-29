@@ -60,6 +60,9 @@
     <Compile Update="Views\PopupFiltros\PopupFiltroTiempo.xaml.cs">
       <DependentUpon>PopupFiltroTiempo.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PopupActualizarIngrediente.xaml.cs">
+      <DependentUpon>PopupActualizarIngrediente.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

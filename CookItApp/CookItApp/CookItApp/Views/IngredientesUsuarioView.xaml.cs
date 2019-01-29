@@ -82,9 +82,21 @@ namespace CookItApp.Views
             await PopupNavigation.Instance.PushAsync(new PopupIngresarIngrediente(usuario, this));
         }
 
+        private async void btnActualizarIng_Tapped(object sender, EventArgs e)
+        {
+            if (ListaIngredientes.SelectedItem == null) return;
+            IngredienteUsuario ing = ListaIngredientes.SelectedItem as IngredienteUsuario;
+            await PopupNavigation.Instance.PushAsync(new PopupActualizarIngrediente(usuario, this, ing));
+        }
+
         public void RefrescarListaIng()
         {
             ListaIngredientes.ItemsSource = viewModel.IngredientesUsuario;
+        }
+
+        public void MensajeError(string v)
+        {
+            //Para hacer
         }
     }
 }

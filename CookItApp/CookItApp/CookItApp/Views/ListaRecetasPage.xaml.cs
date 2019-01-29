@@ -27,10 +27,18 @@ namespace CookItApp.Views
 			InitializeComponent ();
             this.Usuario = Usuario;
             _VMRecetas = new RecetaListVM(null);
+            InicializarControladorFiltros();
             BindingContext = _VMRecetas;
         }
 
-
+        private void InicializarControladorFiltros()
+        {
+            if (!Application.Current.Properties.ContainsKey("ViewModelFiltro"))
+            {
+                FiltrosVM vm = new FiltrosVM(Usuario);
+                Application.Current.Properties.Add("ViewModelFiltro", vm);
+            }
+        }
 
         //Método onclick que muestra una receta en mayor detalle cuando se clickea una receta de la lista.
         public async void RecetaSeleccionada(object sender, SelectedItemChangedEventArgs args)
@@ -64,7 +72,7 @@ namespace CookItApp.Views
 
         private async void BtnFiltros_Clicked(object sender, EventArgs e)
         {
-            var pagFiltros = new FiltrosView();
+            var pagFiltros = new FiltrosView(Usuario);
             await PopupNavigation.Instance.PushAsync(pagFiltros);
         }
 
@@ -303,24 +311,114 @@ namespace CookItApp.Views
         //Falta integrar los filtros del viewmodel de filtros
         private void BuscarReceta_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var vm = new object();
-            Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
-            FiltrosVM filtros = vm as FiltrosVM;
 
             var keyword = BuscarReceta.Text;
+
             if (keyword.Length >= 1)
             {
-                List<Receta> resultado = App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();                
-                _VMRecetas = new RecetaListVM(resultado);
-                BindingContext = _VMRecetas;
-
+                List<Receta> resultado = App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();
+                AplicarFiltrosALista(resultado);
             }
             else
             {
                 List<Receta> resultado = App.DataBase.Receta.ObtenerList().ToList();
-                _VMRecetas = new RecetaListVM(resultado);
-                BindingContext = _VMRecetas;
+                AplicarFiltrosALista(resultado);
             }
+
+        }
+
+        private void AplicarFiltrosALista(List<Receta> recetas)
+        {
+            var vm = new object();
+            Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
+            FiltrosVM filtros = vm as FiltrosVM;
+
+            if (filtros.FiltroCeliaco) recetas = recetas.FindAll(x => x._AptoCeliacos == true);
+            if (filtros.FiltroVegetariano) recetas = recetas.FindAll(x => x._AptoVegetarianos == true);
+            if (filtros.FiltroVegano) recetas = recetas.FindAll(x => x._AptoVeganos == true);
+            if (filtros.FiltroDiabetico) recetas = recetas.FindAll(x => x._AptoDiabeticos == true);
+            if (filtros.FiltroCeliaco) recetas = recetas.FindAll(x => x._AptoCeliacos == true);
+            if (filtros.FiltroPrecio) {
+                if(filtros.FiltroPrecioMin != -1) {
+                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroPrecioMin);
+                }
+                if (filtros.FiltroPrecioMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroPrecioMax);
+                }
+            }
+
+            if (filtros.FiltroCalorias)
+            {
+                if (filtros.FiltroCaloriasMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroCaloriasMin);
+                }
+                if (filtros.FiltroCaloriasMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroCaloriasMax);
+                }
+            }
+            if (filtros.FiltroTiempoPreparacion)
+            {
+                if (filtros.FiltroTiempoPreparacionMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroTiempoPreparacionMin);
+                }
+                if (filtros.FiltroTiempoPreparacionMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroTiempoPreparacionMax);
+                }
+            }
+            if (filtros.FiltroCantPlatos)
+            {
+                if (filtros.FiltroCantPlatosMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroCantPlatosMin);
+                }
+                if (filtros.FiltroCantPlatosMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroCantPlatosMax);
+                }
+            }
+
+            if (filtros.FiltroDificultad)
+            {
+                if (filtros.FiltroDificultadMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroDificultadMin);
+                }
+                if (filtros.FiltroDificultadMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroDificultadMax);
+                }
+            }
+
+            if (filtros.FiltroPuntuacion)
+            {
+                if (filtros.FiltroPuntuacionMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroPuntuacionMin);
+                }
+                if (filtros.FiltroPuntuacionMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroPuntuacionMax);
+                }
+            }
+
+            if (filtros.FiltroMomentoDia)
+            {
+                recetas = recetas.FindAll(x => x._IdMomentoDia == filtros.FiltroMomentoDiaId);
+            }
+
+
+            if (filtros.FiltroEstacion)
+            {
+                recetas = recetas.FindAll(x => x._IdEstacion == filtros.FiltroEstacionId);
+            }
+
+            _VMRecetas = new RecetaListVM(recetas);
+            BindingContext = _VMRecetas;
 
         }
 

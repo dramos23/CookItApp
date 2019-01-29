@@ -7,12 +7,13 @@
         <Grid x:Name="gridPrincipal" Margin="5" Padding="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6.5*"/>
+                <RowDefinition Height="2.5*"/>
             </Grid.RowDefinitions>
             <StackLayout Padding="0"
                          Grid.Row="0"
                          x:Name="frmBorrar"
+                         Grid.ColumnSpan="2"
                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Frame CornerRadius="10"
                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
@@ -29,7 +30,8 @@
                 </Frame>
             </StackLayout>
 
-            <Grid Grid.Column="0" Grid.Row="1" Margin="10" VerticalOptions="FillAndExpand" HorizontalOptions="Center">
+            <Grid Grid.Column="0" Grid.Row="1" Margin="10" VerticalOptions="FillAndExpand" HorizontalOptions="Center"
+                  Grid.ColumnSpan="2">
                 <syncfusion:SfListView x:Name="ListaIngredientes"
                                        ItemsSource="{Binding IngredientesUsuario}"
                                        ItemSize="35"
@@ -84,11 +86,17 @@
                     </syncfusion:SfListView.SelectedItemTemplate>
                 </syncfusion:SfListView>
             </Grid>
-            <Image x:Name="imgAgregarIngrediente" Grid.Row="2" Source="iconAgregarIngrediente.png" Style="{StaticResource estiloBotonImagenGrande}">
+            <Image x:Name="imgAgregarIngrediente" Grid.Row="2" Grid.Column="0" Source="iconAgregarIngrediente.png" Style="{StaticResource estiloBotonImagenGrande}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="btnAgregarIng_Tapped" NumberOfTapsRequired="1"/>
                 </Image.GestureRecognizers>
             </Image>
+            <Image x:Name="imgActualizarIngrediente" Grid.Row="2" Grid.Column="1"  Source="iconActualizarIngrediente.png" Style="{StaticResource estiloBotonImagenGrande}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="btnActualizarIng_Tapped" NumberOfTapsRequired="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
