@@ -66,8 +66,10 @@ namespace CookItApp.Views
             Reto reto = new Reto
             {
                 _EmailUsuOri = _Usuario._Email,
+                _NomUsuOri = _Usuario._Perfil._NombreUsuario,   
                 _ComentarioOrigen = ComentaioOrigen.Text,
-                _EmialUsuDes = _UsuarioSelected._Email,
+                _EmailUsuDes = _UsuarioSelected._Email,
+                _NomUsuDes = _UsuarioSelected._NombreUsuario,
                 _RecetaId = _Receta._IdReceta,
                 _Fecha = DateTime.Now,
                 _IdEstadoReto = 1,

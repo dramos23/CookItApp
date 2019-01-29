@@ -1,30 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CookItApp.Views.ListaRecetasPage"
-             BackgroundColor="{StaticResource colorBackground}">
-        
+             x:Class="CookItApp.Views.ListaRecetasPage">
+             <!--BackgroundColor="{StaticResource colorBackground}">-->
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="BtnFiltros_Clicked" Icon="filtro.png"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         
         <!-- Grid principal que da formato a la pagina-->
         <Grid x:Name="gridPrincipal"
-              BackgroundColor="{StaticResource colorBackground}"
+              
               Margin="0"
               Padding="0">
+            <!--BackgroundColor="{StaticResource colorBackground}"-->
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="9*" />
             </Grid.RowDefinitions>
                         
             <!-- Grid secundaria que guarda la barra de navegacion donde se busca receta-->
             <Grid Grid.Column="0" 
-                  Grid.Row="0"
-                  Padding="1"
-                  Margin="0"
-                  BackgroundColor="{StaticResource colorPrimaryVariant}">
+                  Grid.Row="0" >
+                <!--BackgroundColor="{StaticResource colorPrimaryVariant}"-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
-                    
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <!--<Entry x:Name="txtBusquedaReceta"
@@ -35,7 +37,7 @@
                        TextColor="Black"
                        FontSize="8"
                        Placeholder="Busque recetas por nombre"/>-->
-                <SearchBar Placeholder="Busque recetas por nombre" x:Name= "BuscarReceta" TextChanged="BuscarReceta_TextChanged"/>
+                <SearchBar Grid.Column="0" Placeholder="Busque recetas por nombre" x:Name= "BuscarReceta" TextChanged="BuscarReceta_TextChanged"/>
                 <!--<Image  Grid.Column="1"
                         x:Name="BtnBuscar"
                         VerticalOptions="Center"
@@ -48,7 +50,7 @@
                     </Image.GestureRecognizers>
                 </Image>-->
 
-                <Image  Grid.Column="2"
+                <Image  Grid.Column="1"
                         x:Name="BtnFiltros"
                         VerticalOptions="Center"
                         HorizontalOptions="Center"

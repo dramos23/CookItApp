@@ -1,46 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CookItApp.ViewModels;assembly=CookItApp"
              x:Class="CookItApp.Views.ListaNotificacionesPage">
 
-    <!--<StackLayout >
-        --><!-- Place new controls here --><!--
-        <Label Text="{Binding Text}" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" FontSize="Medium" />
-    ItemSelected="OnItemSelected"
-    </StackLayout>-->
+    <ContentPage.BindingContext>
+        <viewModels:NotificacionListVM>
+            
+        </viewModels:NotificacionListVM>
+    </ContentPage.BindingContext>
 
-    <StackLayout>
-        <Label Text="{Binding Text}" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" FontSize="Medium" IsVisible="{Binding Vacio}"/>
-        <ListView x:Name="ItemsListView"
-                ItemsSource="{Binding Notificaciones}"
-                VerticalOptions="StartAndExpand"                                                
-                IsVisible="{Binding Lista}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout BackgroundColor="{Binding _Color}">
-                            <Label Text="{Binding _FechaHora}" 
+    <ListView x:Name="ListaNotificacion" ItemsSource="{Binding Notificaciones}" HasUnevenRows="True" ItemSelected="ListaNotificacion_ItemSelected">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Padding="10" Orientation="Vertical" BackgroundColor="{Binding _Color}">
+                        <Label Text="{Binding _FechaHora}" 
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 HorizontalOptions="End"   
                                 FontSize="13" />
-                            <Label Text="{Binding _Titulo}" 
+                        <Label Text="{Binding _Titulo}" 
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" />
-                            <Label Text="{Binding _Descripcion}" 
+                        <Label Text="{Binding _Descripcion}" 
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>    
-    
+                                FontSize="14" MaxLines="9" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Padding="1"  Margin="0" VerticalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" x:Name="IrReceta"  Image="breakfast.png" Clicked="IrReceta_Clicked" VerticalOptions="Center" />
+                                <Label Grid.Column="1" Text="Ver receta" VerticalOptions="Center"/>
+
+                            </Grid>
+                            <Grid Grid.Row="1" Padding="1"  Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" x:Name="IrReto" Image="reto.png" Clicked="IrReto_Clicked" VerticalOptions="Center"/>
+                                <Label Grid.Column="1" Text="Ver reto" VerticalOptions="Center"/>
+
+                            </Grid>
+                        </Grid>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>

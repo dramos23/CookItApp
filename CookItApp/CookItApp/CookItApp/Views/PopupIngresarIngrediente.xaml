@@ -25,7 +25,7 @@
                         <ColumnDefinition Width="8*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Entry Placeholder="Nombre del ingrediente" x:Name="txtIngrediente" FontSize= "Small" TextChanged="txtIngrediente_TextChanged"
+                    <Entry Placeholder="Nombre del ingrediente" x:Name="txtIngrediente" FontSize= "Small" TextChanged="TxtIngrediente_TextChanged"
                         HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.ColumnSpan="2"/>
                     <Entry Grid.Column="0" Grid.Row="1" Placeholder="Cantidad" x:Name="txtCantidad" Keyboard="Numeric" FontSize="Small"
                        HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>

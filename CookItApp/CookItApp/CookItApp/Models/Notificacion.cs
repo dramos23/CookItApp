@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace CookItApp.Models
@@ -14,6 +15,7 @@ namespace CookItApp.Models
             Leido = 1,
         }
 
+        [PrimaryKey]
         public string _NotificacionId { get; set; }
         public string _Email { get; set; }
         [JsonIgnore]
@@ -23,8 +25,13 @@ namespace CookItApp.Models
         public Estado _Estado { get; set; }
         public string _Titulo { get; set; }
         public string _Descripcion { get; set; }
+        public string _Pk1 { get; set; }
+        public string _Pk2 { get; set; }
+        public string _Pk3 { get; set; }
+        public string _Pk4 { get; set; }
+        public string _Tabla { get; set; }
 
-        public ConsoleColor _Color { get { return _Estado == 0 ? ConsoleColor.Gray : ConsoleColor.White; } }
+        public Color _Color { get { return _Estado == 0 ? Color.Silver : Color.White; } }
 
         public Notificacion()
         {

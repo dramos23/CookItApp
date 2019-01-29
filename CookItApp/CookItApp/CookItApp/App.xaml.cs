@@ -28,6 +28,8 @@ namespace CookItApp
         static EstacionService _EstacionService;
         static RetoService _RetoService;
         static IngredienteUsuarioService _IngredienteUsuarioService;
+        static NotificacionService _NotificacionService;
+        static EstadoRetoService _EstadoRetoService;
 
         public App()
         {
@@ -186,6 +188,24 @@ namespace CookItApp
             {
                 if (_IngredienteUsuarioService == null) _IngredienteUsuarioService = new IngredienteUsuarioService();
                 return _IngredienteUsuarioService;
+            }
+        }
+
+        public static NotificacionService NotificacionService
+        {
+            get
+            {
+                if (_NotificacionService == null) _NotificacionService = new NotificacionService();
+                return _NotificacionService;
+            }
+        }
+
+        public static EstadoRetoService EstadoRetoService
+        {
+            get
+            {
+                if (_EstadoRetoService == null) _EstadoRetoService = new EstadoRetoService();
+                return _EstadoRetoService;
             }
         }
 

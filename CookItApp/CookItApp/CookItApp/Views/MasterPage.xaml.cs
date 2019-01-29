@@ -37,7 +37,7 @@ namespace CookItApp.Views
             var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png"/*, TargetType = typeof(View1) */};
             var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png", TargetType = typeof(IngredientesUsuarioView) };
             var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
-            var page6 = new MasterPageItem() { Title = "Retos", Icon = "reto.png", TargetType = typeof(PerfilPage)};
+            var page6 = new MasterPageItem() { Title = "Retos", Icon = "reto.png", TargetType = typeof(RetoListPage)};
             var page7 = new MasterPageItem() { Title = "Notificaciones", Icon = "notifications.png", TargetType = typeof(ListaNotificacionesPage) };
             var page8 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
             var page9 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
@@ -68,8 +68,8 @@ namespace CookItApp.Views
 
         private void Notificaciones()
         {
-            if (!AppCenter.Configured)
-            {
+            //if (!AppCenter.Configured)
+            //{
                 Push.PushNotificationReceived += async (sender, e) =>
                 {
                     if ( e.CustomData.Keys.Contains("Reto"))
@@ -81,7 +81,7 @@ namespace CookItApp.Views
                     }                   
 
                 };
-            }
+            //}
         }
 
 

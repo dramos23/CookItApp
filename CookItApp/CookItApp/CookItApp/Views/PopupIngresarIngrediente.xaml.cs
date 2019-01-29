@@ -28,7 +28,7 @@ namespace CookItApp.Views
         }
 
         
-        private void txtIngrediente_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtIngrediente_TextChanged(object sender, TextChangedEventArgs e)
         {
             //ListaIngredientes.ItemsSource = ViewModel.DevolverListaFiltrada(txtIngrediente.Text);
             
