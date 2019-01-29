@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using CookItApp.Controles;
 using CookItApp.Models;
 using CookItApp.Servicios;
 using Microsoft.AppCenter;
@@ -29,7 +30,11 @@ namespace CookItApp.Views
 
         public void Init()
         {
-
+            if (togRecordar.IsEnabled)
+            {
+                entryEmail.Text = Settings.UltimoEmailUsado;
+                entryPass.Text = Settings.UltimaPassUsada;
+            }
             entryEmail.Completed += (s, e) => entryPass.Focus();
             entryPass.Completed += (s, e) => PrcIngresar(s, e);
             BtnRegistrar();
@@ -70,6 +75,8 @@ namespace CookItApp.Views
                     {
                         if (token._AccessToken != null)
                         {
+                            GuardarUsuPas();
+
                             UserDialogs.Instance.HideLoading();
                             //await DisplayAlert("Login", "Ingreso Satisfactorio", "Ok");
 
@@ -102,6 +109,19 @@ namespace CookItApp.Views
             }
 
             UserDialogs.Instance.HideLoading();
+        }
+
+        private void GuardarUsuPas()
+        {
+            if (togRecordar.IsEnabled)
+            {
+                Settings.UltimoEmailUsado = entryEmail.Text;
+                Settings.UltimaPassUsada = entryPass.Text;
+            }
+            else {
+                Settings.UltimoEmailUsado = string.Empty;
+                Settings.UltimaPassUsada = string.Empty;
+            }
         }
 
         public void BtnRegistrar()

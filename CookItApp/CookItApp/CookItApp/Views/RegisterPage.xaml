@@ -1,17 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
              x:Class="CookItApp.Views.RegisterPage">
 
+    <ContentPage.Content>
 
-        <StackLayout x:Name="MasterLayout">
-            <StackLayout x:Name="RegisterEntriesStack" VerticalOptions="StartAndExpand">
-                <StackLayout.Padding>
-                    <OnIdiom x:TypeArguments="Thickness" Phone="40,0,40,0" Tablet="140,150,140,0" ></OnIdiom>
-                </StackLayout.Padding>
 
-                <ActivityIndicator x:Name="ActivitySpinner" Color="Red" IsRunning="False"/>
+        <StackLayout>
 
                 <Entry x:Name="inpEmail" Placeholder="Ingrese aquí tú email"></Entry>
                 <Entry x:Name="inpPassword" Placeholder="Ingrese aquí tú Password" IsPassword="True"></Entry>
@@ -22,7 +17,8 @@
                 </StackLayout>
                 <Button x:Name="btnRegistrar" Text="Sign Up" Clicked="PrcRegistrar"></Button>
                 <Button Text="Already have account? Sign In" TextColor="Blue" Clicked="Button_Clicked"></Button>
-            </StackLayout>
+            
         </StackLayout>
+    </ContentPage.Content>
 
 </ContentPage>
