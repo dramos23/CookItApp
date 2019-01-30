@@ -25,17 +25,15 @@ namespace CookItApp.Views.PopupFiltros
 
         private void GenerarDatosPicker()
         {
-            picMax.Items.Add("1");
-            picMax.Items.Add("2");
-            picMax.Items.Add("3");
-            picMax.Items.Add("4");
-            picMax.Items.Add("5");
+            List<int> ListaPicker = new List<int>();
+            ListaPicker.Add(1);
+            ListaPicker.Add(2);
+            ListaPicker.Add(3);
+            ListaPicker.Add(4);
+            ListaPicker.Add(5);
 
-            picMin.Items.Add("1");
-            picMin.Items.Add("2");
-            picMin.Items.Add("3");
-            picMin.Items.Add("4");
-            picMin.Items.Add("5");
+            picMax.ItemsSource = ListaPicker;
+            picMin.ItemsSource = ListaPicker;
         }
 
         private void Ok_Tapped(object sender, EventArgs e)
@@ -44,8 +42,27 @@ namespace CookItApp.Views.PopupFiltros
             if (picMin.SelectedIndex != -1) min = Convert.ToInt32(picMin.SelectedItem);
             int max = -1;
             if (picMax.SelectedIndex != -1) max = Convert.ToInt32(picMax.SelectedItem);
+            if (min != -1 && max != -1)
+            {
+                if (min > max)
+                {
+                    MensajeError("El valor minimo no puede ser mayor al maximo.");
+                    return;
+                }
+                if (max < min)
+                {
+                    MensajeError("El valor maximo no puede ser menor al minimo.");
+                    return;
+                }
+
+            }
             ViewModel.IngresarFiltroPuntuacion(min, max);
             CerrarPopup();
+        }
+
+        private void MensajeError(string msg)
+        {
+            DisplayAlert("Error", msg, "Cerrar");
         }
 
         private void Cancel_Tapped(object sender, EventArgs e)

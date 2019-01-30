@@ -1,4 +1,5 @@
 ﻿using CookItApp.Data;
+using CookItApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,7 @@ namespace CookItApp.ViewModels
 {
     public class FiltrosVM
     {
+        public Usuario Usuario;
         public bool FiltroAutomatico { set; get; }
         public bool FiltroPrecio { set; get; }
         public int FiltroPrecioMin { set; get; }
@@ -19,6 +21,7 @@ namespace CookItApp.ViewModels
         public int FiltroCaloriasMin { set; get; }
         public int FiltroCaloriasMax { set; get; }
         public bool FiltroPaisOrigen { set; get; }
+
         public bool FiltroMomentoDia { set; get; }
         public int FiltroMomentoDiaId { set; get; }
         public bool FiltroPuntuacion { set; get; }
@@ -36,13 +39,139 @@ namespace CookItApp.ViewModels
         public int FiltroTiempoPreparacionMin { set; get; }
         public int FiltroTiempoPreparacionMax { set; get; }
 
-        public IPopupFiltros VistaFiltros { set; get; }
+        private IPopupFiltros VistaFiltros;
 
-        public FiltrosVM(IPopupFiltros vista)
+        public void SetVistaFiltros(IPopupFiltros vista)
         {
             VistaFiltros = vista;
+            TogglearImagenes();
         }
 
+        public FiltrosVM(Usuario usr)
+        {
+            Usuario = usr;
+            CargarFiltrosUsuario();
+        }
+
+        #region Carga automática de filtros
+        public void CargarFiltrosUsuario()
+        {
+            if (Usuario._Perfil == null || !Usuario._Perfil._FiltroAutomatico) return;
+            CargarFiltroDiabeticoUsuario();
+            CargarFiltroCeliacoUsuario();
+            CargarFiltroVeganoUsuario();
+            CargarFiltroVegetarianoUsuario();
+            CargarFiltroCaloriasUsuario();
+            CargarFiltroPrecioUsuario();
+            CargarFiltroDificultadUsuario();
+            CargarFiltroPuntuacionUsuario();
+            CargarFiltroCantPlatosUsuario();
+            CargarFiltroTiempoPreparacionUsuario();
+            CargarFiltroMomentoDia();
+            CargarFiltroEstacion();
+
+            if(VistaFiltros != null) TogglearImagenes();
+        }
+
+        private void CargarFiltroVegetarianoUsuario()
+        {
+            if (Usuario._Perfil._FiltroVegetariano) this.FiltroVegetariano = true;
+        }
+
+        private void CargarFiltroVeganoUsuario()
+        {
+            if (Usuario._Perfil._FiltroVegano) this.FiltroVegano = true;
+        }
+
+        private void CargarFiltroCeliacoUsuario()
+        {
+            if (Usuario._Perfil._FiltroCeliaco) this.FiltroCeliaco = true;
+        }
+
+        private void CargarFiltroDiabeticoUsuario()
+        {
+            if (Usuario._Perfil._FiltroDiabetico) this.FiltroDiabetico = true;
+        }
+
+        private void CargarFiltroMomentoDia()
+        {
+            if (Usuario._Perfil._FiltroMomentoDia) {
+                this.FiltroMomentoDia = true;
+                this.FiltroMomentoDiaId = Convert.ToInt32(Usuario._Perfil._FiltroMomentoDiaId);
+            }
+        }
+
+        private void CargarFiltroEstacion()
+        {
+            if (Usuario._Perfil._FiltroEstacion)
+            {
+                this.FiltroEstacion = true;
+                this.FiltroEstacionId = Convert.ToInt32(Usuario._Perfil._FiltroEstacionId);
+            }
+        }
+
+        private void CargarFiltroCaloriasUsuario()
+        {
+            if (Usuario._Perfil._FiltroCalorias)
+            {
+                this.FiltroCalorias = true;
+                this.FiltroCaloriasMin = Usuario._Perfil._FiltroCaloriasMin;
+                this.FiltroCaloriasMax = Usuario._Perfil._FiltroCaloriasMax;
+            }
+        }
+
+        private void CargarFiltroDificultadUsuario()
+        {
+            if (Usuario._Perfil._FiltroDificultad)
+            {
+                this.FiltroDificultad = true;
+                this.FiltroDificultadMin = Usuario._Perfil._FiltroDificultadMin;
+                this.FiltroDificultadMax = Usuario._Perfil._FiltroDificultadMax;
+            }
+        }
+
+        private void CargarFiltroTiempoPreparacionUsuario()
+        {
+            if (Usuario._Perfil._FiltroTiempoPreparacion)
+            {
+                this.FiltroTiempoPreparacion = true;
+                this.FiltroTiempoPreparacionMin = Usuario._Perfil._FiltroTiempoPreparacionMin;
+                this.FiltroTiempoPreparacionMax = Usuario._Perfil._FiltroTiempoPreparacionMax;
+            }
+        }
+
+        private void CargarFiltroPuntuacionUsuario()
+        {
+            if (Usuario._Perfil._FiltroPuntuacion)
+            {
+                this.FiltroPuntuacion = true;
+                this.FiltroPuntuacionMin = Usuario._Perfil._FiltroPuntuacionMin;
+                this.FiltroPuntuacionMax = Usuario._Perfil._FiltroPuntuacionMax;
+            }
+        }
+
+        private void CargarFiltroCantPlatosUsuario()
+        {
+            if (Usuario._Perfil._FiltroCantPlatos)
+            {
+                this.FiltroCantPlatos = true;
+                this.FiltroCantPlatosMin = Usuario._Perfil._FiltroCantPlatosMin;
+                this.FiltroCantPlatosMax = Usuario._Perfil._FiltroCantPlatosMax;
+            }
+        }
+
+        private void CargarFiltroPrecioUsuario()
+        {
+            if (Usuario._Perfil._FiltroPrecio)
+            {
+                this.FiltroPrecio = true;
+                this.FiltroPrecioMin = Usuario._Perfil._FiltroPrecioMin;
+                this.FiltroPrecioMax = Usuario._Perfil._FiltroPrecioMax;
+            }
+        }
+        #endregion
+
+        #region Reseteo de valores de filtros
         internal void ResetTiempoPreparacion()
         {
             FiltroTiempoPreparacionMax = 0;
@@ -104,6 +233,29 @@ namespace CookItApp.ViewModels
             VistaFiltros.ToggleImagenEstacion(false);
         }
 
+        internal void ResetAll()
+        {
+            ResetPrecio();
+            ResetMomentoDia();
+            ResetCalorias();
+            ResetEstacion();
+            ResetPuntuacion();
+            ResetDificultad();
+            ResetCantPlatos();
+            ResetearSimples();
+        }
+
+        private void ResetearSimples()
+        {
+            FiltroVegetariano = false;
+            FiltroVegano = false;
+            FiltroCeliaco = false;
+            FiltroDiabetico = false;
+            VistaFiltros.ResetearSimples();
+        }
+        #endregion
+
+        #region Ingreso de filtros complejos
         internal void IngresarFiltroPrecio(int min, int max)
         {
             FiltroPrecio = true;
@@ -160,18 +312,25 @@ namespace CookItApp.ViewModels
             FiltroMomentoDiaId = id;
             VistaFiltros.ToggleImagenMomentoDia(true);
         }
+        #endregion
 
-        internal void ResetAll()
+
+        internal void TogglearImagenes()
         {
-            ResetPrecio();
-            ResetMomentoDia();
-            ResetCalorias();
-            ResetEstacion();
-            ResetPuntuacion();
-            ResetDificultad();
-            ResetCantPlatos();
-            VistaFiltros.ResetearSimples();
+            VistaFiltros.ToggleImagenCalorias(FiltroCalorias);
+            //VistaFiltros.ToggleImagenCantPlatos(FiltroCantPlatos);
+            VistaFiltros.ToggleImagenDificultad(FiltroDificultad);
+            VistaFiltros.ToggleImagenPuntuacion(FiltroPuntuacion);
+            VistaFiltros.ToggleImagenTiempoPreparacion(FiltroTiempoPreparacion);
+            VistaFiltros.ToggleImagenMomentoDia(FiltroMomentoDia);
+            VistaFiltros.ToggleImagenEstacion(FiltroEstacion);
+            VistaFiltros.ToggleImagenPrecio(FiltroPrecio);
+            VistaFiltros.ToggleImagenVegano(FiltroVegano);
+            VistaFiltros.ToggleImagenVegetariano(FiltroVegetariano);
+            VistaFiltros.ToggleImagenCeliaco(FiltroCeliaco);
+            VistaFiltros.ToggleImagenDiabetico(FiltroDiabetico);
         }
+
 
     }
 }

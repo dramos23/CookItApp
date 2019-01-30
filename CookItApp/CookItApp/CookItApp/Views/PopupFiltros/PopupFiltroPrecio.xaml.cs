@@ -28,6 +28,20 @@ namespace CookItApp.Views.PopupFiltros
             if(entMinimo.Text.Trim() != "") min = Convert.ToInt32(entMinimo.Text);
             int max = -1;
             if (entMaximo.Text.Trim() != "") max = Convert.ToInt32(entMaximo.Text);
+            if(min != -1 && max != -1)
+            {
+                if (min > max)
+                {
+                    MensajeError("El valor minimo no puede ser mayor al maximo.");
+                    return;
+                }
+                if (max < min)
+                {
+                    MensajeError("El valor maximo no puede ser menor al minimo.");
+                    return;
+                }
+
+            }
             ViewModel.IngresarFiltroPrecio(min, max);
             CerrarPopup();
         }
@@ -35,6 +49,14 @@ namespace CookItApp.Views.PopupFiltros
         private void Cancel_Tapped(object sender, EventArgs e)
         {
             CerrarPopup();
+        }
+
+        private void MensajeError(string msg)
+        {
+            DisplayAlert("Error", msg, "Cerrar");
+            entMinimo.Text = "";
+            entMaximo.Text = "";
+
         }
 
         private async void CerrarPopup()

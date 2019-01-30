@@ -1,4 +1,5 @@
 ﻿using CookItApp.Data;
+using CookItApp.Models;
 using CookItApp.ViewModels;
 using CookItApp.Views.PopupFiltros;
 using Rg.Plugins.Popup.Pages;
@@ -19,27 +20,55 @@ namespace CookItApp.Views
     {
 
         FiltrosVM ViewModel;
-
-        public FiltrosView()
+        Usuario Usuario; 
+        public FiltrosView(Usuario usr)
         {
             InitializeComponent();
             InicializarControlador();
+            Usuario = usr;
+            VisibilidadFiltrosAutomaticos();
+        }
+
+        private void VisibilidadFiltrosAutomaticos()
+        {
+            if (Usuario._Perfil == null) return;
+            layoutFiltAuto.IsVisible = true;
+            layoutFiltAuto.IsEnabled = true;
+            if (Usuario._Perfil._FiltroAutomatico)
+            {
+                swtFiltrosUsuario.IsToggled = true;
+                ViewModel.CargarFiltrosUsuario();
+            }
+            else
+            {
+                swtFiltrosUsuario.IsToggled = false;
+            }
+        }
+
+        private void TogglearImagenesPorFiltrosUsuario()
+        {
+            if (Usuario._Perfil == null || !Usuario._Perfil._FiltroAutomatico) return;
+            swtFiltrosUsuario.IsToggled = true;
+            ViewModel.CargarFiltrosUsuario();
         }
 
         private void InicializarControlador()
         {
             if (!Application.Current.Properties.ContainsKey("ViewModelFiltro"))
             {
-                FiltrosVM vm = new FiltrosVM(this);
+                FiltrosVM vm = new FiltrosVM(Usuario);
                 Application.Current.Properties.Add("ViewModelFiltro", vm);
                 ViewModel = vm;
-            }else
+            }
+            else
             {
                 var vm = new object();
                 Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
                 ViewModel = vm as FiltrosVM;
+                ViewModel.SetVistaFiltros(this);
             }
         }
+
 
         private async void OnClose(object sender, EventArgs e)
         {
@@ -269,7 +298,7 @@ namespace CookItApp.Views
 
         public void ToggleImagenCantPlatos(bool v)
         {
-            throw new NotImplementedException();
+
         }
 
         public void ToggleImagenDificultad(bool v)
@@ -304,94 +333,34 @@ namespace CookItApp.Views
             btnAptoVeganos.Source = "aptoVeganosOff.png";
         }
 
-        /*
-        private void AbrirPanelSecundarioFiltros()
-        {         
-            ArmarLayoutPorImagen(img);
-            ArmarBotonesAceptarCancelar(img);
-        }
-
-        private void ArmarBotonesAceptarCancelar(Image filtroClickeado)
+        public void ToggleImagenVegetariano(bool v)
         {
-            Image botonOk = new Image
-            {
-                Source = "iconOk.png",
-                Style = Application.Current.Resources["estiloBotonImagenGrande"] as Style,
-            };
-            Grid.SetColumn(botonOk, 0);
-            Grid.SetRow(botonOk, 1);
-            //Esto tiene que generar un evento que, dependiendo de la imagen que se le pasa, cree un nuevo filtro y lo agregue al diccionario, lista, etc.
-            //Despues, cierra la ventana y deja el filtro clickeado.
-            TapGestureRecognizer eventoOnClick = ObtenerEventoPorImgFiltro(filtroClickeado);
-            botonOk.GestureRecognizers.Add(eventoOnClick);
-
-            Image botonCancelar = new Image
-            {
-                Source = "iconCancel.png",
-                Style = Application.Current.Resources["estiloBotonImagenGrande"] as Style,
-            };
-            Grid.SetColumn(botonCancelar, 1);
-            Grid.SetRow(botonCancelar, 1);
-
-            var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += (s, e) => {
-                CerrarPanelSecundarioFiltros();
-                //Toggle Imagen
-            };
-            botonCancelar.GestureRecognizers.Add(tapGestureRecognizer);
-
+            if (v) btnAptoVegetarianos.Source = "aptoVegetarianosOn.png";
+            else btnAptoVegetarianos.Source = "aptoVegetarianosOff.png";
         }
 
-        //Incompleto
-        private TapGestureRecognizer ObtenerEventoPorImgFiltro(Image filtroClickeado)
+        public void ToggleImagenVegano(bool v)
         {
-            string source = filtroClickeado.Source.ToString();
-            return new TapGestureRecognizer { };
+            if (v) btnAptoVeganos.Source = "aptoVeganosOn.png";
+            else btnAptoVeganos.Source = "aptoVeganosOff.png";
         }
 
-        private void ArmarLayoutPorImagen(Image img)
+        public void ToggleImagenCeliaco(bool v)
         {
-            switch (img.Source.ToString().Substring(6))
-            {
-                case "porPrecioOff.png":
-                    GenerarLayoutPrecio();
-                    break;
-                case "porDificultadOff.png":
-                    GenerarLayoutDificultad();
-                    break;
-                case "porEstacionOff.png":
-                    GenerarLayoutEstacion();
-                    break;
-                case "porMomentoDiaOff.png":
-                    GenerarLayoutMomentoDia();
-                    break;
-                case "porPuntajeOff.png":
-                    GenerarLayoutPuntaje();
-                    break;
-                case "porTiempoOff.png":
-                    GenerarLayoutTiempo();
-                    break;
-                case "porCaloriasOff.png":
-                    GenerarLayoutCalorias();
-                    break;
-            };
+            if (v) btnAptoCeliacos.Source = "aptoCeliacosOn.png";
+            else btnAptoCeliacos.Source = "aptoCeliacosOff.png";
         }
 
-        private void CerrarPanelSecundarioFiltros()
+        public void ToggleImagenDiabetico(bool v)
         {
-            //Se esconde el layout con una animacion
-            //Se resetea el layout para que pueda ser reusado
-            ResetearLayoutGenerado();
+            if (v) btnAptoDiabeticos.Source = "aptoDiabeticosOn.png";
+            else btnAptoDiabeticos.Source = "aptoDiabeticosOff.png";
         }
 
-        
-        private void ResetearLayoutGenerado()
+        private void swtFiltrosUsuario_Toggled(object sender, ToggledEventArgs e)
         {
-
+            if (!swtFiltrosUsuario.IsToggled) ViewModel.ResetAll();
+            else ViewModel.CargarFiltrosUsuario();
         }
-
-        */
-
-
     }
 }

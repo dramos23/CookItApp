@@ -72,6 +72,14 @@ namespace CookItApp.ViewModels
             Vista.RefrescarListaIng();
         }
 
+        public async void ActualizarIngrediente(IngredienteUsuario ing, int cantidad)
+        {
+            ing._Cantidad = cantidad;
+            IngredienteUsuario ingUs = await App.IngredienteUsuarioService.Alta(ing);
+            if (ingUs != null) App.DataBase.IngredienteUsuario.Guardar(ingUs);
+            else Vista.MensajeError("Hubo un error al ingresar el ingrediente, por favor intentelo nuevamente.");
+        }
+
 
     }
 }

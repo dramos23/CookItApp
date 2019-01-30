@@ -12,5 +12,6 @@ namespace CookItApp.Data
         void BorrarIngrediente(IngredienteUsuario ing);
         void ActualizarIngrediente(IngredienteUsuario ing);
         void RefrescarListaIng();
+        void MensajeError(string v);
     }
 }
