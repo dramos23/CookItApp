@@ -41,7 +41,22 @@ namespace CookItApp.Models
 
         [JsonIgnore]
         [Ignore]
-        public ImageSource _FotoCompleta { get; set; }
+        public ImageSource _FotoCompleta { get
+            {
+                Image image = new Image();
+                if (_Foto != null)
+                {
+                    Stream stream = new MemoryStream(_Foto);
+                    image.Source = ImageSource.FromStream(() => { return stream; });
+                    return image.Source;
+                }
+                else {
+                    image.Source = "fondoFrutillas.jpg";
+                    return image.Source;
+                }
+
+            }
+        }
         
         [Ignore]
         public List<IngredienteReceta> _ListaIngredientesReceta { set; get; }

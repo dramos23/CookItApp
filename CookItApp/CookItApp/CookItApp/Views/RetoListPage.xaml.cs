@@ -49,9 +49,10 @@ namespace CookItApp.Views
 
         private async void IrReto_Clicked(object sender, EventArgs e)
         {
+
             Button button = sender as Button;
             if (button?.BindingContext is Reto reto)
-            {
+            {                
                 await Navigation.PushAsync(new RetoPage(reto, _Usuario));
             }
         }

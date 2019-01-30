@@ -4,73 +4,127 @@
              x:Class="CookItApp.Views.RetoPage">
     
     <ContentPage.Content>
-        <StackLayout Padding="10" Orientation="Vertical">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                
-                <Grid Grid.Row="0" Padding="1"  Margin="0">
+        <ScrollView x:Name="scroll" Orientation="Vertical">
+            <StackLayout Padding="10" Orientation="Vertical">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
-                    <Label Text="{Binding Reto._Fecha}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="End" FontSize="13" />
+                    <Grid Grid.Row="0" Padding="1"  Margin="0">
 
+                        <Label Text="{Binding Reto._Fecha}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="End" FontSize="13" />
+
+                    </Grid>
+                    <Grid Grid.Row="1" Padding="1"  Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.2*"/>
+                            <ColumnDefinition Width="7.8*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="Estado:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                        <Label Grid.Column="1" Text="{Binding Reto._EstadoReto._Estado}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+
+                    </Grid>
+                    <Grid Grid.Row="2" Padding="1"  Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.2*"/>
+                            <ColumnDefinition Width="7.8*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="Retador:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                        <Label Grid.Column="1" Text="{Binding Reto._NomUsuOri}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+
+                    </Grid>
+                    <Grid Grid.Row="3" Padding="1"  Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.2*"/>
+                            <ColumnDefinition Width="7.8*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="Comentario:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" VerticalOptions="Start"/>
+                        <Label Grid.Column="1" Text="{Binding Reto._ComentarioOrigen}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" MaxLines="5" VerticalOptions="Start"/>
+
+                    </Grid>
+                    <Grid Grid.Row="4" Padding="1"  Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="Receta:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                        <!--<Label Grid.Column="1" Text="{Binding Reto._Receta._Titulo}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />-->
+
+                    </Grid>
+
+
+                    <Grid Grid.Row="5" Padding="1" Margin="0" BackgroundColor="AliceBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <Image Grid.Column="0" Source="{Binding Reto._Receta._FotoCompleta}" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Aspect="AspectFill" />
+                        <Grid Grid.Column="1" Margin="0">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Text="{Binding  Reto._Receta._Titulo}" FontSize="16" HorizontalOptions="Start" LineBreakMode="TailTruncation" FontAttributes="Bold"/>
+                            <Label Grid.Row="1" Text="{Binding  Reto._Receta._Descripcion}" FontSize="13" HorizontalOptions="Start" VerticalOptions="StartAndExpand" LineBreakMode="TailTruncation" MaxLines="4"/>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="6" Padding="1"  Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" x:Name="IrReceta" Image="breakfast.png" Clicked="IrReceta_Clicked" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Ver receta." LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" VerticalOptions="Center"/>
+
+                    </Grid>
+
+
+                    <Grid Grid.Row="7" Padding="1"  Margin="0" IsVisible="{Binding EtapaUno}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        
+                        </Grid.ColumnDefinitions>
+
+
+                        <Label Grid.Column="0" Text="Desea aceptar el reto?" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" VerticalOptions="Center"/>
+
+                    </Grid>
+
+                    <Grid Grid.Row="8" Padding="1"  Margin="0" IsVisible="{Binding EtapaUno}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" x:Name="BtnAceptar" Clicked="BtnAceptar_Clicked" VerticalOptions="Center" Text="Aceptó el reto" HorizontalOptions="Center" />
+                        <Button Grid.Column="1" x:Name="BtnCancelar" Clicked="BtnCancelar_Clicked" VerticalOptions="Center" Text="Ahora no!" HorizontalOptions="Center"/>
+
+
+                    </Grid>
                 </Grid>
-                <Grid Grid.Row="1" Padding="1"  Margin="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="8*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Text="Estado:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                    <Label Grid.Column="1" Text="{Binding Reto._EstadoReto._Estado}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-
-                </Grid>
-                <Grid Grid.Row="2" Padding="1"  Margin="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="8*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Text="Retador:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                    <Label Grid.Column="1" Text="{Binding Reto._NomUsuOri}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-
-                </Grid>
-                <Grid Grid.Row="3" Padding="1"  Margin="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="8*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Text="Comentario:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" VerticalOptions="Start"/>
-                    <Label Grid.Column="1" Text="{Binding Reto._ComentarioOrigen}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" MaxLines="5" VerticalOptions="Start"/>
-
-                </Grid>
-                <Grid Grid.Row="4" Padding="1"  Margin="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="8*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Text="Receta:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                    <Label Grid.Column="1" Text="{Binding Reto._Receta._Titulo}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-
-                </Grid>
-                <Grid Grid.Row="5" Padding="1"  Margin="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="8*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Button Grid.Column="0" x:Name="IrReceta" Image="breakfast.png" Clicked="IrReceta_Clicked" VerticalOptions="Center"/>
-                    <Label Grid.Column="1" Text="Ver receta." LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" VerticalOptions="Center"/>
-
-                </Grid>
-            </Grid>
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
