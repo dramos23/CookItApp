@@ -14,15 +14,15 @@ namespace CookItApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RetoPage : ContentPage
 	{
-        RetoVM _ViewModelReto;
+        public RetoVM _ViewModelReto { get; set; }
 
-        Usuario _Usuario;
+        private Usuario _Usuario { get; set; }
 
         public RetoPage (Reto reto, Usuario usuario)
 		{
 			InitializeComponent ();
             _Usuario = usuario;
-            _ViewModelReto = new RetoVM(reto);
+            _ViewModelReto = new RetoVM(usuario, reto);
             BindingContext = _ViewModelReto;
         }
 
@@ -42,6 +42,21 @@ namespace CookItApp.Views
                 await Navigation.PushAsync(new RecetaPage(receta, _Usuario));
 
             }
+        }
+
+        private void BtnAceptar_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnAceptar_Clicked_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnCancelar_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

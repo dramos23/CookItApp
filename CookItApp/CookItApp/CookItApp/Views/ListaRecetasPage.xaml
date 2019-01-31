@@ -68,6 +68,7 @@
             <!-- Grid secundaria donde esta la lista de recetas con foto y datos-->
             <Grid Grid.Column="0" Grid.Row="1">
                 <ListView x:Name="ListaRecetas" 
+                           
                           ItemsSource="{Binding Recetas}" 
                           SeparatorColor="LightGray" 
                           BackgroundColor="{StaticResource colorBackground}" 
