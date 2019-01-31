@@ -16,7 +16,27 @@ namespace CookItApp.ViewModels
             Retos = new ObservableCollection<Reto>();
 
             CargarDatos();
+            //Comentar despues
+            CargarRetoPrueba();
+        }
 
+        private void CargarRetoPrueba()
+        {
+            Reto ret = new Reto
+            {
+                _ComentarioDestino = "Te desafio",
+                _Cumplido = false,
+                _EmailUsuOri = "dcazesv@gmail.com",
+                _NomUsuOri = "diego",
+                _NomUsuDes = "asd",
+                _EmailUsuDes = "asd@gmail.com",
+                _Fecha = DateTime.Now,
+                _Receta = new Receta
+                {
+                    _Titulo = "Super plato"
+                },
+            };
+            Retos.Add(ret);
         }
 
         private void CargarDatos()

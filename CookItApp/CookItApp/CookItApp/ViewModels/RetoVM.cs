@@ -11,9 +11,7 @@ namespace CookItApp.ViewModels
         public Reto Reto;
 
         public RetoVM(Reto reto) {
-
             Reto = reto;
-
         }
 
     }

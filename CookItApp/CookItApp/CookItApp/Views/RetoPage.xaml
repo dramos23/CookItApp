@@ -14,11 +14,9 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                
+
                 <Grid Grid.Row="0" Padding="1"  Margin="0">
-
                     <Label Text="{Binding Reto._Fecha}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="End" FontSize="13" />
-
                 </Grid>
                 <Grid Grid.Row="1" Padding="1"  Margin="0">
                     <Grid.ColumnDefinitions>

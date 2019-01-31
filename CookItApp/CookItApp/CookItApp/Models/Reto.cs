@@ -34,6 +34,7 @@ namespace CookItApp.Models
         public string _ComentarioOrigen { get; set; }
         public string _ComentarioDestino { get; set; }
 
+
         public Reto(string EmailUsuOri, string EmailUsuDes, int RecetaId, bool Cumplido, DateTime Fecha, 
             int IdEstadoReto, byte[] Presentacion, int Puntaje, string ComentarioOrigen, string ComentarioDestino)
         {
