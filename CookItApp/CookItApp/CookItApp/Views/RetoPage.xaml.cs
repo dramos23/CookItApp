@@ -22,26 +22,9 @@ namespace CookItApp.Views
 		{
 			InitializeComponent ();
             _Usuario = usuario;
+            Receta_Clicked();
             _ViewModelReto = new RetoVM(usuario, reto);
             BindingContext = _ViewModelReto;
-        }
-
-        private async void IrReceta_Clicked(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-            Reto reto = button?.BindingContext as Reto;
-
-            Receta receta = new Receta()
-            {
-                _IdReceta = Convert.ToInt32(reto._RecetaId)
-            };
-            receta = await App.RecetaService.Obtener(receta);
-            if (receta != null)
-            {
-
-                await Navigation.PushAsync(new RecetaPage(receta, _Usuario));
-
-            }
         }
 
         private void BtnAceptar_Clicked(object sender, EventArgs e)
@@ -57,6 +40,33 @@ namespace CookItApp.Views
         private void BtnCancelar_Clicked(object sender, EventArgs e)
         {
 
+        }
+
+        private void Receta_Clicked()
+        {
+            frameReceta.GestureRecognizers.Add(
+            new TapGestureRecognizer()
+            {
+                Command = new Command(async () => {
+
+                    frameReceta.BackgroundColor = Color.Silver;
+                    await Task.Delay(10);
+                    frameReceta.BackgroundColor = Color.White;
+
+                    Receta receta = new Receta()
+                    {
+                        _IdReceta = Convert.ToInt32(_ViewModelReto.Reto._RecetaId)
+                    };
+                    receta = await App.RecetaService.Obtener(receta);
+                    if (receta != null)
+                    {
+
+                        await Navigation.PushAsync(new RecetaPage(receta, _Usuario));
+
+                    }
+
+                })
+            });
         }
     }
 }
