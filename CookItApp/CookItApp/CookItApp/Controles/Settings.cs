@@ -1,6 +1,7 @@
 ﻿// Helpers/Settings.cs
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using System;
 
 namespace CookItApp.Controles
 {
@@ -24,6 +25,7 @@ namespace CookItApp.Controles
     private const string UltimoEmailSettingsKey = "ultimo_email_key"; 
     private const string UltimaPassSettingsKey  = "ultimo_pass_key";
     private static readonly string SettingsDefault = string.Empty;
+    private const string UltimoEstadoSettingsKey = "ultimo_estado_key";
 
         #endregion
 
@@ -61,6 +63,25 @@ namespace CookItApp.Controles
             set
             {
                 AppSettings.AddOrUpdateValue(UltimaPassSettingsKey, value);
+            }
+        }
+
+        
+
+        public static bool UltimoEstadoToggle
+        {
+            get
+            {
+                var x = AppSettings.GetValueOrDefault(UltimoEstadoSettingsKey, SettingsDefault);
+                bool val = x == String.Empty ? false : Convert.ToBoolean(x);
+                return val;
+            }
+            set
+            {
+
+                var x = Convert.ToString(value);
+
+                AppSettings.AddOrUpdateValue(UltimoEstadoSettingsKey, x);
             }
         }
 

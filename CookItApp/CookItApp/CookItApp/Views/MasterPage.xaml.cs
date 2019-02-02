@@ -72,13 +72,13 @@ namespace CookItApp.Views
             //{
                 Push.PushNotificationReceived += async (sender, e) =>
                 {
-                    if ( e.CustomData.Keys.Contains("Reto"))
+                    if (e.CustomData.Keys.Contains("Reto"))
                     {
                         await DisplayAlert(e.Title, e.Message, "OK");
                         List<Notificacion> notificacions = App.DataBase.Notificacion.ObtenerList();
                         await Navigation.PushAsync(new ListaNotificacionesPage(null), true);
                         Navigation.RemovePage(this);
-                    }                   
+                    }         
 
                 };
             //}
