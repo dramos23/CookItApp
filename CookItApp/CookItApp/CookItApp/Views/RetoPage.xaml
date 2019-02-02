@@ -65,29 +65,22 @@
 
                     </Grid>
 
-
-                    <Grid Grid.Row="5" Padding="1" Margin="0" BackgroundColor="AliceBlue">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="7*"/>
-                        </Grid.ColumnDefinitions>
-
-
-                        <Image Grid.Column="0" Source="{Binding Reto._Receta._FotoCompleta}" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Aspect="AspectFill" />
-                        <Grid Grid.Column="1" Margin="0">
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-
-                            </Grid.RowDefinitions>
-
-                            <Label Grid.Row="0" Text="{Binding  Reto._Receta._Titulo}" FontSize="16" HorizontalOptions="Start" LineBreakMode="TailTruncation" FontAttributes="Bold"/>
-                            <Label Grid.Row="1" Text="{Binding  Reto._Receta._Descripcion}" FontSize="13" HorizontalOptions="Start" VerticalOptions="StartAndExpand" LineBreakMode="TailTruncation" MaxLines="4"/>
-
+                    <Frame Grid.Row="5" Padding="2" Margin="2" BackgroundColor="{StaticResource colorPrimaryVariant}"
+                           VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" CornerRadius="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding Reto._Receta._FotoCompleta}" HorizontalOptions="CenterAndExpand" 
+                                   VerticalOptions="StartAndExpand" Aspect="AspectFill" />
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding  Reto._Receta._Titulo}" FontSize="16" 
+                               HorizontalOptions="Start" LineBreakMode="TailTruncation" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding  Reto._Receta._Descripcion}" FontSize="13" 
+                               HorizontalOptions="Start" VerticalOptions="StartAndExpand" LineBreakMode="TailTruncation" MaxLines="4"/>
                         </Grid>
-                    </Grid>
-
+                    </Frame>
+                    
                     <Grid Grid.Row="6" Padding="1"  Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>

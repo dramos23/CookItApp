@@ -261,10 +261,9 @@ namespace CookItApp.Views
             {
                 Style = Application.Current.Resources["styleLabelLongText"] as Style,
                 //MaxLines hace que el label pueda tener X renglones de largo.
-                MaxLines = 2,
-                Text = "Aca va la descripcion que todavia no esta este texto esta muy largo para probar a ver que pasa " +
-                "si el texto es demasiado largo para entrar en la caja de una, estaria bueno que se corte pero sino seguimos probando."
+                MaxLines = 2
             };
+            descripcion.SetBinding(Label.TextProperty, "_Descripcion");
             if (width > height) descripcion.MaxLines = 3;
             else descripcion.Margin = new Thickness(0, 0, 2, 0);
             Grid.SetRow(descripcion, 1);
@@ -298,12 +297,12 @@ namespace CookItApp.Views
         {
             Image img = new Image
             {
-                Source = "fondoFrutillas.jpg",
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Aspect = Aspect.Fill,
                 Margin = new Thickness(2, 0, 0, 0)
             };
+            img.SetBinding(Image.SourceProperty, "_FotoCompleta");
             grid.Children.Add(img);
             Grid.SetColumn(img, 0);
         }
@@ -439,9 +438,7 @@ namespace CookItApp.Views
                 App.DataBase.HistorialReceta.Guardar(historial);
 
             }
-
         }
-
 
     }
 }

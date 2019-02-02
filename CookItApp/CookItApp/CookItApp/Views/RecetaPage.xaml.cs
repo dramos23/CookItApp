@@ -29,9 +29,7 @@ namespace CookItApp.Views
             Receta = receta;
             VMReceta = new RecetaVM(Receta);
             BindingContext = VMReceta;
-            //Se generan el ViewModel que precisa la página xaml para mostrar los datos. La Receta "rec" se recibe cuando un usuario clickea la receta
-            //desde el buscador de recetas, generando una instancia de esta página.
-            //BindingContext = _VMReceta;
+            GenerarImagenFavorito();
         }
 
         //public async void ObtenerReceta(Receta receta) {
@@ -66,6 +64,7 @@ namespace CookItApp.Views
             PopupNavigation.Instance.PushAsync(new PopupApuestaPage(Usuario, Receta));
         }
 
+
         private async void BtnAgregarFavoritos_Clicked(object sender, EventArgs e)
         {
             RecetaFavorita rf = new RecetaFavorita()
@@ -74,15 +73,29 @@ namespace CookItApp.Views
                 _IdReceta = Receta._IdReceta,
                 _FechaHora = DateTime.Now
             };
-            var favorito = await App.RecetaFavoritaService.Alta(rf);
-            if (favorito != null) {
-                //this.BT BtnAgregarFavoritos.IsEnabled = false;
-                //this.BtnAgregarFavoritos.Image = "favorite.png";
-                //this.BtnAgregarFavoritos.Text = "";
-                //this.BtnAgregarFavoritos.BorderColor = Color.Transparent;
-                //this.btnAgregarFavoritos.BackgroundColor = Color.Transparent;
+
+            if (!Usuario.RecetaEsFavorita(Receta))
+            {
+               
+                var favorito = await App.RecetaFavoritaService.Alta(rf);
+                if (favorito != null)
+                {
+                    //this.BT BtnAgregarFavoritos.IsEnabled = false;
+                    //this.BtnAgregarFavoritos.Image = "favorite.png";
+                    //this.BtnAgregarFavoritos.Text = "";
+                    //this.BtnAgregarFavoritos.BorderColor = Color.Transparent;
+                    //this.btnAgregarFavoritos.BackgroundColor = Color.Transparent;
+                }
+
+                btnAgregarFavoritos.Source = "iconFavoritoOn.png";
             }
+            else
+            {
+                await App.RecetaFavoritaService.Eliminar(rf);
+                btnAgregarFavoritos.Source = "iconFavoritoOff.png";
+            };
         }
+
 
         private void CargarDatosPrueba()
         {
@@ -114,7 +127,16 @@ namespace CookItApp.Views
             Receta._ListaPasosReceta = pasos;
 
         }
-            
+
+        private void GenerarImagenFavorito()
+        {
+            if (Usuario.RecetaEsFavorita(Receta)) btnAgregarFavoritos.Source = "iconFavoritoOff.png";
+            else btnAgregarFavoritos.Source = "iconFavoritoOn.png";
+        }
+
+
+        /*Override que reemplaza el método invocado cuando el usuario apreta el boton "atras" en su celular, para evitar
+         que hayan problemas con el navigation stack y los pasos de receta vistos. */
         protected override bool OnBackButtonPressed()
         {
             try
