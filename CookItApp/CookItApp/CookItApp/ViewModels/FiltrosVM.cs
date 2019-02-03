@@ -2,7 +2,9 @@
 using CookItApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace CookItApp.ViewModels
 {
@@ -38,6 +40,8 @@ namespace CookItApp.ViewModels
         public bool FiltroTiempoPreparacion { set; get; }
         public int FiltroTiempoPreparacionMin { set; get; }
         public int FiltroTiempoPreparacionMax { set; get; }
+        public bool FiltroIngredientes { set; get; }
+
 
         private IPopupFiltros VistaFiltros;
 
@@ -69,28 +73,34 @@ namespace CookItApp.ViewModels
             CargarFiltroTiempoPreparacionUsuario();
             CargarFiltroMomentoDia();
             CargarFiltroEstacion();
+            CargarFiltroIngredientesUsuario();
 
             if(VistaFiltros != null) TogglearImagenes();
         }
 
+        private void CargarFiltroIngredientesUsuario()
+        {
+            this.FiltroIngredientes = Usuario._Perfil._FiltroIngredientes;
+        }
+
         private void CargarFiltroVegetarianoUsuario()
         {
-            if (Usuario._Perfil._FiltroVegetariano) this.FiltroVegetariano = true;
+            this.FiltroVegetariano = Usuario._Perfil._FiltroVegetariano;
         }
 
         private void CargarFiltroVeganoUsuario()
         {
-            if (Usuario._Perfil._FiltroVegano) this.FiltroVegano = true;
+            this.FiltroVegano = Usuario._Perfil._FiltroVegano;
         }
 
         private void CargarFiltroCeliacoUsuario()
         {
-            if (Usuario._Perfil._FiltroCeliaco) this.FiltroCeliaco = true;
+            this.FiltroCeliaco = Usuario._Perfil._FiltroCeliaco;
         }
 
         private void CargarFiltroDiabeticoUsuario()
         {
-            if (Usuario._Perfil._FiltroDiabetico) this.FiltroDiabetico = true;
+            this.FiltroDiabetico = Usuario._Perfil._FiltroDiabetico;
         }
 
         private void CargarFiltroMomentoDia()
@@ -98,6 +108,11 @@ namespace CookItApp.ViewModels
             if (Usuario._Perfil._FiltroMomentoDia) {
                 this.FiltroMomentoDia = true;
                 this.FiltroMomentoDiaId = Convert.ToInt32(Usuario._Perfil._FiltroMomentoDiaId);
+            }
+            else
+            {
+                this.FiltroMomentoDia = false;
+                this.FiltroMomentoDiaId = -1;
             }
         }
 
@@ -107,6 +122,11 @@ namespace CookItApp.ViewModels
             {
                 this.FiltroEstacion = true;
                 this.FiltroEstacionId = Convert.ToInt32(Usuario._Perfil._FiltroEstacionId);
+            }
+            else
+            {
+                this.FiltroEstacion = false;
+                this.FiltroEstacionId = -1;
             }
         }
 
@@ -118,6 +138,12 @@ namespace CookItApp.ViewModels
                 this.FiltroCaloriasMin = Usuario._Perfil._FiltroCaloriasMin;
                 this.FiltroCaloriasMax = Usuario._Perfil._FiltroCaloriasMax;
             }
+            else
+            {
+                this.FiltroCalorias = false;
+                this.FiltroCaloriasMin = -1;
+                this.FiltroCaloriasMax = -1;
+            }
         }
 
         private void CargarFiltroDificultadUsuario()
@@ -127,6 +153,12 @@ namespace CookItApp.ViewModels
                 this.FiltroDificultad = true;
                 this.FiltroDificultadMin = Usuario._Perfil._FiltroDificultadMin;
                 this.FiltroDificultadMax = Usuario._Perfil._FiltroDificultadMax;
+            }
+            else
+            {
+                this.FiltroDificultad = false;
+                this.FiltroDificultadMin = -1;
+                this.FiltroDificultadMax = -1;
             }
         }
 
@@ -138,6 +170,12 @@ namespace CookItApp.ViewModels
                 this.FiltroTiempoPreparacionMin = Usuario._Perfil._FiltroTiempoPreparacionMin;
                 this.FiltroTiempoPreparacionMax = Usuario._Perfil._FiltroTiempoPreparacionMax;
             }
+            else
+            {
+                this.FiltroTiempoPreparacion = false;
+                this.FiltroTiempoPreparacionMin = -1;
+                this.FiltroTiempoPreparacionMax = -1;
+            }
         }
 
         private void CargarFiltroPuntuacionUsuario()
@@ -147,6 +185,12 @@ namespace CookItApp.ViewModels
                 this.FiltroPuntuacion = true;
                 this.FiltroPuntuacionMin = Usuario._Perfil._FiltroPuntuacionMin;
                 this.FiltroPuntuacionMax = Usuario._Perfil._FiltroPuntuacionMax;
+            }
+            else
+            {
+                this.FiltroPuntuacion = false;
+                this.FiltroPuntuacionMin = -1;
+                this.FiltroPuntuacionMax = -1;
             }
         }
 
@@ -158,6 +202,12 @@ namespace CookItApp.ViewModels
                 this.FiltroCantPlatosMin = Usuario._Perfil._FiltroCantPlatosMin;
                 this.FiltroCantPlatosMax = Usuario._Perfil._FiltroCantPlatosMax;
             }
+            else
+            {
+                this.FiltroCantPlatos = false;
+                this.FiltroCantPlatosMin = -1;
+                this.FiltroCantPlatosMax = -1;
+            }
         }
 
         private void CargarFiltroPrecioUsuario()
@@ -167,6 +217,12 @@ namespace CookItApp.ViewModels
                 this.FiltroPrecio = true;
                 this.FiltroPrecioMin = Usuario._Perfil._FiltroPrecioMin;
                 this.FiltroPrecioMax = Usuario._Perfil._FiltroPrecioMax;
+            }
+            else
+            {
+                this.FiltroPrecio = false;
+                this.FiltroPrecioMin = -1;
+                this.FiltroPrecioMax = -1;
             }
         }
         #endregion
@@ -251,6 +307,7 @@ namespace CookItApp.ViewModels
             FiltroVegano = false;
             FiltroCeliaco = false;
             FiltroDiabetico = false;
+            FiltroIngredientes = false;
             VistaFiltros.ResetearSimples();
         }
         #endregion
@@ -318,7 +375,7 @@ namespace CookItApp.ViewModels
         internal void TogglearImagenes()
         {
             VistaFiltros.ToggleImagenCalorias(FiltroCalorias);
-            //VistaFiltros.ToggleImagenCantPlatos(FiltroCantPlatos);
+            //VistaToggleImagenCantPlatos(FiltroCantPlatos);
             VistaFiltros.ToggleImagenDificultad(FiltroDificultad);
             VistaFiltros.ToggleImagenPuntuacion(FiltroPuntuacion);
             VistaFiltros.ToggleImagenTiempoPreparacion(FiltroTiempoPreparacion);
@@ -329,6 +386,114 @@ namespace CookItApp.ViewModels
             VistaFiltros.ToggleImagenVegetariano(FiltroVegetariano);
             VistaFiltros.ToggleImagenCeliaco(FiltroCeliaco);
             VistaFiltros.ToggleImagenDiabetico(FiltroDiabetico);
+            VistaFiltros.ToggleImagenIngredientes(FiltroIngredientes);
+        }
+
+        public List<Receta> AplicarFiltrosALista(List<Receta> recetas)
+        {
+
+            if (FiltroCeliaco) recetas = recetas.FindAll(x => x._AptoCeliacos == true);
+            if (FiltroVegetariano) recetas = recetas.FindAll(x => x._AptoVegetarianos == true);
+            if (FiltroVegano) recetas = recetas.FindAll(x => x._AptoVeganos == true);
+            if (FiltroDiabetico) recetas = recetas.FindAll(x => x._AptoDiabeticos == true);
+            if (FiltroCeliaco) recetas = recetas.FindAll(x => x._AptoCeliacos == true);
+            if (FiltroPrecio)
+            {
+                if (FiltroPrecioMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= FiltroPrecioMin);
+                }
+                if (FiltroPrecioMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= FiltroPrecioMax);
+                }
+            }
+
+            if (FiltroCalorias)
+            {
+                if (FiltroCaloriasMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= FiltroCaloriasMin);
+                }
+                if (FiltroCaloriasMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= FiltroCaloriasMax);
+                }
+            }
+
+            if (FiltroTiempoPreparacion)
+            {
+                if (FiltroTiempoPreparacionMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= FiltroTiempoPreparacionMin);
+                }
+                if (FiltroTiempoPreparacionMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= FiltroTiempoPreparacionMax);
+                }
+            }
+
+            if (FiltroCantPlatos)
+            {
+                if (FiltroCantPlatosMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= FiltroCantPlatosMin);
+                }
+                if (FiltroCantPlatosMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= FiltroCantPlatosMax);
+                }
+            }
+
+            if (FiltroDificultad)
+            {
+                if (FiltroDificultadMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= FiltroDificultadMin);
+                }
+                if (FiltroDificultadMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= FiltroDificultadMax);
+                }
+            }
+
+            if (FiltroPuntuacion)
+            {
+                if (FiltroPuntuacionMin != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo >= FiltroPuntuacionMin);
+                }
+                if (FiltroPuntuacionMax != -1)
+                {
+                    recetas = recetas.FindAll(x => x._Costo <= FiltroPuntuacionMax);
+                }
+            }
+
+            if (FiltroMomentoDia)
+            {
+                recetas = recetas.FindAll(x => x._IdMomentoDia == FiltroMomentoDiaId);
+            }
+
+
+            if (FiltroEstacion)
+            {
+                recetas = recetas.FindAll(x => x._IdEstacion == FiltroEstacionId);
+            }
+
+            if (FiltroIngredientes)
+            {
+                List<Receta> recetasCopia = recetas.ToList();
+                foreach(Receta rec in recetasCopia)
+                {
+                    List<IngredienteReceta> listIngRec = rec._ListaIngredientesReceta;
+                    foreach(IngredienteReceta ing in listIngRec)
+                    {
+                        if (!Usuario.TieneSuficienteIngrediente(ing)) recetas.Remove(rec);
+                    }
+                }
+            }
+
+            return recetas;
         }
 
 

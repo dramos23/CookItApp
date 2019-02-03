@@ -18,6 +18,7 @@ namespace CookItApp.Data
         void ToggleImagenPuntuacion(bool v);
         void ToggleImagenMomentoDia(bool v);
         void ToggleImagenEstacion(bool v);
+        void ToggleImagenIngredientes(bool v);
         void ResetearSimples();
     }
 }

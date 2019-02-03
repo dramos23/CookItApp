@@ -63,5 +63,18 @@ namespace CookItApp.Models
             return false;
         }
 
+        public bool TieneSuficienteIngrediente(IngredienteReceta ing)
+        {
+            foreach(IngredienteUsuario ingUs in this._Perfil._ListaIngredientesUsuario)
+            {
+                if(ing._IdIngrediente == ingUs._IdIngrediente)
+                {
+                    if (ingUs._Cantidad >= ing._Cantidad) return true;
+                    return false;
+                }
+            }
+            return false;
+        }
+
     }    
 }

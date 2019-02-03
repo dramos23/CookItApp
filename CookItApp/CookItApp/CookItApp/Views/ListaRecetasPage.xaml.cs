@@ -307,11 +307,10 @@ namespace CookItApp.Views
             Grid.SetColumn(img, 0);
         }
 
-        //Falta integrar los filtros del viewmodel de filtros
         private void BuscarReceta_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            var keyword = BuscarReceta.Text;
+            var keyword = BuscarReceta.Text.Trim();
 
             if (keyword.Length >= 1)
             {
@@ -332,91 +331,9 @@ namespace CookItApp.Views
             Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
             FiltrosVM filtros = vm as FiltrosVM;
 
-            if (filtros.FiltroCeliaco) recetas = recetas.FindAll(x => x._AptoCeliacos == true);
-            if (filtros.FiltroVegetariano) recetas = recetas.FindAll(x => x._AptoVegetarianos == true);
-            if (filtros.FiltroVegano) recetas = recetas.FindAll(x => x._AptoVeganos == true);
-            if (filtros.FiltroDiabetico) recetas = recetas.FindAll(x => x._AptoDiabeticos == true);
-            if (filtros.FiltroCeliaco) recetas = recetas.FindAll(x => x._AptoCeliacos == true);
-            if (filtros.FiltroPrecio) {
-                if(filtros.FiltroPrecioMin != -1) {
-                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroPrecioMin);
-                }
-                if (filtros.FiltroPrecioMax != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroPrecioMax);
-                }
-            }
+            List<Receta> filtrada = filtros.AplicarFiltrosALista(recetas);
 
-            if (filtros.FiltroCalorias)
-            {
-                if (filtros.FiltroCaloriasMin != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroCaloriasMin);
-                }
-                if (filtros.FiltroCaloriasMax != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroCaloriasMax);
-                }
-            }
-            if (filtros.FiltroTiempoPreparacion)
-            {
-                if (filtros.FiltroTiempoPreparacionMin != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroTiempoPreparacionMin);
-                }
-                if (filtros.FiltroTiempoPreparacionMax != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroTiempoPreparacionMax);
-                }
-            }
-            if (filtros.FiltroCantPlatos)
-            {
-                if (filtros.FiltroCantPlatosMin != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroCantPlatosMin);
-                }
-                if (filtros.FiltroCantPlatosMax != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroCantPlatosMax);
-                }
-            }
-
-            if (filtros.FiltroDificultad)
-            {
-                if (filtros.FiltroDificultadMin != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroDificultadMin);
-                }
-                if (filtros.FiltroDificultadMax != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroDificultadMax);
-                }
-            }
-
-            if (filtros.FiltroPuntuacion)
-            {
-                if (filtros.FiltroPuntuacionMin != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo >= filtros.FiltroPuntuacionMin);
-                }
-                if (filtros.FiltroPuntuacionMax != -1)
-                {
-                    recetas = recetas.FindAll(x => x._Costo <= filtros.FiltroPuntuacionMax);
-                }
-            }
-
-            if (filtros.FiltroMomentoDia)
-            {
-                recetas = recetas.FindAll(x => x._IdMomentoDia == filtros.FiltroMomentoDiaId);
-            }
-
-
-            if (filtros.FiltroEstacion)
-            {
-                recetas = recetas.FindAll(x => x._IdEstacion == filtros.FiltroEstacionId);
-            }
-
-            _VMRecetas = new RecetaListVM(recetas);
+            _VMRecetas = new RecetaListVM(filtrada);
             BindingContext = _VMRecetas;
 
         }
