@@ -7,27 +7,22 @@
              xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              x:Class="CookItApp.Views.PopupActualizarIngrediente"
              CloseWhenBackgroundIsClicked="True"
-             Padding="10">
+             Padding="10"
+             Opacity="1">
     <pages:PopupPage.Animation>
         <controles:AnimacionBase/>
     </pages:PopupPage.Animation>
     <pages:PopupPage.Content>
         <Frame BorderColor="Black" CornerRadius="10" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
-               BackgroundColor="{StaticResource colorSecondary}">
+               BackgroundColor="White">
             <Grid VerticalOptions="Center" HorizontalOptions="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3.4*"/>
-                    <RowDefinition Height="3.3*"/>
-                    <RowDefinition Height="3.3*"/>
-
-                </Grid.RowDefinitions>
-                <Label Text="" x:Name="txtNombreIng" FontSize= "Small" Grid.Row="0"
+                <Label Text="" x:Name="txtNombreIng" FontSize= "Small" Grid.Row="0" Grid.Column="0"
                         HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 
-                <Entry Placeholder="" x:Name="txtCantidad" FontSize= "Small" Grid.Row="1"
-                        HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <Entry Placeholder="" x:Name="txtCantidad" FontSize= "Small" Grid.Row="0" Grid.Column="1"
+                        HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
               
-                <Image Grid.Row="2" Source="iconActualizarIngrediente.png" Style="{StaticResource estiloBotonImagenGrande}">
+                <Image Grid.Row="1" Grid.ColumnSpan="2" Source="iconActualizarIngrediente.png" Style="{StaticResource estiloBotonImagenGrande}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ActualizarIngrediente_Tapped"/>
                     </Image.GestureRecognizers>

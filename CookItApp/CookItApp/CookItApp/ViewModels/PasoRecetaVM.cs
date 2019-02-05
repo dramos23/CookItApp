@@ -27,5 +27,9 @@ namespace CookItApp.ViewModels
             if (_Paso._IdPasoReceta == 1) return false;
             return true;
         }
+
+
+
+       
     }
 }

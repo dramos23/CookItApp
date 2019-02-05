@@ -27,6 +27,7 @@ namespace CookItApp.Views
             Usuario = usr;
             Ing = ing;
             txtCantidad.Text = Ing._Cantidad + "";
+            txtNombreIng.Text = Ing._Ingrediente._Nombre;
         }
 
         private void ActualizarIngrediente_Tapped(object sender, EventArgs e)

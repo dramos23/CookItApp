@@ -67,9 +67,9 @@ namespace CookItApp.Views.PopupFiltros
             CerrarPopup();
         }
 
-        private void MensajeError(string msg)
+        private async void MensajeError(string msg)
         {
-            DisplayAlert("Error", msg, "Cerrar");
+            await PopupNavigation.Instance.PushAsync(new PopupMensaje(ViewModel.Usuario, "Error en tu filtro", msg));
         }
 
         private async void CerrarPopup()

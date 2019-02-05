@@ -73,7 +73,7 @@ namespace CookItApp.Views
         private async void BtnFiltros_Clicked(object sender, EventArgs e)
         {
             var pagFiltros = new FiltrosView(Usuario);
-            await PopupNavigation.Instance.PushAsync(pagFiltros);
+            await PopupNavigation.Instance.PushAsync(pagFiltros);          
         }
 
         //Metodo que detecta el evento de rotacion del celular y cambia el layout de la página.

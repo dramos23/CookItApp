@@ -21,6 +21,7 @@ namespace CookItApp.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+           
 
             LoadApplication(new App());
         }

@@ -1,5 +1,6 @@
 ﻿using CookItApp.Models;
 using CookItApp.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,15 +86,13 @@ namespace CookItApp.Views
                 {
 
                     Indicador.IsRunning = false;
-                    await DisplayAlert("Reto", "Reto enviado...", "OK");
-
+                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Retando a otro usuario", "Reto enviado"));
                 }
                 else {
 
                     Indicador.IsRunning = false;
-                    await DisplayAlert("Reto", "Aún matiene un reto pendiente con el usuario.", "OK");
-
-
+                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Retando a otro usuario", "Aún mantienes un reto pendiente " +
+                        "con el usuario."));
                 }
 
                 Navigation.RemovePage(this);

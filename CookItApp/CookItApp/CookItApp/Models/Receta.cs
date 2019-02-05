@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using SQLite;
 using Xamarin.Forms;
@@ -20,6 +21,8 @@ namespace CookItApp.Models
         public MomentoDia _MomentoDia { get; set; }
 
         public int _IdEstacion { get; set; }
+
+
         [Ignore]
         [JsonIgnore]
         public Estacion _Estacion { get; set; }
@@ -132,6 +135,21 @@ namespace CookItApp.Models
 
         }
 
+        public void OrdenarListasReceta()
+        {
+            OrdenarListaPasos();
+            OrdenarListaComentarios();
+        }
+
+        private void OrdenarListaPasos()
+        {
+            _ListaPasosReceta = _ListaPasosReceta.OrderBy(x => x._IdPasoReceta).ToList();
+        }
+
+        private void OrdenarListaComentarios()
+        {
+            _ListaComentariosReceta = _ListaComentariosReceta.OrderByDescending(x => x._IdComentario).ToList();
+        }
 
     }
 

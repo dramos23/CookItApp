@@ -55,7 +55,6 @@ namespace CookItApp.Views
 
         private async void BtnPrepararReceta_Clicked(object sender, EventArgs e)
         {
-            CargarDatosPrueba();
             await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario));
         }
 
@@ -150,9 +149,8 @@ namespace CookItApp.Views
                 }
             }catch(Exception ex)
             {
-
+                string mensaje = ex.Message;
             }
-
 
             return true;
         }

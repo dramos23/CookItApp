@@ -30,8 +30,7 @@ namespace CookItApp.Models
         public bool _FiltroCalorias { set; get; }
         public int _FiltroCaloriasMin { set; get; }
         public int _FiltroCaloriasMax { set; get; }
-        //public bool _FiltroPaisOrigen { set; get; }
-        //public int? _FiltroPaisOrigenId { set; get; }
+
         public bool _FiltroMomentoDia { set; get; }       
         public int? _FiltroMomentoDiaId { set; get; }
         public bool _FiltroPuntuacion { set; get; }

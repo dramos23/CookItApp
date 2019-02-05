@@ -20,7 +20,7 @@
                 </Grid.RowDefinitions>
 
                 <Picker x:Name="picEstacion"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Title="Estacion" 
-                        ItemsSource="Ingrediente.Estacion" IsVisible="False" />
+                        ItemsSource="Ingrediente.Estacion" ItemDisplayBinding="{Binding _Nombre}"/>
 
                 <Image  Grid.Row="1" Grid.Column="0"
                     Source="iconOk.png"

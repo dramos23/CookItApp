@@ -138,9 +138,8 @@
                         <Switch x:Name="togEstacion"  IsToggled="{Binding FiltroEstacion}"  Toggled="TogEstacion_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
-                        <Picker x:Name="picEstacion"  Title="Estacion" ItemsSource="Ingrediente.Estacion" IsVisible="False" />
-                        
-                    </StackLayout>
+                    <Picker x:Name="picEstacion"  Title="Estacion" ItemsSource="Ingrediente.Estacion" IsVisible="False" />
+                </StackLayout>
                     
                     <StackLayout Orientation="Vertical" Margin="0, 5">                        
                         <Button x:Name="GuardarPerfil" Text="Guardar Perfil"  Clicked="BtnGuardarPerfil_Clicked"/>

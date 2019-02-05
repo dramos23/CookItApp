@@ -17,6 +17,8 @@ namespace CookItApp.ViewModels
             _IngredientesReceta = r._ListaIngredientesReceta;
             _Receta = r;
             CargarDato();
+            _Receta.OrdenarListasReceta();
+            string test = "";
         }
 
         public void CargarDato()
