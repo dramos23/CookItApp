@@ -16,29 +16,32 @@
                BackgroundColor="{StaticResource colorSecondary}">
             <Grid VerticalOptions="Center" HorizontalOptions="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="8.5*"/>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-
+                <Grid></Grid>
                 <Grid Grid.Column="0" Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="8*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Entry Placeholder="Busque su ingrediente" x:Name="txtIngrediente" FontSize= "Small" TextChanged="TxtIngrediente_TextChanged"
-                        HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.ColumnSpan="2"/>
-                    <Entry Grid.Column="0" Grid.Row="1" Placeholder="Cantidad" x:Name="txtCantidad" Keyboard="Numeric" FontSize="Small"
-                       HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                        HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.ColumnSpan="2" Keyboard="Text"/>
+                    <Label Grid.Column="0" Grid.Row="1" TextColor="Black" FontAttributes="Bold" FontSize="Small"
+                           x:Name="txtIngSeleccionado" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Entry Grid.Column="0" Grid.Row="2" Placeholder="Cantidad" x:Name="txtCantidad" Keyboard="Numeric" FontSize="Small"
+                       HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                     <Label Grid.Column="1" Grid.Row="1" Text="" x:Name="txtMedida" FontSize="Small"/>
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="0">
+                <Grid Grid.Row="0" Grid.Column="1">
                     <xforms:SfListView x:Name="ListaIngredientes"
                                        ItemsSource="{Binding Ingredientes}"
                                        SelectionMode="SingleDeselect"
                                        SelectionGesture="Tap"
                                        ItemSize="30"
-                                       BackgroundColor="{StaticResource colorBackground}">
+                                       BackgroundColor="{StaticResource colorBackground}"
+                                       ItemTapped="ListaIngredientes_ItemTapped">
                         <xforms:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Frame BorderColor="Black" Padding="5">

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SQLite;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
@@ -196,6 +197,17 @@ namespace CookItApp.Models
           
 
 
+        }
+
+        internal void AgregarIngredienteUsuario(IngredienteUsuario ingUs)
+        {
+            bool ingEncontrado = false;
+            foreach(IngredienteUsuario ing in this._ListaIngredientesUsuario)
+            {
+                if(ingUs.Equals(ing)) ing._Cantidad += ingUs._Cantidad;
+                ingEncontrado = true;
+            }
+            if (!ingEncontrado) _ListaIngredientesUsuario.Add(ingUs);
         }
 
 
