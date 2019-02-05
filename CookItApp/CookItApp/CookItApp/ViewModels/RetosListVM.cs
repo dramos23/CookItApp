@@ -11,32 +11,20 @@ namespace CookItApp.ViewModels
     {
         public ObservableCollection<Reto> Retos { get; set; }
 
+        public bool Vacio { get; set; }
+
+        public bool Lista { get; set; }
+
+        public string Text { get; set; }
+
         public RetosListVM() {
 
+            Vacio = false;
+            Lista = false;
             Retos = new ObservableCollection<Reto>();
 
             CargarDatos();
-            //Comentar despues
-            CargarRetoPrueba();
-        }
 
-        private void CargarRetoPrueba()
-        {
-            Reto ret = new Reto
-            {
-                _ComentarioDestino = "Te desafio",
-                _Cumplido = false,
-                _EmailUsuOri = "dcazesv@gmail.com",
-                _NomUsuOri = "diego",
-                _NomUsuDes = "asd",
-                _EmailUsuDes = "asd@gmail.com",
-                _Fecha = DateTime.Now,
-                _Receta = new Receta
-                {
-                    _Titulo = "Super plato"
-                },
-            };
-            Retos.Add(ret);
         }
 
         private void CargarDatos()
@@ -55,11 +43,13 @@ namespace CookItApp.ViewModels
                         Retos.Add(r);
 
                     }
+                    Lista = true;
                 }
                 else
                 {
 
-                    //Text = Vacio ? "No tiene notificaciones!." : null;
+                    Vacio = true;
+                    Text = "No tiene desafíos!.";
                 }
             }
             catch (Exception ex)

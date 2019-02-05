@@ -1,10 +1,12 @@
-﻿using CookItApp.Models;
+﻿using Acr.UserDialogs;
+using CookItApp.Models;
 using CookItApp.ViewModels;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -58,41 +60,57 @@ namespace CookItApp.Views
             await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario));
         }
 
-        private void BtnRetar_Clicked(object sender, EventArgs e)
+        private async void BtnRetar_Clicked(object sender, EventArgs e)
         {
-            PopupNavigation.Instance.PushAsync(new PopupApuestaPage(Usuario, Receta));
-        }
+            if (ControlPerfil() == true)
+            {
+                UserDialogs.Instance.ShowLoading("Cargando..");
+                var perfiles = await App.PerfilService.ObtenerList();
+                perfiles = perfiles.Where(p => p._Email != Usuario._Perfil._Email).ToList();
 
+                if (perfiles.Count > 0)
+                {
+                    UserDialogs.Instance.HideLoading();
+                    await PopupNavigation.Instance.PushAsync(new PopupApuestaPage(Usuario, Receta, perfiles));
+                }
+                else
+                {
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert("Error", "Vuelva a intentarlo.", "OK");
+                }
+            }
+            
+        }
 
         private async void BtnAgregarFavoritos_Clicked(object sender, EventArgs e)
         {
-            RecetaFavorita rf = new RecetaFavorita()
+            if (ControlPerfil() == true)
             {
-                _Email = Email,
-                _IdReceta = Receta._IdReceta,
-                _FechaHora = DateTime.Now
-            };
-
-            if (!Usuario.RecetaEsFavorita(Receta))
-            {
-               
-                var favorito = await App.RecetaFavoritaService.Alta(rf);
-                if (favorito != null)
+                RecetaFavorita rf = new RecetaFavorita()
                 {
-                    //this.BT BtnAgregarFavoritos.IsEnabled = false;
-                    //this.BtnAgregarFavoritos.Image = "favorite.png";
-                    //this.BtnAgregarFavoritos.Text = "";
-                    //this.BtnAgregarFavoritos.BorderColor = Color.Transparent;
-                    //this.btnAgregarFavoritos.BackgroundColor = Color.Transparent;
-                }
+                    _Email = Email,
+                    _IdReceta = Receta._IdReceta,
+                    _FechaHora = DateTime.Now
+                };
 
-                btnAgregarFavoritos.Source = "iconFavoritoOn.png";
+                if (!Usuario.RecetaEsFavorita(Receta))
+                {
+
+                    var favorito = await App.RecetaFavoritaService.Alta(rf);
+                    if (favorito != null)
+                    {
+                        App.DataBase.RecetaFavorita.Guardar(favorito);
+                    }
+
+                    btnAgregarFavoritos.Source = "iconFavoritoOn.png";
+                }
+                else
+                {
+                    await App.RecetaFavoritaService.Eliminar(rf);
+                    btnAgregarFavoritos.Source = "iconFavoritoOff.png";
+                }
             }
-            else
-            {
-                await App.RecetaFavoritaService.Eliminar(rf);
-                btnAgregarFavoritos.Source = "iconFavoritoOff.png";
-            };
+            
         }
 
 
@@ -149,11 +167,30 @@ namespace CookItApp.Views
                 }
             }catch(Exception ex)
             {
-                string mensaje = ex.Message;
+                Debug.Print(ex.Message);
             }
+
 
             return true;
         }
 
+        public bool ControlPerfil()
+        {
+
+            if (Usuario._Perfil == null)
+            {
+                string mensaje = "Para utilizar está opción tiene que completar su perfil.";
+                UserDialogs.Instance.Alert("Complete su perfil", mensaje, "Continuar");
+                return false;
+
+            }
+            else {
+                return true;
+            }
+
+        }
+
     }
+
+
 }

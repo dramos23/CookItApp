@@ -8,6 +8,7 @@ using CookItApp.Views;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
 using CookItApp.Controladores;
+using System.Diagnostics;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CookItApp
@@ -63,15 +64,40 @@ namespace CookItApp
 
         protected override void OnSleep()
         {
+            Usuario usuario = App.DataBase.Usuario.Obtener();
+            Actualizacion act = new Actualizacion(usuario);
+            act.ActualizacionAplicativo();
 
-            
         }
 
         protected override void OnResume()
         {
-           
-            // Handle when your app resumes
+            Mensajes();
         }
+
+
+        private void Mensajes()
+        {
+
+            Usuario usuario = App.DataBase.Usuario.Obtener();
+            if (usuario._Perfil != null)
+            {
+
+                string mensaje = "Hola " + usuario._Perfil._Nombre + "\\n";
+                int notificaciones = App.DataBase.Notificacion.SinLeer();
+                if (notificaciones > 0)
+                {
+                    mensaje += "Tienes " + notificaciones.ToString() + " notificaciones sin leer.";
+                }
+                int retos = App.DataBase.Reto.RetosActivos();
+                if (retos > 0)
+                {
+                    mensaje += "Tienes " + retos.ToString() + " retos activos.";
+                }
+            }
+
+        }
+
 
         public static DataBaseController DataBase
         {

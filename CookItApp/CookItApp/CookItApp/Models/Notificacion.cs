@@ -2,7 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using Xamarin.Forms;
 using System.Text;
 
 namespace CookItApp.Models
@@ -31,7 +31,7 @@ namespace CookItApp.Models
         public string _Pk4 { get; set; }
         public string _Tabla { get; set; }
 
-        public Color _Color { get { return _Estado == 0 ? Color.Silver : Color.White; } }
+        public Color _Color { get { return _Estado == 0 ? Color.FromHex("#D8D8D8") : Color.White; } }
 
         public Notificacion()
         {

@@ -28,7 +28,7 @@ namespace CookItApp.Views
         public async void CargaDatosAplicativo(Usuario usuario)
         {
             
-            UserDialogs.Instance.ShowLoading("Cargando ingredientes...");
+            UserDialogs.Instance.ShowLoading("Cargando ingredientes..");
             List<Ingrediente> ingredientes = await App.IngredienteService.ObtenerList();
             if (ingredientes != null)
             {
@@ -36,22 +36,22 @@ namespace CookItApp.Views
             }
 
             //lblTexto.Text = "Cargando momentos del día..";
-            UserDialogs.Instance.ShowLoading("Cargando momentos del día...");
+            UserDialogs.Instance.ShowLoading("Cargando momentos del día..");
             List<MomentoDia> momentos = await App.MomentoDiaService.ObtenerList();
             if (momentos != null)
             {
                 App.DataBase.MomentoDia.GuardarList(momentos);
             }
 
-            UserDialogs.Instance.ShowLoading("Cargando estados reto...");
-            List<EstadoReto> estados = await App.EstadoRetoService.ObtenerList();
-            if (estados != null)
+            UserDialogs.Instance.ShowLoading("Cargando estados reto..");
+            List<EstadoReto> retos = await App.EstadoRetoService.ObtenerList();
+            if (retos != null)
             {
-                App.DataBase.EstadoReto.GuardarList(estados);
+                App.DataBase.EstadoReto.GuardarList(retos);
             }
 
             //lblTexto.Text = "Cargando estaciones del año..";
-            UserDialogs.Instance.ShowLoading("Cargando estaciones del año...");
+            UserDialogs.Instance.ShowLoading("Cargando estaciones del año..");
             List<Estacion> estaciones = await App.EstacionService.ObtenerList();
             if (estaciones != null)
             {
@@ -59,7 +59,7 @@ namespace CookItApp.Views
             }
 
             //lblTexto.Text = "Cargando recetas..";
-            UserDialogs.Instance.ShowLoading("Cargando recetas...");
+            UserDialogs.Instance.ShowLoading("Cargando recetas..");
             List<Receta> recetas = await App.RecetaService.ObtenerList();
             if (recetas != null)
             {
@@ -68,7 +68,7 @@ namespace CookItApp.Views
             }
 
             //lblTexto.Text = "Cargando hitorial de recetas..";
-            UserDialogs.Instance.ShowLoading("Cargando hitorial de recetas...");
+            UserDialogs.Instance.ShowLoading("Cargando hitorial de recetas..");
             List<HistorialReceta> historialReceta = await App.HistorialRecetaService.ObtenerList(usuario);
             if (historialReceta != null)
             {                
@@ -76,7 +76,7 @@ namespace CookItApp.Views
             }
 
             //lblTexto.Text = "Cargando perfil..";
-            UserDialogs.Instance.ShowLoading("Cargando perfil...");
+            UserDialogs.Instance.ShowLoading("Cargando perfil..");
             Perfil perfil = await App.PerfilService.Obtener(usuario);
             if (perfil != null)
             {

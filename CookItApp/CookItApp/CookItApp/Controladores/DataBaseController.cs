@@ -48,11 +48,8 @@ namespace CookItApp.Controladores
         public void BorrarTodo()
         {
             Token.BorrarTodo();
-            Usuario.BorrarTodo();
-            Perfil.BorrarTodo();
             MomentoDia.BorrarTodo();
-            Estacion.BorrarTodo();
-            Receta.BorrarTodo();
+            Estacion.BorrarTodo();            
             IngredienteUsuario.BorrarTodo();
             Ingrediente.BorrarTodo();
             IngredienteReceta.BorrarTodo();
@@ -63,6 +60,10 @@ namespace CookItApp.Controladores
             PasoReceta.BorrarTodo();
             HistorialReceta.BorrarTodo();
             EstadoReto.BorrarTodo();
+            Receta.BorrarTodo();
+            Perfil.BorrarTodo();
+            Usuario.BorrarTodo();
+
         }
     }
 }

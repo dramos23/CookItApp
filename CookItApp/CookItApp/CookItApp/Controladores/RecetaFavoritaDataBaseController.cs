@@ -29,7 +29,7 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<RecetaFavorita>().ToList();
+                    return database.Table<RecetaFavorita>().OrderBy(f => f._FechaHora).ToList();
                 }
             }
         }
@@ -42,7 +42,26 @@ namespace CookItApp.Controladores
 
                 if (obj.Count > 0)
                 {
+                    BorrarTodo();
                     return database.InsertAll(obj);
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+
+        public int Guardar(RecetaFavorita obj)
+        {
+
+            lock (locker)
+            {
+
+                if (obj != null)
+                {
+                    return database.Insert(obj);
                 }
                 else
                 {

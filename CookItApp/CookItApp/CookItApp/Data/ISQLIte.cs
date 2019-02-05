@@ -8,5 +8,6 @@ namespace CookItApp
     public interface ISQLIte
     {
         SQLiteConnection GetConnection();
+        
     }
 }

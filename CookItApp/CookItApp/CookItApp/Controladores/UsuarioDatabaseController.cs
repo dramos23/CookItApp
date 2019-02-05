@@ -26,7 +26,9 @@ namespace CookItApp.Data
                 }
                 else
                 {
-                    return database.Table<Usuario>().First();
+                    var usuario = database.Table<Usuario>().First();
+                    usuario._Perfil = App.DataBase.Perfil.Obtener(usuario._Email);                    
+                    return usuario;
                 }
             }
         }

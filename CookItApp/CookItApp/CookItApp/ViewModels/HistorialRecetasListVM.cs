@@ -8,13 +8,20 @@ namespace CookItApp.ViewModels
 {
     public class HistorialRecetasListVM
     {
-        public List<HistorialReceta> HistorialRecetas { get; set; }
+        public ObservableCollection<HistorialReceta> HistorialRecetas { get; set; }    
+
+        public bool Vacio { get; set; }
+
+        public bool Lista { get; set; }
+
+        public string Text { get; set; }
 
         public HistorialRecetasListVM(Usuario usuario)
         {
 
-
-            HistorialRecetas = new List<HistorialReceta>();
+            Vacio = false;
+            Lista = false;
+            HistorialRecetas = new ObservableCollection<HistorialReceta>();
             //Aca se tienen que cargar las recetas desde el API. Obviamente, despues se cargarian con filtros.
             CargarRecetas(usuario);
             
@@ -24,15 +31,21 @@ namespace CookItApp.ViewModels
 
         private void CargarRecetas(Usuario usuario)
         {
-            HistorialRecetas = App.DataBase.HistorialReceta.ObtenerList(usuario);
+            var historiales = App.DataBase.HistorialReceta.ObtenerList();
 
-            if (HistorialRecetas != null)
+            if (historiales != null)
             {
-                foreach (HistorialReceta h in HistorialRecetas)
+                foreach (HistorialReceta h in historiales)
                 {
                     h._Receta = App.DataBase.Receta.Obtener(h._IdReceta);
-                    //h._Receta._FotoCompleta = h._Receta._Foto != null ? h._Receta.ImageFoto() : "food.png";
+                    HistorialRecetas.Add(h);                    
                 }
+                Lista = true;
+            }
+            else
+            {
+                Vacio = true;
+                Text = "Aún no tiene nada en su historial!.";
             }
         }
 

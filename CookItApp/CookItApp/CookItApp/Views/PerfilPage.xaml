@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CookItApp.Views.PerfilPage">
+             x:Class="CookItApp.Views.PerfilPage"
+             Title="Mi Perfil">
     <ContentPage.Content>
         
         <ScrollView x:Name="scroll" Orientation="Vertical">
@@ -17,50 +18,55 @@
 
 
                 <StackLayout Grid.Row="0" Padding="30,20">
-                    <!-- <ActivityIndicator x:Name="activityIndicator" />-->
-                    <!---->
+                    
                     <StackLayout Orientation="Vertical">
+                        
                         <Image x:Name="imgPerfil" Source="{Binding Foto}" Style="Border: 1px"/>
-                        <!--<Button Text="" Image="photo.png" Margin="0, 5" Clicked="BtnSacarFoto_Clicked"/>-->
-                        <Button Text="" Image="photo.png" Clicked="BtnSacarFoto_Clicked" />
-                        <Label Text="Email:" TextColor="Black" FontAttributes="None" FontSize="18" Margin="0, 5" />
+                        <Button Text="" Image="photo.png" Clicked="BtnSacarFoto_Clicked"  TextColor="White" BackgroundColor="#00748A"/>
+                        <Label Text="Email:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5" />
                         <Entry x:Name="entryEmail" PlaceholderColor="Black" Margin="0, 5" IsEnabled="False" Text="{Binding Email}"/>
-                        <Label Text="Nombre Usuario:" TextColor="Black" FontAttributes="None" FontSize="18" Margin="0, 5"/>
+                        <Label Text="Nombre Usuario:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5"/>
                         <Entry x:Name="entryNombreUsuario"  Placeholder="Ingresa un nombre de usuario" PlaceholderColor="Black" Margin="0, 5" Text="{Binding NombreUsuario}"/>
-                        <Label Text="Nombre:" TextColor="Black" FontAttributes="None" FontSize="18" Margin="0, 5"/>
+                        <Label Text="Nombre:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5"/>
                         <Entry x:Name="entryNombre"  Placeholder="Ingresa tu nombre" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Nombre}"/>
-                        <Label Text="Apellido:" TextColor="Black" FontAttributes="None" FontSize="18" Margin="0, 5"/>
+                        <Label Text="Apellido:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5"/>
                         <Entry x:Name="entryApellido" Placeholder="Ingresa tu apellido" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Apellido}"/>
 
                     </StackLayout>
                     
                     <StackLayout Orientation="Horizontal" Margin="0, 10">
-                        <Label Text="Filtros Automaticos:" TextColor="Black" FontAttributes="None" FontSize="18" Margin="0, 5"/>
+                        <Label Text="Filtros Automaticos:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5"/>
                         <Switch x:Name="togFiltrosAutomaticos"  IsToggled="{Binding FiltroAutomatico}" Toggled="TogFiltrosAutomaticos_Toggled"></Switch>
                     </StackLayout>
 
                     <StackLayout x:Name="stkCeliaco"  Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para Celiacos:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Apto para Celiacos:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togAptoCeliaco"  IsToggled="{Binding FiltroCeliaco}" ></Switch>
                     </StackLayout>
 
                     <StackLayout x:Name="stkDiabetico" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para Diabeticos:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Apto para Diabeticos:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togAptoDiabetico" IsToggled="{Binding FiltroDiabetico}" ></Switch>
                     </StackLayout>
 
                     <StackLayout x:Name="stkVegano"  Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para Veganos:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Apto para Veganos:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togAptoVegano" IsToggled="{Binding FiltroVegano}" ></Switch>
                     </StackLayout>
 
                     <StackLayout x:Name="stkVegetariano" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para Vegetariano:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Apto para Vegetariano:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togAptoVegetariano" IsToggled="{Binding FiltroVegetariano}" ></Switch>
                     </StackLayout>
 
+
+                    <StackLayout x:Name="stkIngredientes" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
+                        <Label Text="Filtrar mis ingredientes:" TextColor="Black" FontAttributes="None" FontSize="16"/>
+                        <Switch x:Name="togMisIngredientes" IsToggled="{Binding FiltroIngredientes}" ></Switch>
+                    </StackLayout>
+
                     <StackLayout x:Name="stkCalorias" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Cantidad Calorias:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Cantidad Calorias:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togCalorias"  IsToggled="{Binding FiltroCalorias}"  Toggled="TogCalorias_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
@@ -71,7 +77,7 @@
                     </StackLayout>
 
                     <StackLayout x:Name="stkPrecio" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Precio:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Precio:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togPrecio"  IsToggled="{Binding FiltroPrecio}"  Toggled="TogPrecio_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
@@ -82,7 +88,7 @@
                     </StackLayout>
 
                     <StackLayout x:Name="stkPlatos" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Cantidad Platos:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Cantidad Platos:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togCantPlatos"  IsToggled="{Binding FiltroCantPlatos}" Toggled="TogCantPlatos_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
@@ -93,7 +99,7 @@
                     </StackLayout>
 
                     <StackLayout x:Name="stkTiempo" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Tiempo Preparación (min):" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Tiempo Preparación (min):" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togTiempoPreparacion" IsToggled="{Binding FiltroTiempoPreparacion}"  Toggled="TogTiempoPreparacion_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
@@ -104,7 +110,7 @@
                     </StackLayout>
 
                     <StackLayout x:Name="stkPuntaje" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Puntaje Total:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Puntaje Total:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                     <Switch x:Name="togPuntajeTotal"  IsToggled="{Binding FiltroPuntuacion}"  Toggled="TogPuntajeTotal_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
@@ -115,7 +121,7 @@
                     </StackLayout>
 
                     <StackLayout x:Name="stkDificultad" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Dificultad:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Dificultad:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togDificultad"  IsToggled="{Binding FiltroDificultad}"  Toggled="TogDificultad_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
@@ -126,7 +132,7 @@
                 </StackLayout>
 
                     <StackLayout x:Name="stkMomento" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Momento Día:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Momento Día:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togMomentoDia"  IsToggled="{Binding FiltroMomentoDia}"  Toggled="TogMomentoDia_Toggled"></Switch>
                     </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="0, 5">
@@ -134,15 +140,15 @@
                 </StackLayout>
 
                     <StackLayout x:Name="stkEstacion" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Estación:" TextColor="Black" FontAttributes="None" FontSize="18"/>
+                        <Label Text="Estación:" TextColor="Black" FontAttributes="None" FontSize="16"/>
                         <Switch x:Name="togEstacion"  IsToggled="{Binding FiltroEstacion}"  Toggled="TogEstacion_Toggled"></Switch>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0, 5">
                     <Picker x:Name="picEstacion"  Title="Estacion" ItemsSource="Ingrediente.Estacion" IsVisible="False" />
                 </StackLayout>
                     
-                    <StackLayout Orientation="Vertical" Margin="0, 5">                        
-                        <Button x:Name="GuardarPerfil" Text="Guardar Perfil"  Clicked="BtnGuardarPerfil_Clicked"/>
+                    <StackLayout Orientation="Vertical" Margin="0, 5">
+                        <Button x:Name="GuardarPerfil" Text="Guardar Perfil"  Clicked="BtnGuardarPerfil_Clicked"  TextColor="White" BackgroundColor="#00748A"/>
                     </StackLayout>
 
                 </StackLayout>

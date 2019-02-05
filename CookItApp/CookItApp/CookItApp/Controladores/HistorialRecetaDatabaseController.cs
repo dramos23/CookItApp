@@ -19,7 +19,7 @@ namespace CookItApp.Controladores
             database.CreateTable<HistorialReceta>();
         }
 
-        public List<HistorialReceta> ObtenerList(Usuario usuario)
+        public List<HistorialReceta> ObtenerList()
         {
             lock (locker)
             {
@@ -29,7 +29,7 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<HistorialReceta>().ToList();
+                    return database.Table<HistorialReceta>().OrderBy(f => f._FechaHora).ToList();
                 }
             }
         }
@@ -41,6 +41,7 @@ namespace CookItApp.Controladores
             {
                 if (obj != null)
                 {
+                    BorrarTodo();
                     return database.InsertAll(obj);
                 }
                 else
@@ -57,8 +58,7 @@ namespace CookItApp.Controladores
 
             lock (locker)
             {
-
-                int ret = BorrarTodo();
+                
                 if (obj != null)
                 {
                     return database.Insert(obj);

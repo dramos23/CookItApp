@@ -11,11 +11,13 @@ namespace CookItApp.ViewModels
     {
         public Receta _Receta { get; set; }
         public List<IngredienteReceta> _IngredientesReceta { get; set; }
+        public string Titulo { get; set; }
 
         public RecetaVM(Receta r)
         {
             _IngredientesReceta = r._ListaIngredientesReceta;
             _Receta = r;
+            Titulo = "Receta: " + r._Titulo;
             CargarDato();
             _Receta.OrdenarListasReceta();
             string test = "";
