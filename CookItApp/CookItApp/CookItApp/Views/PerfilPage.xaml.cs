@@ -189,7 +189,8 @@ namespace CookItApp.Views
             stkPuntaje.IsVisible = (e.Value == true) ? true : false;
             stkDificultad.IsVisible = (e.Value == true) ? true : false;
             stkMomento.IsVisible = (e.Value == true) ? true : false;
-            stkEstacion.IsVisible = (e.Value == true) ? true : false;            
+            stkEstacion.IsVisible = (e.Value == true) ? true : false;   
+            stkIngredientes.IsVisible = (e.Value == true) ? true : false;
 
         }
 

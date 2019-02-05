@@ -44,10 +44,10 @@ namespace CookItApp.Views
             }
 
             UserDialogs.Instance.ShowLoading("Cargando estados reto..");
-            List<EstadoReto> estados = await App.EstadoRetoService.ObtenerList();
-            if (estados != null)
+            List<EstadoReto> retos = await App.EstadoRetoService.ObtenerList();
+            if (retos != null)
             {
-                App.DataBase.EstadoReto.GuardarList(estados);
+                App.DataBase.EstadoReto.GuardarList(retos);
             }
 
             //lblTexto.Text = "Cargando estaciones del año..";

@@ -1,65 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CookItApp.Views.HistorialRecetasPage">
-        
-    <ContentPage.Content>
-        
-        <!-- Grid principal que da formato a la pagina-->
-        <Grid x:Name="gridPrincipal">
-            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+             x:Class="CookItApp.Views.HistorialRecetasPage"
+             Title="Historial">
 
-            <Grid>
-                <ListView x:Name="ListaRecetasVisitadas" 
-                          ItemsSource="{Binding HistorialRecetas}" 
-                          SeparatorColor="LightGray"                           
-                          ItemSelected="RecetaSeleccionada"> 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="{Binding _Receta._Foto}"
-                                               HorizontalOptions="CenterAndExpand"
-                                               Grid.Column="0"
-                                               VerticalOptions="CenterAndExpand"
-                                               Aspect="AspectFill" />
-                                        <Grid Grid.Column="1"
-                                              Margin="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="2*"></RowDefinition>
-                                                <RowDefinition Height="4*"></RowDefinition>
-                                                <RowDefinition Height="2*"></RowDefinition>
-                                            </Grid.RowDefinitions>
-                                            <Label Grid.Row="0"
-                                                   Text="{Binding _Receta._Titulo}" 
-                                                   FontSize="Micro"
-                                                   FontAttributes="Bold"
-                                                   VerticalOptions="Start"
-                                                   HorizontalOptions="Start"
-                                                   LineBreakMode="TailTruncation"/>
+    <StackLayout>
 
-                                            <Label Grid.Row="1"
-                                                   Text="{Binding _Receta._Descripcion}" 
-                                                   FontSize="Micro"
-                                                   MaxLines="2"
-                                                   VerticalOptions="Start"
-                                                   HorizontalOptions="Start"
-                                                   LineBreakMode="TailTruncation"/>
-                                        </Grid>
-                                    </Grid>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
-        </Grid>
-    </ContentPage.Content>
+        <Label Text="{Binding Text}" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
+
+
+        <ListView ItemsSource="{Binding HistorialRecetas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada" IsVisible="{Binding  Lista}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="70" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan ="4" Style="Border: 1px" Source="{Binding HistorialReceta._Receta._Foto}"/>
+                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding _FechaHora}" LineBreakMode="NoWrap" TextColor="Black" HorizontalOptions="End" FontSize="13" />
+                        <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"  Text="{Binding _Receta._Titulo}" LineBreakMode="NoWrap" TextColor="Black" FontSize="16" />
+                        <Label Grid.Column="1" Grid.Row="2" Text="{Binding _Receta._Descripcion}" LineBreakMode="NoWrap" TextColor="Black" FontSize="14" MaxLines="4" />
+
+                    </Grid>
+                </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        
+    </StackLayout>
 </ContentPage>

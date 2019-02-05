@@ -25,6 +25,7 @@ namespace CookItApp.ViewModels
         public bool FiltroVegano { set; get; }
         public bool FiltroDiabetico { set; get; }
         public bool FiltroCeliaco { set; get; }
+        public bool FiltroIngredientes { set; get; }
         public bool FiltroCalorias { set; get; }
         public int FiltroCaloriasMin { set; get; }
         public int FiltroCaloriasMax { set; get; }
@@ -64,6 +65,7 @@ namespace CookItApp.ViewModels
             FiltroVegano = (usuario._Perfil != null) ? usuario._Perfil._FiltroVegano : false;
             FiltroDiabetico = (usuario._Perfil != null) ? usuario._Perfil._FiltroDiabetico : false;
             FiltroCeliaco = (usuario._Perfil != null) ? usuario._Perfil._FiltroCeliaco : false;
+            FiltroIngredientes = (usuario._Perfil != null) ? usuario._Perfil._FiltroIngredientes : false;
             FiltroCalorias = (usuario._Perfil != null) ? usuario._Perfil._FiltroCalorias : false;
             FiltroCaloriasMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMin : 0;
             FiltroCaloriasMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMax : 0;

@@ -54,7 +54,7 @@ namespace CookItApp.Data
 
         }
 
-        public async Task<List<RecetaFavorita>> ObtenerList(RecetaFavorita obj)
+        public async Task<List<RecetaFavorita>> ObtenerList(Perfil obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web + obj._Email;

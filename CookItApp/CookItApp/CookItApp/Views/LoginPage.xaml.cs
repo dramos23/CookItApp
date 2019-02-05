@@ -75,13 +75,11 @@ namespace CookItApp.Views
                     {
                         if (token._AccessToken != null)
                         {
-                            GuardarUsuPas();
-
-                            UserDialogs.Instance.HideLoading();
-                            //await DisplayAlert("Login", "Ingreso Satisfactorio", "Ok");
+                            GuardarUsuPas();                                                       
 
                             App.DataBase.Usuario.Guardar(Usuario);
                             App.DataBase.Token.Guardar(token);
+                            UserDialogs.Instance.HideLoading();
 
                             await Navigation.PushAsync(new CargaRecursos(Usuario, "INS"), true);
                             Navigation.RemovePage(this);

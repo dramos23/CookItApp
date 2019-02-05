@@ -29,7 +29,7 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<Notificacion>().ToList();
+                    return database.Table<Notificacion>().OrderBy(f => f._FechaHora).ToList();
                 }
             }
         }
@@ -50,6 +50,14 @@ namespace CookItApp.Controladores
             }
         }
 
+        public int SinLeer()
+        {
+            lock (locker)
+            {
+                return database.Table<Notificacion>().Where(n => n._Estado == 0).Count();                
+            }
+        }
+
         public int GuardarList(List<Notificacion> obj)
         {
 
@@ -58,7 +66,26 @@ namespace CookItApp.Controladores
 
                 if (obj.Count > 0)
                 {
+                    BorrarTodo();
                     return database.InsertAll(obj);
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+
+        public int Guardar(Notificacion obj)
+        {
+
+            lock (locker)
+            {
+
+                if (obj != null)
+                {
+                    return database.Insert(obj);
                 }
                 else
                 {

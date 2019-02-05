@@ -16,15 +16,15 @@ namespace CookItApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HistorialRecetasPage : ContentPage
 	{
-        HistorialRecetasListVM _VMHistorialRecetas;
-        Usuario Usuario;
+        public HistorialRecetasListVM _VMHistorialRecetas { get; set; }
+        public Usuario _Usuario { get; set; }
 
 
         public HistorialRecetasPage(Usuario Usuario)
 		{
 			InitializeComponent ();
-            this.Usuario = Usuario;
-            _VMHistorialRecetas = new HistorialRecetasListVM(Usuario);
+            _Usuario = Usuario;
+            _VMHistorialRecetas = new HistorialRecetasListVM(_Usuario);
             BindingContext = _VMHistorialRecetas;
         }
 
@@ -43,9 +43,8 @@ namespace CookItApp.Views
             if (rec != null)
             {
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
-                await Navigation.PushAsync(new RecetaPage(rec, Usuario));
-
-                ListaRecetasVisitadas.SelectedItem = null;
+                await Navigation.PushAsync(new RecetaPage(rec, _Usuario));
+                
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using CookItApp.Models;
+﻿using Acr.UserDialogs;
+using CookItApp.Models;
 using CookItApp.ViewModels;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
@@ -37,7 +38,7 @@ namespace CookItApp.Views
             var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png"/*, TargetType = typeof(View1) */};
             var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png", TargetType = typeof(IngredientesUsuarioView) };
             var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
-            var page6 = new MasterPageItem() { Title = "Retos", Icon = "reto.png", TargetType = typeof(RetoListPage)};
+            var page6 = new MasterPageItem() { Title = "Desafios", Icon = "reto.png", TargetType = typeof(RetoListPage)};
             var page7 = new MasterPageItem() { Title = "Notificaciones", Icon = "notifications.png", TargetType = typeof(ListaNotificacionesPage) };
             var page8 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
             var page9 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
@@ -74,10 +75,40 @@ namespace CookItApp.Views
                 {
                     if (e.CustomData.Keys.Contains("Reto"))
                     {
+                       
                         await DisplayAlert(e.Title, e.Message, "OK");
-                        List<Notificacion> notificacions = App.DataBase.Notificacion.ObtenerList();
-                        await Navigation.PushAsync(new ListaNotificacionesPage(null), true);
-                        Navigation.RemovePage(this);
+
+                        UserDialogs.Instance.ShowLoading("Cargando..");
+
+                        var notificacion = await App.NotificacionService.Obtener(Usuario);
+
+                        if (notificacion != null) {
+
+                            int idReto = Convert.ToInt32(notificacion._Pk1);
+                            var reto = await App.RetoService.Obtener(idReto);
+
+                            if (reto != null)
+                            {
+                                if (App.DataBase.Reto.Existe(reto))
+                                {
+                                    App.DataBase.Reto.Modificar(reto);
+                                }
+                                else
+                                {
+                                    App.DataBase.Reto.Guardar(reto);
+                                }
+                                
+                                App.DataBase.Notificacion.Guardar(notificacion);
+                                
+                                UserDialogs.Instance.HideLoading();
+
+                                await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
+
+
+                            }
+
+                        }
+
                     }         
 
                 };
@@ -96,18 +127,31 @@ namespace CookItApp.Views
             {
                 EliminarDatosBD();
                 await Navigation.PushAsync(new LoginPage(), true);
-                this.Navigation.RemovePage(this);
+                Navigation.RemovePage(this);
+
             }else{
+
 
                 if (page == typeof(CargaRecursos))
                 {
+
                     await Navigation.PushAsync(new CargaRecursos(Usuario, "UPD"), true);
                     Navigation.RemovePage(this);
                 }
-                else
-                {
-                    Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
-                    IsPresented = false;
+                else {
+                    if (page == typeof(IngredientesUsuarioView))
+                    {
+                        if (ControlPerfilBoolean())
+                        {
+                            Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
+                            IsPresented = false;
+                        }
+                    }
+                    else
+                    {
+                        Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
+                        IsPresented = false;
+                    }
                 }
 
             }
@@ -127,6 +171,23 @@ namespace CookItApp.Views
 
         }
 
+        public bool ControlPerfilBoolean()
+        {
+
+            if (Usuario._Perfil == null)
+            {
+                string mensaje = "Para utilizar está opción tiene que completar su perfil.";
+                UserDialogs.Instance.Alert("Complete su perfil", mensaje, "Continuar");
+                return false;
+
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
         private void EliminarDatosBD()
         {
             App.DataBase.BorrarTodo();
@@ -137,6 +198,9 @@ namespace CookItApp.Views
             Usuario._Perfil = perfil;
         }
 
+        private void BtnFiltros_Clicked(object sender, EventArgs e)
+        {
 
+        }
     }
 }

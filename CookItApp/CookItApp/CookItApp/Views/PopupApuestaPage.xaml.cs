@@ -1,5 +1,7 @@
-﻿using CookItApp.Models;
+﻿using Acr.UserDialogs;
+using CookItApp.Models;
 using CookItApp.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,19 +26,14 @@ namespace CookItApp.Views
 
         private Perfil _UsuarioSelected { get; set; }
 
-        public PopupApuestaPage (Usuario Usuario, Receta Receta)
+        public PopupApuestaPage (Usuario Usuario, Receta Receta, List<Perfil> Perfiles)
 		{
 			InitializeComponent ();
             _Usuario = Usuario;
             _Receta = Receta;
-            ObtenerListPerfil();
-            VMPopupApuesta = new PopupApuestaVM(null);
+            _ListPerfiles = Perfiles;
+            VMPopupApuesta = new PopupApuestaVM(_ListPerfiles);
             BindingContext = VMPopupApuesta;
-        }
-
-        private async void ObtenerListPerfil()
-        {
-             _ListPerfiles = await App.PerfilService.ObtenerList();
         }
 
         private void UsuarioOrigen_TextChanged(object sender, TextChangedEventArgs e)
@@ -44,10 +41,10 @@ namespace CookItApp.Views
             string keyword = UsuarioOrigen.Text;
             if (keyword != "")
             {
-                    List<Perfil> resultado = _ListPerfiles.Where(c => c._NombreUsuario.ToLower().Contains(keyword.ToLower())).ToList();
-
-                    ListPerfiles.IsVisible = true;
-                    ListPerfiles.ItemsSource = resultado;
+                List<Perfil> resultado = _ListPerfiles;
+                resultado = resultado.Where(c => c._NombreUsuario.ToLower().Contains(keyword.ToLower())).ToList();
+               
+                ListPerfiles.ItemsSource = resultado;
 
             }
             else {
@@ -60,8 +57,9 @@ namespace CookItApp.Views
         }
 
         private async void RetarUsuario_Clicked(object sender, EventArgs e)
-        {
-            Indicador.IsRunning = true;
+        {           
+
+            UserDialogs.Instance.ShowLoading("Procesando..");
 
             Reto reto = new Reto
             {
@@ -77,26 +75,25 @@ namespace CookItApp.Views
             };
 
             if (reto != null) {
-
-                //rest api
+                
                 Reto r = await App.RetoService.Alta(reto);
 
                 if (r != null)
                 {
 
-                    Indicador.IsRunning = false;
+                    App.DataBase.Reto.Guardar(r);
+                    UserDialogs.Instance.HideLoading();
                     await DisplayAlert("Reto", "Reto enviado...", "OK");
 
                 }
                 else {
 
-                    Indicador.IsRunning = false;
+                    UserDialogs.Instance.HideLoading();
                     await DisplayAlert("Reto", "Aún matiene un reto pendiente con el usuario.", "OK");
-
 
                 }
 
-                Navigation.RemovePage(this);
+                await PopupNavigation.Instance.PopAsync();
 
             }
 

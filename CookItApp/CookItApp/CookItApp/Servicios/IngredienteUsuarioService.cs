@@ -54,6 +54,27 @@ namespace CookItApp.Servicios
 
         }
 
+        public async Task<bool> Eliminar(IngredienteUsuario obj)
+        {
+            Token token = App.DataBase.Token.Obtener();
+            string Url = Web + obj._Email + "," + obj._IdIngrediente;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, Url))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+               
+                using (HttpResponseMessage response = await client
+                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                    .ConfigureAwait(false))
+                {
+                    return response.IsSuccessStatusCode;                        
+                }
+
+            }
+
+        }
+
 
         private IngredienteUsuario Deseralizar(string jsonResult)
         {

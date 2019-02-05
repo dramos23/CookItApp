@@ -1,7 +1,9 @@
-﻿using CookItApp.Models;
+﻿using CookItApp.Data;
+using CookItApp.Models;
 using CookItApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ using Xamarin.Forms.Xaml;
 namespace CookItApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RetoListPage : ContentPage
+	public partial class RetoListPage : ContentPage, IViewDesafioList
 	{
         RetosListVM _ViewModelRetosList;
 
@@ -27,6 +29,18 @@ namespace CookItApp.Views
             _ViewModelRetosList = new RetosListVM();
             BindingContext = _ViewModelRetosList;
 
+        }
+
+        public void Actualizar()
+        {
+            // ListaRetos.ItemsSource = App.DataBase.Reto.ObtenerList();
+            _ViewModelRetosList = new RetosListVM();
+            BindingContext = _ViewModelRetosList;
+        }
+
+        public void Mostrar(ObservableCollection<Reto> reto)
+        {
+            throw new NotImplementedException();
         }
 
         private async void IrReceta_Clicked(object sender, EventArgs e)
@@ -53,7 +67,7 @@ namespace CookItApp.Views
             Button button = sender as Button;
             if (button?.BindingContext is Reto reto)
             {                
-                await Navigation.PushAsync(new RetoPage(reto, _Usuario));
+                await Navigation.PushAsync(new RetoPage(reto, _Usuario, this));
             }
         }
     }

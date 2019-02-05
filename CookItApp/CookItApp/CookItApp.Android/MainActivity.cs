@@ -16,7 +16,7 @@ namespace CookItApp.Droid
 
             base.OnCreate(savedInstanceState);
 
-            UserDialogs.Init(this);
+            UserDialogs.Init(this);            
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);

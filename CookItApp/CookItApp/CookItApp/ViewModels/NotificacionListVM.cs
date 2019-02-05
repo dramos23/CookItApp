@@ -20,6 +20,8 @@ namespace CookItApp.ViewModels
 
         public NotificacionListVM()
         {
+            Vacio = false;
+            Lista = false;
             Notificaciones = new ObservableCollection<Notificacion>();           
 
             CargarDatos();
@@ -37,15 +39,13 @@ namespace CookItApp.ViewModels
                     foreach (var noti in notificacions)
                     {
                         noti._Descripcion = ConvertText(noti._Descripcion);
-                        Notificaciones.Add(noti);
-                        Vacio = false;
+                        Notificaciones.Add(noti);                       
                         Lista = true;
                     }
                 }
                 else {
-                    Vacio = true;
-                    Lista = false;
-                    Text = Vacio ? "No tiene notificaciones!." : null;
+                    Vacio = true;                    
+                    Text = "No tiene notificaciones!.";
                 }
             }
             catch (Exception ex)

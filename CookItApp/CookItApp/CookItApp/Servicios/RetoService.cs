@@ -55,10 +55,10 @@ namespace CookItApp.Servicios
         }
 
 
-        public async Task<List<Reto>> ObtenerList()
+        public async Task<List<Reto>> ObtenerList(Perfil obj)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web;
+            string Url = Web + "ObtenerRetos/" + obj._Email;
 
             using (HttpClient client = new HttpClient())
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
@@ -85,10 +85,40 @@ namespace CookItApp.Servicios
 
         }
 
-        public async Task<Reto> Modificar(Reto obj)
+        public async Task<Reto> Obtener(int idReto)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + obj._EmailUsuOri + "," + obj._EmailUsuDes + "," + obj._EstadoReto;
+            string Url = Web + "ObtenerReto/" + idReto;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+
+                using (HttpResponseMessage response = await client
+                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                    .ConfigureAwait(false))
+                {
+                    string JsonResult = response.Content.ReadAsStringAsync().Result;
+                    try
+                    {
+                        Reto ContentResp = Deseralizar(JsonResult);
+                        return ContentResp;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+                }
+
+            }
+
+        }
+
+        public async Task<bool> Modificar(Reto obj)
+        {
+            Token token = App.DataBase.Token.Obtener();
+            string Url = Web;
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
@@ -97,16 +127,7 @@ namespace CookItApp.Servicios
             {
                 using (HttpResponseMessage response = await client.PutAsync(Url, stringContent))
                 {
-                    string JsonResult = response.Content.ReadAsStringAsync().Result;
-                    try
-                    {
-                        Reto ContentResp = Deseralizar(JsonResult);
-                        return ContentResp;
-                    }
-                    catch
-                    {
-                        return null;
-                    }
+                    return response.IsSuccessStatusCode;
                 }
             }
         }

@@ -27,6 +27,7 @@ namespace CookItApp.Models
         public bool _FiltroVegano { set; get; }
         public bool _FiltroDiabetico { set; get; }
         public bool _FiltroCeliaco { set; get; }
+        public bool _FiltroIngredientes { set; get; }
         public bool _FiltroCalorias { set; get; }
         public int _FiltroCaloriasMin { set; get; }
         public int _FiltroCaloriasMax { set; get; }
@@ -75,112 +76,112 @@ namespace CookItApp.Models
 
         }
 
-        public Perfil(string Email, byte[] Foto, string NombreUsuario, string Nombre, string Apellido, bool FiltroAutomatico, bool FiltroPrecio, 
-            int FiltroPrecioMin, int FiltroPrecioMax, bool FiltroVegetariano, bool FiltroVegano, bool FiltroDiabetico, bool FiltroCeliaco, 
-            bool FiltroCalorias, int FiltroCaloriasMin, int FiltroCaloriasMax, bool FiltroMomentoDia, int FiltroMomentoDiaId, bool FiltroPuntuacion, 
-            int FiltroPuntuacionMin, int FiltroPuntuacionMax, bool FiltroEstacion, int FiltroEstacionId, bool FiltroDificultad, int FiltroDificultadMin, 
-            int FiltroDificultadMax, bool FiltroCantPlatos, int FiltroCantPlatosMin, int FiltroCantPlatosMax, bool FiltroTiempoPreparacion, 
-            int FiltroTiempoPreparacionMin, int FiltroTiempoPreparacionMax)
-        {
-            _Email = Email;
-            _Foto = Foto;
-            _NombreUsuario = NombreUsuario;
-            _Nombre = Nombre;
-            _Apellido = Apellido;
-            _FiltroAutomatico = FiltroAutomatico;
-            _FiltroPrecio = FiltroPrecio;
-            _FiltroPrecioMin = FiltroPrecioMin;
-            _FiltroPrecioMax = FiltroPrecioMax;
-            _FiltroVegetariano = FiltroVegetariano;
-            _FiltroVegano = FiltroVegano;
-            _FiltroDiabetico = FiltroDiabetico;
-            _FiltroCeliaco = FiltroCeliaco;
-            _FiltroCalorias = FiltroCalorias;
-            _FiltroCaloriasMin = FiltroCaloriasMin;
-            _FiltroCaloriasMax = FiltroCaloriasMax;
-            _FiltroMomentoDia = FiltroMomentoDia;
-            _FiltroMomentoDiaId = FiltroMomentoDiaId;
-            _FiltroPuntuacion = FiltroPuntuacion;
-            _FiltroPuntuacionMin = FiltroPuntuacionMin;
-            _FiltroPuntuacionMax = FiltroPuntuacionMax;
-            _FiltroEstacion = FiltroEstacion;
-            _FiltroEstacionId = FiltroEstacionId;
-            _FiltroDificultad = FiltroDificultad;
-            _FiltroDificultadMin = FiltroDificultadMin;
-            _FiltroDificultadMax = FiltroDificultadMax;
-            _FiltroCantPlatos = FiltroCantPlatos;
-            _FiltroCantPlatosMin = FiltroCantPlatosMin;
-            _FiltroCantPlatosMax = FiltroCantPlatosMax;
-            _FiltroTiempoPreparacion = FiltroTiempoPreparacion;
-            _FiltroTiempoPreparacionMin = FiltroTiempoPreparacionMin;
-            _FiltroTiempoPreparacionMax = FiltroTiempoPreparacionMax;            
-        }
+        //public Perfil(string Email, byte[] Foto, string NombreUsuario, string Nombre, string Apellido, bool FiltroAutomatico, bool FiltroPrecio, 
+        //    int FiltroPrecioMin, int FiltroPrecioMax, bool FiltroVegetariano, bool FiltroVegano, bool FiltroDiabetico, bool FiltroCeliaco, 
+        //    bool FiltroCalorias, int FiltroCaloriasMin, int FiltroCaloriasMax, bool FiltroMomentoDia, int FiltroMomentoDiaId, bool FiltroPuntuacion, 
+        //    int FiltroPuntuacionMin, int FiltroPuntuacionMax, bool FiltroEstacion, int FiltroEstacionId, bool FiltroDificultad, int FiltroDificultadMin, 
+        //    int FiltroDificultadMax, bool FiltroCantPlatos, int FiltroCantPlatosMin, int FiltroCantPlatosMax, bool FiltroTiempoPreparacion, 
+        //    int FiltroTiempoPreparacionMin, int FiltroTiempoPreparacionMax)
+        //{
+        //    _Email = Email;
+        //    _Foto = Foto;
+        //    _NombreUsuario = NombreUsuario;
+        //    _Nombre = Nombre;
+        //    _Apellido = Apellido;
+        //    _FiltroAutomatico = FiltroAutomatico;
+        //    _FiltroPrecio = FiltroPrecio;
+        //    _FiltroPrecioMin = FiltroPrecioMin;
+        //    _FiltroPrecioMax = FiltroPrecioMax;
+        //    _FiltroVegetariano = FiltroVegetariano;
+        //    _FiltroVegano = FiltroVegano;
+        //    _FiltroDiabetico = FiltroDiabetico;
+        //    _FiltroCeliaco = FiltroCeliaco;
+        //    _FiltroCalorias = FiltroCalorias;
+        //    _FiltroCaloriasMin = FiltroCaloriasMin;
+        //    _FiltroCaloriasMax = FiltroCaloriasMax;
+        //    _FiltroMomentoDia = FiltroMomentoDia;
+        //    _FiltroMomentoDiaId = FiltroMomentoDiaId;
+        //    _FiltroPuntuacion = FiltroPuntuacion;
+        //    _FiltroPuntuacionMin = FiltroPuntuacionMin;
+        //    _FiltroPuntuacionMax = FiltroPuntuacionMax;
+        //    _FiltroEstacion = FiltroEstacion;
+        //    _FiltroEstacionId = FiltroEstacionId;
+        //    _FiltroDificultad = FiltroDificultad;
+        //    _FiltroDificultadMin = FiltroDificultadMin;
+        //    _FiltroDificultadMax = FiltroDificultadMax;
+        //    _FiltroCantPlatos = FiltroCantPlatos;
+        //    _FiltroCantPlatosMin = FiltroCantPlatosMin;
+        //    _FiltroCantPlatosMax = FiltroCantPlatosMax;
+        //    _FiltroTiempoPreparacion = FiltroTiempoPreparacion;
+        //    _FiltroTiempoPreparacionMin = FiltroTiempoPreparacionMin;
+        //    _FiltroTiempoPreparacionMax = FiltroTiempoPreparacionMax;            
+        //}
 
-        private Dictionary<string, string> GenerarFiltro()
-        {
-            Dictionary<string, string> diccionario = new Dictionary<string, string>();
-            if (this._FiltroAutomatico == true)
-            {
-                if (_FiltroPrecio == true)
-                {
-                    diccionario.Add("CostoMayorIgual", _FiltroPrecioMin.ToString());
-                    diccionario.Add("CostoMenorIgual", _FiltroPrecioMax.ToString());                                        
-                }
-                if (_FiltroVegetariano == true)
-                {
-                    diccionario.Add("AptoVegetariano", _FiltroVegetariano.ToString());                    
-                }
-                if (_FiltroVegano == true)
-                {
-                    diccionario.Add("AptoVegano", _FiltroVegano.ToString());
-                }
-                if (_FiltroDiabetico == true)
-                {
-                    diccionario.Add("AptoDiabetico", _FiltroDiabetico.ToString());
-                }
-                if (_FiltroCeliaco == true)
-                {
-                    diccionario.Add("AptoCeliaco", _FiltroCeliaco.ToString());
-                }
-                if (_FiltroCalorias == true)
-                {
-                    diccionario.Add("CaloriasMayorIgual", _FiltroCaloriasMin.ToString());
-                    diccionario.Add("CaloriasMenorIgual", _FiltroCaloriasMax.ToString());
-                }
-                if (_FiltroMomentoDia == true)
-                {
-                    diccionario.Add("MomentoDia", _FiltroMomentoDiaId.ToString());
-                }
-                if (_FiltroPuntuacion == true)
-                {
-                    diccionario.Add("PuntajeMayorIgual", _FiltroPuntuacionMin.ToString());
-                    diccionario.Add("PuntajeMenorIgual", _FiltroPuntuacionMax.ToString());
-                }
-                if (_FiltroEstacion == true)
-                {
-                    diccionario.Add("Estacion", _FiltroEstacionId.ToString());
-                }
-                if (_FiltroDificultad == true)
-                {
-                    diccionario.Add("DificultadMayorIgual", _FiltroDificultadMin.ToString());
-                    diccionario.Add("DificultadMenorIgual", _FiltroDificultadMax.ToString());
-                }
-                if (_FiltroCantPlatos == true)
-                {
-                    diccionario.Add("CantPlatosMayorIgual", _FiltroCantPlatosMin.ToString());
-                    diccionario.Add("CantPlatosMenorIgual", _FiltroCantPlatosMax.ToString());
-                }
-                if (_FiltroTiempoPreparacion  == true)
-                {
-                    diccionario.Add("TiempoPreparacionMayorIgual", _FiltroTiempoPreparacionMin.ToString());
-                    diccionario.Add("TiempoPreparacionMenorIgual", _FiltroTiempoPreparacionMax.ToString());
-                }
+        //private Dictionary<string, string> GenerarFiltro()
+        //{
+        //    Dictionary<string, string> diccionario = new Dictionary<string, string>();
+        //    if (this._FiltroAutomatico == true)
+        //    {
+        //        if (_FiltroPrecio == true)
+        //        {
+        //            diccionario.Add("CostoMayorIgual", _FiltroPrecioMin.ToString());
+        //            diccionario.Add("CostoMenorIgual", _FiltroPrecioMax.ToString());                                        
+        //        }
+        //        if (_FiltroVegetariano == true)
+        //        {
+        //            diccionario.Add("AptoVegetariano", _FiltroVegetariano.ToString());                    
+        //        }
+        //        if (_FiltroVegano == true)
+        //        {
+        //            diccionario.Add("AptoVegano", _FiltroVegano.ToString());
+        //        }
+        //        if (_FiltroDiabetico == true)
+        //        {
+        //            diccionario.Add("AptoDiabetico", _FiltroDiabetico.ToString());
+        //        }
+        //        if (_FiltroCeliaco == true)
+        //        {
+        //            diccionario.Add("AptoCeliaco", _FiltroCeliaco.ToString());
+        //        }
+        //        if (_FiltroCalorias == true)
+        //        {
+        //            diccionario.Add("CaloriasMayorIgual", _FiltroCaloriasMin.ToString());
+        //            diccionario.Add("CaloriasMenorIgual", _FiltroCaloriasMax.ToString());
+        //        }
+        //        if (_FiltroMomentoDia == true)
+        //        {
+        //            diccionario.Add("MomentoDia", _FiltroMomentoDiaId.ToString());
+        //        }
+        //        if (_FiltroPuntuacion == true)
+        //        {
+        //            diccionario.Add("PuntajeMayorIgual", _FiltroPuntuacionMin.ToString());
+        //            diccionario.Add("PuntajeMenorIgual", _FiltroPuntuacionMax.ToString());
+        //        }
+        //        if (_FiltroEstacion == true)
+        //        {
+        //            diccionario.Add("Estacion", _FiltroEstacionId.ToString());
+        //        }
+        //        if (_FiltroDificultad == true)
+        //        {
+        //            diccionario.Add("DificultadMayorIgual", _FiltroDificultadMin.ToString());
+        //            diccionario.Add("DificultadMenorIgual", _FiltroDificultadMax.ToString());
+        //        }
+        //        if (_FiltroCantPlatos == true)
+        //        {
+        //            diccionario.Add("CantPlatosMayorIgual", _FiltroCantPlatosMin.ToString());
+        //            diccionario.Add("CantPlatosMenorIgual", _FiltroCantPlatosMax.ToString());
+        //        }
+        //        if (_FiltroTiempoPreparacion  == true)
+        //        {
+        //            diccionario.Add("TiempoPreparacionMayorIgual", _FiltroTiempoPreparacionMin.ToString());
+        //            diccionario.Add("TiempoPreparacionMenorIgual", _FiltroTiempoPreparacionMax.ToString());
+        //        }
 
-                //_FiltroPaisOrigen = FiltroPaisOrigen;
+        //        //_FiltroPaisOrigen = FiltroPaisOrigen;
 
-            }
-            return diccionario;
-        }
+        //    }
+        //    return diccionario;
+        //}
 
         public void InsertarBD()
         {
