@@ -31,9 +31,7 @@ namespace CookItApp.Views
             Receta = receta;
             VMReceta = new RecetaVM(Receta);
             BindingContext = VMReceta;
-            //Se generan el ViewModel que precisa la página xaml para mostrar los datos. La Receta "rec" se recibe cuando un usuario clickea la receta
-            //desde el buscador de recetas, generando una instancia de esta página.
-            //BindingContext = _VMReceta;
+            GenerarImagenFavorito();
         }
 
         //public async void ObtenerReceta(Receta receta) {
@@ -59,7 +57,6 @@ namespace CookItApp.Views
 
         private async void BtnPrepararReceta_Clicked(object sender, EventArgs e)
         {
-            CargarDatosPrueba();
             await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario));
         }
 
@@ -95,13 +92,27 @@ namespace CookItApp.Views
                     _IdReceta = Receta._IdReceta,
                     _FechaHora = DateTime.Now
                 };
-                var favorito = await App.RecetaFavoritaService.Alta(rf);
-                if (favorito != null)
+
+                if (!Usuario.RecetaEsFavorita(Receta))
                 {
-                    App.DataBase.RecetaFavorita.Guardar(favorito);
+
+                    var favorito = await App.RecetaFavoritaService.Alta(rf);
+                    if (favorito != null)
+                    {
+                        App.DataBase.RecetaFavorita.Guardar(favorito);
+                    }
+
+                    btnAgregarFavoritos.Source = "iconFavoritoOn.png";
+                }
+                else
+                {
+                    await App.RecetaFavoritaService.Eliminar(rf);
+                    btnAgregarFavoritos.Source = "iconFavoritoOff.png";
                 }
             }
+            
         }
+
 
         private void CargarDatosPrueba()
         {
@@ -133,7 +144,16 @@ namespace CookItApp.Views
             Receta._ListaPasosReceta = pasos;
 
         }
-            
+
+        private void GenerarImagenFavorito()
+        {
+            if (Usuario.RecetaEsFavorita(Receta)) btnAgregarFavoritos.Source = "iconFavoritoOff.png";
+            else btnAgregarFavoritos.Source = "iconFavoritoOn.png";
+        }
+
+
+        /*Override que reemplaza el método invocado cuando el usuario apreta el boton "atras" en su celular, para evitar
+         que hayan problemas con el navigation stack y los pasos de receta vistos. */
         protected override bool OnBackButtonPressed()
         {
             try

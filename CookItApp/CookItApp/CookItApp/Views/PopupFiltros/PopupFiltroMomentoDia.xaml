@@ -20,7 +20,7 @@
                 </Grid.RowDefinitions>
 
                 <Picker x:Name="picMomentoDia"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Title="--- Selecionar ---" 
-                        ItemDisplayBinding="{Binding MomentoDia._Nombre}"/>
+                        ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroMomentoDiaId}"/>
 
                 <Image  Grid.Row="1" Grid.Column="0"
                     Source="iconOk.png"

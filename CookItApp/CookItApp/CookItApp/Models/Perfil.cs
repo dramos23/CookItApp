@@ -31,8 +31,7 @@ namespace CookItApp.Models
         public bool _FiltroCalorias { set; get; }
         public int _FiltroCaloriasMin { set; get; }
         public int _FiltroCaloriasMax { set; get; }
-        //public bool _FiltroPaisOrigen { set; get; }
-        //public int? _FiltroPaisOrigenId { set; get; }
+
         public bool _FiltroMomentoDia { set; get; }       
         public int? _FiltroMomentoDiaId { set; get; }
         public bool _FiltroPuntuacion { set; get; }
@@ -46,6 +45,9 @@ namespace CookItApp.Models
         public bool _FiltroCantPlatos { set; get; }
         public int _FiltroCantPlatosMin { set; get; }
         public int _FiltroCantPlatosMax { set; get; }
+        [Ignore]
+        [JsonIgnore]
+        public bool _FiltroIngredientes { set; get; }
         public bool _FiltroTiempoPreparacion { set; get; }
         public int _FiltroTiempoPreparacionMin { set; get; }
         public int _FiltroTiempoPreparacionMax { set; get; }

@@ -42,7 +42,7 @@
                                             <ColumnDefinition Width="4*" />
                                             <ColumnDefinition Width="6*" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="fondoFrutillas.jpg"
+                                        <Image Source="{Binding _FotoCompleta}"
                                                HorizontalOptions="CenterAndExpand"
                                                Grid.Column="0"
                                                VerticalOptions="CenterAndExpand"
@@ -65,8 +65,7 @@
                                                    TextColor="{StaticResource colorOnBackground}"/>
 
                                             <Label Grid.Row="1"
-                                                   Text="Aca va la descripcion que todavia no esta, este texto esta muy largo para probar a ver que pasa si el texto
-                                                   es demasiado largo para entrar en la caja de una, estaria bueno que se corte pero sino seguimos probando." 
+                                                   Text="{Binding _Descripcion}" 
                                                    FontSize="Micro"
                                                    MaxLines="2"
                                                    VerticalOptions="Start"

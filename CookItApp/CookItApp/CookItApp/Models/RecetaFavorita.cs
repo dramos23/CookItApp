@@ -32,6 +32,11 @@ namespace CookItApp.Models
             _FechaHora = FechaHora;
         }
 
+        public override bool Equals(object obj)
+        {
+            RecetaFavorita rec = obj as RecetaFavorita;
+            return rec._IdReceta == this._IdReceta;
+        }
 
     }
 }

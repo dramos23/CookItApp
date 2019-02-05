@@ -56,8 +56,25 @@ namespace CookItApp.Models
             return !_Email.Equals("") && !_Password.Equals("") ? true : false;
         }
 
-        
+        public bool RecetaEsFavorita(Receta rec)
+        {
+            RecetaFavorita recFav = new RecetaFavorita { _IdReceta = rec._IdReceta };
+            if (_Perfil._ListaRecetasFavoritas.Contains(recFav)) return true;
+            return false;
+        }
 
+        public bool TieneSuficienteIngrediente(IngredienteReceta ing)
+        {
+            foreach(IngredienteUsuario ingUs in this._Perfil._ListaIngredientesUsuario)
+            {
+                if(ing._IdIngrediente == ingUs._IdIngrediente)
+                {
+                    if (ingUs._Cantidad >= ing._Cantidad) return true;
+                    return false;
+                }
+            }
+            return false;
+        }
 
     }    
 }

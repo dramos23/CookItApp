@@ -128,9 +128,27 @@ namespace CookItApp.Views
                 case "porDificultadOff.png":
                     ToggleDificultad();
                     break;
+                case "filtroIngredientesOn.png":
+                case "filtroIngredientesOff.png":
+                    ToggleIngredientes();
+                    break;
             }
 
         }
+
+        private void ToggleIngredientes()
+        {
+            if (ViewModel.FiltroIngredientes)
+            {
+                btnFiltroIngredientes.Source = "filtroIngredientesOff.png";
+                ViewModel.FiltroIngredientes = false;
+            }else
+            {
+                btnFiltroIngredientes.Source = "filtroIngredientesOn.png";
+                ViewModel.FiltroIngredientes = true;
+            }
+        }
+
         private void ToggleCeliacos()
         {
             if (ViewModel.FiltroCeliaco)
@@ -331,6 +349,7 @@ namespace CookItApp.Views
             btnAptoDiabeticos.Source = "aptoDiabeticosOff.png";
             btnAptoVegetarianos.Source = "aptoVegetarianosOff.png";
             btnAptoVeganos.Source = "aptoVeganosOff.png";
+            btnFiltroIngredientes.Source = "filtroIngredientesOff.png";
         }
 
         public void ToggleImagenVegetariano(bool v)
@@ -355,6 +374,12 @@ namespace CookItApp.Views
         {
             if (v) btnAptoDiabeticos.Source = "aptoDiabeticosOn.png";
             else btnAptoDiabeticos.Source = "aptoDiabeticosOff.png";
+        }
+
+        public void ToggleImagenIngredientes(bool v)
+        {
+            if (v) btnFiltroIngredientes.Source = "filtroIngredientesOn.png";
+            else btnFiltroIngredientes.Source = "filtroIngredientesOff.png";
         }
 
         private void swtFiltrosUsuario_Toggled(object sender, ToggledEventArgs e)

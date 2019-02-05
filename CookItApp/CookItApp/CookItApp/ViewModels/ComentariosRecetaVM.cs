@@ -3,6 +3,7 @@ using CookItApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace CookItApp.ViewModels
@@ -16,9 +17,8 @@ namespace CookItApp.ViewModels
         {
             this._ComentariosReceta = new ObservableCollection<ComentarioReceta>();
             this._Receta = r;
-            //Sacar datos de prueba despues de que esten hechos los de verdad.
-            GenerarDatosPrueba();
-            CargarDatos(r);
+            //GenerarDatosPrueba();
+            GenerarListaObservable();
         }
 
         private void GenerarDatosPrueba()
@@ -28,24 +28,29 @@ namespace CookItApp.ViewModels
             _Receta._ListaComentariosReceta.Add(new ComentarioReceta(_Receta._IdReceta, "martina@gmail.com", "Esta muy mal explicada, no entendi nada", DateTime.Now, 2));
         }
 
-        public void CargarDatos(Receta r)
+        private void GenerarListaObservable()
         {
-            if (_ComentariosReceta.Count != 0) return;
-            foreach (ComentarioReceta cr in r._ListaComentariosReceta)
+            _ComentariosReceta.Clear();
+
+            foreach (ComentarioReceta cr in _Receta._ListaComentariosReceta)
             {
                 this._ComentariosReceta.Add(cr);
             }
+
         }
 
         internal async void InsertarComentario(ComentarioReceta comentarioCreado)
         {
             try {
                 await App.ComentarioRecetaService.Alta(comentarioCreado);
+                this._ComentariosReceta.Add(comentarioCreado);
+                GenerarListaObservable();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                string error = ex.Message;
             }
         }
+
     }
 }

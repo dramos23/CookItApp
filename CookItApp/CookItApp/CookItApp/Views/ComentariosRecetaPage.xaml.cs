@@ -1,5 +1,6 @@
 ﻿using CookItApp.Models;
 using CookItApp.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,9 +38,9 @@ namespace CookItApp.Views
             };
         }
 
-        private void BtnVolverReceta_Clicked(object sender, EventArgs e)
+        private async void BtnVolverReceta_Clicked(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new RecetaPage(_ViewModel._Receta._IdReceta));
+            await Navigation.PushAsync(new RecetaPage(_ViewModel._Receta, Usuario));
         }
 
         private void BtnPuntaje1_Clicked(object sender, EventArgs e)
@@ -118,12 +119,19 @@ namespace CookItApp.Views
                 _ViewModel.InsertarComentario(comentarioCreado);
                 ResetearComentarioYLayout();
                 ResetearEstrellasFavoritos();
-                await DisplayAlert("Exito", "Comentario ingresado!", "Cerrar");
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Comentando receta", "Comentario agregado."));
+                RefrescarComentarios();
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "Error al insertar mensaje: " + ex.Message, "Cerrar");
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Comentando receta", "Hubo un error al ingresar su comentario," +
+                    "intente nuevamente mas tarde."));
             }
+        }
+
+        private void RefrescarComentarios()
+        {
+            lstComentarios.ItemsSource = _ViewModel._ComentariosReceta;
         }
 
         private void BtnVolverComentarios_Clicked(object sender, EventArgs e)

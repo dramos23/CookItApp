@@ -3,6 +3,7 @@ using CookItApp.Models;
 using CookItApp.ViewModels;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -150,14 +151,15 @@ namespace CookItApp.Views
                     {
                         UserDialogs.Instance.HideLoading();
 
-                        await DisplayAlert("Perfil", "Se ha actualizado tu perfil.", "Ok");
+                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Se ha actualizado tu perfil"));
                         await scroll.ScrollToAsync(0, (double)ScrollToPosition.End, true);
                     }
                     else
                     {
                         UserDialogs.Instance.HideLoading();
-                        await DisplayAlert("Perfil", "Ha ocurrido un error vuelve a intentarlo.", "Ok");
-                    }
+                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
+                        "intentalo nuevamente."));
+                }
 
                     MasterPage.ActualizarPerfil(perfil);
                     Usuario._Perfil = perfil;
@@ -166,8 +168,9 @@ namespace CookItApp.Views
                 else
                 {
                     UserDialogs.Instance.HideLoading();
-                    await DisplayAlert("Perfil", "Ha ocurrido un error al crear o actualizar su perfil, pongase en contacto con el área de soporte.", "Ok");
-                }
+                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
+                    "pongase en contacto con el area de soporte."));
+            }
 
                 
 
@@ -268,7 +271,8 @@ namespace CookItApp.Views
             }
             else
             {
-                await DisplayAlert("No Camera", "Camera unavailable.", "OK");
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error de camara", "Hay un error con tu camara, " +
+                "no se puede sacar la foto."));
             }
 
         }

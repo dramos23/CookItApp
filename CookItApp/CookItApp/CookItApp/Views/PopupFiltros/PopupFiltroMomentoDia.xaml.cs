@@ -28,11 +28,19 @@ namespace CookItApp.Views.PopupFiltros
             picMomentoDia.ItemsSource = App.DataBase.MomentoDia.ObtenerList();
         }
 
-        private void Ok_Tapped(object sender, EventArgs e)
+        private async void Ok_Tapped(object sender, EventArgs e)
         {
-            int id = picMomentoDia.SelectedIndex;
-            ViewModel.IngresarFiltroMomentoDia(id);
-            CerrarPopup();
+            try
+            {
+                int id = picMomentoDia.SelectedIndex;
+                if (picMomentoDia.SelectedIndex == -1) throw new Exception("Tienes que seleccionar una opcion");
+                ViewModel.IngresarFiltroMomentoDia(id);
+                CerrarPopup();
+            }catch(Exception ex)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(ViewModel.Usuario, "Error en tu filtro", ex.Message));
+            }
+
         }
 
         private void Cancel_Tapped(object sender, EventArgs e)

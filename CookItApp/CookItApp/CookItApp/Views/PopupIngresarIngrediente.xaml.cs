@@ -2,6 +2,7 @@
 using CookItApp.Models;
 using CookItApp.ViewModels;
 using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,6 @@ namespace CookItApp.Views
             if (keyword != "")
             {
                 List<Ingrediente> resultado = ViewModel.Ingredientes.Where(c => c._Nombre.ToLower().Contains(keyword.ToLower())).ToList();
-
                 
                 ListaIngredientes.ItemsSource = resultado;
 
@@ -44,11 +44,13 @@ namespace CookItApp.Views
             
         }
 
-        private void IngresarIngrediente_Tapped(object sender, EventArgs e)
+        private async void IngresarIngrediente_Tapped(object sender, EventArgs e)
         {            
             Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
             int cantidad = Convert.ToInt32(txtCantidad.Text);
             ViewModel.AgregarIngrediente(ing, cantidad);
+            await PopupNavigation.Instance.PopAsync();
+            await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Agregar ingrediente", "Ingrediente agregado con éxito!"));
         }
     }
 }

@@ -27,7 +27,7 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="16.3.0.36" />
-    <PackageReference Include="TouchView" Version="2.0.2" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.10-beta" />
@@ -43,6 +43,9 @@
     </Compile>
     <Compile Update="Views\ListaNotificacionesPage.xaml.cs">
       <DependentUpon>ListaNotificacionesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PopupMensaje.xaml.cs">
+      <DependentUpon>PopupMensaje.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\PopupFiltros\PopupFiltroPuntaje.xaml.cs">
       <DependentUpon>PopupFiltroPuntaje.xaml</DependentUpon>
@@ -89,6 +92,9 @@
     <EmbeddedResource Update="Views\ListaNotificacionesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Loading.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -114,6 +120,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\RetoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RetosListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

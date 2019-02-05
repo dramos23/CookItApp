@@ -84,7 +84,11 @@ namespace CookItApp.Views
 
         private async void btnActualizarIng_Tapped(object sender, EventArgs e)
         {
-            if (ListaIngredientes.SelectedItem == null) return;
+            if (ListaIngredientes.SelectedItem == null)
+            {
+                MensajeError("Tienes que seleccionar un ingrediente de la lista para poder cambiar su cantidad.");
+                return;
+            }
             IngredienteUsuario ing = ListaIngredientes.SelectedItem as IngredienteUsuario;
             await PopupNavigation.Instance.PushAsync(new PopupActualizarIngrediente(usuario, this, ing));
         }
@@ -94,9 +98,9 @@ namespace CookItApp.Views
             ListaIngredientes.ItemsSource = viewModel.IngredientesUsuario;
         }
 
-        public void MensajeError(string v)
+        public async void MensajeError(string v)
         {
-            //Para hacer
+            await PopupNavigation.Instance.PushAsync(new PopupMensaje(usuario, "Error con ingredientes", v));
         }
     }
 }

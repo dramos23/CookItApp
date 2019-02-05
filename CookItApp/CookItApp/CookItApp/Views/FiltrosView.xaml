@@ -43,7 +43,17 @@
                             VerticalOptions="Center"
                             Spacing="5"
                             Padding="10">
-                            <Image  x:Name="btnAptoCeliacos"
+
+                        <Image x:Name="btnFiltroIngredientes"
+                         Style="{StaticResource estiloBotonImagenGrande}"
+                         Source="filtroIngredientesOff.png">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
+                                                  NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                            
+                        <Image  x:Name="btnAptoCeliacos"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="aptoCeliacosOff.png">
                                 <Image.GestureRecognizers>
