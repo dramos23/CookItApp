@@ -2,7 +2,10 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using Microsoft.AppCenter.Push;
+using System.Linq;
+using Xamarin.Forms;
 
 namespace CookItApp.Droid
 {
@@ -35,6 +38,31 @@ namespace CookItApp.Droid
         {
             base.OnNewIntent(intent);
             Push.CheckLaunchedFromNotification(this, intent);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            string aver = "";
+            // check if the current item id 
+            // is equals to the back button id
+            if (item.ItemId == 16908332)
+            {
+                try
+                {
+                    var currentpage = (ContentPage)Xamarin.Forms.Application.Current.MainPage.Navigation.NavigationStack.LastOrDefault();
+                    return base.OnOptionsItemSelected(item);
+                }
+                catch
+                {
+                    return base.OnOptionsItemSelected(item);
+                }
+            }
+            else
+            {
+                // since its not the back button 
+                //click, pass the event to the base
+                return base.OnOptionsItemSelected(item);
+            }
         }
     }
 }

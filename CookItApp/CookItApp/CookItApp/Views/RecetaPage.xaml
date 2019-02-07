@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
 
 
-           <Label Grid.Row="0" Grid.ColumnSpan="4"
+           <Label Grid.Row="0" Grid.ColumnSpan="5"
                 Text="{Binding _Receta._Titulo}"
                    FontSize="Large"
                    Margin="0"
@@ -27,14 +27,14 @@
                    MaxLines="2"
                    TextColor="{StaticResource colorOnBackground}"/>
             
-            <Image Grid.Row="1" Grid.ColumnSpan="4"
+            <Image Grid.Row="1" Grid.ColumnSpan="5"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"
                    Source="{Binding _Receta._FotoCompleta}"
                    Aspect="AspectFill" />
 
 
-            <Label Grid.Row="2" Grid.ColumnSpan="4"
+            <Label Grid.Row="2" Grid.ColumnSpan="5"
                    Text="{Binding _Receta._Descripcion}"
                    FontSize="Medium"
                    Margin="10"
@@ -43,7 +43,7 @@
                    LineBreakMode="TailTruncation"
                    TextColor="{StaticResource colorOnBackground}"/>
 
-            <Grid Grid.Row="3" Grid.ColumnSpan="4">
+            <Grid Grid.Row="3" Grid.ColumnSpan="5">
                 <Label Text="Dificultad: " Margin="5,5,0,0" FontSize="Medium"
                        VerticalOptions="Start" HorizontalOptions="Start"
                        Grid.Column="0"/>
@@ -59,24 +59,23 @@
                        Source="{Binding _Receta._RutaFotoPuntajeTotal}" Grid.Column="3"/>
             </Grid>
 
-            <!-- Como no se puede agregar grosor al borde de un Frame se usan 2 frames juntos para duplicar
-            el grosor. -->
-            <Grid Grid.Row="4" Grid.ColumnSpan="4" Padding="0">
-                <Image x:Name="btnComentarios"
-                                   Grid.Column="0"
-                                   Style="{StaticResource estiloBotonImagenGrande}"
-                                   Source="iconComentar.png">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="BtnComentarios_Clicked" NumberOfTapsRequired="1"/>
-                    </Image.GestureRecognizers>
-                </Image>
+            <Grid Grid.Row="4" Grid.ColumnSpan="5" Padding="0">
 
                 <Image x:Name="btnPrepararReceta"
-                             Grid.Column="1" 
+                             Grid.Column="0" 
                              Style="{StaticResource estiloBotonImagenGrande}"
                              Source="iconPreparar.png">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="BtnPrepararReceta_Clicked" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image x:Name="btnVerIngredientes"
+                                   Grid.Column="1"
+                                   Style="{StaticResource estiloBotonImagenGrande}"
+                                   Source="iconVerIngredientes.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnVerIngredientes_Clicked" NumberOfTapsRequired="1"/>
                     </Image.GestureRecognizers>
                 </Image>
 
@@ -88,8 +87,17 @@
                     </Image.GestureRecognizers>
                 </Image>
 
+                <Image x:Name="btnComentarios"
+                                   Grid.Column="3"
+                                   Style="{StaticResource estiloBotonImagenGrande}"
+                                   Source="iconComentar.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnComentarios_Clicked" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
                 <Image x:Name="btnRetar"
-                       Grid.Column="3"
+                       Grid.Column="4"
                        Source="iconReto.png"
                        Style="{StaticResource estiloBotonImagenGrande}">
                     <Image.GestureRecognizers>

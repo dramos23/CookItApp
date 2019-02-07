@@ -44,6 +44,12 @@
     <Compile Update="Views\ListaNotificacionesPage.xaml.cs">
       <DependentUpon>ListaNotificacionesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PopupComparacionIngredientes.xaml.cs">
+      <DependentUpon>PopupComparacionIngredientes.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PopupIngredientesReceta.xaml.cs">
+      <DependentUpon>PopupIngredientesReceta.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PopupMensaje.xaml.cs">
       <DependentUpon>PopupMensaje.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FiltrosView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\IngredientesRecetaView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\IngredientesUsuarioView.xaml">

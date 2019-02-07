@@ -57,7 +57,30 @@ namespace CookItApp.Views
 
         private async void BtnPrepararReceta_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario));
+            try
+            {
+                await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario));
+            }
+            catch
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error en receta", "Parece que esta receta no esta funcionando, " +
+                    "se ha enviado un mensaje al chef para que la revise. ¡Disculpa las molestias!"));
+            }
+
+        }
+
+        private async void BtnVerIngredientes_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Navigation.PushAsync(new IngredientesRecetaView(Usuario, Receta));
+            }
+            catch
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error en receta", "Parece que esta receta no esta funcionando, " +
+                    "se ha enviado un mensaje al chef para que la revise. ¡Disculpa las molestias!"));
+            }
+
         }
 
         private async void BtnRetar_Clicked(object sender, EventArgs e)
@@ -147,8 +170,8 @@ namespace CookItApp.Views
 
         private void GenerarImagenFavorito()
         {
-            if (Usuario.RecetaEsFavorita(Receta)) btnAgregarFavoritos.Source = "iconFavoritoOff.png";
-            else btnAgregarFavoritos.Source = "iconFavoritoOn.png";
+            if (Usuario.RecetaEsFavorita(Receta)) btnAgregarFavoritos.Source = "iconFavoritoOn.png";
+            else btnAgregarFavoritos.Source = "iconFavoritoOff.png";
         }
 
 

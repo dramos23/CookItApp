@@ -160,7 +160,6 @@ namespace CookItApp.Views
             grid.Children.Add(titulo);
 
             Label descripcion = GenerarLabelDescripcion();
-            //descripcion.SetBinding(Label.TextProperty, "_Descripcion"); -- NO IMPLEMENTADO TODAVIA
             grid.Children.Add(descripcion);
             //Para que la descripcion no quede limitada a una sola columna (hay 4) se le dice setea el ColumnSpan a 4, para que pueda ocupar 4 columnas.
             Grid.SetColumnSpan(descripcion, 4);

@@ -60,7 +60,11 @@ namespace CookItApp.Views
 
         private void ListaIngredientes_ItemTapped(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            Ingrediente ing = (Ingrediente) ListaIngredientes.SelectedItem;
+        }
+
+        private void ListaIngredientes_SelectionChanged(object sender, Syncfusion.ListView.XForms.ItemSelectionChangedEventArgs e)
+        {
+            Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
             txtMedida.Text = ing._Medida.ToString();
             txtIngSeleccionado.Text = ing._Nombre;
         }

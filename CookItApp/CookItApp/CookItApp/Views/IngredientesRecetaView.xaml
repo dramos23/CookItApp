@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="CookItApp.Views.IngredientesRecetaView">
+    <ContentPage.Content>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <xforms:SfListView x:Name="ListaIngredientes"
+                               ItemsSource="{Binding _ListaIngredientesReceta}"
+                               HorizontalOptions="Center" VerticalOptions="Center"
+                               ItemSize="35" Grid.Row="1" Grid.ColumnSpan="2">
+                <xforms:SfListView.LayoutManager>
+                    <xforms:GridLayout SpanCount="2"/>
+                </xforms:SfListView.LayoutManager>
+                <xforms:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Black" Padding="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="7*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label FontSize="Small" Text="{Binding _Ingrediente._Nombre}" TextColor="{StaticResource colorOnBackground}"
+                                       Grid.Column="0"  HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                                <Label FontSize="Small" Text="{Binding _CantidadMedida}" TextColor="{StaticResource colorOnBackground}"
+                                       Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </xforms:SfListView.ItemTemplate>
+            </xforms:SfListView>
+
+            <Button Text="Comparar con mis ingredientes" Clicked="btnCompararIngredientes_Clicked"
+                   Grid.Row="2" Grid.Column="0" BackgroundColor="{StaticResource colorPrimaryVariant}" 
+                    HorizontalOptions="Center" VerticalOptions="Center"/>
+
+            <Button Text="Volver a receta" Clicked="btnVolverReceta_Clicked"
+                    BackgroundColor="{StaticResource colorPrimaryVariant}"
+                    Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

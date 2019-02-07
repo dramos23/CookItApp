@@ -7,34 +7,50 @@
     <ContentPage.Content>
         <Grid x:Name="gridPrimaria" Padding="5,5,5,5" Margin="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
+            <Label Text="" Grid.Row="0"  Grid.ColumnSpan="50" x:Name="txtCantPasos" FontSize="Medium" FontAttributes="Bold"
+                   TextColor="Black" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
             <!--Control, se genera desde codebehind -->
-            <Grid Grid.Row="0" Grid.Column ="0" x:Name="layoutControl"  HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+            <Grid Grid.Row="1" Grid.Column ="0" x:Name="layoutControl"  HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
                 <Grid x:Name="gridTimer" Opacity="0" Grid.Column="0" Grid.ColumnSpan="50">
 
                     <Label Grid.Row="0" Grid.Column="0" x:Name="lblTimer" Grid.ColumnSpan="3"/>
                     <Image x:Name="imgPlayTimer"
                            Grid.Row="1" Grid.Column="0"
                        Source="playTimer.png"
-                       Style="{StaticResource estiloBotonImagenGrande}"/>
+                       Style="{StaticResource estiloBotonImagenGrande}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ComenzarTimer" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
 
                     <Image x:Name="imgPausarTimer"
                            Grid.Row="1" Grid.Column="1"
                            Source="pauseTimer.png"                           
-                       Style="{StaticResource estiloBotonImagenGrande}"/>
+                       Style="{StaticResource estiloBotonImagenGrande}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="DetenerTimer" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
 
                     <Image x:Name="imgResetearTimer"
                            Grid.Row="1" Grid.Column="2"
                            Source="resetTimer.png"
-                       Style="{StaticResource estiloBotonImagenGrande}"/>
+                       Style="{StaticResource estiloBotonImagenGrande}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ResetearTimer" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
                 </Grid>
 
@@ -45,7 +61,7 @@
                                          Opacity="0"/>
             </Grid>
             <!-- Segunda fila, descripcion de paso-->
-            <Grid Grid.Row="1" Padding="0">
+            <Grid Grid.Row="2" Padding="0">
                 <Label Margin="5,0,0,0" 
                        FontSize="15"
                        x:Name="txtDescripcion"
@@ -53,11 +69,12 @@
                        HorizontalOptions="Start"
                        LineBreakMode="WordWrap"
                        TextColor="Black"
+                       Grid.ColumnSpan="50"
                        Text="{Binding Descripcion}">
                 </Label>
             </Grid>
             <!--Tercera fila, botones-->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="3" Grid.ColumnSpan="50">
                 <Image x:Name="btnAnterior"
                        Grid.Column="0"
                        Source="flechaAnterior.png"

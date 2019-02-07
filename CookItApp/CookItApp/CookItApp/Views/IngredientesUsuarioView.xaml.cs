@@ -34,6 +34,10 @@ namespace CookItApp.Views
             {
                 ListaIngredientes.IsVisible = false;
                 layoutMensaje.IsVisible = true;
+            }else
+            {
+                ListaIngredientes.IsVisible = true;
+                layoutMensaje.IsVisible = false;
             }
         }
 
