@@ -114,7 +114,7 @@
             <Image x:Name="imgCerrar" Style="{StaticResource estiloBotonImagenGrande}"
                    Grid.Row="2" Grid.ColumnSpan="3" Source="volverReceta.png">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="imgCerrar_Tapped" NumberOfTapsRequired="1"/>
+                    <TapGestureRecognizer Tapped="ImgCerrar_Tapped" NumberOfTapsRequired="1"/>
                 </Image.GestureRecognizers>
             </Image>
             </Grid>

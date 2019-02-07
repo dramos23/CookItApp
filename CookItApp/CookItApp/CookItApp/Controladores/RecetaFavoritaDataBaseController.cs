@@ -78,5 +78,13 @@ namespace CookItApp.Controladores
                 return database.DeleteAll<RecetaFavorita>();
             }
         }
+
+        public int Borrar(RecetaFavorita obj)
+        {
+            lock (locker)
+            {
+                return database.Delete<RecetaFavorita>(obj._IdReceta);
+            }
+        }
     }
 }

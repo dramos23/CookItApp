@@ -37,7 +37,7 @@ namespace CookItApp.Views
 
             var page1 = new MasterPageItem() { Title = "Recetas", Icon = "breakfast.png", TargetType = typeof(ListaRecetasPage) };
             var page2 = new MasterPageItem() { Title = "Historial", Icon = "history.png", TargetType = typeof(HistorialRecetasPage)};
-            var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png"/*, TargetType = typeof(View1) */};
+            var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png", TargetType = typeof(ListaRecetasFavoritasPage)};
             var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png", TargetType = typeof(IngredientesUsuarioView) };
             var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
             var page6 = new MasterPageItem() { Title = "Desafios", Icon = "reto.png", TargetType = typeof(DesafioListPage)};
@@ -179,12 +179,13 @@ namespace CookItApp.Views
 
             }else{
 
-
+                
                 if (page == typeof(CargaRecursos))
                 {
 
                     await Navigation.PushAsync(new CargaRecursos(Usuario, "UPD"), true);
                     Navigation.RemovePage(this);
+                    
                 }
                 else {
 
@@ -194,9 +195,10 @@ namespace CookItApp.Views
                     {
                         entro = true;
                         if (ControlPerfilBoolean())
-                        {
+                        {                            
                             Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
                             IsPresented = false;
+                        
                         }
                     }
 
@@ -207,6 +209,7 @@ namespace CookItApp.Views
                         {
                             Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario, this));
                             IsPresented = false;
+                            
                         }
                     }
 
@@ -214,8 +217,15 @@ namespace CookItApp.Views
                     {
                         Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
                         IsPresented = false;
+                        
+
                     }
+
+                
+
+
                 }
+                
 
             }
         }

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.ListaRecetasFavoritasPage"
+             Title="Favoritos">
+    <StackLayout>
+
+        <Label Text="{Binding Text}" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
+
+
+        <ListView ItemsSource="{Binding RecetasFavoritas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada" IsVisible="{Binding  Lista}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame HasShadow="true" Margin="5">
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image x:Name="QuitarFavoritos" Source="favorite.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Start"  AutomationId="{Binding _Receta._IdReceta}">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="BtnQuitarFavoritos_Clicked" NumberOfTapsRequired="1"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Label Text="{Binding _Receta._Titulo}" TextColor="Black" FontSize="16" FontFamily="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <Image Source="{Binding _Receta._FotoCompleta}" VerticalOptions="CenterAndExpand" Margin="0,5"/>
+                                <Label Text="{Binding _Receta._Descripcion}" TextColor="Black" FontSize="14" MaxLines="4" />
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+    </StackLayout>
+</ContentPage>

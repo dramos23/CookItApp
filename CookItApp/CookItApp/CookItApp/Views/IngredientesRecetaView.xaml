@@ -37,11 +37,11 @@
                 </xforms:SfListView.ItemTemplate>
             </xforms:SfListView>
 
-            <Button Text="Comparar con mis ingredientes" Clicked="btnCompararIngredientes_Clicked"
+            <Button Text="Comparar con mis ingredientes" Clicked="BtnCompararIngredientes_Clicked"
                    Grid.Row="2" Grid.Column="0" BackgroundColor="{StaticResource colorPrimaryVariant}" 
                     HorizontalOptions="Center" VerticalOptions="Center"/>
 
-            <Button Text="Volver a receta" Clicked="btnVolverReceta_Clicked"
+            <Button Text="Volver a receta" Clicked="BtnVolverReceta_Clicked"
                     BackgroundColor="{StaticResource colorPrimaryVariant}"
                     Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
 

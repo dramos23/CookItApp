@@ -1,4 +1,5 @@
-﻿using CookItApp.Models;
+﻿using Acr.UserDialogs;
+using CookItApp.Models;
 using CookItApp.ViewModels;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -43,6 +44,8 @@ namespace CookItApp.Views
         //Método onclick que muestra una receta en mayor detalle cuando se clickea una receta de la lista.
         public async void RecetaSeleccionada(object sender, SelectedItemChangedEventArgs args)
         {
+            UserDialogs.Instance.ShowLoading("Cargando receta..");
+
             //Se levanta y castea la receta recibida del evento.
             if (!(args.SelectedItem is Receta receta))
             {
@@ -56,11 +59,15 @@ namespace CookItApp.Views
             {
                 //Agrego receta al historial del usuario
                 AgregarRecetaHistorial(rec);
-                 
+
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(rec, Usuario));
 
                 ListaRecetas.SelectedItem = null;
+                UserDialogs.Instance.HideLoading();
+            }
+            else {
+                await DisplayAlert("Error", "Ha ocurrido un error, vuelva a intentarlo.", "Continuar");
             }
         }
 

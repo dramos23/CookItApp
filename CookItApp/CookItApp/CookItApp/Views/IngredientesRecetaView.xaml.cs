@@ -25,7 +25,7 @@ namespace CookItApp.Views
             BindingContext = _Receta;
         }
 
-        private async void btnCompararIngredientes_Clicked(object sender, EventArgs e)
+        private async void BtnCompararIngredientes_Clicked(object sender, EventArgs e)
         {
             if (_Usuario._Perfil._ListaIngredientesUsuario.Count == 0)
             {
@@ -37,7 +37,7 @@ namespace CookItApp.Views
             await PopupNavigation.Instance.PushAsync(new PopupComparacionIngredientes(_Usuario, _Receta));
         }
 
-        private async void btnVolverReceta_Clicked(object sender, EventArgs e)
+        private async void BtnVolverReceta_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }

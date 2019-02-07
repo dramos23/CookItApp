@@ -1,4 +1,5 @@
-﻿using CookItApp.Models;
+﻿using Acr.UserDialogs;
+using CookItApp.Models;
 using CookItApp.ViewModels;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -32,7 +33,8 @@ namespace CookItApp.Views
 
         
         public async void RecetaSeleccionada(object sender, SelectedItemChangedEventArgs args)
-        {            
+        {
+            UserDialogs.Instance.ShowLoading("Cargando receta..");
             if (!(args.SelectedItem is HistorialReceta historialReceta))
             {
                 return;
@@ -43,9 +45,14 @@ namespace CookItApp.Views
 
             if (rec != null)
             {
+                UserDialogs.Instance.HideLoading();
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(rec, _Usuario));
-                
+
+            }
+            else
+            {
+                await DisplayAlert("Error", "Ha ocurrido un error, vuelva a intentarlo.", "Continuar");
             }
         }
 

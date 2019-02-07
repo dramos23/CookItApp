@@ -13,6 +13,8 @@ namespace CookItApp.Models
         [JsonIgnore]
         [Ignore]
         public virtual Perfil _Perfil { get; set; }
+
+        [PrimaryKey]
         public int _IdReceta { set; get; }
         [JsonIgnore]
         [Ignore]

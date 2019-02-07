@@ -77,7 +77,7 @@ namespace CookItApp.Data
             }
         }
 
-        public async Task<string> Eliminar(RecetaFavorita obj)
+        public async Task<bool> Eliminar(RecetaFavorita obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web + obj._Email + "," + obj._IdReceta;
@@ -87,15 +87,9 @@ namespace CookItApp.Data
             
             using (HttpResponseMessage response = await client.DeleteAsync(Url))
             {
-                string JsonResult = response.Content.ReadAsStringAsync().Result;
-                try
-                {                    
-                    return JsonResult;
-                }
-                catch
-                {
-                    return null;
-                }
+                
+                return response.IsSuccessStatusCode;
+                
             }
             
         }

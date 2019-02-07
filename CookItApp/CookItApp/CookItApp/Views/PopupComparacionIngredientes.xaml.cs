@@ -34,7 +34,7 @@ namespace CookItApp.Views
 
         }
 
-        private async void imgCerrar_Tapped(object sender, EventArgs e)
+        private async void ImgCerrar_Tapped(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
         }

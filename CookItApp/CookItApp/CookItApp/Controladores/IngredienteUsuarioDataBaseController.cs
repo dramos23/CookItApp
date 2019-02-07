@@ -71,7 +71,7 @@ namespace CookItApp.Controladores
             }
         }
 
-        public int BorrarTodo(IngredienteUsuario obj)
+        public int Borrar(IngredienteUsuario obj)
         {
             IngredienteUsuario ingrediente = database.Table<IngredienteUsuario>().FirstOrDefault(iu => iu._IdIngrediente == obj._IdIngrediente);
 
