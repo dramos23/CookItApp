@@ -72,14 +72,17 @@ namespace CookItApp.Views
 
         private async void BtnVerIngredientes_Clicked(object sender, EventArgs e)
         {
-            try
+            if (ControlPerfil() == true)
             {
-                await Navigation.PushAsync(new IngredientesRecetaView(Usuario, Receta));
-            }
-            catch
-            {
-                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error en receta", "Parece que esta receta no esta funcionando, " +
-                    "se ha enviado un mensaje al chef para que la revise. ¡Disculpa las molestias!"));
+                try
+                {
+                    await Navigation.PushAsync(new IngredientesRecetaView(Usuario, Receta));
+                }
+                catch
+                {
+                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error en receta", "Parece que esta receta no esta funcionando, " +
+                        "se ha enviado un mensaje al chef para que la revise. ¡Disculpa las molestias!"));
+                }
             }
 
         }

@@ -42,7 +42,7 @@ namespace CookItApp.Droid
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            string aver = "";
+            //string aver = "";
             // check if the current item id 
             // is equals to the back button id
             if (item.ItemId == 16908332)

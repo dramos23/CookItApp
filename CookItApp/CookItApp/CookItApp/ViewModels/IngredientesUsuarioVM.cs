@@ -30,7 +30,7 @@ namespace CookItApp.ViewModels
             List<IngredienteUsuario> lista = Usr._Perfil._ListaIngredientesUsuario;
             foreach (IngredienteUsuario iu in lista)
             {
-                iu._CantidadMedida = iu._Cantidad + iu._Ingrediente._Medida.ToString();
+                //iu._CantidadMedida = iu._Cantidad + iu._Ingrediente._Medida.ToString();
                 this.IngredientesUsuario.Add(iu);
             }
         }
