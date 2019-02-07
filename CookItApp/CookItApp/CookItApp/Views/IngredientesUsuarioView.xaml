@@ -15,6 +15,7 @@
                          x:Name="frmBorrar"
                          Grid.ColumnSpan="2"
                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                
                 <Frame CornerRadius="10"
                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                    Padding="5"
@@ -85,6 +86,17 @@
                         </DataTemplate>
                     </syncfusion:SfListView.SelectedItemTemplate>
                 </syncfusion:SfListView>
+            </Grid>
+
+
+            <Grid Grid.Column="0" Grid.Row="1" Margin="10" VerticalOptions="FillAndExpand" HorizontalOptions="Center"
+                  Grid.ColumnSpan="2" x:Name="layoutMensaje">
+                <Label Text="¡No tenemos ningun ingrediente! Prueba ingresar algunos así podemos darte recetas especialmente
+                       con los ingredientes que tienes en casa." TextColor="Black" FontSize="Medium"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
+                       MaxLines="10"/>
+
+
             </Grid>
             <Image x:Name="imgAgregarIngrediente" Grid.Row="2" Grid.Column="0" Source="iconAgregarIngrediente.png" Style="{StaticResource estiloBotonImagenGrande}">
                 <Image.GestureRecognizers>

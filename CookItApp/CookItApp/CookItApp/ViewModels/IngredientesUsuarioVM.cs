@@ -1,5 +1,6 @@
 ﻿using CookItApp.Data;
 using CookItApp.Models;
+using CookItApp.Servicios;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,36 +20,41 @@ namespace CookItApp.ViewModels
             Usr = usr;
             Vista = vista;
             IngredientesUsuario = new ObservableCollection<IngredienteUsuario>();
-            //    CargarDatos();
-            GenerarDatosPrueba();
+            CargarDatos();
         }
 
-        /*
+        
         public void CargarDatos()
         {
-            List<IngredienteUsuario> lista = Usr._Perfil._IngredientesUsuario;
-            if (lista.Count != 0) return;
+            IngredientesUsuario.Clear();    
+            List<IngredienteUsuario> lista = Usr._Perfil._ListaIngredientesUsuario;
             foreach (IngredienteUsuario iu in lista)
             {
                 iu._CantidadMedida = iu._Cantidad + iu._Ingrediente._Medida.ToString();
                 this.IngredientesUsuario.Add(iu);
             }
         }
-        */
-        internal void BorrarIngrediente(IngredienteUsuario ing)
+
+        internal ObservableCollection<IngredienteUsuario> DevolverListaIngUsuario()
         {
-            IngredientesUsuario.Remove(ing);
-            //App.DataBase.IngredienteUsuario.Borrar
-            //Falta metodo de controlador que borra ingrediente.
-            Vista.RefrescarListaIng();
+            CargarDatos();
+            return IngredientesUsuario;
         }
 
-        internal void AgregarIngrediente(IngredienteUsuario ing)
+        internal void BorrarIngrediente(IngredienteUsuario ing)
         {
-            IngredientesUsuario.Add(ing);
-            //Falta metodo de controlador que agrega ingrediente.
-            Vista.RefrescarListaIng();
+            try
+            {
+                //Falta baja de service
+                IngredientesUsuario.Remove(ing);
+                Vista.RefrescarListaIng();
+            }
+            catch
+            {
+                Vista.Mensaje("Error al borrar ingrediente, por favor intentelo nuevamente mas tarde.");
+            }
         }
+
 
         private void GenerarDatosPrueba()
         {
@@ -91,9 +97,8 @@ namespace CookItApp.ViewModels
 
             IngredientesUsuario.Add(ing2); IngredientesUsuario.Add(ing3);
             IngredientesUsuario.Add(ing4);
-
-
         }
+
 
     }
 }

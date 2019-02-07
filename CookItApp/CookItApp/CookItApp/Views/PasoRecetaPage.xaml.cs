@@ -31,8 +31,17 @@ namespace CookItApp.Views
             GenerarControl();
             GenerarBotonesAtrasSiguiente();
             BindearDescripcion();
-            Navigation.RemovePage(this);
             BindingContext = _PasoRecetaVM;
+            GenerarTextoCantPasos();
+
+            Navigation.RemovePage(this);
+        }
+
+        private void GenerarTextoCantPasos()
+        {
+            string cantPasos = "Paso ";
+            cantPasos += _PasoRecetaVM.DevolverNumeroPaso();
+            txtCantPasos.Text = cantPasos;
         }
 
         private void BindearDescripcion()
@@ -97,7 +106,7 @@ namespace CookItApp.Views
         {
             Image imagen = new Image
             {
-                //Ni idea como bindear esto todavia: imagen.Source = _PasoRecetaVM._Paso.imagen;
+                Source = paso.GenerarFoto(),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
                 Aspect = Aspect.AspectFill
@@ -296,13 +305,10 @@ namespace CookItApp.Views
         //Metodo que pasa al siguiente paso de la receta. Si no hay un paso siguiente no hace nada (no deberia verse la flecha en este caso).
         public async void PasoSiguiente()
         {
-            int idPaso = _PasoRecetaVM._Paso._IdPasoReceta;
             try
             {
-                //Se pone la variable "idPaso" sin modificarla porque el ID de PasoReceta empieza en 1, y el indice de la lista
-                //en 0.
-                PasoReceta proxPaso = _PasoRecetaVM._Receta._ListaPasosReceta[idPaso];
                 videoPlayer.Pause();
+                PasoReceta proxPaso = _PasoRecetaVM.DevolverProximoPaso(); ;
                 await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, proxPaso, Usuario));
             }
             catch
@@ -314,12 +320,10 @@ namespace CookItApp.Views
         //Metodo que vuelve al paso anterior de la receta. Si no hay un paso anterior no hace nada (no deberia verse la flecha en este caso).
         public async void PasoAnterior()
         {
-            int idPaso = _PasoRecetaVM._Paso._IdPasoReceta;
             try
             {
-                //Se hace idPaso -2 porque el id de PasoReceta empieza en 1 y el indice de la lista en 0.
                 videoPlayer.Pause();
-                PasoReceta pasoAnterior = _PasoRecetaVM._Receta._ListaPasosReceta[idPaso - 2];
+                PasoReceta pasoAnterior = _PasoRecetaVM.DevolverPasoAnterior();
                 await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, pasoAnterior, Usuario));
             }
             catch

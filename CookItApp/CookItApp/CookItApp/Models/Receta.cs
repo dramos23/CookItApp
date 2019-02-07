@@ -26,6 +26,8 @@ namespace CookItApp.Models
         [Ignore]
         [JsonIgnore]
         public Estacion _Estacion { get; set; }
+
+
         public int _Dificultad { get; set; }
         public int _TiempoPreparacion { get; set; }
         public int _CantCalorias { get; set; }
@@ -38,8 +40,11 @@ namespace CookItApp.Models
         public double _PuntajeTotal { get; set; }
         public bool _AptoCeliacos { get; set; }
         public bool _AptoDiabeticos { get; set; }
+
+
         public bool _AptoVegetarianos { get; set; }
         public bool _AptoVeganos { get; set; }
+
         public bool _Habilitada { get; set; }
 
         [JsonIgnore]
@@ -133,6 +138,48 @@ namespace CookItApp.Models
         {
             _ListaComentariosReceta = _ListaComentariosReceta.OrderByDescending(x => x._IdComentario).ToList();
         }
+
+        //Para ambos metodos de devolver primer y ultimo paso se asume que la lista ya está ordenada.
+        internal int DevolverPrimerPaso()
+        {
+            return this._ListaPasosReceta[0]._IdPasoReceta;
+        }
+
+        internal int DevolverUltimoPaso()
+        {
+            return this._ListaPasosReceta[_ListaPasosReceta.Count -1]._IdPasoReceta;
+        }
+
+        //Para los métodos de devolver paso anterior, siguiente y numero de paso se asume que la lista ya esta ordenada.
+        internal PasoReceta DevolverPasoAnterior(PasoReceta paso)
+        {
+            for(int i = 0; i < _ListaPasosReceta.Count; i++)
+            {
+                if (_ListaPasosReceta[i]._IdPasoReceta == paso._IdPasoReceta)
+                    return _ListaPasosReceta[i - 1];
+            }
+            return null;
+        }
+        internal PasoReceta DevolverProximoPaso(PasoReceta paso)
+        {
+            for (int i = 0; i < _ListaPasosReceta.Count; i++)
+            {
+                if (_ListaPasosReceta[i]._IdPasoReceta == paso._IdPasoReceta)
+                    return _ListaPasosReceta[i + 1];
+            }
+            return null;
+        }
+
+        internal string DevolverNumeroPaso(PasoReceta paso)
+        {
+            for (int i = 0; i < _ListaPasosReceta.Count; i++)
+            {
+                if (_ListaPasosReceta[i]._IdPasoReceta == paso._IdPasoReceta)
+                    return i + 1 + "";
+            }
+            return null;
+        }
+
 
     }
 

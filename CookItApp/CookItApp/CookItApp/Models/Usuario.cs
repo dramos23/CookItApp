@@ -42,6 +42,7 @@ namespace CookItApp.Models
             _UltimoIngreso = UltimoIngreso;
         }
 
+
         public Usuario(string Email, string Password, Guid? DeviceId, Tipo Tipo, DateTime UltimoIngreso)
         {
             _Email = Email;
@@ -81,5 +82,19 @@ namespace CookItApp.Models
             return false;
         }
 
-    }    
+        internal string RevisarDisponibilidadIngrediente(IngredienteReceta ing)
+        {
+            foreach (IngredienteUsuario ingUs in this._Perfil._ListaIngredientesUsuario)
+            {
+                if (ing._IdIngrediente == ingUs._IdIngrediente)
+                {
+                    if (ingUs._Cantidad >= ing._Cantidad) return "Tiene";
+                    return "Faltan";
+                }
+            }
+            return "No tiene";
+        }
+
+
+    }
 }

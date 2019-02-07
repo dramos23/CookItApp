@@ -37,7 +37,6 @@ namespace CookItApp.Views
             if (keyword != "")
             {
                 List<Ingrediente> resultado = ViewModel.Ingredientes.Where(c => c._Nombre.ToLower().Contains(keyword.ToLower())).ToList();
-                
                 ListaIngredientes.ItemsSource = resultado;
 
             }
@@ -48,9 +47,26 @@ namespace CookItApp.Views
         {            
             Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
             int cantidad = Convert.ToInt32(txtCantidad.Text);
-            ViewModel.AgregarIngrediente(ing, cantidad);
-            await PopupNavigation.Instance.PopAsync();
-            await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Agregar ingrediente", "Ingrediente agregado con éxito!"));
+            try
+            {
+                ViewModel.AgregarIngrediente(ing, cantidad);
+                await PopupNavigation.Instance.PopAsync();
+            }
+            catch
+            {
+                await PopupNavigation.Instance.PopAsync();
+            }
+        }
+
+        private void ListaIngredientes_ItemTapped(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
+        {
+        }
+
+        private void ListaIngredientes_SelectionChanged(object sender, Syncfusion.ListView.XForms.ItemSelectionChangedEventArgs e)
+        {
+            Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
+            txtMedida.Text = ing._Medida.ToString();
+            txtIngSeleccionado.Text = ing._Nombre;
         }
     }
 }

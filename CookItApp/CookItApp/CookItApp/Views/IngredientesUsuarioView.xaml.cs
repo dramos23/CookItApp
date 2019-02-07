@@ -25,9 +25,23 @@ namespace CookItApp.Views
             viewModel = new IngredientesUsuarioVM(usr, this);
             ListaIngredientes.ItemDragging += ListaIngredientes_ItemDragging;
             BindingContext = viewModel;
+            MensajeFaltaIngredientes();
         }
 
-        
+        private void MensajeFaltaIngredientes()
+        {
+            if (viewModel.IngredientesUsuario.Count == 0)
+            {
+                ListaIngredientes.IsVisible = false;
+                layoutMensaje.IsVisible = true;
+            }else
+            {
+                ListaIngredientes.IsVisible = true;
+                layoutMensaje.IsVisible = false;
+            }
+        }
+
+
         //Evento que se activa cuando se arrastra un elemento
         private async void ListaIngredientes_ItemDragging(object sender, ItemDraggingEventArgs e)
         {
@@ -64,17 +78,12 @@ namespace CookItApp.Views
 
         public void AgregarIngrediente(IngredienteUsuario ing)
         {
-            throw new NotImplementedException();
+            RefrescarListaIng();
         }
 
         public void BorrarIngrediente(IngredienteUsuario ing)
         {
             viewModel.BorrarIngrediente(ing);
-        }
-
-        public void RefrescarListaIng(ObservableCollection<IngredienteUsuario> ings)
-        {
-            ListaIngredientes.ItemsSource = ings;
         }
 
         private async void btnAgregarIng_Tapped(object sender, EventArgs e)
@@ -86,7 +95,7 @@ namespace CookItApp.Views
         {
             if (ListaIngredientes.SelectedItem == null)
             {
-                MensajeError("Tienes que seleccionar un ingrediente de la lista para poder cambiar su cantidad.");
+                Mensaje("Tienes que seleccionar un ingrediente de la lista para poder cambiar su cantidad.");
                 return;
             }
             IngredienteUsuario ing = ListaIngredientes.SelectedItem as IngredienteUsuario;
@@ -95,12 +104,17 @@ namespace CookItApp.Views
 
         public void RefrescarListaIng()
         {
-            ListaIngredientes.ItemsSource = viewModel.IngredientesUsuario;
+            ListaIngredientes.ItemsSource = viewModel.DevolverListaIngUsuario();
+            if (ListaIngredientes.IsVisible == false)
+            {
+                ListaIngredientes.IsVisible = true;
+                layoutMensaje.IsVisible = false;
+            }
         }
 
-        public async void MensajeError(string v)
+        public async void Mensaje(string v)
         {
-            await PopupNavigation.Instance.PushAsync(new PopupMensaje(usuario, "Error con ingredientes", v));
+            await PopupNavigation.Instance.PushAsync(new PopupMensaje(usuario, "Tus ingredientes", v));
         }
     }
 }

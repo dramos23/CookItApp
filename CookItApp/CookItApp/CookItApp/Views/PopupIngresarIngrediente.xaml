@@ -13,54 +13,68 @@
     </pages:PopupPage.Animation>
     <pages:PopupPage.Content>
         <Frame BorderColor="Black" CornerRadius="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-               BackgroundColor="{StaticResource colorSecondary}">
+               BackgroundColor="White">
             <Grid VerticalOptions="Center" HorizontalOptions="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="8.5*"/>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="8*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <Entry Placeholder="Busque su ingrediente" x:Name="txtIngrediente" FontSize= "Small" TextChanged="TxtIngrediente_TextChanged"
-                        HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.ColumnSpan="2"/>
-                    <Entry Grid.Column="0" Grid.Row="1" Placeholder="Cantidad" x:Name="txtCantidad" Keyboard="Numeric" FontSize="Small"
-                       HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                    <Label Grid.Column="1" Grid.Row="1" Text="" x:Name="txtMedida" FontSize="Small"/>
-                </Grid>
-
-                <Grid Grid.Column="1" Grid.Row="0">
-                    <xforms:SfListView x:Name="ListaIngredientes"
-                                       ItemsSource="{Binding Ingredientes}"
-                                       SelectionMode="SingleDeselect"
-                                       SelectionGesture="Tap"
-                                       ItemSize="30"
-                                       BackgroundColor="{StaticResource colorBackground}">
-                        <xforms:SfListView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame BorderColor="Black" Padding="5">
-                                    <Grid>
-                                        <Label FontSize="Small" Text="{Binding _Nombre}" TextColor="{StaticResource colorOnBackground}"/>
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </xforms:SfListView.ItemTemplate>
-                        <xforms:SfListView.SelectedItemTemplate>
-                            <DataTemplate>
-                                <Frame BorderColor="Black" Padding="5"
+                <Frame Grid.Row="0" BackgroundColor="{StaticResource colorPrimaryVariant}" 
+                       Padding="5" BorderColor="Black">
+                    <Entry Placeholder="Busque su ingrediente..." x:Name="txtIngrediente" FontSize= "Small" 
+                           TextChanged="TxtIngrediente_TextChanged" HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
+                           Keyboard="Text" BackgroundColor="{StaticResource colorPrimaryVariant}"/>
+                </Frame>
+                <xforms:SfListView x:Name="ListaIngredientes"
+                                   Grid.Row="1" ItemsSource="{Binding Ingredientes}"
+                                   SelectionMode="SingleDeselect" SelectionGesture="Tap"
+                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                   ItemSize="30" BackgroundColor="{StaticResource colorBackground}"
+                                   SelectionChanged="ListaIngredientes_SelectionChanged">
+                    <xforms:SfListView.LayoutManager>
+                        <xforms:GridLayout SpanCount="2"/>
+                    </xforms:SfListView.LayoutManager>
+                    <xforms:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Black" Padding="5">
+                                <Grid>
+                                    <Label FontSize="Small" Text="{Binding _Nombre}" TextColor="{StaticResource colorOnBackground}"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </xforms:SfListView.ItemTemplate>
+                    <xforms:SfListView.SelectedItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Black" Padding="5"
                                        BackgroundColor="{StaticResource colorSecondaryVariant}">
-                                    <Grid>
-                                        <Label FontSize="Small" Text="{Binding _Nombre}" TextColor="{StaticResource colorOnBackground}"/>
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </xforms:SfListView.SelectedItemTemplate>
-                    </xforms:SfListView>
-                </Grid>
-                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Source="iconAgregarIngrediente.png" Style="{StaticResource estiloBotonImagen}">
+                                <Grid>
+                                    <Label FontSize="Small" Text="{Binding _Nombre}" TextColor="{StaticResource colorOnBackground}"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </xforms:SfListView.SelectedItemTemplate>
+                </xforms:SfListView>
+                <Frame Grid.Row="2" Margin="0,5,0,0" BackgroundColor="{StaticResource colorPrimaryVariant}" 
+                       BorderColor="Black" Padding="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" TextColor="Black" FontAttributes="Bold" FontSize="Small"
+                           x:Name="txtIngSeleccionado" HorizontalTextAlignment="Center" 
+                           HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                        <Entry Grid.Column="1" Placeholder="Cantidad" x:Name="txtCantidad" Keyboard="Numeric" FontSize="Small"
+                       HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                        <Label Grid.Column="2" Text="" x:Name="txtMedida" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Start"/>
+                    </Grid>
+                </Frame>
+                <Image Grid.Row="3" Source="iconAgregarIngrediente.png" Style="{StaticResource estiloBotonImagenGrande}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="IngresarIngrediente_Tapped"/>
                     </Image.GestureRecognizers>

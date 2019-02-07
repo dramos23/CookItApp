@@ -58,27 +58,31 @@ namespace CookItApp.ViewModels
             };
 
             string aver = ingUs._CantidadMedida;
-            IngredienteUsuario ingredienteUsuario = await App.IngredienteUsuarioService.Alta(ingUs);
-            if (ingredienteUsuario != null)
+            try
             {
-                App.DataBase.IngredienteUsuario.Guardar(ingredienteUsuario);
-            }
-            
-           
-            if (!Usuario._Perfil._ListaIngredientesUsuario.Contains(ingUs))
-            {
-                Usuario._Perfil._ListaIngredientesUsuario.Add(ingUs);
-            }
+                IngredienteUsuario ingredienteUsuario = await App.IngredienteUsuarioService.Alta(ingUs);
+                if (ingredienteUsuario != null)
+                {
+                    App.DataBase.IngredienteUsuario.Guardar(ingredienteUsuario);
+                }
+                Usuario._Perfil.AgregarIngredienteUsuario(ingUs);
 
-            Vista.RefrescarListaIng();
-        }
+                Vista.Mensaje("Ingrediente ingresado!");
+                Vista.RefrescarListaIng();
+            }
+            catch
+            {
+                Vista.Mensaje("Error al ingresar ingrediente, por favor intentelo nuevamente más tarde.");
+            }
+                      
+        }       
 
         public async void ActualizarIngrediente(IngredienteUsuario ing, int cantidad)
         {
             ing._Cantidad = cantidad;
             IngredienteUsuario ingUs = await App.IngredienteUsuarioService.Alta(ing);
             if (ingUs != null) App.DataBase.IngredienteUsuario.Guardar(ingUs);
-            else Vista.MensajeError("Hubo un error al ingresar el ingrediente, por favor intentelo nuevamente.");
+            else Vista.Mensaje("Hubo un error al ingresar el ingrediente, por favor intentelo nuevamente.");
         }
 
 
