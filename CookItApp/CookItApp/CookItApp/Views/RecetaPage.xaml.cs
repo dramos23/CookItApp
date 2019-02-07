@@ -28,10 +28,11 @@ namespace CookItApp.Views
             InitializeComponent();
             Email = usuario._Email;
             Usuario = usuario;
-            Receta = receta;
+            Receta = receta;            
             VMReceta = new RecetaVM(Receta);
             BindingContext = VMReceta;
             GenerarImagenFavorito();
+
         }
 
         //public async void ObtenerReceta(Receta receta) {
@@ -180,7 +181,7 @@ namespace CookItApp.Views
             if (Usuario._Perfil == null)
             {
                 string mensaje = "Para utilizar está opción tiene que completar su perfil.";
-                UserDialogs.Instance.Alert("Complete su perfil", mensaje, "Continuar");
+                UserDialogs.Instance.Alert(mensaje, "Complete su perfil", "Continuar");
                 return false;
 
             }

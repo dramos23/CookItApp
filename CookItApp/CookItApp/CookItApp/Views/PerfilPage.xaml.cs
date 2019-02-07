@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using CookItApp.Data;
 using CookItApp.Models;
 using CookItApp.ViewModels;
 using Plugin.Media;
@@ -16,17 +17,19 @@ namespace CookItApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PerfilPage : ContentPage
 	{
-        MediaFile Foto { get; set; }
-        PerfilVM _VMReceta;
-        Usuario Usuario;        
+        public MediaFile Foto { get; set; }
+        public PerfilVM _VMReceta;
+        public Usuario _Usuario;  
+        private IViewMaster _Vista { get; set; }
 
-        public PerfilPage (Usuario Usuario)
+        public PerfilPage (Usuario Usuario, IViewMaster vista)
 		{            
             InitializeComponent();
             CargarPickerMomentoDia();
             CargarPickerEstacion();
-            this.Usuario = Usuario;
-            _VMReceta = new PerfilVM(this.Usuario);                       
+            _Usuario = Usuario;
+            _Vista = vista;
+            _VMReceta = new PerfilVM(_Usuario);                       
             BindingContext = _VMReceta;
         }
 
@@ -122,7 +125,7 @@ namespace CookItApp.Views
                 Perfil p = GenerarPerfil();
                 Perfil perfil = new Perfil();
 
-                if (Usuario._Perfil == null)
+                if (_Usuario._Perfil == null)
                 {
                     perfil = await App.PerfilService.Alta(p);
                 }
@@ -138,7 +141,7 @@ namespace CookItApp.Views
 
                     int save = 0;
 
-                    if (Usuario._Perfil == null)
+                    if (_Usuario._Perfil == null)
                     {
                         save = App.DataBase.Perfil.Guardar(perfil);
                     }
@@ -151,24 +154,24 @@ namespace CookItApp.Views
                     {
                         UserDialogs.Instance.HideLoading();
 
-                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Se ha actualizado tu perfil"));
+                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Perfil de usuario", "Se ha actualizado tu perfil"));
                         await scroll.ScrollToAsync(0, (double)ScrollToPosition.End, true);
                     }
                     else
                     {
                         UserDialogs.Instance.HideLoading();
-                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
+                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
                         "intentalo nuevamente."));
                 }
 
-                    MasterPage.ActualizarPerfil(perfil);
-                    Usuario._Perfil = perfil;
+                    _Vista.Actualizar(perfil);
+                    _Usuario._Perfil = perfil;
 
                 }
                 else
                 {
                     UserDialogs.Instance.HideLoading();
-                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
+                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
                     "pongase en contacto con el area de soporte."));
             }
 
@@ -203,7 +206,7 @@ namespace CookItApp.Views
             {
 
                 _Email = _VMReceta.Email,
-                _Foto = (Foto != null) ? ImageToByteArray() : ( (Usuario._Perfil != null && Usuario._Perfil._Foto != null) ? Usuario._Perfil._Foto : null ),
+                _Foto = (Foto != null) ? ImageToByteArray() : ( (_Usuario._Perfil != null && _Usuario._Perfil._Foto != null) ? _Usuario._Perfil._Foto : null ),
                 _NombreUsuario = entryNombreUsuario.Text,
                 _Nombre = entryNombre.Text,
                 _Apellido = entryApellido.Text,
@@ -271,7 +274,7 @@ namespace CookItApp.Views
             }
             else
             {
-                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error de camara", "Hay un error con tu camara, " +
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Error de camara", "Hay un error con tu camara, " +
                 "no se puede sacar la foto."));
             }
 

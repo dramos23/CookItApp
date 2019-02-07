@@ -18,17 +18,17 @@ namespace CookItApp.ViewModels
             _IngredientesReceta = r._ListaIngredientesReceta;
             _Receta = r;
             Titulo = "Receta: " + r._Titulo;
-            CargarDato();
+            //CargarDato();
             _Receta.OrdenarListasReceta();
-            string test = "";
+            //string test = "";
         }
 
-        public void CargarDato()
-        {
-            foreach (IngredienteReceta ir in _IngredientesReceta)
-            {
-                ir.CantidadMedida();
-            }
-        }
+        //public void CargarDato()
+        //{
+        //    foreach (IngredienteReceta ir in _IngredientesReceta)
+        //    {
+        //        ir.CantidadMedida();
+        //    }
+        //}
     }
 }

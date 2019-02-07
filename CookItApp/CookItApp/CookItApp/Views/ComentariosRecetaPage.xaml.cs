@@ -122,7 +122,7 @@ namespace CookItApp.Views
                 await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Comentando receta", "Comentario agregado."));
                 RefrescarComentarios();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Comentando receta", "Hubo un error al ingresar su comentario," +
                     "intente nuevamente mas tarde."));

@@ -58,9 +58,14 @@ namespace CookItApp.Models
 
         public bool RecetaEsFavorita(Receta rec)
         {
-            RecetaFavorita recFav = new RecetaFavorita { _IdReceta = rec._IdReceta };
-            if (_Perfil._ListaRecetasFavoritas.Contains(recFav)) return true;
-            return false;
+            if (_Perfil != null)
+            {
+                RecetaFavorita recFav = new RecetaFavorita { _IdReceta = rec._IdReceta };
+                return _Perfil._ListaRecetasFavoritas.Contains(recFav) ? true : false;
+            }
+            else {
+                return false;
+            }
         }
 
         public bool TieneSuficienteIngrediente(IngredienteReceta ing)

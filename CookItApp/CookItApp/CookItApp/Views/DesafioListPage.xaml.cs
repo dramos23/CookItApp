@@ -14,19 +14,19 @@ using Xamarin.Forms.Xaml;
 namespace CookItApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RetoListPage : ContentPage, IViewDesafioList
+	public partial class DesafioListPage : ContentPage, IViewDesafioList
 	{
-        RetosListVM _ViewModelRetosList;
+        DesafioListVM _ViewModelRetosList;
 
         Usuario _Usuario;
 
-        public RetoListPage (Usuario usuario)
+        public DesafioListPage (Usuario usuario)
 		{            
 			InitializeComponent ();
 
             _Usuario = usuario;
 
-            _ViewModelRetosList = new RetosListVM();
+            _ViewModelRetosList = new DesafioListVM();
             BindingContext = _ViewModelRetosList;
 
         }
@@ -34,7 +34,7 @@ namespace CookItApp.Views
         public void Actualizar()
         {
             // ListaRetos.ItemsSource = App.DataBase.Reto.ObtenerList();
-            _ViewModelRetosList = new RetosListVM();
+            _ViewModelRetosList = new DesafioListVM();
             BindingContext = _ViewModelRetosList;
         }
 

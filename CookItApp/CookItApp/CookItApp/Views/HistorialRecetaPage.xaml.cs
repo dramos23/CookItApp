@@ -33,12 +33,13 @@ namespace CookItApp.Views
         
         public async void RecetaSeleccionada(object sender, SelectedItemChangedEventArgs args)
         {            
-            if (!(args.SelectedItem is Receta receta))
+            if (!(args.SelectedItem is HistorialReceta historialReceta))
             {
                 return;
             }
+            
 
-            Receta rec = await App.RecetaService.Obtener(receta);
+            Receta rec = await App.RecetaService.Obtener(historialReceta._Receta);
 
             if (rec != null)
             {

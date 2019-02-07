@@ -46,16 +46,15 @@ namespace CookItApp.Models
         [Ignore]
         public ImageSource _FotoCompleta { get
             {
-                Image image = new Image();
+                
                 if (_Foto != null)
                 {
-                    Stream stream = new MemoryStream(_Foto);
-                    image.Source = ImageSource.FromStream(() => { return stream; });
-                    return image.Source;
+                    byte[] imageAsBytes = (byte[])_Foto;
+                    return ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
                 }
-                else {
-                    image.Source = "fondoFrutillas.jpg";
-                    return image.Source;
+                else
+                {                    
+                    return "fondoFrutillas.jpg";
                 }
 
             }
@@ -117,23 +116,7 @@ namespace CookItApp.Models
 
         [Ignore]
         [JsonIgnore]
-        public string _RutaFotoDificultad
-        {
-            get
-            {
-                return "iconoEstrella" + _Dificultad + ".png";
-            }
-        }
-
-        public ImageSource ImageFoto()
-        {
-
-            Image image = new Image();
-            Stream stream = new MemoryStream(_Foto);
-            image.Source = ImageSource.FromStream(() => { return stream; });
-            return image.Source;
-
-        }
+        public string _RutaFotoDificultad => "iconoEstrella" + _Dificultad + ".png";
 
         public void OrdenarListasReceta()
         {

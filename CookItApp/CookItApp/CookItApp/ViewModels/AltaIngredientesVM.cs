@@ -53,7 +53,8 @@ namespace CookItApp.ViewModels
                 _Email = Usuario._Email,
                 _Perfil = Usuario._Perfil,
                 _IdIngrediente = ing._IdIngrediente,
-                _CantidadMedida = cantidad + ing._Medida.ToString()
+                _Medida = ing._Medida        
+                //_CantidadMedida = cantidad + ing._Medida.ToString() //no es necesario
             };
 
             string aver = ingUs._CantidadMedida;

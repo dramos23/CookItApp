@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CookItApp.ViewModels
 {
-    public class RetosListVM
+    public class DesafioListVM
     {
         public ObservableCollection<Reto> Retos { get; set; }
 
@@ -17,7 +17,7 @@ namespace CookItApp.ViewModels
 
         public string Text { get; set; }
 
-        public RetosListVM() {
+        public DesafioListVM() {
 
             Vacio = false;
             Lista = false;

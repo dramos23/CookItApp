@@ -14,8 +14,7 @@ namespace CookItApp.Models
 
         [JsonIgnore]
         [Ignore]
-        public Receta _Receta { set; get; }
-        public Ingrediente.TipoMedida _Medida { get; set; }
+        public Receta _Receta { set; get; }        
 
         public IngredienteReceta() : base()
         {

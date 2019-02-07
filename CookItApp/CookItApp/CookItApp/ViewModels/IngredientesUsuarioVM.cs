@@ -56,7 +56,8 @@ namespace CookItApp.ViewModels
             IngredienteUsuario ing2 = new IngredienteUsuario()
             {
                 _Cantidad = 600,
-                _CantidadMedida = "600ml",
+                _Medida = Ingrediente.TipoMedida.ml,
+                //_CantidadMedida = "600ml",
                 _Ingrediente = new Ingrediente
                 {
                     _Nombre = "Aceite de oliva",
@@ -67,7 +68,8 @@ namespace CookItApp.ViewModels
             IngredienteUsuario ing3 = new IngredienteUsuario()
             {
                 _Cantidad = 200,
-                _CantidadMedida = "200gr",
+                _Medida = Ingrediente.TipoMedida.gr,
+                //_CantidadMedida = "200gr",
                 _Ingrediente = new Ingrediente
                 {
                     _Nombre = "Fideos prehechos",
@@ -78,7 +80,8 @@ namespace CookItApp.ViewModels
             IngredienteUsuario ing4 = new IngredienteUsuario()
             {
                 _Cantidad = 1000,
-                _CantidadMedida = "1000ml",
+                _Medida = Ingrediente.TipoMedida.ml,
+                // _CantidadMedida = "1000ml",
                 _Ingrediente = new Ingrediente
                 {
                     _Nombre = "Leche descremada",

@@ -37,6 +37,7 @@
                         <DataTemplate x:Name="dtListaRecetas">
                             <ViewCell>
                                 <ViewCell.View>
+                                    
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="4*" />
@@ -88,6 +89,7 @@
                                                    TextColor="{StaticResource bluePinkDark}"/>
                                         </Grid>
                                     </Grid>
+                                    
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>

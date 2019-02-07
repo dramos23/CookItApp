@@ -72,7 +72,7 @@ namespace CookItApp
 
         protected override void OnResume()
         {
-            Mensajes();
+           // Mensajes();
         }
 
 

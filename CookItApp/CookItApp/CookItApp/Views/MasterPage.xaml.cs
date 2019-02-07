@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using CookItApp.Data;
 using CookItApp.Models;
 using CookItApp.ViewModels;
 using Microsoft.AppCenter;
@@ -16,7 +17,7 @@ using Xamarin.Forms.Xaml;
 namespace CookItApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MasterPage : MasterDetailPage
+	public partial class MasterPage : MasterDetailPage, IViewMaster
     {
         public List<MasterPageItem> MenuList { get; set; }
 
@@ -24,12 +25,13 @@ namespace CookItApp.Views
         private MasterPageVM _VMMaster;
         protected static List<Perfil> _ListPerfiles { get; set; }
 
+        private bool MostrarMsjCons { get; set; }
+
         public MasterPage (Usuario usuario)
 		{
 			InitializeComponent ();
             Notificaciones();
-            Usuario = usuario;
-            ControlPerfil();
+            Usuario = usuario;            
 
             MenuList = new List<MasterPageItem>();
 
@@ -38,7 +40,7 @@ namespace CookItApp.Views
             var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png"/*, TargetType = typeof(View1) */};
             var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png", TargetType = typeof(IngredientesUsuarioView) };
             var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
-            var page6 = new MasterPageItem() { Title = "Desafios", Icon = "reto.png", TargetType = typeof(RetoListPage)};
+            var page6 = new MasterPageItem() { Title = "Desafios", Icon = "reto.png", TargetType = typeof(DesafioListPage)};
             var page7 = new MasterPageItem() { Title = "Notificaciones", Icon = "notifications.png", TargetType = typeof(ListaNotificacionesPage) };
             var page8 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
             var page9 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
@@ -62,8 +64,12 @@ namespace CookItApp.Views
             // Initial navigation, this can be used for our home page
             Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(ListaRecetasPage), usuario));
 
+            MostrarMsjCons = true;
+
             _VMMaster = new MasterPageVM(usuario);
             BindingContext = _VMMaster;
+
+            
 
         }
 
@@ -115,6 +121,48 @@ namespace CookItApp.Views
             //}
         }
 
+        protected override  void OnAppearing()
+        {
+            if (MostrarMsjCons)
+            {
+                MostrarMsjCons = false;
+
+                var continuar = Mensajes();
+                if (continuar.Result)
+                {
+                    ControlPerfil();
+                }
+            }
+                
+        }
+
+        private async Task<bool> Mensajes()
+        {
+            bool continuar = true;
+
+            Usuario usuario = App.DataBase.Usuario.Obtener();
+            if (usuario._Perfil != null)
+            {
+
+                string mensaje = "Hola " + usuario._Perfil._Nombre + "\\n";
+                int notificaciones = App.DataBase.Notificacion.SinLeer();
+                if (notificaciones > 0)
+                {
+                    mensaje += "Tienes " + notificaciones.ToString() + " notificaciones sin leer.";
+                }
+                int retos = App.DataBase.Reto.RetosActivos();
+                if (retos > 0)
+                {
+                    mensaje += "Tienes " + retos.ToString() + " retos activos.";
+                }
+                if (notificaciones > 0 || retos > 0)
+                {
+                    await DisplayAlert("Atención!", mensaje, "OK");
+                }
+            }
+            return continuar;
+
+        }
 
 
         private async void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -139,15 +187,30 @@ namespace CookItApp.Views
                     Navigation.RemovePage(this);
                 }
                 else {
-                    if (page == typeof(IngredientesUsuarioView))
+
+                    bool entro = false;
+
+                    if (page == typeof(IngredientesUsuarioView) && entro == false)
                     {
+                        entro = true;
                         if (ControlPerfilBoolean())
                         {
                             Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
                             IsPresented = false;
                         }
                     }
-                    else
+
+                    if (page == typeof(PerfilPage) && entro == false)
+                    {
+                        entro = true;
+                        if (ControlPerfilBoolean())
+                        {
+                            Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario, this));
+                            IsPresented = false;
+                        }
+                    }
+
+                    if (entro == false)
                     {
                         Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
                         IsPresented = false;
@@ -167,7 +230,7 @@ namespace CookItApp.Views
                     Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(PerfilPage), Usuario));
                     IsPresented = false;
                 }
-            }
+            }            
 
         }
 
@@ -193,14 +256,17 @@ namespace CookItApp.Views
             App.DataBase.BorrarTodo();
         }
 
-        public static void ActualizarPerfil(Perfil perfil)
-        {
-            Usuario._Perfil = perfil;
-        }
 
         private void BtnFiltros_Clicked(object sender, EventArgs e)
         {
 
+        }
+
+        public void Actualizar(Perfil perfil)
+        {
+            Usuario._Perfil = perfil;
+            _VMMaster = new MasterPageVM(Usuario);
+            BindingContext = _VMMaster;
         }
     }
 }

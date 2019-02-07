@@ -10,33 +10,26 @@
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
 
-
-        <ListView ItemsSource="{Binding HistorialRecetas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada" IsVisible="{Binding  Lista}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="70" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan ="4" Style="Border: 1px" Source="{Binding HistorialReceta._Receta._Foto}"/>
-                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding _FechaHora}" LineBreakMode="NoWrap" TextColor="Black" HorizontalOptions="End" FontSize="13" />
-                        <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"  Text="{Binding _Receta._Titulo}" LineBreakMode="NoWrap" TextColor="Black" FontSize="16" />
-                        <Label Grid.Column="1" Grid.Row="2" Text="{Binding _Receta._Descripcion}" LineBreakMode="NoWrap" TextColor="Black" FontSize="14" MaxLines="4" />
-
-                    </Grid>
-                </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
         
+            <ListView ItemsSource="{Binding HistorialRecetas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada" IsVisible="{Binding  Lista}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame HasShadow="true" Margin="5">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding _FechaHora}" TextColor="Black" HorizontalOptions="End" FontSize="13" />
+                                    <Label Text="{Binding _Receta._Titulo}" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                    <Image Source="{Binding _Receta._FotoCompleta}" VerticalOptions="CenterAndExpand" Margin="0,5"/>
+                                    <Label Text="{Binding _Receta._Descripcion}" TextColor="Black" FontSize="14" MaxLines="4" />
+
+
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        
+
     </StackLayout>
 </ContentPage>
