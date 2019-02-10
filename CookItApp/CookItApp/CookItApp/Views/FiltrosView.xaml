@@ -15,9 +15,10 @@
             <Frame CornerRadius="10" BorderColor="Black" Padding="5">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1.5*"/>
-                            <RowDefinition Height="8.5*"/>
-                        </Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="6.5*"/>
+                        <RowDefinition Height="1.5*"/>
+                    </Grid.RowDefinitions>
 
                         <Grid x:Name="layoutFiltAuto" HorizontalOptions="FillAndExpand" 
                              VerticalOptions="FillAndExpand" IsVisible ="False" IsEnabled="False" 
@@ -162,6 +163,12 @@
                                 </Image.GestureRecognizers>
                             </Image>
                         </layouts:WrapLayout>
+
+                    <Image Source="okIcon.png" Style="{StaticResource estiloBotonImagenGrande}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClose" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
                     </Grid>
             </Frame>
         </ContentView>

@@ -29,17 +29,17 @@ namespace CookItApp.Views
             BindingContext = _VMHistorialRecetas;
         }
 
-
-
         
+
+
         public async void RecetaSeleccionada(object sender, SelectedItemChangedEventArgs args)
         {
-            UserDialogs.Instance.ShowLoading("Cargando receta..");
+            UserDialogs.Instance.ShowLoading("Cargando receta...");
             if (!(args.SelectedItem is HistorialReceta historialReceta))
             {
                 return;
             }
-            
+
 
             Receta rec = await App.RecetaService.Obtener(historialReceta._Receta);
 
@@ -48,13 +48,12 @@ namespace CookItApp.Views
                 UserDialogs.Instance.HideLoading();
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(rec, _Usuario));
-
             }
             else
             {
-                await DisplayAlert("Error", "Ha ocurrido un error, vuelva a intentarlo.", "Continuar");
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Error", "Ha ocurrido un error, vuelva a intentarlo."));
+
             }
         }
-
     }
 }

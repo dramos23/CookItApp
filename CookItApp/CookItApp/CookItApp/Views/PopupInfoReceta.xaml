@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controles="clr-namespace:CookItApp.Controles"
+             x:Class="CookItApp.Views.PopupInfoReceta"
+             CloseWhenBackgroundIsClicked="True"
+             Padding="10"
+             Opacity="1">
+    <pages:PopupPage.Animation>
+        <controles:AnimacionBase/>
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Content>
+        <Frame BorderColor="Black" CornerRadius="10" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+               BackgroundColor="White">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblCeliacos" Style="{StaticResource styleLabelSimple}"/>
+                    <Label x:Name="lblDiabeticos" Style="{StaticResource styleLabelSimple}"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblVegetarianos" Style="{StaticResource styleLabelSimple}"/>
+                    <Label x:Name="lblVeganos" Style="{StaticResource styleLabelSimple}"/>
+                </StackLayout>
+
+
+                <Label x:Name="lblSubtititlo1" Text ="Pensada para estas ocasiones" TextDecorations="Underline" 
+                   Style="{StaticResource styleLabelSimple}" FontAttributes="Bold" BackgroundColor="{StaticResource colorPrimaryVariant}"/>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblMomentoDia" Style="{StaticResource styleLabelSimple}"/>
+                    <Label x:Name="lblEstacion" Style="{StaticResource styleLabelSimple}"/>
+                </StackLayout>
+
+                <Label x:Name="lblSubtititlo2" Text ="Otra información" TextDecorations="Underline" 
+                   BackgroundColor="{StaticResource colorPrimaryVariant}" Style="{StaticResource styleLabelSimple}" FontAttributes="Bold" />
+
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblCosto" Style="{StaticResource styleLabelSimple}"/>
+                    <Label x:Name="lblPlatos" Style="{StaticResource styleLabelSimple}"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lblTiempo" Style="{StaticResource styleLabelSimple}"/>
+                    <Label x:Name="lblCalorias" Style="{StaticResource styleLabelSimple}"/>
+                </StackLayout>
+
+                <Image Source="volverReceta.png" Style="{StaticResource estiloBotonImagenGrande}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="VolverReceta_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </Frame>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

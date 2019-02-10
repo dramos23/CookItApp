@@ -41,11 +41,11 @@ namespace CookItApp.ViewModels
             return IngredientesUsuario;
         }
 
-        internal void BorrarIngrediente(IngredienteUsuario ing)
+        internal async void BorrarIngrediente(IngredienteUsuario ing)
         {
             try
             {
-                //Falta baja de service
+                await App.IngredienteUsuarioService.Eliminar(ing);
                 IngredientesUsuario.Remove(ing);
                 Vista.RefrescarListaIng();
             }

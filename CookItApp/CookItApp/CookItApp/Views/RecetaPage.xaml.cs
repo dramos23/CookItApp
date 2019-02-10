@@ -206,8 +206,8 @@ namespace CookItApp.Views
 
             if (Usuario._Perfil == null)
             {
-                string mensaje = "Para utilizar está opción tiene que completar su perfil.";
-                UserDialogs.Instance.Alert(mensaje, "Complete su perfil", "Continuar");
+                PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Complete su perfil", 
+                    "Para utilizar está opción tiene que completar su perfil."));
                 return false;
 
             }
@@ -217,6 +217,10 @@ namespace CookItApp.Views
 
         }
 
+        private async void BtnVerInfoReceta_Clicked(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupInfoReceta(Usuario, Receta));
+        }
     }
 
 
