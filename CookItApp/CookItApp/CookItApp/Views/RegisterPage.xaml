@@ -4,22 +4,33 @@
              x:Class="CookItApp.Views.RegisterPage"
              Title="Registro">
 
-    <ContentPage.Content>
+    <Grid>
 
+        <Image Source="fondoFrutillas.jpg" Aspect="AspectFill"/>
+        <BoxView Color="LightSlateGray" Opacity="0.8"/>
 
-        <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                <Entry x:Name="inpEmail" Placeholder="Ingrese aquí tú email"></Entry>
-                <Entry x:Name="inpPassword" Placeholder="Ingrese aquí tú Password" IsPassword="True"></Entry>
-                <Entry x:Name="inpRetapePassword" Placeholder="Confirma tú Password" IsPassword="True"></Entry>
+            <StackLayout Grid.Row="1" Padding="30,20" VerticalOptions="Center" >
+                <Entry x:Name="entryEmail"  Placeholder="Ingresa tú email" PlaceholderColor="Silver" />
+                <Entry x:Name="entryPass" Placeholder="Ingresa tú contraseña" PlaceholderColor="Silver"  IsPassword="True"/>
+                <Entry x:Name="entryRePass" Placeholder="Confirma tú contraseña" PlaceholderColor="Silver"  IsPassword="True"/>
                 <StackLayout Orientation="Horizontal">
-                    <Label x:Name="lblGuardarPassword" Text="Save Password"></Label>
-                    <Switch IsToggled="False"></Switch>
+                    <Label Text="Recordar cuenta?" FontAttributes="Bold" TextColor="Black" HorizontalOptions="StartAndExpand"></Label>
+                    <Switch IsToggled="True" x:Name="togRecordar" HorizontalOptions="End"></Switch>
                 </StackLayout>
-                <Button x:Name="btnRegistrar" Text="Sign Up" Clicked="PrcRegistrar"></Button>
-                <Button Text="Already have account? Sign In" TextColor="Blue" Clicked="Button_Clicked"></Button>
-            
-        </StackLayout>
-    </ContentPage.Content>
+                <Button x:Name="BtnRegistrar" Text="Registrar" BackgroundColor="Silver" BorderRadius="20" TextColor="Black" Clicked="BtnRegistrar_Clicked"/>
+                <Button x:Name="BtnIngresar" Text="Ingresar" BackgroundColor="Silver" BorderRadius="20" TextColor="Black" Clicked="BtnIngresar_Clicked" Margin="0,5"/>
+            </StackLayout>
+
+        </Grid>
+
+    </Grid>
+
 
 </ContentPage>

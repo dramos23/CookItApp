@@ -8,5 +8,6 @@ namespace CookItApp.Data
     public interface IViewMaster
     {
         void Actualizar(Perfil perfil);
+        void Gamificacion(Perfil.Categoria categoria, int puntuacion);
     }
 }

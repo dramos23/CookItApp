@@ -51,7 +51,7 @@
                 <Image Margin="0" HeightRequest="30" HorizontalOptions="StartAndExpand" VerticalOptions="Start"
                        Source="{Binding _Receta._RutaFotoDificultad}" Grid.Column="1" />
 
-                <Label Text="Puntaje: " Margin="5,5,0,0" FontSize="Medium"
+                <Label Text="Puntuación: " Margin="5,5,0,0" FontSize="Medium"
                        VerticalOptions="Start" HorizontalOptions="Start"
                        Grid.Column="2"/>
 

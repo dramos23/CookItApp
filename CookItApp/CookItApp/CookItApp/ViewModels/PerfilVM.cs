@@ -17,6 +17,9 @@ namespace CookItApp.ViewModels
         public string NombreUsuario { set; get; }
         public string Nombre { set; get; }
         public string Apellido { set; get; }
+        public int Puntuación { get; set; }
+        public string Categoría { get; set; }
+
         public bool FiltroAutomatico { set; get; }
         public bool FiltroPrecio { set; get; }
         public int FiltroPrecioMin { set; get; }
@@ -56,6 +59,8 @@ namespace CookItApp.ViewModels
             NombreUsuario = usuario._Perfil?._NombreUsuario;
             Nombre = usuario._Perfil?._Nombre;
             Apellido = usuario._Perfil?._Apellido;
+            Puntuación = (usuario._Perfil != null) ? usuario._Perfil._Puntuacion : 0;
+            Categoría = (usuario._Perfil != null) ? usuario._Perfil._Categoria.ToString() : Perfil.Categoria.Amatér.ToString();
 
             FiltroAutomatico = (usuario._Perfil != null) ? usuario._Perfil._FiltroAutomatico : false;
             FiltroPrecio = (usuario._Perfil != null) ? usuario._Perfil._FiltroPrecio : false;

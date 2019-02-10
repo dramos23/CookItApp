@@ -86,12 +86,12 @@ namespace CookItApp.Views
             viewModel.BorrarIngrediente(ing);
         }
 
-        private async void btnAgregarIng_Tapped(object sender, EventArgs e)
+        private async void BtnAgregarIng_Tapped(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(new PopupIngresarIngrediente(usuario, this));
         }
 
-        private async void btnActualizarIng_Tapped(object sender, EventArgs e)
+        private async void BtnActualizarIng_Tapped(object sender, EventArgs e)
         {
             if (ListaIngredientes.SelectedItem == null)
             {

@@ -142,6 +142,42 @@ namespace CookItApp.Data
             }
         }
 
+        public async Task<Dictionary<string,string>> Gamificacion(Reto obj)
+        {
+            Token token = App.DataBase.Token.Obtener();
+            string Url = Web + "Gamificacion/" + obj._EmailUsuDes;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+
+                using (HttpResponseMessage response = await client
+                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                    .ConfigureAwait(false))
+                {
+                    string JsonResult = response.Content.ReadAsStringAsync().Result;
+                    try
+                    {
+                        Dictionary<string, string>  ContentResp = DeseralizarDic(JsonResult);
+                        return ContentResp;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+                }
+
+            }
+
+        }
+
+        private Dictionary<string, string> DeseralizarDic(string jsonResult)
+        {
+            Dictionary<string, string> p = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResult);
+            return p;
+        }
+
         private Perfil Deseralizar(string jsonResult)
         {
 

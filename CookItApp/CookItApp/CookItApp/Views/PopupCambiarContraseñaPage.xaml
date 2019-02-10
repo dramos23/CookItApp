@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page:PopupPage
+    xmlns:Page="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CookItApp.Views.PopupCambiarContraseñaPage"
+    Title="Cambio de contraseña">
+    
+    <StackLayout Margin="12"
+                 Padding="24"
+                 BackgroundColor="White"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Text="Cambio de contraseña" FontSize="16" TextColor="Black"></Label>
+
+            <Entry Grid.Column="0" Grid.Row="1" x:Name="entryEmail" Text="{Binding Email}" FontSize="16" IsEnabled="False"/>
+
+            <Entry Grid.Column="0" Grid.Row="2" x:Name="entryContActual" Placeholder="Ingrese su contraseña actual" FontSize="16" IsPassword="True"/>
+
+            <Entry Grid.Column="0" Grid.Row="3" x:Name="entryContNueva" Placeholder="Ingrese su nueva contraseña" FontSize="16" IsPassword="True"/>
+
+            <Button Grid.Column="0" Grid.Row="4" x:Name="BtnCambiar" FontSize="16" Text="Cambiar"  TextColor="White" BackgroundColor="#00748A" Clicked="BtnCambiar_Clicked"/>
+
+        </Grid>
+
+    </StackLayout>
+    </Page:PopupPage>

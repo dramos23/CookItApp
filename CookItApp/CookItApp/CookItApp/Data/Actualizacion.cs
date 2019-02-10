@@ -17,10 +17,15 @@ namespace CookItApp.Data
 
         public void ActualizacionAplicativo()
         {
-            ActNotificaciones();
-            ActRetos();
-            ActHistorialRecetas();
-            ActRecetasFavoritas();        
+            Actualizar();    
+        }
+
+        private async void Actualizar()
+        {
+            await ActNotificaciones();
+            await ActRetos();
+            await ActHistorialRecetas();
+            await ActRecetasFavoritas();
         }
 
         private async Task ActRecetasFavoritas()

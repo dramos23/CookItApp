@@ -2,8 +2,10 @@
 using CookItApp.Controles;
 using CookItApp.Models;
 using CookItApp.Servicios;
+using CookItApp.ViewModels;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,162 +19,114 @@ namespace CookItApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        private LoginVM VMLogin { get; set; }
         private Usuario Usuario { get; set; }
 
         public LoginPage()
         {
             InitializeComponent();
-            Push.SetEnabledAsync(true);
-
+            
             NavigationPage.SetHasNavigationBar(this, false);
             Init();
+
+            VMLogin = new LoginVM();
+            BindingContext = VMLogin;
         }
 
         public void Init()
-        {
-            if (togRecordar.IsEnabled)
-            {
-                entryEmail.Text = Settings.UltimoEmailUsado;
-                entryPass.Text = Settings.UltimaPassUsada;
-            }
+        {            
             entryEmail.Completed += (s, e) => entryPass.Focus();
-            entryPass.Completed += (s, e) => PrcIngresar(s, e);
-            BtnRegistrar();
+            entryPass.Completed += (s, e) => BtnIngresar_Clicked(s, e);
 
         }
 
-        public async void PrcIngresar(object sender, EventArgs e)
+        public async void BtnIngresar_Clicked(object sender, EventArgs e)
         {
-            btnIngresar.IsEnabled = false;
+            BtnIngresar.IsEnabled = false;
             if (entryEmail.Text == null)
             {
                 //await DisplayAlert("Login", "Debe ingresar un correo.", "Ok");
                 await UserDialogs.Instance.AlertAsync("Login", "Debe ingresar un correo.", "Ok");
-                btnIngresar.IsEnabled = true;
+                BtnIngresar.IsEnabled = true;
                 return;
             }
             else if (entryPass.Text == null)
             {
                 await DisplayAlert("Login", "Debe ingresar una contraseña.", "Ok");
-                btnIngresar.IsEnabled = true;
+                BtnIngresar.IsEnabled = true;
                 return;
             }
 
             UserDialogs.Instance.ShowLoading("Ingresando..");
 
-            System.Guid? uuid = await AppCenter.GetInstallIdAsync();
+            Usuario = new Usuario(entryEmail.Text, entryPass.Text, null, DateTime.Now);
 
-            if (uuid != null)
+            if (Usuario.IsValid())
             {
-                Usuario = new Usuario(entryEmail.Text, entryPass.Text, uuid, DateTime.Now);
 
-                if (Usuario.IsValid())
+                Token token = await App.RestService.Login(Usuario);
+
+                if (token != null)
                 {
-
-                    Token token = await App.RestService.Login(Usuario);
-
-                    if (token != null)
+                    if (token._AccessToken != null)
                     {
-                        if (token._AccessToken != null)
-                        {
-                            GuardarUsuPas();                                                       
+                        GuardarUsuPas();                                                       
 
-                            App.DataBase.Usuario.Guardar(Usuario);
-                            App.DataBase.Token.Guardar(token);
-                            UserDialogs.Instance.HideLoading();
+                        App.DataBase.Usuario.Guardar(Usuario);
+                        App.DataBase.Token.Guardar(token);
+                        UserDialogs.Instance.HideLoading();
 
-                            await Navigation.PushAsync(new CargaRecursos(Usuario, "INS"), true);
-                            Navigation.RemovePage(this);
-                        }
-                        else
-                        {
-                            UserDialogs.Instance.HideLoading();
-                            await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
-                        }
+                        await Navigation.PushAsync(new CargaRecursos(Usuario, "INS"), true);
+                        Navigation.RemovePage(this);
                     }
                     else
                     {
                         UserDialogs.Instance.HideLoading();
-                        await DisplayAlert("Login", "Error en el servicio.", "Ok");
+                        await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
                     }
-
                 }
                 else
                 {
                     UserDialogs.Instance.HideLoading();
-                    await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
+                    await DisplayAlert("Login", "Error en el servicio.", "Ok");
                 }
 
-                btnIngresar.IsEnabled = true;
+            }
+            else
+            {
+                UserDialogs.Instance.HideLoading();
+                await DisplayAlert("Login", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
             }
 
+            BtnIngresar.IsEnabled = true;            
             UserDialogs.Instance.HideLoading();
         }
 
         private void GuardarUsuPas()
         {
-            if (togRecordar.IsEnabled)
+            if (togRecordar.IsToggled)
             {
                 Settings.UltimoEmailUsado = entryEmail.Text;
                 Settings.UltimaPassUsada = entryPass.Text;
             }
-            else {
+            else
+            {
                 Settings.UltimoEmailUsado = string.Empty;
                 Settings.UltimaPassUsada = string.Empty;
             }
+            Settings.UltimoEstadoToggle = togRecordar.IsToggled;
         }
 
-        public void BtnRegistrar()
+        public async void BtnRecuperar_Clicked(object sender, EventArgs e)
         {
 
-            //Navigation.PushAsync(new RegisterPage());
-            lblRegistro.GestureRecognizers.Add(new TapGestureRecognizer()
-            {
-                Command = new Command(() =>
-                    Navigation.PushAsync(new RegisterPage())
-                )
-            });
+            await PopupNavigation.Instance.PushAsync(new PopupRestablecerContrasenaPage());
 
         }
 
-        public async Task<bool> CargaDatosAplicativo(Usuario usuario, Token token)
+        private async void BtnRegistrar_Clicked(object sender, EventArgs e)
         {
-
-
-            bool retorno = false;
-
-            App.DataBase.Usuario.Guardar(usuario);
-            App.DataBase.Token.Guardar(token);
-
-            Perfil perfil = await App.PerfilService.Obtener(usuario);
-            if (perfil != null)
-            {
-                App.DataBase.Perfil.Guardar(perfil);
-            }
-            usuario._Perfil = perfil ?? null;
-
-            List<MomentoDia> momentos = await App.MomentoDiaService.ObtenerList();
-            if (momentos != null)
-            {
-                App.DataBase.MomentoDia.GuardarList(momentos);
-            }
-            List<Estacion> estaciones = await App.EstacionService.ObtenerList();
-            if (estaciones != null)
-            {
-                App.DataBase.Estacion.GuardarList(estaciones);
-            }
-            if (momentos != null && estaciones != null)
-            {
-                List<Receta> recetas = await App.RecetaService.ObtenerList();
-                if (recetas != null)
-                {
-                    App.DataBase.Receta.GuardarList(recetas);
-                    retorno = true;
-                }
-            }
-
-            return retorno;
+            await Navigation.PushAsync(new RegisterPage());
         }
-
     }
 }

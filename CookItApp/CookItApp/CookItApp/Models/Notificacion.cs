@@ -16,7 +16,7 @@ namespace CookItApp.Models
         }
 
         [PrimaryKey]
-        public string _NotificacionId { get; set; }
+        public int _NotificacionId { get; set; }
         public string _Email { get; set; }
         [JsonIgnore]
         [Ignore]
@@ -31,6 +31,7 @@ namespace CookItApp.Models
         public string _Pk4 { get; set; }
         public string _Tabla { get; set; }
 
+        [JsonIgnore]
         public Color _Color { get { return _Estado == 0 ? Color.FromHex("#D8D8D8") : Color.White; } }
 
         public Notificacion()

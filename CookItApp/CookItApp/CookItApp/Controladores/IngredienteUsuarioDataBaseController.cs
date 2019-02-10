@@ -29,7 +29,12 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<IngredienteUsuario>().ToList();
+                    List<IngredienteUsuario> ingredientesUsuario = database.Table<IngredienteUsuario>().ToList();
+                    foreach(IngredienteUsuario iu in ingredientesUsuario)
+                    {
+                        iu._Ingrediente = App.DataBase.Ingrediente.Obtener(iu._IdIngrediente);
+                    }
+                    return ingredientesUsuario;
                 }
             }
         }
@@ -72,12 +77,11 @@ namespace CookItApp.Controladores
         }
 
         public int Borrar(IngredienteUsuario obj)
-        {
-            IngredienteUsuario ingrediente = database.Table<IngredienteUsuario>().FirstOrDefault(iu => iu._IdIngrediente == obj._IdIngrediente);
+        {            
 
             lock (locker)
             {
-                return database.Delete<IngredienteUsuario>(ingrediente);
+                return database.Delete<IngredienteUsuario>(obj._IdIngrediente);
             }
         }
 

@@ -15,7 +15,7 @@ namespace CookItApp.Servicios
 
         public IngredienteUsuarioService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/IngredienteUsuario/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/IngredientesUsuario/";
 
         }
 

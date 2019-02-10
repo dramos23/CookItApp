@@ -18,19 +18,19 @@ namespace CookItApp.Views
 	public partial class PerfilPage : ContentPage
 	{
         public MediaFile Foto { get; set; }
-        public PerfilVM _VMReceta;
-        public Usuario _Usuario;  
-        private IViewMaster _Vista { get; set; }
+        public PerfilVM VMReceta;
+        public Usuario Usuario;  
+        private IViewMaster Vista { get; set; }
 
-        public PerfilPage (Usuario Usuario, IViewMaster vista)
+        public PerfilPage (Usuario usuario, IViewMaster vista)
 		{            
             InitializeComponent();
             CargarPickerMomentoDia();
             CargarPickerEstacion();
-            _Usuario = Usuario;
-            _Vista = vista;
-            _VMReceta = new PerfilVM(_Usuario);                       
-            BindingContext = _VMReceta;
+            Usuario = usuario;
+            Vista = vista;
+            VMReceta = new PerfilVM(Usuario);                       
+            BindingContext = VMReceta;
         }
 
         private void CargarPickerMomentoDia()
@@ -125,7 +125,7 @@ namespace CookItApp.Views
                 Perfil p = GenerarPerfil();
                 Perfil perfil = new Perfil();
 
-                if (_Usuario._Perfil == null)
+                if (Usuario._Perfil == null)
                 {
                     perfil = await App.PerfilService.Alta(p);
                 }
@@ -141,7 +141,7 @@ namespace CookItApp.Views
 
                     int save = 0;
 
-                    if (_Usuario._Perfil == null)
+                    if (Usuario._Perfil == null)
                     {
                         save = App.DataBase.Perfil.Guardar(perfil);
                     }
@@ -153,26 +153,26 @@ namespace CookItApp.Views
                     if (save == 1)
                     {
                         UserDialogs.Instance.HideLoading();
-
-                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Perfil de usuario", "Se ha actualizado tu perfil"));
+                        await UserDialogs.Instance.AlertAsync("Se ha actualizado tú perfil", "Perfil de usuario", "Continuar");
+                        //await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Se ha actualizado tu perfil"));
                         await scroll.ScrollToAsync(0, (double)ScrollToPosition.End, true);
                     }
                     else
                     {
                         UserDialogs.Instance.HideLoading();
-                        await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
-                        "intentalo nuevamente."));
+                        await UserDialogs.Instance.AlertAsync("Error al actualizar perfil, intentalo nuevamente.", "Perfil de usuario", "Continuar");
+                        //await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Error al actualizar perfil, " + "intentalo nuevamente."));
                 }
 
-                    _Vista.Actualizar(perfil);
-                    _Usuario._Perfil = perfil;
+                    Vista.Actualizar(perfil);
+                    Usuario._Perfil = perfil;
 
                 }
                 else
                 {
                     UserDialogs.Instance.HideLoading();
-                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Perfil de usuario", "Error al actualizar perfil, " +
-                    "pongase en contacto con el area de soporte."));
+                    await UserDialogs.Instance.AlertAsync("Error al actualizar perfil, pongase en contacto con el area de soporte.", "Perfil de usuario", "Continuar");
+                    //await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Perfil de usuario", "Error al actualizar perfil, " +"pongase en contacto con el area de soporte."));
             }
 
                 
@@ -205,11 +205,13 @@ namespace CookItApp.Views
             Perfil p = new Perfil
             {
 
-                _Email = _VMReceta.Email,
-                _Foto = (Foto != null) ? ImageToByteArray() : ( (_Usuario._Perfil != null && _Usuario._Perfil._Foto != null) ? _Usuario._Perfil._Foto : null ),
+                _Email = VMReceta.Email,
+                _Foto = (Foto != null) ? ImageToByteArray() : ((Usuario._Perfil != null && Usuario._Perfil._Foto != null) ? Usuario._Perfil._Foto : null),
                 _NombreUsuario = entryNombreUsuario.Text,
                 _Nombre = entryNombre.Text,
                 _Apellido = entryApellido.Text,
+                _Categoria = Usuario._Perfil != null ? Usuario._Perfil._Categoria : Perfil.Categoria.Amatér,
+                _Puntuacion = Usuario._Perfil != null ? Usuario._Perfil._Puntuacion : 0,
 
                 _FiltroAutomatico = (togFiltrosAutomaticos.IsToggled == true) ? true : false,
 
@@ -274,7 +276,7 @@ namespace CookItApp.Views
             }
             else
             {
-                await PopupNavigation.Instance.PushAsync(new PopupMensaje(_Usuario, "Error de camara", "Hay un error con tu camara, " +
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error de camara", "Hay un error con tu camara, " +
                 "no se puede sacar la foto."));
             }
 
@@ -289,7 +291,13 @@ namespace CookItApp.Views
                 return memoryStream.ToArray();
             }
         }
-}
+
+        private async void BtnCambiarCont_Clicked(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupCambiarContraseñaPage(Usuario));
+            await scroll.ScrollToAsync(0, (double)ScrollToPosition.End, true);
+        }
+    }
 
 
 }
