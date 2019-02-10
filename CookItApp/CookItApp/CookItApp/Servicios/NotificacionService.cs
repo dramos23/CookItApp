@@ -31,40 +31,38 @@ namespace CookItApp.Servicios
             {
                 using (HttpResponseMessage response = await client.PutAsync(Url, stringContent))
                 {
-                    string JsonResult = response.Content.ReadAsStringAsync().Result;
-                    try
-                    {
-                        var ContentResp = response.IsSuccessStatusCode;
-                        return ContentResp;
-                    }
-                    catch
-                    {
-                        return false;
-                    }
+                    return response.IsSuccessStatusCode;                
                 }
             }
         }
 
-        public async Task<Notificacion> Obtener(Usuario obj)
+
+        public async Task<Notificacion> Obtener(int id)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + "ObtenerNotificacion/" + obj._Email;
+            string Url = Web + "ObtenerNotificacion/" + id;
 
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
-
-            using (HttpResponseMessage response = await client.GetAsync(Url))
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
             {
-                string JsonResult = response.Content.ReadAsStringAsync().Result;
-                try
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+
+                using (HttpResponseMessage response = await client
+                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                    .ConfigureAwait(false))
                 {
-                    Notificacion ContentResp = Deseralizar(JsonResult);
-                    return ContentResp;
+                    string JsonResult = await response.Content.ReadAsStringAsync();
+                    try
+                    {
+                        Notificacion ContentResp = Deseralizar(JsonResult);
+                        return ContentResp;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
                 }
-                catch
-                {
-                    return null;
-                }
+
             }
 
         }
@@ -83,7 +81,7 @@ namespace CookItApp.Servicios
                     .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
                     .ConfigureAwait(false))
                 {
-                    string JsonResult = response.Content.ReadAsStringAsync().Result;
+                    string JsonResult = await response.Content.ReadAsStringAsync();
                     try
                     {
                         List<Notificacion> ContentResp = DeseralizarList(JsonResult);

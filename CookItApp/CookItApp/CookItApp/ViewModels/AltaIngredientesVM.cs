@@ -48,13 +48,11 @@ namespace CookItApp.ViewModels
         {
             IngredienteUsuario ingUs = new IngredienteUsuario
             {
-                _Ingrediente = ing,
                 _Cantidad = cantidad,
                 _Email = Usuario._Email,
                 _Perfil = Usuario._Perfil,
                 _IdIngrediente = ing._IdIngrediente,
-                _Medida = ing._Medida        
-                //_CantidadMedida = cantidad + ing._Medida.ToString() //no es necesario
+                _Medida = ing._Medida                       
             };
 
             try
@@ -62,16 +60,20 @@ namespace CookItApp.ViewModels
                 IngredienteUsuario ingredienteUsuario = await App.IngredienteUsuarioService.Alta(ingUs);
                 if (ingredienteUsuario != null)
                 {
+                    ingUs._Ingrediente = ing;
                     App.DataBase.IngredienteUsuario.Guardar(ingredienteUsuario);
+                    Usuario._Perfil.AgregarIngredienteUsuario(ingUs);
+                    Vista.Mensaje("Ingrediente ingresado!");
+                    Vista.RefrescarListaIng();
                 }
-                Usuario._Perfil.AgregarIngredienteUsuario(ingUs);
+                else {
+                    Vista.Mensaje("Error al ingresar ingrediente, por favor intentelo nuevamente.");
+                }
 
-                Vista.Mensaje("Ingrediente ingresado!");
-                Vista.RefrescarListaIng();
             }
             catch
             {
-                Vista.Mensaje("Error al ingresar ingrediente, por favor intentelo nuevamente más tarde.");
+                Vista.Mensaje("Error al ingresar ingrediente, por favor intentelo más tarde.");
             }
                       
         }       

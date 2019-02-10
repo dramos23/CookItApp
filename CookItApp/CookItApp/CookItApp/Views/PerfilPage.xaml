@@ -32,6 +32,12 @@
                         <Label Text="Apellido:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5"/>
                         <Entry x:Name="entryApellido" Placeholder="Ingresa tu apellido" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Apellido}"/>
 
+                        <Label Text="Puntuación:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5"/>
+                        <Entry x:Name="entryPuntuacion" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Puntuación}" IsEnabled="False"/>
+
+                        <Label Text="Categoría:" TextColor="Black" FontAttributes="None" FontSize="16" Margin="0, 5"/>
+                        <Entry x:Name="entryCategoria" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Categoría}" IsEnabled="False"/>
+
                     </StackLayout>
                     
                     <StackLayout Orientation="Horizontal" Margin="0, 10">
@@ -149,6 +155,9 @@
                     
                     <StackLayout Orientation="Vertical" Margin="0, 5">
                         <Button x:Name="GuardarPerfil" Text="Guardar Perfil"  Clicked="BtnGuardarPerfil_Clicked"  TextColor="White" BackgroundColor="#00748A"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Margin="0, 5">
+                        <Button x:Name="BtnCambiarCont" Text="Cambiar Contraseña"  Clicked="BtnCambiarCont_Clicked"  TextColor="White" BackgroundColor="#00748A"/>
                     </StackLayout>
 
                 </StackLayout>

@@ -19,124 +19,106 @@ namespace CookItApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MasterPage : MasterDetailPage, IViewMaster
     {
-        public List<MasterPageItem> MenuList { get; set; }
+        //public List<MasterPageItem> MenuList { get; set; }
 
-        protected static Usuario Usuario;
-        private MasterPageVM _VMMaster;
-        protected static List<Perfil> _ListPerfiles { get; set; }
+        private Usuario Usuario { get; set; }
+        private MasterPageVM VMMaster { get; set; }
+
+        private int IdR { get; set; }
+        private int IdN { get; set; }
+        
 
         private bool MostrarMsjCons { get; set; }
 
         public MasterPage (Usuario usuario)
 		{
 			InitializeComponent ();
+            Usuario = usuario;
+            MostrarMsjCons = true;
+            
             Notificaciones();
-            Usuario = usuario;            
-
-            MenuList = new List<MasterPageItem>();
-
-            var page1 = new MasterPageItem() { Title = "Recetas", Icon = "breakfast.png", TargetType = typeof(ListaRecetasPage) };
-            var page2 = new MasterPageItem() { Title = "Historial", Icon = "history.png", TargetType = typeof(HistorialRecetasPage)};
-            var page3 = new MasterPageItem() { Title = "Favoritos", Icon = "favorite.png", TargetType = typeof(ListaRecetasFavoritasPage)};
-            var page4 = new MasterPageItem() { Title = "Mi Alacena", Icon = "kitchen.png", TargetType = typeof(IngredientesUsuarioView) };
-            var page5 = new MasterPageItem() { Title = "Mi Perfil", Icon = "perfil.png", TargetType = typeof(PerfilPage)};
-            var page6 = new MasterPageItem() { Title = "Desafios", Icon = "reto.png", TargetType = typeof(DesafioListPage)};
-            var page7 = new MasterPageItem() { Title = "Notificaciones", Icon = "notifications.png", TargetType = typeof(ListaNotificacionesPage) };
-            var page8 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
-            var page9 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
-
-            MenuList.Add(page1);
-            MenuList.Add(page2);
-            MenuList.Add(page3);
-            MenuList.Add(page4);
-            MenuList.Add(page5);
-            MenuList.Add(page6);
-            MenuList.Add(page7);
-            MenuList.Add(page8);
-            MenuList.Add(page9);
-
-            ListMenu.ItemsSource = MenuList;
 
             NavigationPage.SetHasNavigationBar(this, false);
-            Detail = new NavigationPage(new ListaRecetasPage(usuario));
-            IsPresented = false;
 
-            // Initial navigation, this can be used for our home page
-            Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(ListaRecetasPage), usuario));
-
-            MostrarMsjCons = true;
-
-            _VMMaster = new MasterPageVM(usuario);
-            BindingContext = _VMMaster;
-
-            
+            VMMaster = new MasterPageVM(usuario, this);
+            BindingContext = VMMaster;            
 
         }
 
         private void Notificaciones()
         {
-            //if (!AppCenter.Configured)
-            //{
+            ConfigNotificaciones();
+        }
+
+
+        private async Task ConfigNotificaciones()
+        {
+
+            if (!App.ConfigNoti || !AppCenter.Configured)
+            {
+                App.ConfigNoti = true;
+
+                await Push.SetEnabledAsync(true);
+
                 Push.PushNotificationReceived += async (sender, e) =>
                 {
+
                     if (e.CustomData.Keys.Contains("Reto"))
                     {
-                       
-                        await DisplayAlert(e.Title, e.Message, "OK");
+                        int idReto = Convert.ToInt32(e.CustomData["RetoID"]);
+                        int idNoti = Convert.ToInt32(e.CustomData["NotificacionID"]);
 
-                        UserDialogs.Instance.ShowLoading("Cargando..");
+                        bool notificacion = await Usuario._Perfil.TraerNotificacion(idNoti);
+                        if (notificacion)
+                        {
+                            bool reto = await Usuario._Perfil.TraerReto(idReto, this);
+                            if (reto)
+                            {                                                      
 
-                        var notificacion = await App.NotificacionService.Obtener(Usuario);
-
-                        if (notificacion != null) {
-
-                            int idReto = Convert.ToInt32(notificacion._Pk1);
-                            var reto = await App.RetoService.Obtener(idReto);
-
-                            if (reto != null)
-                            {
-                                if (App.DataBase.Reto.Existe(reto))
-                                {
-                                    App.DataBase.Reto.Modificar(reto);
-                                }
-                                else
-                                {
-                                    App.DataBase.Reto.Guardar(reto);
-                                }
-                                
-                                App.DataBase.Notificacion.Guardar(notificacion);
-                                
-                                UserDialogs.Instance.HideLoading();
+                                await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
 
                                 await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
-
 
                             }
 
                         }
+                    }
+                    else
+                    {
+                        await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
+                    }
 
-                    }         
+                };                               
 
-                };
-            //}
+                System.Guid? uuid = await AppCenter.GetInstallIdAsync();
+
+                Usuario._DeviceId = uuid;
+
+                bool ret = await App.RestService.UpdateUUID(Usuario);
+
+
+
+            }
+
         }
 
-        protected override  void OnAppearing()
+
+        protected override void OnAppearing()
         {
             if (MostrarMsjCons)
             {
                 MostrarMsjCons = false;
 
                 var continuar = Mensajes();
-                if (continuar.Result)
+                if (continuar)
                 {
                     ControlPerfil();
                 }
             }
-                
+
         }
 
-        private async Task<bool> Mensajes()
+        private bool Mensajes()
         {
             bool continuar = true;
 
@@ -144,11 +126,11 @@ namespace CookItApp.Views
             if (usuario._Perfil != null)
             {
 
-                string mensaje = "Hola " + usuario._Perfil._Nombre + "\\n";
+                string mensaje = "Hola " + usuario._Perfil._Nombre + ",\\n";
                 int notificaciones = App.DataBase.Notificacion.SinLeer();
                 if (notificaciones > 0)
                 {
-                    mensaje += "Tienes " + notificaciones.ToString() + " notificaciones sin leer.";
+                    mensaje += "Tienes " + notificaciones.ToString() + " notificaciones sin leer.\\n";
                 }
                 int retos = App.DataBase.Reto.RetosActivos();
                 if (retos > 0)
@@ -157,7 +139,8 @@ namespace CookItApp.Views
                 }
                 if (notificaciones > 0 || retos > 0)
                 {
-                    await DisplayAlert("Atención!", mensaje, "OK");
+                    mensaje = (mensaje as string).Replace("\\n", Environment.NewLine + Environment.NewLine);
+                    UserDialogs.Instance.AlertAsync(mensaje, "Atención!", "Continuar");
                 }
             }
             return continuar;
@@ -182,10 +165,8 @@ namespace CookItApp.Views
                 
                 if (page == typeof(CargaRecursos))
                 {
-
                     await Navigation.PushAsync(new CargaRecursos(Usuario, "UPD"), true);
-                    Navigation.RemovePage(this);
-                    
+                    Navigation.RemovePage(this);                    
                 }
                 else {
 
@@ -197,50 +178,33 @@ namespace CookItApp.Views
                         if (ControlPerfilBoolean())
                         {                            
                             Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
-                            IsPresented = false;
-                        
+                            IsPresented = false;                       
                         }
                     }
 
                     if (page == typeof(PerfilPage) && entro == false)
                     {
                         entro = true;
-                        if (ControlPerfilBoolean())
-                        {
-                            Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario, this));
-                            IsPresented = false;
-                            
-                        }
+                        Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario, this));
+                        IsPresented = false;
                     }
 
                     if (entro == false)
                     {
                         Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
                         IsPresented = false;
-                        
-
                     }
-
-                
-
-
                 }
-                
-
             }
         }
 
-        public async void ControlPerfil() {
+        public void ControlPerfil() {
 
             if (Usuario._Perfil == null)
             {
-                var action = await DisplayAlert("Complete su perfil", "Desea completar su perfil ahora?", "Ahora No", "Bueno");
-                if (!action)
-                {
-                    Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(PerfilPage), Usuario));
-                    IsPresented = false;
-                }
-            }            
+                UserDialogs.Instance.AlertAsync("Aún no has completado tú perfil, hacerlo habilitara más funciones!", "Complete su perfil", "Continuar");
+
+            }
 
         }
 
@@ -263,7 +227,8 @@ namespace CookItApp.Views
 
         private void EliminarDatosBD()
         {
-            App.DataBase.BorrarTodo();
+            App.ConfigNoti = false;
+            App.DataBase.BorrarTodo();                        
         }
 
 
@@ -275,8 +240,14 @@ namespace CookItApp.Views
         public void Actualizar(Perfil perfil)
         {
             Usuario._Perfil = perfil;
-            _VMMaster = new MasterPageVM(Usuario);
-            BindingContext = _VMMaster;
+            VMMaster = new MasterPageVM(Usuario, this);
+            BindingContext = VMMaster;
+        }
+
+        public void Gamificacion(Perfil.Categoria categoria, int puntuacion)
+        {
+            LblCat.Text = categoria.ToString();
+            LblNiv.Text = puntuacion.ToString();
         }
     }
 }

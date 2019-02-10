@@ -13,6 +13,7 @@ namespace CookItApp.Data
         public UsuarioDataBaseController()
         {
             database = DependencyService.Get<ISQLIte>().GetConnection();
+            database.DropTable<Usuario>();
             database.CreateTable<Usuario>();
         }
 
@@ -54,7 +55,7 @@ namespace CookItApp.Data
         {
             lock (locker)
             {
-                return database.DeleteAll<Usuario>();
+                return database.DeleteAll<Usuario>();                
             }
         }
 

@@ -9,12 +9,14 @@ namespace CookItApp.Models
 { 
     public abstract class IngredienteConCantidad
     {
+        [PrimaryKey]
         public int _IdIngrediente { set; get; }
   
         public int _Cantidad { get; set; }
 
         public Ingrediente.TipoMedida _Medida { get; set; }
 
+        
         [Ignore]
         public Ingrediente _Ingrediente { get; set; }
 

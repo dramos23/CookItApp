@@ -76,12 +76,13 @@ namespace CookItApp.Views
 
             if (reto != null) {
                 
-                Reto r = await App.RetoService.Alta(reto);
+                int idReto = await App.RetoService.Alta(reto);
+                reto._IdReto = idReto;
 
-                if (r != null)
+                if (reto != null)
                 {
 
-                    App.DataBase.Reto.Guardar(r);
+                    App.DataBase.Reto.Guardar(reto);
                     UserDialogs.Instance.HideLoading();
                     await DisplayAlert("Reto", "Reto enviado...", "OK");
 

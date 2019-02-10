@@ -28,7 +28,7 @@ namespace CookItApp.Data
                 }
                 else
                 {
-                    return database.Table<Perfil>().Where(p => p._Email == email).First();
+                    return database.Table<Perfil>().FirstOrDefault(p => p._Email == email);
                 }
             }
         }

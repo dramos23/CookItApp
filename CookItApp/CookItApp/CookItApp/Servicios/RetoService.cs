@@ -20,7 +20,7 @@ namespace CookItApp.Servicios
         }
 
 
-        public async Task<Reto> Alta(Reto obj)
+        public async Task<int> Alta(Reto obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -39,15 +39,7 @@ namespace CookItApp.Servicios
                         .ConfigureAwait(false))
                     {
                         string JsonResult = response.Content.ReadAsStringAsync().Result;
-                        try
-                        {
-                            Reto ContentResp = Deseralizar(JsonResult);
-                            return ContentResp;
-                        }
-                        catch (Exception)
-                        {
-                            return null;
-                        }
+                        return JsonConvert.DeserializeObject<int>(JsonResult);                                             
                     }
                 }
             }

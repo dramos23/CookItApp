@@ -59,6 +59,7 @@ namespace CookItApp.Controladores
                 
                 if (obj != null)
                 {
+                    BorrarTodo();
                     return database.InsertAll(obj);
                 }
                 else

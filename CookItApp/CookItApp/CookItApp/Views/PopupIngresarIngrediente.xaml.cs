@@ -44,17 +44,23 @@ namespace CookItApp.Views
         }
 
         private async void IngresarIngrediente_Tapped(object sender, EventArgs e)
-        {            
-            Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
+        {
             int cantidad = Convert.ToInt32(txtCantidad.Text);
-            try
+            if (cantidad > 0)
             {
-                ViewModel.AgregarIngrediente(ing, cantidad);
-                await PopupNavigation.Instance.PopAsync();
+                Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
+                try
+                {
+                    ViewModel.AgregarIngrediente(ing, cantidad);
+                    await PopupNavigation.Instance.PopAsync();
+                }
+                catch
+                {
+                    await PopupNavigation.Instance.PopAsync();
+                }
             }
-            catch
-            {
-                await PopupNavigation.Instance.PopAsync();
+            else {
+                await DisplayAlert("Error: Cantidad", "Tiene que ingresar una cantidad mayor a cero", "OK");
             }
         }
 

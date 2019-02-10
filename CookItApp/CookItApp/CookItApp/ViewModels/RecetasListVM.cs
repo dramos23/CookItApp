@@ -14,32 +14,19 @@ namespace CookItApp.ViewModels
         {
 
 
-            this.Recetas = new ObservableCollection<Receta>();
+            
             //Aca se tienen que cargar las recetas desde el API. Obviamente, despues se cargarian con filtros.
             if (recetas == null)
             {
+                this.Recetas = new ObservableCollection<Receta>();
                 CargarRecetas(null);
             }
             else
             {
-                CargarRecetas(recetas);
+                this.Recetas = new ObservableCollection<Receta>(recetas);
             }
 
-            CargarDatosPrueba();
-        }
-
-        private void CargarDatosPrueba()
-        {
-            Receta Rec = new Receta
-            {
-                _Titulo = "Pato a la naranja",
-                _Dificultad = 4,
-                _PuntajeTotal = 3,
-                _ListaIngredientesReceta = new List<CookItApp.Models.IngredienteReceta>(),
-                _ListaPasosReceta = new List<PasoReceta>(),
-                _IdReceta = 54
-            };
-            Recetas.Add(Rec);
+           
         }
 
         private void CargarRecetas(List<Receta> receta)

@@ -99,7 +99,16 @@ namespace CookItApp.Controladores
 
                 if (obj != null)
                 {
-                    return database.Insert(obj);
+                    Reto reto = Obtener(obj);
+
+                    if (reto != null)
+                    {
+                        return database.Update(obj);
+                    }
+                    else
+                    {
+                        return database.Insert(obj);
+                    }
                  
                 }
                 else

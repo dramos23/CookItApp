@@ -15,6 +15,7 @@ namespace CookItApp
 {
     public partial class App : Application
     {
+        private static bool configNoti;
         private static DataBaseController _DataBase;
 
         static UsuarioService _RestService;
@@ -37,13 +38,13 @@ namespace CookItApp
             
             InitializeComponent();
 
+            
+            ConfigNoti = false;
+
             Usuario usuario = App.DataBase.Usuario.Obtener();
             if (usuario == null)
             {
-                MainPage = new NavigationPage(new LoginPage())
-                {
-                    BackgroundColor = Color.Black
-                };
+                MainPage = new NavigationPage(new LoginPage());
             }
             else
             {
@@ -52,14 +53,11 @@ namespace CookItApp
                 MainPage = new NavigationPage(new MasterPage(usuario));
             }
 
-
-
         }
 
-        protected override async void OnStart()
+        protected override void OnStart()
         {
             AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
-            bool isEnabled = await Push.IsEnabledAsync();
         }
 
         protected override void OnSleep()
@@ -75,29 +73,17 @@ namespace CookItApp
            // Mensajes();
         }
 
-
-        private void Mensajes()
+        public static bool ConfigNoti
         {
-
-            Usuario usuario = App.DataBase.Usuario.Obtener();
-            if (usuario._Perfil != null)
+            get
             {
-
-                string mensaje = "Hola " + usuario._Perfil._Nombre + "\\n";
-                int notificaciones = App.DataBase.Notificacion.SinLeer();
-                if (notificaciones > 0)
-                {
-                    mensaje += "Tienes " + notificaciones.ToString() + " notificaciones sin leer.";
-                }
-                int retos = App.DataBase.Reto.RetosActivos();
-                if (retos > 0)
-                {
-                    mensaje += "Tienes " + retos.ToString() + " retos activos.";
-                }
+                return configNoti;
             }
-
+            set
+            {
+                configNoti = value;
+            }
         }
-
 
         public static DataBaseController DataBase
         {
