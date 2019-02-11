@@ -320,7 +320,7 @@ namespace CookItApp.Views
 
             if (keyword.Length >= 1)
             {
-                List<Receta> resultado = App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();
+                List<Receta> resultado = _VMRecetas.FiltrarRecetasPorNombre(keyword); 
                 AplicarFiltrosALista(resultado);
             }
             else
@@ -332,16 +332,10 @@ namespace CookItApp.Views
         }
 
         private void AplicarFiltrosALista(List<Receta> recetas)
-        {
-            var vm = new object();
-            Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
-            FiltrosVM filtros = vm as FiltrosVM;
-
-            List<Receta> filtrada = filtros.AplicarFiltrosALista(recetas);
-
+        {            
+            List<Receta> filtrada = _VMRecetas.DevolverListaFiltrada(recetas);
             _VMRecetas = new RecetaListVM(filtrada);
             BindingContext = _VMRecetas;
-
         }
 
         private async void AgregarRecetaHistorial(Receta receta) {

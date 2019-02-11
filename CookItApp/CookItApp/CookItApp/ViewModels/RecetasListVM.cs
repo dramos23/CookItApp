@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace CookItApp.ViewModels
 {
@@ -12,10 +14,7 @@ namespace CookItApp.ViewModels
 
         public RecetaListVM(List<Receta> recetas)
         {
-
-
             
-            //Aca se tienen que cargar las recetas desde el API. Obviamente, despues se cargarian con filtros.
             if (recetas == null)
             {
                 this.Recetas = new ObservableCollection<Receta>();
@@ -44,6 +43,18 @@ namespace CookItApp.ViewModels
             }
         }
 
+        public List<Receta> FiltrarRecetasPorNombre(string keyword)
+        {
+            return App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();
+        }
 
+        internal List<Receta> DevolverListaFiltrada(List<Receta> recetas)
+        {
+            var vm = new object();
+            Application.Current.Properties.TryGetValue("ViewModelFiltro", out vm);
+            FiltrosVM filtros = vm as FiltrosVM;
+
+            return filtros.AplicarFiltrosALista(recetas);
+        }
     }
 }

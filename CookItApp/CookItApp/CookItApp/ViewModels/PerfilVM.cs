@@ -1,4 +1,5 @@
-﻿using CookItApp.Models;
+﻿using CookItApp.Data;
+using CookItApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,6 @@ namespace CookItApp.ViewModels
 {
     public class PerfilVM
     {
-        
         public string Email { get; set; }
         public ImageSource Foto { get; set; }
         public string NombreUsuario { set; get; }
@@ -93,6 +93,5 @@ namespace CookItApp.ViewModels
             FiltroTiempoPreparacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacionMax : 0;            
 
         }
-
     }
 }
