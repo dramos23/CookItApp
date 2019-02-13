@@ -39,7 +39,7 @@ namespace CookItApp.Views
             entryPass.Completed += (s, e) => BtnIngresar_Clicked(s, e);
 
         }
-
+        
         public async void BtnIngresar_Clicked(object sender, EventArgs e)
         {
             BtnIngresar.IsEnabled = false;
