@@ -4,6 +4,8 @@ using CookItApp.Models;
 using CookItApp.ViewModels;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
+using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,7 +62,7 @@ namespace CookItApp.Views
 
                 await Push.SetEnabledAsync(true);
 
-                Push.PushNotificationReceived += async (sender, e) =>
+                Push.PushNotificationReceived += (sender, e) =>
                 {
 
                     if (e.CustomData.Keys.Contains("Reto"))
@@ -68,24 +70,17 @@ namespace CookItApp.Views
                         int idReto = Convert.ToInt32(e.CustomData["RetoID"]);
                         int idNoti = Convert.ToInt32(e.CustomData["NotificacionID"]);
 
-                        bool notificacion = await Usuario._Perfil.TraerNotificacion(idNoti);
-                        if (notificacion)
-                        {
-                            bool reto = await Usuario._Perfil.TraerReto(idReto, this);
-                            if (reto)
-                            {                                                      
+                        if (idReto != IdR && idNoti != IdN){
 
-                                await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
-
-                                await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
-
-                            }
+                            IdN = idNoti;
+                            IdR = idReto;
+                            CapturarNotificacion(e, idNoti, idReto);
 
                         }
-                    }
-                    else
-                    {
-                        await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
+                        else
+                        {
+                            DisplayAlert(e.Title, e.Message, "Continuar");
+                        }
                     }
 
                 };                               
@@ -102,6 +97,23 @@ namespace CookItApp.Views
 
         }
 
+        private async Task CapturarNotificacion(PushNotificationReceivedEventArgs e, int idNoti,int idReto)
+        {
+            bool notificacion = await Usuario._Perfil.TraerNotificacion(idNoti);
+            if (notificacion)
+            {
+                bool reto = await Usuario._Perfil.TraerReto(idReto, this);
+                if (reto)
+                {
+
+                    await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
+
+                    await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
+
+                }
+
+            } 
+        }
 
         protected override void OnAppearing()
         {
@@ -189,12 +201,54 @@ namespace CookItApp.Views
                         IsPresented = false;
                     }
 
+                    if (page == typeof(ListaSupermercadoPage) && entro == false)
+                    {
+                        entro = true;
+
+                        var position = await Ubicacion();
+
+                        Detail = new NavigationPage((Page)Activator.CreateInstance(page, position));
+                        IsPresented = false;
+                    }
+
                     if (entro == false)
                     {
                         Detail = new NavigationPage((Page)Activator.CreateInstance(page, Usuario));
                         IsPresented = false;
                     }
                 }
+            }
+        }
+
+        private async Task<Position> Ubicacion()
+        {
+            
+            var action = await DisplayAlert("Supermercado más cercano.", "Desea obtener los supermercados más cercanos a su ubicación?", "Si", "No");
+            if (action)
+            {
+                try {
+
+                    UserDialogs.Instance.ShowLoading("Ubicando..");
+
+                    var locator = CrossGeolocator.Current;
+                    locator.DesiredAccuracy = 30;
+
+                    TimeSpan? tiempo = TimeSpan.MaxValue;
+                    Position position = await locator.GetPositionAsync(tiempo);
+
+
+                    UserDialogs.Instance.HideLoading();
+                    return position;
+
+                    
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            else {
+                return null;
             }
         }
 

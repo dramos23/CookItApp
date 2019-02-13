@@ -58,6 +58,13 @@ namespace CookItApp.Views
                 App.DataBase.Estacion.GuardarList(estaciones);
             }
 
+            UserDialogs.Instance.ShowLoading("Cargando supermercados..");
+            List<Supermercado> supermercados = await App.SupermercadoService.ObtenerList();
+            if (supermercados != null)
+            {
+                App.DataBase.Supermercado.GuardarList(supermercados);
+            }
+
             //lblTexto.Text = "Cargando recetas..";
             UserDialogs.Instance.ShowLoading("Cargando recetas..");
             List<Receta> recetas = await App.RecetaService.ObtenerList();

@@ -107,7 +107,8 @@ namespace CookItApp.ViewModels
             var page6 = new MasterPageItem() { Title = "Desafios", Icon = "reto.png", TargetType = typeof(DesafioListPage) };
             var page7 = new MasterPageItem() { Title = "Notificaciones", Icon = "notifications.png", TargetType = typeof(ListaNotificacionesPage) };
             var page8 = new MasterPageItem() { Title = "Actualizar Recetario", Icon = "update.png", TargetType = typeof(CargaRecursos) };
-            var page9 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
+            var page9 = new MasterPageItem() { Title = "Supermercados", Icon = "tienda.png", TargetType = typeof(ListaSupermercadoPage) };
+            var page10 = new MasterPageItem() { Title = "Salir", Icon = "exit.png", TargetType = typeof(ExitPage) };
 
             ListMenu.Add(page1);
             ListMenu.Add(page2);
@@ -118,6 +119,7 @@ namespace CookItApp.ViewModels
             ListMenu.Add(page7);
             ListMenu.Add(page8);
             ListMenu.Add(page9);
+            ListMenu.Add(page10);
 
         }
 
