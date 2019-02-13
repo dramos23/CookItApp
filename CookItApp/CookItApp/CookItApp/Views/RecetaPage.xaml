@@ -9,7 +9,8 @@
                   VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
@@ -26,15 +27,19 @@
                    LineBreakMode="TailTruncation"
                    MaxLines="2"
                    TextColor="{StaticResource colorOnBackground}"/>
-            
-            <Image Grid.Row="1" Grid.ColumnSpan="5"
+
+            <Button Grid.Row="1" Grid.ColumnSpan="5" Text="Información de receta"
+                    TextColor="Black" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center"
+                    Clicked="BtnVerInfoReceta_Clicked"/>
+
+            <Image Grid.Row="2" Grid.ColumnSpan="5"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="CenterAndExpand"
                    Source="{Binding _Receta._FotoCompleta}"
                    Aspect="AspectFill" />
 
 
-            <Label Grid.Row="2" Grid.ColumnSpan="5"
+            <Label Grid.Row="3" Grid.ColumnSpan="5"
                    Text="{Binding _Receta._Descripcion}"
                    FontSize="Medium"
                    Margin="10"
@@ -43,7 +48,7 @@
                    LineBreakMode="TailTruncation"
                    TextColor="{StaticResource colorOnBackground}"/>
 
-            <Grid Grid.Row="3" Grid.ColumnSpan="5">
+            <Grid Grid.Row="4" Grid.ColumnSpan="5">
                 <Label Text="Dificultad: " Margin="5,5,0,0" FontSize="Medium"
                        VerticalOptions="Start" HorizontalOptions="Start"
                        Grid.Column="0"/>
@@ -59,7 +64,7 @@
                        Source="{Binding _Receta._RutaFotoPuntajeTotal}" Grid.Column="3"/>
             </Grid>
 
-            <Grid Grid.Row="4" Grid.ColumnSpan="5" Padding="0">
+            <Grid Grid.Row="5" Grid.ColumnSpan="5" Padding="0">
 
                 <Image x:Name="btnPrepararReceta"
                              Grid.Column="0" 

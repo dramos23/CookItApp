@@ -55,7 +55,6 @@ namespace CookItApp.ViewModels
                 _Medida = ing._Medida                       
             };
 
-            string aver = ingUs._CantidadMedida;
             try
             {
                 IngredienteUsuario ingredienteUsuario = await App.IngredienteUsuarioService.Alta(ingUs);

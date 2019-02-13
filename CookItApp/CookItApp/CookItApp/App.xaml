@@ -117,6 +117,14 @@
                 <Setter Property="TextColor" Value="{StaticResource colorOnBackground}"/>
             </Style>
 
+            <Style x:Key="styleLabelSimple" TargetType="Label">
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+
 
             <!--Estilos para botones-->
             <Style x:Key="estiloBotonImagen" TargetType="Image">

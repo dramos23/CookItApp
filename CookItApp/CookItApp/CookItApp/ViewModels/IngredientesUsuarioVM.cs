@@ -19,7 +19,7 @@ namespace CookItApp.ViewModels
         {
             Usr = usr;
             Vista = vista;
-
+                
             CargarDatos();
         }
 
