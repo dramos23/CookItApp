@@ -127,7 +127,10 @@ namespace CookItApp.Views
                     UserDialogs.Instance.HideLoading();
                     await UserDialogs.Instance.AlertAsync("Reto", "Ha ocurrido un error vuelve a intentarlo o ponte en contecto con el administrador.", "Ok");
                 }
-            }            
+            }
+            UserDialogs.Instance.HideLoading();
+                
+            
         }
 
         private void Receta_Clicked()

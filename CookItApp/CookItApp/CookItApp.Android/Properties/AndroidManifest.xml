@@ -10,7 +10,7 @@
 		<provider android:name="android.support.v4.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
-    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDAqela5-NO-rVeI62GS2-EWUMOYfu4za8"/>
+    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDfNOLFo0V2_ctvbmhtZtvHSk578cwtYg0"/>
 		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
 		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>

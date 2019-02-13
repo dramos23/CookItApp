@@ -16,7 +16,8 @@ namespace CookItApp.Models
 
         public Ingrediente.TipoMedida _Medida { get; set; }
 
-        
+
+        [JsonIgnore]
         [Ignore]
         public Ingrediente _Ingrediente { get; set; }
 

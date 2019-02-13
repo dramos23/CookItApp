@@ -34,7 +34,8 @@ namespace CookItApp.Views
         {
             UserDialogs.Instance.ShowLoading("Validando datos..");
 
-            if (await ValidarDatos()) {
+            if (await ValidarDatos())
+            {
 
                 if (!entryPass.Text.Equals(entryRePass.Text))
                     await DisplayAlert("Registro", "Error: las contraseñas no coinciden.", "Ok");
@@ -66,6 +67,10 @@ namespace CookItApp.Views
                         }
                     }
                 }
+            }
+            else
+            {
+                UserDialogs.Instance.HideLoading();
             }
         }
 

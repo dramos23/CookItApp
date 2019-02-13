@@ -24,6 +24,7 @@ namespace CookItApp.Controladores
         public PasoRecetaDataBaseController PasoReceta { get; }
         public HistorialRecetaDatabaseController HistorialReceta { get; }
         public EstadoRetoDataBaseController EstadoReto { get; }
+        public SupermercadoDataBaseController Supermercado { get; }
 
         public DataBaseController()
         {
@@ -43,6 +44,7 @@ namespace CookItApp.Controladores
             PasoReceta = new PasoRecetaDataBaseController();
             HistorialReceta = new HistorialRecetaDatabaseController();
             EstadoReto = new EstadoRetoDataBaseController();
+            Supermercado = new SupermercadoDataBaseController();
         }
 
         public void BorrarTodo()
@@ -63,6 +65,7 @@ namespace CookItApp.Controladores
             Receta.BorrarTodo();
             Perfil.BorrarTodo();
             Usuario.BorrarTodo();
+            Supermercado.BorrarTodo();
 
         }
     }

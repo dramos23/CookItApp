@@ -36,6 +36,7 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
+                
             </StackLayout>
 
 

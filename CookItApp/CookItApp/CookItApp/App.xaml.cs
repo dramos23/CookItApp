@@ -15,6 +15,9 @@ namespace CookItApp
 {
     public partial class App : Application
     {
+        public static double ScreenHeight { get; set; }
+        public static double ScreenWidth { get; set; }
+
         private static bool configNoti;
         private static DataBaseController _DataBase;
 
@@ -32,6 +35,7 @@ namespace CookItApp
         static IngredienteUsuarioService _IngredienteUsuarioService;
         static NotificacionService _NotificacionService;
         static EstadoRetoService _EstadoRetoService;
+        static SupermercadoService _SupermercadoService;
 
         public App()
         {
@@ -63,8 +67,11 @@ namespace CookItApp
         protected override void OnSleep()
         {
             Usuario usuario = App.DataBase.Usuario.Obtener();
-            Actualizacion act = new Actualizacion(usuario);
-            act.ActualizacionAplicativo();
+            if (usuario != null)
+            {
+                Actualizacion act = new Actualizacion(usuario);
+                act.ActualizacionAplicativo();
+            }
 
         }
 
@@ -218,6 +225,15 @@ namespace CookItApp
             {
                 if (_EstadoRetoService == null) _EstadoRetoService = new EstadoRetoService();
                 return _EstadoRetoService;
+            }
+        }
+
+        public static SupermercadoService SupermercadoService
+        {
+            get
+            {
+                if (_SupermercadoService == null) _SupermercadoService = new SupermercadoService();
+                return _SupermercadoService;
             }
         }
 

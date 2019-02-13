@@ -70,7 +70,6 @@ Global
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Release|x86.Build.0 = Release|Any CPU
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Release|x86.Deploy.0 = Release|Any CPU
 		{4A738237-055A-4CEC-8CBA-6D90C33E5716}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{4A738237-055A-4CEC-8CBA-6D90C33E5716}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{4A738237-055A-4CEC-8CBA-6D90C33E5716}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
 		{4A738237-055A-4CEC-8CBA-6D90C33E5716}.Debug|ARM.ActiveCfg = Debug|iPhone
 		{4A738237-055A-4CEC-8CBA-6D90C33E5716}.Debug|ARM64.ActiveCfg = Debug|iPhone

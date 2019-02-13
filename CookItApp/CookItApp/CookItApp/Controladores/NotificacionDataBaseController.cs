@@ -84,8 +84,16 @@ namespace CookItApp.Controladores
             {
 
                 if (obj != null)
-                {                    
-                    return database.Insert(obj);
+                {
+                    Notificacion notificacion = Obtener(obj);
+                    if (notificacion == null)
+                    {
+                        return database.Insert(obj);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 }
                 else
                 {

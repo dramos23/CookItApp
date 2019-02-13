@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.ListaSupermercadoPage"
+             Title="Supermercados">
+
+    <StackLayout>
+
+        <ListView ItemsSource="{Binding SuperList}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame HasShadow="true" Margin="5">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding _Nombre}" TextColor="Black" FontSize="16" FontFamily="Bold"/>
+                                <Label Text="{Binding _Empresa}" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                <Image Source="{Binding _FotoCompleta}" VerticalOptions="CenterAndExpand" Margin="0,5"/>
+                                <StackLayout Orientation="Horizontal" >
+                                    <Image Source="direccion.png" HorizontalOptions="Start"/>
+                                    <Label Text="{Binding _Dirección}" TextColor="Black" FontSize="14" MaxLines="4" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" >
+                                    <Image Source="telefono.png" HorizontalOptions="Start"/>
+                                    <Label Text="{Binding _Telefono}" TextColor="Black" FontSize="14" MaxLines="4" HorizontalOptions="StartAndExpand" Margin="5,0" VerticalOptions="Center" />
+                                </StackLayout>
+                                <Label Text="{Binding _Distancia}" TextColor="Black" FontSize="14" MaxLines="4" IsVisible="{Binding DistVis}"/>
+                                <Button x:Name="BtnVerMapa" Text="Ver mapa" Clicked="BtnVerMapa_Clicked" TextColor="White" BackgroundColor="#00748A"/>
+
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+    </StackLayout>
+
+</ContentPage>

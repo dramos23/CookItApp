@@ -4,10 +4,10 @@
              x:Class="CookItApp.Views.ListaRecetasPage"
              
              Title="Recetas">
-             <!--BackgroundColor="{StaticResource colorBackground}">-->
+    <!--BackgroundColor="{StaticResource colorBackground}"Text="Filtros">-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="BtnFiltros_Clicked" Text="Filtros" Priority="0" Order="Primary"/>
+        <ToolbarItem Clicked="BtnFiltros_Clicked"  Priority="0" Order="Primary" Icon="filtro.png"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
