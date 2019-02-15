@@ -20,12 +20,10 @@
                     <RowDefinition Height="3.3*"/>
                 </Grid.RowDefinitions>
                 
-                <Label Grid.Row="0" Grid.Column="0" Text="Menos de" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
-                <Picker x:Name="picMin"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Title="Seleccione" 
-                        IsVisible="False" />
-                <Label Grid.Row="1" Grid.Column="0" Text="Mas de" FontSize="Small" FontAttributes="Bold" VerticalOptions ="Center" TextColor="{StaticResource colorOnBackground}"/>
-                <Picker x:Name="picMax"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Title="Seleccione" 
-                        IsVisible="False" />
+                <Label Grid.Row="0" Grid.Column="0" Text="Menor igual a:" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
+                <Picker x:Name="picMin"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Title="Seleccione"  />
+                <Label Grid.Row="1" Grid.Column="0" Text="Mayor igual a:" FontSize="Small" FontAttributes="Bold" VerticalOptions ="Center" TextColor="{StaticResource colorOnBackground}"/>
+                <Picker x:Name="picMax"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Title="Seleccione"  />
 
                 <Image  Grid.Row="2" Grid.Column="0"
                     Source="iconOk.png"

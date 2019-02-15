@@ -344,8 +344,7 @@ namespace CookItApp.Views
             {
                 _Email = Usuario._Email,
                 _IdReceta = receta._IdReceta,
-                _FechaHora = DateTime.Now
-                
+                _FechaHora = DateTime.Now                
             };
 
             HistorialReceta historial = await App.HistorialRecetaService.Alta(historialReceta);
@@ -353,7 +352,6 @@ namespace CookItApp.Views
             if (historial != null) {
 
                 App.DataBase.HistorialReceta.Guardar(historial);
-
             }
         }
 

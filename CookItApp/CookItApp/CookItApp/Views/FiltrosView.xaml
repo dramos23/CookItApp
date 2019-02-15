@@ -38,7 +38,7 @@
                             </Switch>
                         </Grid>
 
-                        <layouts:WrapLayout 
+                    <layouts:WrapLayout 
                             Grid.Row="1"
                             HorizontalOptions="Center" 
                             VerticalOptions="Center"
@@ -53,123 +53,123 @@
                                                   NumberOfTapsRequired="1"/>
                             </Image.GestureRecognizers>
                         </Image>
-                            
+
                         <Image  x:Name="btnAptoCeliacos"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="aptoCeliacosOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnAptoDiabeticos"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="aptoDiabeticosOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnAptoVegetarianos"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="aptoVegetarianosOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnAptoVeganos"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="aptoVeganosOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnPorCalorias"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="porCaloriasOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnPorPrecio"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="porPrecioOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnPorTiempo"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="porTiempoOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnPorPuntaje"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="porPuntajeOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnPorDificultad"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="porDificultadOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnPorEstacion"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="porEstacionOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+                            </Image.GestureRecognizers>
+                        </Image>
 
-                            <Image  
+                        <Image  
                 x:Name="btnPorMomentoDia"
                 Style="{StaticResource estiloBotonImagenGrande}"
                 Source="porMomentoDiaOff.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventoToggle"
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventoToggle"
                                                   NumberOfTapsRequired="1"/>
-                                </Image.GestureRecognizers>
-                            </Image>
-                        </layouts:WrapLayout>
-
-                    <Image Source="okIcon.png" Style="{StaticResource estiloBotonImagenGrande}">
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </layouts:WrapLayout>
+                        
+                    <Image Source="okIcon.png" Grid.Row="0" Style="{StaticResource estiloBotonImagenGrande}">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnClose" NumberOfTapsRequired="1"/>
                         </Image.GestureRecognizers>
                     </Image>
-                    </Grid>
+                </Grid>
             </Frame>
         </ContentView>
     </StackLayout>

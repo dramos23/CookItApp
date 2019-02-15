@@ -25,11 +25,25 @@ namespace CookItApp.Views
             InitializeComponent();
             Usuario = usr;
             Receta = rec;
+            CargarAtributosFaltantesReceta();
             CargarLabels();
+        }
+
+        private void CargarAtributosFaltantesReceta()
+        {
+            if(Receta._Estacion == null)
+            {
+                Receta._Estacion = App.DataBase.Estacion.Obtener(Receta._IdEstacion);
+            }
+            if(Receta._MomentoDia == null)
+            {
+                Receta._MomentoDia = App.DataBase.MomentoDia.Obtener(Receta._IdMomentoDia);
+            }
         }
 
         private void CargarLabels()
         {
+
             lblCeliacos.Text = "Apto para celiacos? " + DevolverBoolAString(Receta._AptoCeliacos);
             lblVegetarianos.Text = "Apto para vegetarianos?" + DevolverBoolAString(Receta._AptoVegetarianos);
             lblVeganos.Text = "Apto para veganos?" + DevolverBoolAString(Receta._AptoVeganos);

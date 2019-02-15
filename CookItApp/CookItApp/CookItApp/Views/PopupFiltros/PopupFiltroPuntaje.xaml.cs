@@ -25,12 +25,13 @@ namespace CookItApp.Views.PopupFiltros
 
         private void GenerarDatosPicker()
         {
-            List<int> ListaPicker = new List<int>();
-            ListaPicker.Add(1);
-            ListaPicker.Add(2);
-            ListaPicker.Add(3);
-            ListaPicker.Add(4);
-            ListaPicker.Add(5);
+            List<string> ListaPicker = new List<string>();
+            ListaPicker.Add("Ignorar");
+            ListaPicker.Add("1");
+            ListaPicker.Add("2");
+            ListaPicker.Add("3");
+            ListaPicker.Add("4");
+            ListaPicker.Add("5");
 
             picMax.ItemsSource = ListaPicker;
             picMin.ItemsSource = ListaPicker;
@@ -38,10 +39,22 @@ namespace CookItApp.Views.PopupFiltros
 
         private void Ok_Tapped(object sender, EventArgs e)
         {
+            string picMinStr = picMin.SelectedItem.ToString();
             int min = -1;
-            if (picMin.SelectedIndex != -1) min = Convert.ToInt32(picMin.SelectedItem);
+            string picMaxStr = picMax.SelectedItem.ToString();
             int max = -1;
-            if (picMax.SelectedIndex != -1) max = Convert.ToInt32(picMax.SelectedItem);
+
+            if (picMin.SelectedIndex != -1 && picMin.SelectedItem.ToString() != "Ignorar")
+                min = Convert.ToInt32(picMinStr);
+            if (picMax.SelectedIndex != -1 && picMax.SelectedItem.ToString() != "Ignorar")
+                max = Convert.ToInt32(picMaxStr);
+
+            if (picMaxStr.Equals("Ignorar") && picMinStr.Equals("Ignorar"))
+            {
+                MensajeError("Por favor, seleccione al menos uno de los filtros.");
+                return;
+            }
+
             if (min != -1 && max != -1)
             {
                 if (min > max)
@@ -54,7 +67,6 @@ namespace CookItApp.Views.PopupFiltros
                     MensajeError("El valor maximo no puede ser menor al minimo.");
                     return;
                 }
-
             }
             ViewModel.IngresarFiltroPuntuacion(min, max);
             CerrarPopup();
