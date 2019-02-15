@@ -1,4 +1,5 @@
 ﻿using CookItApp.Models;
+using CookItApp.ViewModels;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,15 @@ namespace CookItApp.Views
         private Usuario _Usuario;
         private Receta _Receta;
 
+        private IngredienteRecetaVM IngredienteRecetaVM { get; set; }
+
         public IngredientesRecetaView (Usuario usr, Receta rec)
 		{
             InitializeComponent();
             _Usuario = usr;
             _Receta = rec;
-            BindingContext = _Receta;
+            IngredienteRecetaVM = new IngredienteRecetaVM(_Receta._IdReceta);
+            BindingContext = IngredienteRecetaVM;
         }
 
         private async void BtnCompararIngredientes_Clicked(object sender, EventArgs e)

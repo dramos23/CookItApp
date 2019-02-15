@@ -19,13 +19,13 @@ namespace CookItApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RetoPage : ContentPage
 	{
-        public RetoVM _ViewModelReto { get; set; }
+        private RetoVM _ViewModelReto { get; set; }
 
         private Usuario _Usuario { get; set; }
 
-        MediaFile _Foto { get; set; }
+        private MediaFile _Foto { get; set; }
 
-        public IViewDesafioList Vista { get; set; }
+        private IViewDesafioList Vista { get; set; }
 
         public RetoPage (Reto reto, Usuario usuario, IViewDesafioList vista)
 		{
@@ -128,6 +128,7 @@ namespace CookItApp.Views
                     await UserDialogs.Instance.AlertAsync("Reto", "Ha ocurrido un error vuelve a intentarlo o ponte en contecto con el administrador.", "Ok");
                 }
             }
+
             UserDialogs.Instance.HideLoading();
                 
             
@@ -194,16 +195,19 @@ namespace CookItApp.Views
             if (_Foto == null) {
 
                 UserDialogs.Instance.AlertAsync("Es necesario enviar una foto!.");
+                UserDialogs.Instance.HideLoading();
                 return false;
             }
             if (txtComentario.Text == null)
             {
                 UserDialogs.Instance.AlertAsync("Es necesario enviar una comentario!.");
+                UserDialogs.Instance.HideLoading();
                 return false;
             }
             if (txtComentario.Text.Count() > 200)
             {
                 UserDialogs.Instance.AlertAsync("El comentario no puede superar los 200 caracteres.");
+                UserDialogs.Instance.HideLoading();
                 return false;
             }
 

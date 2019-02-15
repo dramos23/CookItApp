@@ -30,8 +30,7 @@ namespace CookItApp.Models
 
         public int _Dificultad { get; set; }
         public int _TiempoPreparacion { get; set; }
-        public int _CantCalorias { get; set; }
-        //public Pais _PaisOrigen { get; set; }
+        public int _CantCalorias { get; set; }        
         public byte[] _Foto { get; set; }
         public string _Email { get; set; }
         public int _CantPlatos { get; set; }

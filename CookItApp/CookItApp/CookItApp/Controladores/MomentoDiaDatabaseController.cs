@@ -33,6 +33,21 @@ namespace CookItApp.Data
             }
         }
 
+        public MomentoDia Obtener(int id)
+        {
+            lock (locker)
+            {
+                if (id == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return database.Table<MomentoDia>().FirstOrDefault(m => m._IdMomentoDia == id);
+                }
+            }
+        }
+
 
         public int GuardarList(List<MomentoDia> obj)
         {

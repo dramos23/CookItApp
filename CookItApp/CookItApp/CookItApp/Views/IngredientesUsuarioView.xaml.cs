@@ -73,7 +73,7 @@ namespace CookItApp.Views
 
         public void ActualizarIngrediente(IngredienteUsuario ing)
         {
-            throw new NotImplementedException();
+            RefrescarListaIng();
         }
 
         public void AgregarIngrediente(IngredienteUsuario ing)

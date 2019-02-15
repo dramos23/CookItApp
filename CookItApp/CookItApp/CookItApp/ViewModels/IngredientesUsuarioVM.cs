@@ -18,14 +18,14 @@ namespace CookItApp.ViewModels
         public IngredientesUsuarioVM(Usuario usr, IViewIngUsuario vista)
         {
             Usr = usr;
-            Vista = vista;
-                
+            Vista = vista;            
             CargarDatos();
         }
 
-        
+
         public void CargarDatos()
         {
+
             List<IngredienteUsuario> ingredientesUsuario = App.DataBase.IngredienteUsuario.ObtenerList();
             if (ingredientesUsuario != null)
             {
@@ -36,6 +36,7 @@ namespace CookItApp.ViewModels
                 IngredientesUsuario = new ObservableCollection<IngredienteUsuario>();
             }
         }
+
 
         internal ObservableCollection<IngredienteUsuario> DevolverListaIngUsuario()
         {

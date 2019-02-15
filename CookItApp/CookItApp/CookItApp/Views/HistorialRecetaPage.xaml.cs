@@ -17,8 +17,8 @@ namespace CookItApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HistorialRecetasPage : ContentPage
 	{
-        public HistorialRecetasListVM _VMHistorialRecetas { get; set; }
-        public Usuario _Usuario { get; set; }
+        private HistorialRecetasListVM _VMHistorialRecetas { get; set; }
+        private Usuario _Usuario { get; set; }
 
 
         public HistorialRecetasPage(Usuario Usuario)

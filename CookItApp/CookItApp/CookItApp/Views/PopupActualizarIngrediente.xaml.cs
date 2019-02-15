@@ -2,6 +2,7 @@
 using CookItApp.Models;
 using CookItApp.ViewModels;
 using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +31,12 @@ namespace CookItApp.Views
             txtNombreIng.Text = Ing._Ingrediente._Nombre;
         }
 
-        private void ActualizarIngrediente_Tapped(object sender, EventArgs e)
+        private async void ActualizarIngrediente_Tapped(object sender, EventArgs e)
         {           
             int cantidad = Convert.ToInt32(txtCantidad.Text);
+
             ViewModel.ActualizarIngrediente(Ing, cantidad);
+            await PopupNavigation.Instance.PopAsync();
         }
     }
 }

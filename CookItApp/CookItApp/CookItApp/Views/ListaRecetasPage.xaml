@@ -7,7 +7,7 @@
     <!--BackgroundColor="{StaticResource colorBackground}"Text="Filtros">-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="BtnFiltros_Clicked"  Priority="0" Order="Primary" Icon="filtro.png"/>
+        <ToolbarItem Clicked="BtnFiltros_Clicked"  Priority="0" Order="Primary" Icon="rayitas.png"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

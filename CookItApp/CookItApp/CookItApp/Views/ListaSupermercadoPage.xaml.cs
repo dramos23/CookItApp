@@ -41,10 +41,14 @@ namespace CookItApp.Views
 
             if (Punto != null)
             {
-               position = new Xamarin.Forms.Maps.Position(Convert.ToDouble(Punto.Latitude), Convert.ToDouble(Punto.Longitude));
+                position = new Xamarin.Forms.Maps.Position(Convert.ToDouble(Punto.Latitude), Convert.ToDouble(Punto.Longitude));
+                await Navigation.PushAsync(new MostrarMaps(position, Super));
+            }
+            else {
+                await Navigation.PushAsync(new MostrarMaps(Super));
             }
 
-            await Navigation.PushAsync(new MostrarMaps(position, Super));
+            
 
             UserDialogs.Instance.HideLoading();
         }

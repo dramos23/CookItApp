@@ -17,9 +17,9 @@ namespace CookItApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PerfilPage : ContentPage
 	{
-        public MediaFile Foto { get; set; }
-        public PerfilVM VMReceta;
-        public Usuario Usuario;  
+        private MediaFile Foto { get; set; }
+        private PerfilVM VMReceta;
+        private Usuario Usuario;  
         private IViewMaster Vista { get; set; }
 
         public PerfilPage (Usuario usuario, IViewMaster vista)

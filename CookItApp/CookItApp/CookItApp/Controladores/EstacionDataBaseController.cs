@@ -33,6 +33,21 @@ namespace CookItApp.Data
             }
         }
 
+        public Estacion Obtener(int id)
+        {
+            lock (locker)
+            {
+                if (id == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return database.Table<Estacion>().FirstOrDefault(m => m._IdEstacion == id);
+                }
+            }
+        }
+
 
         public int GuardarList(List<Estacion> obj)
         {

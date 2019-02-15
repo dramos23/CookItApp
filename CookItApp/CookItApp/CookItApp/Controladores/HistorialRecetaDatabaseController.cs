@@ -29,7 +29,12 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<HistorialReceta>().OrderBy(f => f._FechaHora).ToList();
+                    List<HistorialReceta> historialRecetas = database.Table<HistorialReceta>().OrderBy(f => f._FechaHora).ToList();
+                    foreach(HistorialReceta h in historialRecetas)
+                    {
+                        h._Receta = App.DataBase.Receta.Obtener(h._IdReceta);                        
+                    }
+                    return historialRecetas;
                 }
             }
         }

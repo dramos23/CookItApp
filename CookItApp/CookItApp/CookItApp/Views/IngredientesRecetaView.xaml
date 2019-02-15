@@ -11,7 +11,7 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <xforms:SfListView x:Name="ListaIngredientes"
-                               ItemsSource="{Binding _ListaIngredientesReceta}"
+                               ItemsSource="{Binding IngredientesRecetas}"
                                HorizontalOptions="Center" VerticalOptions="Center"
                                ItemSize="35" Grid.Row="1" Grid.ColumnSpan="2">
                 <xforms:SfListView.LayoutManager>

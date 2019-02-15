@@ -17,19 +17,19 @@ namespace CookItApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ListaRecetasPage : ContentPage
 	{
-        RecetaListVM _VMRecetas;
-        Usuario Usuario;
+        private RecetaListVM VMRecetas;
+        private Usuario Usuario;
         //Atributos necesarios para revisar si el usuario rotó el celular
         private double width;
         private double height;
 
-        public ListaRecetasPage (Usuario Usuario)
+        public ListaRecetasPage (Usuario usuario)
 		{
 			InitializeComponent ();
-            this.Usuario = Usuario;
-            _VMRecetas = new RecetaListVM(null);
+            Usuario = usuario;
+            VMRecetas = new RecetaListVM(null);
             InicializarControladorFiltros();
-            BindingContext = _VMRecetas;
+            BindingContext = VMRecetas;
         }
 
         private void InicializarControladorFiltros()
@@ -320,7 +320,7 @@ namespace CookItApp.Views
 
             if (keyword.Length >= 1)
             {
-                List<Receta> resultado = _VMRecetas.FiltrarRecetasPorNombre(keyword); 
+                List<Receta> resultado = VMRecetas.FiltrarRecetasPorNombre(keyword); 
                 AplicarFiltrosALista(resultado);
             }
             else
@@ -333,9 +333,9 @@ namespace CookItApp.Views
 
         private void AplicarFiltrosALista(List<Receta> recetas)
         {            
-            List<Receta> filtrada = _VMRecetas.DevolverListaFiltrada(recetas);
-            _VMRecetas = new RecetaListVM(filtrada);
-            BindingContext = _VMRecetas;
+            List<Receta> filtrada = VMRecetas.DevolverListaFiltrada(recetas);
+            VMRecetas = new RecetaListVM(filtrada);
+            BindingContext = VMRecetas;
         }
 
         private async void AgregarRecetaHistorial(Receta receta) {

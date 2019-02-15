@@ -3,6 +3,7 @@ using CookItApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace CookItApp.ViewModels
@@ -18,12 +19,16 @@ namespace CookItApp.ViewModels
             Titulo = "Ubicación: " + supermercado._Nombre;
         }
 
-        public Ubicaciones GenerarMapa(Position x, Supermercado supermercado)
+        public MapaVM(MostrarMaps mostrarMaps, Supermercado supermercado)
         {
 
-            Position y = new Position(Convert.ToDouble(supermercado._Latitud), Convert.ToDouble(supermercado._Longitud));
+            mostrarMaps.Content = GenerarMapa(supermercado);
+            Titulo = "Ubicación: " + supermercado._Nombre;
+        }
 
-            var customMap = new Ubicaciones
+        private View GenerarMapa(Supermercado supermercado)
+        {
+            Ubicaciones customMap = new Ubicaciones
             {
                 MapType = MapType.Street,
                 WidthRequest = App.ScreenWidth,
@@ -31,7 +36,38 @@ namespace CookItApp.ViewModels
 
             };
 
-            if (x != null) { 
+            Position y = new Position(Convert.ToDouble(supermercado._Latitud), Convert.ToDouble(supermercado._Longitud));
+
+            var pinDestino = new Pin
+            {
+                Type = PinType.Place,
+                Position = y,
+                Label = supermercado._Nombre,
+                Address = supermercado._Dirección
+            };
+
+
+            customMap.Pins.Add(pinDestino);
+
+            customMap.MoveToRegion(MapSpan.FromCenterAndRadius(y, Distance.FromKilometers(1.0)));
+
+            return customMap;
+        }
+
+        public Ubicaciones GenerarMapa(Position x, Supermercado supermercado)
+        {
+            Ubicaciones customMap = new Ubicaciones
+            {
+                MapType = MapType.Street,
+                WidthRequest = App.ScreenWidth,
+                HeightRequest = App.ScreenHeight
+
+            };
+
+            Position y = new Position(Convert.ToDouble(supermercado._Latitud), Convert.ToDouble(supermercado._Longitud));
+
+
+                
 
                 var pinOrigen = new Pin
                 {
@@ -42,28 +78,23 @@ namespace CookItApp.ViewModels
                 customMap.Pins.Add(pinOrigen);
                 customMap.RouteCoordinates.Add(x);
 
-            }
+                
 
-            var pinDestino = new Pin
-            {
-                Type = PinType.Place,
-                Position = y,
-                Label = supermercado._Nombre,
-                Address = supermercado._Dirección
-            };
+                var pinDestino = new Pin
+                {
+                    Type = PinType.Place,
+                    Position = y,
+                    Label = supermercado._Nombre,
+                    Address = supermercado._Dirección
+                };
 
+
+                customMap.Pins.Add(pinDestino);
+
+                customMap.RouteCoordinates.Add(y);
+
+                customMap.MoveToRegion(MapSpan.FromCenterAndRadius(x, Distance.FromKilometers(1.0)));
             
-            customMap.Pins.Add(pinDestino);
-            
-            customMap.RouteCoordinates.Add(y);
-
-            if (x == null)
-            {
-                x = y;
-            }
-
-            customMap.MoveToRegion(MapSpan.FromCenterAndRadius(x, Distance.FromKilometers(1.0)));
-
             return customMap;
 
         }

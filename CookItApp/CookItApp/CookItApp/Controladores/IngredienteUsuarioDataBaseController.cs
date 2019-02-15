@@ -49,12 +49,32 @@ namespace CookItApp.Controladores
                 {
                     
                     ingredienteUsuario._Cantidad += obj._Cantidad; 
-                    database.Insert(ingredienteUsuario);
+                    database.Update(ingredienteUsuario);
                     return 1;
                 }
                 else
                 {
                     return database.Insert(obj);
+                }
+            }
+        }
+
+        public int Modificar(IngredienteUsuario obj)
+        {
+            lock (locker)
+            {
+                IngredienteUsuario ingredienteUsuario = database.Table<IngredienteUsuario>().FirstOrDefault(i => i._IdIngrediente == obj._IdIngrediente);
+
+                if (ingredienteUsuario != null)
+                {
+
+                    ingredienteUsuario._Cantidad = obj._Cantidad;
+                    database.Update(ingredienteUsuario);
+                    return 1;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }

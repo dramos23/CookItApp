@@ -12,35 +12,49 @@ namespace CookItApp.ViewModels
     {
         public ObservableCollection<Receta> Recetas { get; set; }
 
-        public RecetaListVM(List<Receta> recetas)
+        public RecetaListVM(List<Receta> filtrada)
         {
-            
-            if (recetas == null)
-            {
-                this.Recetas = new ObservableCollection<Receta>();
-                CargarRecetas(null);
-            }
-            else
-            {
-                this.Recetas = new ObservableCollection<Receta>(recetas);
-            }
 
-           
+            if (filtrada != null && filtrada.Count > 0)
+            {
+                CargarRecetasF(filtrada);
+            }
+            else { CargarRecetas(); }
+                                  
         }
 
-        private void CargarRecetas(List<Receta> receta)
+        private void CargarRecetasF(List<Receta> filtrada)
         {
-            List<Receta> recetas = new List<Receta>();
+            Recetas = new ObservableCollection<Receta>(filtrada);
+        }
 
-            recetas = receta ?? App.DataBase.Receta.ObtenerList();
+        private void CargarRecetas()
+        {
 
-            if (recetas != null)
+            var recetas = App.DataBase.Receta.ObtenerList();
+
+            if (recetas.Count > 0)
             {
-                foreach (Receta r in recetas)
-                {
-                    Recetas.Add(r);
-                }
+
+                Recetas = new ObservableCollection<Receta>(recetas);
+
             }
+            else {
+
+                Recetas = new ObservableCollection<Receta>();
+
+            }
+            //List<Receta> recetas = new List<Receta>();
+
+            //recetas = receta ?? App.DataBase.Receta.ObtenerList();
+
+            //if (recetas != null)
+            //{
+            //    foreach (Receta r in recetas)
+            //    {
+            //        Recetas.Add(r);
+            //    }
+            //}
         }
 
         public List<Receta> FiltrarRecetasPorNombre(string keyword)
