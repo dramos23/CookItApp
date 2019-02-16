@@ -50,9 +50,14 @@ namespace CookItApp.ViewModels
         public int FiltroTiempoPreparacionMin { set; get; }
         public int FiltroTiempoPreparacionMax { set; get; }        
         
+        public ObservableCollection<Estacion> ItemsEstacion { get; set; }
+        public ObservableCollection<MomentoDia> ItemsMomentoDia { get; set; }
 
+        private Usuario Usuario { get; set; }
 
         public PerfilVM(Usuario usuario) {
+
+            Usuario = usuario;
 
             Email = usuario._Email;
             Foto = (usuario._Perfil != null && usuario._Perfil._Foto != null) ? usuario._Perfil.ImageFoto() : "img_user.png";
@@ -64,33 +69,94 @@ namespace CookItApp.ViewModels
 
             FiltroAutomatico = (usuario._Perfil != null) ? usuario._Perfil._FiltroAutomatico : false;
             FiltroPrecio = (usuario._Perfil != null) ? usuario._Perfil._FiltroPrecio : false;
-            FiltroPrecioMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroPrecioMin : 0;
-            FiltroPrecioMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroPrecioMax : 0;
+            FiltroPrecioMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroPrecioMin : 1;
+            FiltroPrecioMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroPrecioMax : 9999;
             FiltroVegetariano = (usuario._Perfil != null) ? usuario._Perfil._FiltroVegetariano : false;
             FiltroVegano = (usuario._Perfil != null) ? usuario._Perfil._FiltroVegano : false;
             FiltroDiabetico = (usuario._Perfil != null) ? usuario._Perfil._FiltroDiabetico : false;
             FiltroCeliaco = (usuario._Perfil != null) ? usuario._Perfil._FiltroCeliaco : false;
             FiltroIngredientes = (usuario._Perfil != null) ? usuario._Perfil._FiltroIngredientes : false;
             FiltroCalorias = (usuario._Perfil != null) ? usuario._Perfil._FiltroCalorias : false;
-            FiltroCaloriasMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMin : 0;
-            FiltroCaloriasMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMax : 0;
-            //FiltroPaisOrigen = (user._Perfil != null) ? user._Perfil._FiltroPaisOrigen : 0;
+            FiltroCaloriasMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMin : 1;
+            FiltroCaloriasMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMax : 9999;            
             FiltroMomentoDia = (usuario._Perfil != null) ? usuario._Perfil._FiltroMomentoDia : false;
             FiltroMomentoDiaId = (usuario._Perfil != null) ? usuario._Perfil._FiltroMomentoDiaId : 0;
             FiltroPuntuacion = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacion : false;
-            FiltroPuntuacionMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMin : 0;
-            FiltroPuntuacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMax : 0;
+            FiltroPuntuacionMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMin : 1;
+            FiltroPuntuacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMax : 5;
             FiltroEstacion = (usuario._Perfil != null) ? usuario._Perfil._FiltroEstacion : false;
             FiltroEstacionId = (usuario._Perfil != null) ? usuario._Perfil._FiltroEstacionId : 0;
             FiltroDificultad = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultad : false;
-            FiltroDificultadMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMin : 0;
-            FiltroDificultadMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMax : 0;
+            FiltroDificultadMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMin : 1;
+            FiltroDificultadMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMax : 5;
             FiltroCantPlatos = (usuario._Perfil != null) ? usuario._Perfil._FiltroCantPlatos : false;
-            FiltroCantPlatosMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroCantPlatosMin : 0;
-            FiltroCantPlatosMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCantPlatosMax : 0;
+            FiltroCantPlatosMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroCantPlatosMin : 1;
+            FiltroCantPlatosMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCantPlatosMax : 1;
             FiltroTiempoPreparacion = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacion : false;
-            FiltroTiempoPreparacionMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacionMin : 0;
-            FiltroTiempoPreparacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacionMax : 0;            
+            FiltroTiempoPreparacionMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacionMin : 1;
+            FiltroTiempoPreparacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacionMax : 9999;
+
+            CargarPickerEstacion();
+            CargarPickerMomentoDia();
+
+        }
+
+        private void CargarPickerEstacion()
+        {
+            List<Estacion> estaciones = App.DataBase.Estacion.ObtenerList();
+            if (estaciones != null && estaciones.Count > 0)
+            {
+                ItemsEstacion = new ObservableCollection<Estacion>(estaciones);
+            }
+            else
+            {
+                ItemsEstacion = new ObservableCollection<Estacion>();
+            }
+        }
+
+        private void CargarPickerMomentoDia()
+        {
+            List<MomentoDia> momentoDias = App.DataBase.MomentoDia.ObtenerList();
+            if (momentoDias != null && momentoDias.Count > 0)
+            {
+                ItemsMomentoDia = new ObservableCollection<MomentoDia>(momentoDias);
+            }
+            else
+            {
+                ItemsMomentoDia = new ObservableCollection<MomentoDia>();
+            }
+
+        }
+
+        public async Task<int> GuardarPerfil(Perfil perfil) {
+
+            bool estado = false;
+
+            if (Usuario._Perfil == null)
+            {
+                estado = await App.PerfilService.Alta(perfil);
+            }
+            else
+            {
+                estado = await App.PerfilService.Modificar(perfil);
+            }
+
+
+            if (estado)
+            {
+                if (Usuario._Perfil == null)
+                {
+                    return App.DataBase.Perfil.Guardar(perfil);
+                }
+                else
+                {
+                    return App.DataBase.Perfil.Modificar(perfil);
+                }
+            }
+            else
+            {
+                return 2;                
+            }            
 
         }
     }

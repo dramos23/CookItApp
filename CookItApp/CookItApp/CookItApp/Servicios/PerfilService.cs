@@ -21,7 +21,7 @@ namespace CookItApp.Data
         }
 
 
-        public async Task<Perfil> Alta(Perfil obj)
+        public async Task<bool> Alta(Perfil obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -39,16 +39,7 @@ namespace CookItApp.Data
                         .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
                         .ConfigureAwait(false))
                     {
-                        string JsonResult = response.Content.ReadAsStringAsync().Result;
-                        try
-                        {
-                            Perfil ContentResp = Deseralizar(JsonResult);
-                            return ContentResp;
-                        }
-                        catch(Exception)
-                        {
-                            return null;
-                        }
+                        return response.IsSuccessStatusCode;
                     }
                 }
             }
@@ -116,7 +107,7 @@ namespace CookItApp.Data
 
         }
 
-        public async Task<Perfil> Modificar(Perfil obj)
+        public async Task<bool> Modificar(Perfil obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -128,16 +119,7 @@ namespace CookItApp.Data
             {
                 using (HttpResponseMessage response = await client.PutAsync(Url, stringContent))
                 {
-                    string JsonResult = response.Content.ReadAsStringAsync().Result;
-                    try
-                    {
-                        Perfil ContentResp = Deseralizar(JsonResult);
-                        return ContentResp;
-                    }
-                    catch
-                    {
-                        return null;
-                    }
+                    return response.IsSuccessStatusCode;
                 }
             }
         }

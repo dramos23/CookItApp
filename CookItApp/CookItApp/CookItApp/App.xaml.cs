@@ -9,6 +9,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
 using CookItApp.Controladores;
 using System.Diagnostics;
+using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CookItApp
@@ -45,16 +46,26 @@ namespace CookItApp
             
             ConfigNoti = false;
 
-            Usuario usuario = App.DataBase.Usuario.Obtener();
-            if (usuario == null)
+            try
             {
-                MainPage = new NavigationPage(new LoginPage());
+
+                Usuario usuario = App.DataBase.Usuario.Obtener();
+                if (usuario == null)
+                {
+                    App.DataBase.BorrarTodo();
+                    MainPage = new NavigationPage(new LoginPage());
+                }
+                else
+                {
+                    Perfil perfil = DataBase.Perfil.Obtener(usuario._Email);
+                    usuario._Perfil = perfil;
+                    MainPage = new NavigationPage(new MasterPage(usuario));
+                }
+
             }
-            else
+            catch (Exception e)
             {
-                Perfil perfil = DataBase.Perfil.Obtener(usuario._Email);
-                usuario._Perfil = perfil;
-                MainPage = new NavigationPage(new MasterPage(usuario));
+                Debug.Print(e.Message);
             }
 
         }
@@ -79,6 +90,8 @@ namespace CookItApp
         {
            // Mensajes();
         }
+
+
 
         public static bool ConfigNoti
         {
