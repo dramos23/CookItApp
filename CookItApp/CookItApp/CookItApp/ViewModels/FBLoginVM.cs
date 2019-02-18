@@ -43,7 +43,9 @@ namespace CookItApp.ViewModels
                 _Apellido = usuarioFacebook.last_name,
                 _Nombre = usuarioFacebook.first_name,
                 _NombreUsuario = usuarioFacebook.first_name + " " + usuarioFacebook.last_name,
-                _Foto = GenerarBitmap(usuarioFacebook.picture.data.url)
+                _Foto = GenerarBitmap(usuarioFacebook.picture.data.url),
+                _Puntuacion = 0,
+                _Categoria = Perfil.Categoria.Amatér
 
             };
 

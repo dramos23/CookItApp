@@ -51,7 +51,7 @@ namespace CookItApp.Models
         }
 
 
-        public Usuario(string Email, string Password, string text, Guid? DeviceId, TipoCuenta TipoCuenta, TipoUsuario TipoUsuario, DateTime UltimoIngreso)
+        public Usuario(string Email, string Password, Guid? DeviceId, TipoCuenta TipoCuenta, TipoUsuario TipoUsuario, DateTime UltimoIngreso)
         {
             _Email = Email;
             _DeviceId = DeviceId;

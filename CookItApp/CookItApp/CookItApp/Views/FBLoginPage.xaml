@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CookItApp.Views.FBLoginPage">
-    <ContentPage.Content>
-        <StackLayout>
-            
-        </StackLayout>
-    </ContentPage.Content>
+    <Grid>
+
+        <Image Source="fondoFrutillas.jpg" Aspect="AspectFill"/>
+        <BoxView Color="LightSlateGray" Opacity="0.8"/>
+
+    </Grid>
 </ContentPage>
