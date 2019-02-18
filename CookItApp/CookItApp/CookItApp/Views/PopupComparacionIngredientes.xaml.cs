@@ -31,7 +31,6 @@ namespace CookItApp.Views
             ListaIngredientesFaltantes.ItemsSource = _ViewModel.IngredientesFaltantes;
             ListaIngredientesHeladera.ItemsSource = _ViewModel.IngredientesEnHeladera;
             ListaIngredientesInsuficiente.ItemsSource = _ViewModel.IngredientesPocaCantidad;
-
         }
 
         private async void ImgCerrar_Tapped(object sender, EventArgs e)

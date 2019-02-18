@@ -17,16 +17,13 @@ namespace CookItApp.ViewModels
         {
             this._ComentariosReceta = new ObservableCollection<ComentarioReceta>();
             this._Receta = r;
-
-
+            GenerarListaObservable();
         }
-
 
 
         private void GenerarListaObservable()
         {
             _ComentariosReceta.Clear();
-
             foreach (ComentarioReceta cr in _Receta._ListaComentariosReceta)
             {
                 this._ComentariosReceta.Add(cr);
@@ -34,18 +31,10 @@ namespace CookItApp.ViewModels
 
         }
 
-        internal async void InsertarComentario(ComentarioReceta comentarioCreado)
+        internal void AgregarComentario(ComentarioReceta nuevo)
         {
-            try {
-                await App.ComentarioRecetaService.Alta(comentarioCreado);
-                this._ComentariosReceta.Add(comentarioCreado);
-                GenerarListaObservable();
-            }
-            catch (Exception ex)
-            {
-                string error = ex.Message;
-            }
+            _ComentariosReceta.Add(nuevo);
+            GenerarListaObservable();
         }
-
     }
 }

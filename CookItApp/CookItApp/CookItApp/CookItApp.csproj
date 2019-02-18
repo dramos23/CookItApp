@@ -45,6 +45,9 @@
     <Compile Update="Views\ListaNotificacionesPage.xaml.cs">
       <DependentUpon>ListaNotificacionesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PopupIngresarComentario.xaml.cs">
+      <DependentUpon>PopupIngresarComentario.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PopupInfoReceta.xaml.cs">
       <DependentUpon>PopupInfoReceta.xaml</DependentUpon>
     </Compile>

@@ -22,13 +22,16 @@ namespace CookItApp.ViewModels
             CargarListas();
         }
 
+
         private void CargarListas()
         {
+            List<IngredienteReceta> ingredienteRecetas = App.DataBase.IngredienteReceta.ObtenerList(_Receta._IdReceta);
+
             IngredientesFaltantes = new ObservableCollection<IngredienteReceta>();
             IngredientesPocaCantidad = new ObservableCollection<IngredienteReceta>();
             IngredientesEnHeladera = new ObservableCollection<IngredienteReceta>();
 
-            foreach(IngredienteReceta ing in _Receta._ListaIngredientesReceta)
+            foreach(IngredienteReceta ing in ingredienteRecetas)
             {
                 switch (_Usuario.RevisarDisponibilidadIngrediente(ing))
                 {

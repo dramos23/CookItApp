@@ -23,7 +23,6 @@ namespace CookItApp.Views
 			InitializeComponent ();
             NavigationPage.SetHasNavigationBar(this, false);
             VMFBLogin = new FBLoginVM();
-
         }
 
         //public event EventHandler ItemAdded;
@@ -32,7 +31,7 @@ namespace CookItApp.Views
         //{
         //    ItemAdded(this, EventArgs.Empty);
         //}
-
+        
         public async void Procesar(UsuarioFacebook UsuarioFacebook)
         {            
 
@@ -40,16 +39,13 @@ namespace CookItApp.Views
 
             if (usuario != null)
             {
-
                 await Navigation.PushAsync(new CargaRecursos(usuario, "INS"), true);
                 Navigation.RemovePage(this);
-
             }
             else {
 
-                await UserDialogs.Instance.AlertAsync("Ha ocurrido un error vuelve a intentarlo!.", "Error!", "Continuar");
+                await UserDialogs.Instance.AlertAsync("Ha ocurrido un error, vuelve a intentarlo!", "Error!", "Continuar");
                 new NavigationPage(new LoginPage());
-
             }
 
         }
