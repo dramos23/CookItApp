@@ -16,7 +16,7 @@
 
             <!--<Image Grid.Row="0" Source="" WidthRequest="100" HeightRequest="100" Margin="0,50,0,30"/>-->
 
-            <StackLayout Grid.Row="1" Padding="30,20" VerticalOptions="Center" >
+            <StackLayout Grid.Row="1" Padding="30,20" VerticalOptions="CenterAndExpand" >
                 <Entry x:Name="entryEmail"  Placeholder="Correo eléctronico" Text="{Binding Email}" PlaceholderColor="Silver"/>
                 <Entry x:Name="entryPass" Placeholder="Contraseña" PlaceholderColor="Silver" Text="{Binding Contraseña}" IsPassword="True"/>
                 <StackLayout Orientation="Horizontal">
@@ -36,7 +36,10 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
-                
+                <Button x:Name="BtnFacebok" ContentLayout="Left,0" Image="sinleer.png" Text="Continuar con Facebook"  Clicked="FacebookLogin_Clicked" TextColor="Black" BorderRadius="20" HeightRequest="50"/>
+
+
+
             </StackLayout>
 
 

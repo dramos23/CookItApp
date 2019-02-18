@@ -9,7 +9,7 @@ namespace CookItApp.Models
 { 
     public abstract class IngredienteConCantidad
     {
-        
+
         public int _IdIngrediente { set; get; }
   
         public int _Cantidad { get; set; }
@@ -25,11 +25,6 @@ namespace CookItApp.Models
         [Ignore]
         public string _CantidadMedida { get {return _Cantidad.ToString() + " " + _Medida.ToString(); } }
 
-        public IngredienteConCantidad() {
-
-             
-
-        }
 
     }
 }

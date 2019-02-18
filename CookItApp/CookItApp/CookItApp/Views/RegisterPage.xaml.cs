@@ -47,7 +47,7 @@ namespace CookItApp.Views
 
                     if (uuid != null)
                     {
-                        Usuario user = new Usuario(entryEmail.Text, entryPass.Text, uuid, Usuario.Tipo.Local, DateTime.Now);
+                        Usuario user = new Usuario(entryEmail.Text, entryEmail.Text, entryPass.Text, uuid, Usuario.TipoCuenta.Local, Usuario.TipoUsuario.Cliente, DateTime.Now);
                         if (user.IsValid())
                         {
 

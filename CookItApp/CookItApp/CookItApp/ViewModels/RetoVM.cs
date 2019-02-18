@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CookItApp.ViewModels
 {
@@ -80,6 +81,77 @@ namespace CookItApp.ViewModels
 
             }
             
+        }
+
+        internal async Task<int> ProcesarEstado(int num)
+        {
+            Reto._IdEstadoReto = num;
+            Reto._EstadoReto = App.DataBase.EstadoReto.Obtener(Reto._IdEstadoReto);
+
+            byte[] presentacion = null;
+
+            if (num > 4)
+            {
+                presentacion = Reto._Presentacion;
+                Reto._Presentacion = null;
+            }
+
+            bool modificado = await App.RetoService.Modificar(Reto);
+
+            if (modificado)
+            {
+                if (num > 4)
+                {
+                    Reto._Presentacion = presentacion;
+                }
+
+                int save = App.DataBase.Reto.Modificar(Reto);
+
+                if (save == 0)
+                {
+                    return 0;
+                }
+
+                string email = (Reto._IdEstadoReto >= 2 && Reto._IdEstadoReto <= 4) ? Reto._EmailUsuOri : Reto._EmailUsuDes;
+
+                Guid? uuid = await App.RestService.ObtenerUUID(email);
+
+                NotificacionAppCenter notificacionAppCenter = new NotificacionAppCenter();
+                notificacionAppCenter.CompletarInfo(Reto, uuid);
+
+                Notificacion notificacion = GenerarNotificacion(Reto, notificacionAppCenter);
+
+                int idNotificacion = await App.NotificacionService.Alta(notificacion);
+
+                notificacionAppCenter.Notificacion_content.Custom_Data.Add("NotificacionID", idNotificacion.ToString());
+                notificacionAppCenter.Notificacion_content.Custom_Data.Add("RetoID", Reto._IdReto.ToString());
+
+                await App.AppCenterNotiService.Enviar(notificacionAppCenter);
+
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        private Notificacion GenerarNotificacion(Reto reto, NotificacionAppCenter notificacionAppCenter)
+        {
+            Notificacion notificacion = new Notificacion()
+            {
+                _Email = (reto._IdEstadoReto >= 2 && reto._IdEstadoReto <= 4) ? reto._EmailUsuOri : reto._EmailUsuDes,
+                _Estado = Notificacion.Estado.SinLeer,
+                _FechaHora = DateTime.Now,
+                _Titulo = notificacionAppCenter.Notificacion_content.Title,
+                _Descripcion = notificacionAppCenter.Notificacion_content.Body,
+                _Tabla = "Reto",
+                _Pk1 = reto._IdReto.ToString(),
+                _Pk2 = reto._RecetaId.ToString()
+            };
+
+            return notificacion;
+
         }
     }
 }

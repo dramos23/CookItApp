@@ -18,6 +18,9 @@ namespace CookItApp.Models
         public Receta _Receta { set; get; }
 
         [JsonIgnore]
+        
+        private string ClaveSQLLite;
+        [JsonIgnore]
         [PrimaryKey]
         public string _ClaveSQLLite
         {
@@ -28,7 +31,7 @@ namespace CookItApp.Models
             }
             set {
 
-                _ClaveSQLLite = value;
+                ClaveSQLLite = value;
 
             }
 

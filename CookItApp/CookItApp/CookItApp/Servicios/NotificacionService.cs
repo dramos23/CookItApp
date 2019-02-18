@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CookItApp.Servicios
+namespace CookItApp.Data
 {
     public class NotificacionService
     {
@@ -15,25 +15,55 @@ namespace CookItApp.Servicios
 
         public NotificacionService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/Notificacion/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/Notificacion/";
+
+        }
+
+        public async Task<int> Alta(Notificacion obj)
+        {
+            Token token = App.DataBase.Token.Obtener();
+            string Url = Web;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+                string json = JsonConvert.SerializeObject(obj);
+                using (StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                {
+                    request.Content = stringContent;
+
+                    using (HttpResponseMessage response = await client
+                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
+                    {
+                        string JsonResult = response.Content.ReadAsStringAsync().Result;
+                        return JsonConvert.DeserializeObject<int>(JsonResult);
+                    }
+                }
+            }
 
         }
 
         public async Task<bool> Modificar(Notificacion obj)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + "CambioEstado";
+            string Url = Web + "CambioEstado/" + obj._NotificacionId;
 
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
-            string json = JsonConvert.SerializeObject(obj);
-            using (StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, Url))
             {
-                using (HttpResponseMessage response = await client.PutAsync(Url, stringContent))
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+
+                using (HttpResponseMessage response = await client
+                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                    .ConfigureAwait(false))
                 {
-                    return response.IsSuccessStatusCode;                
+                    return response.IsSuccessStatusCode;
                 }
+                
             }
+
         }
 
 

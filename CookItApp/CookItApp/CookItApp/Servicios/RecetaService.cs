@@ -16,7 +16,7 @@ namespace CookItApp.Data
 
         public RecetaService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/Recetas/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/Recetas/";
         }
 
         public async Task<List<Receta>> ObtenerList()

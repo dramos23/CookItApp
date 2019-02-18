@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace CookItApp.ViewModels
@@ -22,7 +23,7 @@ namespace CookItApp.ViewModels
         {
             Vacio = false;
             Lista = false;
-            Notificaciones = new ObservableCollection<Notificacion>();           
+                  
 
             CargarDatos();
 
@@ -30,38 +31,34 @@ namespace CookItApp.ViewModels
 
         private void CargarDatos()
         {
-            try
+
+            List<Notificacion> notificaciones = App.DataBase.Notificacion.ObtenerList();
+
+            if (notificaciones != null && notificaciones.Count > 0)
             {
-                Notificaciones.Clear();
-                var notificacions = App.DataBase.Notificacion.ObtenerList();
-                if (notificacions != null)
-                {
-                    foreach (var noti in notificacions)
-                    {
-                        noti._Descripcion = ConvertText(noti._Descripcion);
-                        Notificaciones.Add(noti);                       
-                        Lista = true;
-                    }
-                }
-                else {
-                    Vacio = true;                    
-                    Text = "No tiene notificaciones!.";
-                }
+                Notificaciones = new ObservableCollection<Notificacion>(notificaciones);
+                Lista = true;
             }
-            catch (Exception ex)
+            else
             {
-                Debug.WriteLine(ex);
+                Notificaciones = new ObservableCollection<Notificacion>();
+                Vacio = true;
+                Text = "No tiene notificaciones!.";
             }
         }
 
-        private string ConvertText(string value)
+        internal async Task<bool> MarcarLeido(Notificacion notificacion)
         {
-            if (value != null)
-            {                
-                value = (value as string).Replace("\\n", Environment.NewLine + Environment.NewLine);
-            }
-            return value;
-        }
+            notificacion._Estado = Notificacion.Estado.Leido;
 
+            bool actualizo = await App.NotificacionService.Modificar(notificacion);
+
+            if (actualizo)
+            {
+                App.DataBase.Notificacion.Modificar(notificacion);
+                return true;
+            }
+            return false;
+        }
     }
 }

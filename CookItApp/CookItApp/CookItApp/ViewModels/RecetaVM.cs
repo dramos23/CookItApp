@@ -3,7 +3,9 @@ using CookItApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CookItApp.ViewModels
 {
@@ -17,18 +19,17 @@ namespace CookItApp.ViewModels
         {
             _IngredientesReceta = r._ListaIngredientesReceta;
             _Receta = r;
-            Titulo = "Receta: " + r._Titulo;
-            //CargarDato();
-            _Receta.OrdenarListasReceta();
-            //string test = "";
+            Titulo = "Receta: " + r._Titulo;            
+            _Receta.OrdenarListasReceta();            
         }
 
-        //public void CargarDato()
-        //{
-        //    foreach (IngredienteReceta ir in _IngredientesReceta)
-        //    {
-        //        ir.CantidadMedida();
-        //    }
-        //}
+        internal async Task<List<Perfil>> ObtenerPerfilesBasico(string email)
+        {
+            var perfiles = await App.PerfilService.ObtenerList();
+            perfiles = perfiles.Where(p => p._Email != email).ToList();
+            return perfiles;
+        }
+
+
     }
 }

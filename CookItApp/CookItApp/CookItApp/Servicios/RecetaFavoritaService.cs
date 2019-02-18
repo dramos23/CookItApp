@@ -16,7 +16,7 @@ namespace CookItApp.Data
 
         public RecetaFavoritaService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/RecetaFavorita/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/RecetaFavorita/";
         }
 
 
@@ -122,7 +122,7 @@ namespace CookItApp.Data
 
         //    client = new HttpClient
         //    {
-        //        BaseAddress = new Uri("https://cookitprowebapi.azurewebsites.net/")
+        //        BaseAddress = new Uri("http://cookitrestapi.azurewebsites.net/")
         //    };
 
         //}

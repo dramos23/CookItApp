@@ -47,22 +47,19 @@ namespace CookItApp.Views
 
         }
 
-        private void Notificaciones()
-        {
-            ConfigNotificaciones();
-        }
 
 
-        private async Task ConfigNotificaciones()
+
+        private async void Notificaciones()
         {
 
-            if (!App.ConfigNoti || !AppCenter.Configured)
+            if (!AppCenter.Configured)
             {
-                App.ConfigNoti = true;
+
 
                 await Push.SetEnabledAsync(true);
 
-                Push.PushNotificationReceived += (sender, e) =>
+                Push.PushNotificationReceived += async (sender, e) =>
                 {
 
                     if (e.CustomData.Keys.Contains("Reto"))
@@ -70,34 +67,29 @@ namespace CookItApp.Views
                         int idReto = Convert.ToInt32(e.CustomData["RetoID"]);
                         int idNoti = Convert.ToInt32(e.CustomData["NotificacionID"]);
 
-                        if (idReto != IdR && idNoti != IdN){
-
-                            IdN = idNoti;
-                            IdR = idReto;
-                            CapturarNotificacion(e, idNoti, idReto);
-
-                        }
-                        else
-                        {
-                            DisplayAlert(e.Title, e.Message, "Continuar");
-                        }
+                        await ProcesarNotificacion(e, idNoti, idReto);
+                    }
+                    else
+                    {
+                        await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
                     }
 
-                };                               
-
-                System.Guid? uuid = await AppCenter.GetInstallIdAsync();
-
-                Usuario._DeviceId = uuid;
-
-                bool ret = await App.RestService.UpdateUUID(Usuario);
-
-
+                };                    
 
             }
 
+            AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
+
+            System.Guid? uuid = await AppCenter.GetInstallIdAsync();
+
+            Usuario._DeviceId = uuid;
+
+            bool ret = await App.RestService.UpdateUUID(Usuario);
+
+
         }
 
-        private async Task CapturarNotificacion(PushNotificationReceivedEventArgs e, int idNoti,int idReto)
+        private async Task ProcesarNotificacion(PushNotificationReceivedEventArgs e, int idNoti,int idReto)
         {
             bool notificacion = await Usuario._Perfil.TraerNotificacion(idNoti);
             if (notificacion)

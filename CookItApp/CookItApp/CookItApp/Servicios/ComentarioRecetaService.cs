@@ -17,7 +17,7 @@ namespace CookItApp.Data
 
         public ComentarioRecetaService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/Recetas/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/Recetas/";
 
         }
 
@@ -124,7 +124,7 @@ namespace CookItApp.Data
         //{
 
         //    client = new HttpClient();
-        //    client.BaseAddress = new Uri("https://cookitprowebapi.azurewebsites.net/");
+        //    client.BaseAddress = new Uri("http://cookitrestapi.azurewebsites.net/");
 
         //}
 

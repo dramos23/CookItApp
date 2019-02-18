@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Xamarin.Forms;
 
@@ -29,14 +30,15 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    List<IngredienteReceta> ingredienteRecetas = database.Table<IngredienteReceta>().Where(ir => ir._IdReceta == IdReceta) .ToList();
-                    foreach(IngredienteReceta ir in ingredienteRecetas)
+
+                    List<IngredienteReceta> ingredienteRecetas = database.Table<IngredienteReceta>().Where(ir => ir._IdReceta == IdReceta).ToList();
+                    foreach (IngredienteReceta ir in ingredienteRecetas)
                     {
                         ir._Ingrediente = App.DataBase.Ingrediente.Obtener(ir._IdIngrediente);
                     }
 
                     return ingredienteRecetas;
-
+                   
                 }
             }
         }

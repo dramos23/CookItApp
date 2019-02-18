@@ -12,51 +12,40 @@
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
 
-        <ListView x:Name="ListaNotificacion" ItemsSource="{Binding Notificaciones}" HasUnevenRows="True" ItemSelected="ListaNotificacion_ItemSelected" IsVisible="{Binding  Lista}">
+        <ListView x:Name="ListaNotificacion" ItemsSource="{Binding Notificaciones}" HasUnevenRows="True" SelectedItem="none" IsVisible="{Binding  Lista}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="10" Orientation="Vertical" BackgroundColor="{Binding _Color}">
-                            <Label Text="{Binding _FechaHora}" 
-                                LineBreakMode="NoWrap"
-                                TextColor="Black"
-                                HorizontalOptions="End"   
-                                FontSize="13" />
-                            <Label Text="{Binding _Titulo}" 
-                                LineBreakMode="NoWrap" 
-                                TextColor="Black" 
-                                FontSize="16" />
-                            <Label Text="{Binding _Descripcion}" 
-                                LineBreakMode="NoWrap"
-                                TextColor="Black"
-                                FontSize="14" MaxLines="9" />
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Padding="1"  Margin="0" VerticalOptions="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="8*"/>
-                                    </Grid.ColumnDefinitions>
+                        <Frame CornerRadius="10" Margin="10">
+                            <StackLayout>
+                                <Grid Padding="10">
 
-                                    <Button Grid.Column="0" x:Name="IrReceta"  Image="breakfast.png" Clicked="IrReceta_Clicked" VerticalOptions="Center" BackgroundColor="#00748A"/>
-                                    <Label Grid.Column="1" Text="Ver receta" VerticalOptions="Center" TextColor="Black"/>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"/>
+                                        <ColumnDefinition Width="50*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Column="0" Grid.Row="0" Text="{Binding _FechaHora}" LineBreakMode="NoWrap" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" FontSize="13" />
+                                    <Image Grid.Column="1" Grid.Row="0" x:Name="ImgEmailEstado" Source="{Binding _Foto}" VerticalOptions="Center" HorizontalOptions="End"  AutomationId="{Binding _NotificacionId}">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding _Titulo}" LineBreakMode="NoWrap" TextColor="Black" FontSize="16" Margin="0,5"/>
+                                    <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding _Desc}" LineBreakMode="NoWrap" TextColor="Black" FontSize="14" MaxLines="9" Margin="0,5"/>
+                                    <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" x:Name="IrReceta"  Text="Mostrar Receta" Clicked="IrReceta_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
+                                    <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" x:Name="IrReto" Text="Mostrar Desafío" Clicked="IrReto_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
 
                                 </Grid>
-                                <Grid Grid.Row="1" Padding="1"  Margin="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="8*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Button Grid.Column="0" x:Name="IrReto" Image="reto.png" Clicked="IrReto_Clicked" VerticalOptions="Center"  BackgroundColor="#00748A"/>
-                                    <Label Grid.Column="1" Text="Ver reto" VerticalOptions="Center" TextColor="Black"/>
-
-                                </Grid>
-                            </Grid>
-                        </StackLayout>
+                            </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
