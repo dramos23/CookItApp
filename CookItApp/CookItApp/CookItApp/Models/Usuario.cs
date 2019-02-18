@@ -22,8 +22,7 @@ namespace CookItApp.Models
         }
 
         [PrimaryKey]
-        public string _Email { get; set; }
-        public string _IdUsuario { get; set; }
+        public string _Email { get; set; }        
         public System.Guid? _DeviceId { get; set; }
         public TipoCuenta _TipoCuenta { get; set; }
         public TipoUsuario _TipoUsuario { get; set; }
@@ -44,7 +43,7 @@ namespace CookItApp.Models
         }
 
         public Usuario(string Email, string Password, Guid? DeviceId, DateTime UltimoIngreso)
-        {
+        {            
             _Email = Email;
             _DeviceId = DeviceId;
             _Password = Password;

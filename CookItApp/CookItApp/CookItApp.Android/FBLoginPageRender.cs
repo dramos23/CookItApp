@@ -16,7 +16,7 @@ namespace CookItApp.Droid
 {
     public class FBLoginPageRenderer : PageRenderer
     {
-        private global::CookItApp.Views.FBLoginPage view;
+        
         private FBLoginPage fBLoginPage;
 
         public FBLoginPageRenderer(Context context) : base(context)

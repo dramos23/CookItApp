@@ -38,6 +38,7 @@ namespace CookItApp.Views
 
                 Dictionary<string, string> cambio = new Dictionary<string, string>
                 {
+                    { "IdUsuario", entryEmail.Text },
                     { "Email", entryEmail.Text },
                     { "ContAnterior", entryContActual.Text },
                     { "ContNueva", entryContNueva.Text }

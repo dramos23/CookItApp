@@ -39,7 +39,7 @@ namespace CookItApp.ViewModels
             Perfil perfil = new Perfil()
             {
 
-                _Email = usuarioFacebook.email,
+                _Email = usuarioFacebook.id,
                 _Apellido = usuarioFacebook.last_name,
                 _Nombre = usuarioFacebook.first_name,
                 _NombreUsuario = usuarioFacebook.first_name + " " + usuarioFacebook.last_name,
@@ -69,8 +69,7 @@ namespace CookItApp.ViewModels
             Usuario usuario = new Usuario()
             {
 
-                _Email = usuarioFacebook.email,
-                _IdUsuario = usuarioFacebook.id,
+                _Email = usuarioFacebook.id,                
                 _DeviceId = null,
                 _TipoCuenta = Usuario.TipoCuenta.Facebook,
                 _TipoUsuario = Usuario.TipoUsuario.Cliente,

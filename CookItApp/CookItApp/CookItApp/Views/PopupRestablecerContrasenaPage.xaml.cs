@@ -24,9 +24,9 @@ namespace CookItApp.Views
         {
             UserDialogs.Instance.ShowLoading("Restableciendo..");
 
-            string email = entryEmail.Text;
+            string idUsuario = entryEmail.Text;
 
-            var resultado = App.RestService.RestablecerContraseña(email);
+            var resultado = App.RestService.RestablecerContraseña(idUsuario);
 
             if (resultado.Result) {
 

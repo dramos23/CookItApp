@@ -148,10 +148,10 @@ namespace CookItApp.Data
 
         }
 
-        public async Task<Guid?> ObtenerUUID(string email)
+        public async Task<Guid?> ObtenerUUID(string idUsuario)
         {
             Token token = App.DataBase.Token.Obtener();
-            string Url = Web + "ObtenerUUID/" + email;
+            string Url = Web + "ObtenerUUID/" + idUsuario;
 
             using (HttpClient client = new HttpClient())
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
@@ -171,9 +171,9 @@ namespace CookItApp.Data
         }
 
 
-        public async Task<bool> RestablecerContraseña(string email)
+        public async Task<bool> RestablecerContraseña(string idUsuario)
         {
-            string Url = Web + "Restablecer/" + email;
+            string Url = Web + "Restablecer/" + idUsuario;
 
             using (HttpClient client = new HttpClient())
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))
