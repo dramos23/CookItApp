@@ -32,10 +32,26 @@ namespace CookItApp.Models
         public string _Tabla { get; set; }
 
         [JsonIgnore]
-        public Color _Color { get { return _Estado == 0 ? Color.FromHex("#D8D8D8") : Color.White; } }
+        [Ignore]
+        public string _Desc
+        {
+            get { return ConvertText(_Descripcion); }
+        }
+
+        [JsonIgnore]
+        public ImageSource _Foto { get { return _Estado == 0 ? "sinleer.png" : "leido.png"; } }
 
         public Notificacion()
         {
+        }
+
+        private string ConvertText(string value)
+        {
+            if (value != null)
+            {
+                value = (value as string).Replace("\\n", Environment.NewLine + Environment.NewLine);
+            }
+            return value;
         }
     }
 }

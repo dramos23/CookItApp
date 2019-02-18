@@ -20,7 +20,7 @@ namespace CookItApp.Models
             Master = 5
         }
         
-        [PrimaryKey]
+        [PrimaryKey]        
         public string _Email { get; set; }
         [JsonIgnore]
         [Ignore]

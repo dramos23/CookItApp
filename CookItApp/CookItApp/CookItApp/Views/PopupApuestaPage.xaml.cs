@@ -64,39 +64,38 @@ namespace CookItApp.Views
             Reto reto = new Reto
             {
                 _EmailUsuOri = _Usuario._Email,
-                _NomUsuOri = _Usuario._Perfil._NombreUsuario,   
+                _NomUsuOri = _Usuario._Perfil._NombreUsuario,
                 _ComentarioOrigen = ComentaioOrigen.Text,
                 _EmailUsuDes = _UsuarioSelected._Email,
                 _NomUsuDes = _UsuarioSelected._NombreUsuario,
                 _RecetaId = _Receta._IdReceta,
+                _Receta = _Receta,
                 _Fecha = DateTime.Now,
                 _IdEstadoReto = 1,
                 _Puntaje = Convert.ToInt32(Math.Round(_Receta._Dificultad + _Receta._PuntajeTotal, 0))
             };
 
-            if (reto != null) {
-                
-                int idReto = await App.RetoService.Alta(reto);
-                reto._IdReto = idReto;
+            int estado = await VMPopupApuesta.CrearReto(reto);
 
-                if (reto != null)
-                {
+            UserDialogs.Instance.HideLoading();
 
-                    App.DataBase.Reto.Guardar(reto);
-                    UserDialogs.Instance.HideLoading();
-                    await DisplayAlert("Reto", "Reto enviado...", "OK");
-
-                }
-                else {
-
-                    UserDialogs.Instance.HideLoading();
-                    await DisplayAlert("Reto", "Aún matiene un reto pendiente con el usuario.", "OK");
-
-                }
-
-                await PopupNavigation.Instance.PopAsync();
-
+            if (estado == -1)
+            {
+                await UserDialogs.Instance.AlertAsync("Aún matiene un reto pendiente con el usuario.", "Atención!", "Continuar");
             }
+
+            if (estado == 0)
+            {                
+                await UserDialogs.Instance.AlertAsync("Error interno, reinicia la aplicación.", "Error!", "Continuar");
+            }
+
+            if (estado == 1)
+            {                
+                await UserDialogs.Instance.AlertAsync("Reto enviado...", "Reto", "Continuar");
+            }
+
+            
+            await PopupNavigation.Instance.PopAsync();
 
         }
 

@@ -16,7 +16,7 @@ namespace CookItApp.Views
 	public partial class ListaNotificacionesPage : ContentPage
 	{
 
-        NotificacionListVM _ViewModelNotificacion;
+        NotificacionListVM VMNotificacion;
         Usuario _Usuario;
 
 		public ListaNotificacionesPage (Usuario Usuario)
@@ -24,9 +24,9 @@ namespace CookItApp.Views
 			InitializeComponent ();
             _Usuario = Usuario;
             //Se inicializa el ViewModelUsuario
-            _ViewModelNotificacion = new NotificacionListVM();
+            VMNotificacion = new NotificacionListVM();
             //Este "BindingContext" le dice a Xamarin que elemento es el que vamos a usar para mostrar cosas visuales en la vista.
-            BindingContext = _ViewModelNotificacion;
+            BindingContext = VMNotificacion;
             //Paso siguiente: crear un "ListView" en el .xaml y atarlo a esto.
 		}
 
@@ -37,7 +37,7 @@ namespace CookItApp.Views
 
             Receta receta = new Receta()
             {
-                _IdReceta = Convert.ToInt32(notificacion._Pk3)
+                _IdReceta = Convert.ToInt32(notificacion._Pk2)
             };
             receta = await App.RecetaService.Obtener(receta);
             if (receta != null) {
@@ -73,31 +73,51 @@ namespace CookItApp.Views
 
         }
 
-        private async void ListaNotificacion_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            //Se levanta y castea la receta recibida del evento.
-            if (!(e.SelectedItem is Notificacion notificacion))
-            {
-                return;
-            }
+        //private async void ListaNotificacion_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    //Se levanta y castea la receta recibida del evento.
+        //    if (!(e.SelectedItem is Notificacion notificacion))
+        //    {
+        //        return;
+        //    }
+
+        //    if (notificacion._Estado.Equals(Notificacion.Estado.SinLeer))
+        //    {
+        //        notificacion._Estado = Notificacion.Estado.Leido;
+
+        //        bool actualizo = await App.NotificacionService.Modificar(notificacion);
+
+        //        if (actualizo)
+        //        {
+        //            App.DataBase.Notificacion.Modificar(notificacion);
+
+        //            VMNotificacion = new NotificacionListVM();
+        //            BindingContext = VMNotificacion;
+
+        //        }
+
+        //    }
+
+
+        //}
+
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {           
+            Image image = (Image)sender;
+
+            Notificacion notificacion = image.BindingContext as Notificacion;
 
             if (notificacion._Estado.Equals(Notificacion.Estado.SinLeer))
             {
-                notificacion._Estado = Notificacion.Estado.Leido;
 
-                bool actualizo = await App.NotificacionService.Modificar(notificacion);
+                bool actualizado = await VMNotificacion.MarcarLeido(notificacion);
 
-                if (actualizo)
+                if (actualizado)
                 {
-                    App.DataBase.Notificacion.Modificar(notificacion);
-
-                    _ViewModelNotificacion = new NotificacionListVM();                    
-                    BindingContext = _ViewModelNotificacion;
-
+                    VMNotificacion = new NotificacionListVM();
+                    BindingContext = VMNotificacion;
                 }
-
             }
-
 
         }
     }

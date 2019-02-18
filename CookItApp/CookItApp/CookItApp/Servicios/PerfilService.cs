@@ -16,12 +16,12 @@ namespace CookItApp.Data
 
         public PerfilService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/Perfiles/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/Perfiles/";
 
         }
 
 
-        public async Task<Perfil> Alta(Perfil obj)
+        public async Task<bool> Alta(Perfil obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -39,16 +39,32 @@ namespace CookItApp.Data
                         .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
                         .ConfigureAwait(false))
                     {
-                        string JsonResult = response.Content.ReadAsStringAsync().Result;
-                        try
-                        {
-                            Perfil ContentResp = Deseralizar(JsonResult);
-                            return ContentResp;
-                        }
-                        catch(Exception)
-                        {
-                            return null;
-                        }
+                        return response.IsSuccessStatusCode;
+                    }
+                }
+            }
+
+        }
+
+
+        public async Task<bool> AltaFB(Perfil obj, Token token)
+        {            
+            string Url = Web + "PerfilFB";
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+                string json = JsonConvert.SerializeObject(obj);
+                using (StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                {
+                    request.Content = stringContent;
+
+                    using (HttpResponseMessage response = await client
+                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
+                    {
+                        return response.IsSuccessStatusCode;
                     }
                 }
             }
@@ -116,7 +132,7 @@ namespace CookItApp.Data
 
         }
 
-        public async Task<Perfil> Modificar(Perfil obj)
+        public async Task<bool> Modificar(Perfil obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -128,16 +144,7 @@ namespace CookItApp.Data
             {
                 using (HttpResponseMessage response = await client.PutAsync(Url, stringContent))
                 {
-                    string JsonResult = response.Content.ReadAsStringAsync().Result;
-                    try
-                    {
-                        Perfil ContentResp = Deseralizar(JsonResult);
-                        return ContentResp;
-                    }
-                    catch
-                    {
-                        return null;
-                    }
+                    return response.IsSuccessStatusCode;
                 }
             }
         }

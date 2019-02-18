@@ -26,7 +26,7 @@ namespace CookItApp.Droid.Data
 
         public SQLiteConnection GetConnection()
         {
-            var sqliteFileName = "CookItBD.db3";
+            var sqliteFileName = "CookItAppBD2.db3";
             string docPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var path = Path.Combine(docPath, sqliteFileName);
             var con = new SQLiteConnection(path);

@@ -1,7 +1,6 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CookItApp.Data;
-using CookItApp.Servicios;
 using CookItApp.Models;
 using CookItApp.Views;
 
@@ -9,6 +8,9 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
 using CookItApp.Controladores;
 using System.Diagnostics;
+using System;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CookItApp
@@ -36,6 +38,7 @@ namespace CookItApp
         static NotificacionService _NotificacionService;
         static EstadoRetoService _EstadoRetoService;
         static SupermercadoService _SupermercadoService;
+        static AppCenterNotiService _AppCenterNotiService;
 
         public App()
         {
@@ -45,23 +48,37 @@ namespace CookItApp
             
             ConfigNoti = false;
 
-            Usuario usuario = App.DataBase.Usuario.Obtener();
-            if (usuario == null)
+            try
             {
-                MainPage = new NavigationPage(new LoginPage());
+
+                Usuario usuario = App.DataBase.Usuario.Obtener();
+                if (usuario == null)
+                {
+                    App.DataBase.BorrarTodo();
+                    MainPage = new NavigationPage(new LoginPage());
+                }
+                else
+                {
+                    Perfil perfil = DataBase.Perfil.Obtener(usuario._Email);
+                    usuario._Perfil = perfil;
+                    MainPage = new NavigationPage(new MasterPage(usuario));
+                }
+
             }
-            else
+            catch (Exception e)
             {
-                Perfil perfil = DataBase.Perfil.Obtener(usuario._Email);
-                usuario._Perfil = perfil;
-                MainPage = new NavigationPage(new MasterPage(usuario));
+                Debug.Print(e.Message);
             }
 
         }
 
+
+
+
+
         protected override void OnStart()
         {
-            AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
+            
         }
 
         protected override void OnSleep()
@@ -79,6 +96,8 @@ namespace CookItApp
         {
            // Mensajes();
         }
+
+
 
         public static bool ConfigNoti
         {
@@ -234,6 +253,15 @@ namespace CookItApp
             {
                 if (_SupermercadoService == null) _SupermercadoService = new SupermercadoService();
                 return _SupermercadoService;
+            }
+        }
+
+        public static AppCenterNotiService AppCenterNotiService
+        {
+            get
+            {
+                if (_AppCenterNotiService == null) _AppCenterNotiService = new AppCenterNotiService();
+                return _AppCenterNotiService;
             }
         }
 

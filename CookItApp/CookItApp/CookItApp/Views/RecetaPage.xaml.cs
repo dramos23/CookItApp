@@ -92,8 +92,8 @@ namespace CookItApp.Views
             if (ControlPerfil() == true)
             {
                 UserDialogs.Instance.ShowLoading("Cargando..");
-                var perfiles = await App.PerfilService.ObtenerList();
-                perfiles = perfiles.Where(p => p._Email != Usuario._Perfil._Email).ToList();
+
+                List<Perfil> perfiles = await VMReceta.ObtenerPerfilesBasico(Usuario._Perfil._Email);
 
                 if (perfiles.Count > 0)
                 {

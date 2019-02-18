@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CookItApp.Servicios
+namespace CookItApp.Data
 {
     public class EstadoRetoService
     {
@@ -15,7 +15,7 @@ namespace CookItApp.Servicios
 
         public EstadoRetoService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/EstadoReto/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/EstadoReto/";
 
         }
 

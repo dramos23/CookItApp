@@ -7,17 +7,25 @@ namespace CookItApp.Models
 {
     public class Usuario
     {
-        public enum Tipo
+        public enum TipoCuenta
         {
             Local = 1,
             Google = 2,
             Facebook = 3
         }
 
-        
-        public string _Email { get; set; }
+        public enum TipoUsuario
+        {
+            Desarrollador = 0,
+            Adminitrador = 1,
+            Cliente = 2,
+        }
+
+        [PrimaryKey]
+        public string _Email { get; set; }        
         public System.Guid? _DeviceId { get; set; }
-        public Tipo _Tipo { get; set; }
+        public TipoCuenta _TipoCuenta { get; set; }
+        public TipoUsuario _TipoUsuario { get; set; }
         [Ignore]        
         public string _Password { get; set; }
         public DateTime _UltimoIngreso { get; set; }
@@ -35,7 +43,7 @@ namespace CookItApp.Models
         }
 
         public Usuario(string Email, string Password, Guid? DeviceId, DateTime UltimoIngreso)
-        {
+        {            
             _Email = Email;
             _DeviceId = DeviceId;
             _Password = Password;
@@ -43,11 +51,12 @@ namespace CookItApp.Models
         }
 
 
-        public Usuario(string Email, string Password, Guid? DeviceId, Tipo Tipo, DateTime UltimoIngreso)
+        public Usuario(string Email, string Password, string text, Guid? DeviceId, TipoCuenta TipoCuenta, TipoUsuario TipoUsuario, DateTime UltimoIngreso)
         {
             _Email = Email;
             _DeviceId = DeviceId;
-            _Tipo = Tipo;
+            _TipoCuenta = TipoCuenta;
+            _TipoUsuario = TipoUsuario;
             _Password = Password;
             _UltimoIngreso = UltimoIngreso;
         }

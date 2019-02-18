@@ -1,7 +1,7 @@
 ﻿using Acr.UserDialogs;
 using CookItApp.Controles;
 using CookItApp.Models;
-using CookItApp.Servicios;
+using CookItApp.Data;
 using CookItApp.ViewModels;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
@@ -127,6 +127,13 @@ namespace CookItApp.Views
         private async void BtnRegistrar_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RegisterPage());
+        }
+
+        private async void FacebookLogin_Clicked(object sender, EventArgs e)
+        {           
+
+            await Navigation.PushAsync(new FBLoginPage(), true);
+            Navigation.RemovePage(this);
         }
     }
 }

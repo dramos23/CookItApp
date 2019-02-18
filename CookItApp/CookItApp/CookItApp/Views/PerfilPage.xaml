@@ -6,170 +6,356 @@
     <ContentPage.Content>
 
         <ScrollView x:Name="scroll" Orientation="Vertical">
+            <StackLayout Padding="10" Orientation="Vertical">
+                <Grid Padding="0,0">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <StackLayout Grid.Row="0" Padding="30,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     
-                    <StackLayout Orientation="Vertical">
+                    <Frame x:Name="frameReceta" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" CornerRadius="10" >
+                        <Image x:Name="imgPerfil" Source="{Binding Foto}" Style="Border: 1px" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Frame>
+                    <Button x:Name="BtnSacarFoto" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="" Image="photo.png" Clicked="BtnSacarFoto_Clicked"  TextColor="White" BackgroundColor="#00748A" HeightRequest="50" Margin="0, 5"/>
+
+                    <Label Text="Email:" Grid.Column="0" Grid.Row="2" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5" />
+                    <Entry x:Name="entryEmail" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" PlaceholderColor="Black" Margin="0, 5" IsEnabled="False" Text="{Binding Email}"/>
+
+                    <Label Text="Nombre de usuario:" Grid.Column="0" Grid.Row="4" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Entry x:Name="entryNombreUsuario" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Placeholder="Ingresa un nombre de usuario" PlaceholderColor="Black" Margin="0, 5" Text="{Binding NombreUsuario}"/>
+
+                    <Label Text="Nombre:" Grid.Column="0" Grid.Row="6" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Entry x:Name="entryNombre" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Placeholder="Ingresa tu nombre" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Nombre}"/>
+
+                    <Label Text="Apellido:" Grid.Column="0" Grid.Row="8" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Entry x:Name="entryApellido" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Placeholder="Ingresa tu apellido" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Apellido}"/>
+
+                    <Label Text="Puntuación:" Grid.Column="0" Grid.Row="10" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Entry x:Name="entryPuntuacion" Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Puntuación}" IsEnabled="False"/>
+
+                    <Label Text="Categoría:" Grid.Column="0" Grid.Row="12" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Entry x:Name="entryCategoria" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Categoría}" IsEnabled="False"/>
+
+                    <Label Text="Usar filtros automáticos:" Grid.Column="0" Grid.Row="14" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Switch x:Name="togFiltrosAutomaticos"  Grid.Column="1" Grid.Row="14" IsToggled="{Binding FiltroAutomatico}" Toggled="TogFiltrosAutomaticos_Toggled" HorizontalOptions="End"/>
+
+                    <Grid x:Name="stkCeliaco" Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Apto para celiacos:"  Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togAptoCeliaco"   Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroCeliaco}" ></Switch>
+                    </Grid>
+
+                    <Grid x:Name="stkDiabetico" Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Apto para diabeticos:"  Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togAptoDiabetico"  Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroDiabetico}" ></Switch>
+                    </Grid>
+
+                    <Grid x:Name="stkVegano" Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Apto para veganos:"  Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togAptoVegano"  Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroVegano}" ></Switch>
+                    </Grid>
+
+                    <Grid x:Name="stkVegetariano" Grid.Column="0" Grid.Row="18" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Apto para vegetariano:"  Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togAptoVegetariano"  Grid.Column="1" Grid.Row="0"  IsToggled="{Binding FiltroVegetariano}" ></Switch>
+                    </Grid>
+
+                    <Grid x:Name="stkIngredientes" Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Filtrar por mis ingredientes:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togMisIngredientes"  Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroIngredientes}" ></Switch>
+                    </Grid>
+
+
+                    <Grid x:Name="stkCalorias"  Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Cantidad de calorias:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togCalorias" Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroCalorias}"  Toggled="TogCalorias_Toggled"></Switch>
+                    </Grid>
+
+                    <Grid x:Name="stkCaloriasV"  Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="2" Margin="0, 5"  IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label x:Name="lblCaloriasMin" Grid.Column="0" Grid.Row="0" Text="Min:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryCaloriasMin" Grid.Column="1" Grid.Row="0" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroCaloriasMin}" TextChanged="EntryCaloriasMin_TextChanged" />
+                        <Label x:Name="lblCaloriasMax" Grid.Column="0" Grid.Row="1" Text="Max:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" />
+                        <Entry x:Name="entryCaloriasMax"  Grid.Column="1" Grid.Row="1" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroCaloriasMax}" TextChanged="EntryCaloriasMax_TextChanged"/>
+                    </Grid>
+
+                    <Grid x:Name="stkPrecio" Grid.Column="0" Grid.Row="22" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Precio:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togPrecio"  Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroPrecio}"  Toggled="TogPrecio_Toggled"></Switch>
+                    </Grid>
+
+                    <Grid x:Name="stkPrecioV" Grid.Column="0" Grid.Row="23" Grid.ColumnSpan="2" Margin="0, 5"  IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label x:Name="lblPrecioMax" Grid.Column="0" Grid.Row="0" Text="Max:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" />
+                        <Entry x:Name="entryPrecioMax"  Grid.Column="1" Grid.Row="0" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroPrecioMin}" TextChanged="EntryPrecioMax_TextChanged"/>
+                        <Label x:Name="lblPrecioMin"  Grid.Column="0" Grid.Row="1" Text="Min:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryPrecioMin"  Grid.Column="1" Grid.Row="1" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroPrecioMax}" TextChanged="EntryPrecioMin_TextChanged"/>
+                    </Grid>
+
+                    <Grid x:Name="stkPlatos" Grid.Column="0" Grid.Row="24" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Cantidad de platos:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togCantPlatos" Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroCantPlatos}" Toggled="TogCantPlatos_Toggled"></Switch>
+                    </Grid>
+                    <Grid  x:Name="stkPlatosV" Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="2" Margin="0, 5"  IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         
-                        <Image x:Name="imgPerfil" Source="{Binding Foto}" Style="Border: 1px"/>
-                        <Button Text="" Image="photo.png" Clicked="BtnSacarFoto_Clicked"  TextColor="White" BackgroundColor="#00748A"/>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Email:" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5" />
-                            <Entry x:Name="entryEmail" PlaceholderColor="Black" Margin="0, 5" IsEnabled="False" Text="{Binding Email}"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Nombre de usuario:" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                            <Entry x:Name="entryNombreUsuario"  Placeholder="Ingresa un nombre de usuario" PlaceholderColor="Black" Margin="0, 5" Text="{Binding NombreUsuario}"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Nombre:" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                            <Entry x:Name="entryNombre"  Placeholder="Ingresa tu nombre" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Nombre}"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Apellido:" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                            <Entry x:Name="entryApellido" Placeholder="Ingresa tu apellido" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Apellido}"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Puntuación:" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                            <Entry x:Name="entryPuntuacion" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Puntuación}" IsEnabled="False"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label Text="Categoría:" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                            <Entry x:Name="entryCategoria" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Categoría}" IsEnabled="False"/>
-                        </StackLayout>
-                    </StackLayout>
-                    
-                    <StackLayout Orientation="Horizontal" Margin="0, 10">
-                        <Label Text="Usar filtros automáticos:" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                        <Switch x:Name="togFiltrosAutomaticos"  IsToggled="{Binding FiltroAutomatico}" Toggled="TogFiltrosAutomaticos_Toggled"></Switch>
-                    </StackLayout>
+                        <Label x:Name="lblCantPlatosMin" Grid.Column="0" Grid.Row="0" Text="Min:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryCantPlatosMin" Grid.Column="1" Grid.Row="0" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroCantPlatosMax}" TextChanged="EntryCantPlatosMin_TextChanged"/>
+                        <Label x:Name="lblCantPlatosMax" Grid.Column="0" Grid.Row="1" Text="Max:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" />
+                        <Entry x:Name="entryCantPlatosMax" Grid.Column="1" Grid.Row="1" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroCantPlatosMin}" TextChanged="EntryCantPlatosMax_TextChanged"/>
+                    </Grid>
 
-                    <StackLayout x:Name="stkCeliaco"  Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para celiacos:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togAptoCeliaco"  IsToggled="{Binding FiltroCeliaco}" ></Switch>
-                    </StackLayout>
+                    <Grid x:Name="stkTiempo" Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <StackLayout x:Name="stkDiabetico" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para diabeticos:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togAptoDiabetico" IsToggled="{Binding FiltroDiabetico}" ></Switch>
-                    </StackLayout>
+                        <Label Text="Tiempo de preparación:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togTiempoPreparacion" Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroTiempoPreparacion}"  Toggled="TogTiempoPreparacion_Toggled"></Switch>
+                    </Grid>
 
-                    <StackLayout x:Name="stkVegano"  Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para veganos:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togAptoVegano" IsToggled="{Binding FiltroVegano}" ></Switch>
-                    </StackLayout>
+                    <Grid  x:Name="stkTiempoV" Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="2" Margin="0, 5"  IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <StackLayout x:Name="stkVegetariano" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Apto para vegetariano:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togAptoVegetariano" IsToggled="{Binding FiltroVegetariano}" ></Switch>
-                    </StackLayout>
+                        <Label x:Name="lblTiempoPreparacionMin" Grid.Column="0" Grid.Row="0" Text="Min:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryTiempoPreparacionMin" Grid.Column="1" Grid.Row="0" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroTiempoPreparacionMax}" TextChanged="EntryTiempoPreparacionMin_TextChanged"/>
+                        <Label x:Name="lblTiempoPreparacionMax" Grid.Column="0" Grid.Row="1" Text="Max:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryTiempoPreparacionMax" Grid.Column="1" Grid.Row="1" Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroTiempoPreparacionMin}" TextChanged="EntryTiempoPreparacionMax_TextChanged"/>
+                    </Grid>
+
+                    <Grid x:Name="stkPuntaje" Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Puntaje total:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togPuntajeTotal" Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroPuntuacion}"  Toggled="TogPuntajeTotal_Toggled"></Switch>
+                    </Grid>
+                    <Grid x:Name="stkPuntajeV" Grid.Column="0" Grid.Row="29" Grid.ColumnSpan="2" Margin="0, 5"  IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label x:Name="lblPuntajeTotalMin" Grid.Column="0" Grid.Row="0" Text="Min:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryPuntajeTotalMin" Grid.Column="1" Grid.Row="0" Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroPuntuacionMax}" TextChanged="EntryPuntajeTotalMin_TextChanged"/>
+                        <Label x:Name="lblPuntajeTotalMax" Grid.Column="0" Grid.Row="1" Text="Max:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryPuntajeTotalMax" Grid.Column="1" Grid.Row="1" Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroPuntuacionMin}" TextChanged="EntryPuntajeTotalMax_TextChanged"/>
+                    </Grid>
+
+                    <Grid x:Name="stkDificultad" Grid.Column="0" Grid.Row="30" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Dificultad:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togDificultad" Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroDificultad}"  Toggled="TogDificultad_Toggled"></Switch>
+                    </Grid>
+                    <Grid x:Name="stkDificultadV" Grid.Column="0" Grid.Row="31" Grid.ColumnSpan="2" Margin="0, 5"  IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label x:Name="lblDificultadMin" Grid.Column="0" Grid.Row="1" Text="Min:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryDificultadMin" Grid.Column="1" Grid.Row="1" Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroDificultadMax}" TextChanged="EntryDificultadMin_TextChanged"/>
+                        <Label x:Name="lblDificultadMax" Grid.Column="0" Grid.Row="0" Text="Max:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center"/>
+                        <Entry x:Name="entryDificultadMax" Grid.Column="1" Grid.Row="0" Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" Text="{Binding FiltroDificultadMin}" TextChanged="EntryDificultadMax_TextChanged"/>
+
+                    </Grid>
+
+                    <Grid x:Name="stkMomento" Grid.Column="0" Grid.Row="32" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Momento del día:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togMomentoDia" Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroMomentoDia}"  Toggled="TogMomentoDia_Toggled"></Switch>
+                    </Grid>
+
+                    <Picker x:Name="picMomentoDia" Grid.Column="0" Grid.Row="33" Grid.ColumnSpan="2" Title="--- Selecionar ---" ItemsSource="{Binding ItemsMomentoDia}" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroMomentoDiaId}" IsVisible="{Binding FiltroMomentoDia}"/>
+
+                    <Grid x:Name="stkEstacion" Grid.Column="0" Grid.Row="34" Grid.ColumnSpan="2" Margin="0, 10" IsVisible="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Estación:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small"/>
+                        <Switch x:Name="togEstacion" Grid.Column="1" Grid.Row="0" IsToggled="{Binding FiltroEstacion}"  Toggled="TogEstacion_Toggled"></Switch>
+                    </Grid>
+
+                    <Picker x:Name="picEstacion" Grid.Column="0" Grid.Row="35" Grid.ColumnSpan="2" Title="--- Seleccionar ---" ItemsSource="{Binding ItemsEstacion}" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroEstacionId}" IsVisible="{Binding FiltroEstacion}" />
 
 
-                    <StackLayout x:Name="stkIngredientes" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Filtrar por mis ingredientes:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togMisIngredientes" IsToggled="{Binding FiltroIngredientes}" ></Switch>
-                    </StackLayout>
+                    <Button x:Name="GuardarPerfil" Grid.Column="0" Grid.Row="36" Grid.ColumnSpan="2" Text="Guardar Perfil"  Clicked="BtnGuardarPerfil_Clicked"  TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
-                    <StackLayout x:Name="stkCalorias" Orientation="Horizontal" Margin="0, 10" IsVisible="False">
-                        <Label Text="Cantidad de calorias:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togCalorias"  IsToggled="{Binding FiltroCalorias}"  Toggled="TogCalorias_Toggled"></Switch>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="0, 5">
-                        <Label x:Name="lblCaloriasMin"  Text="Min:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryCaloriasMin"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroCaloriasMin}"/>
-                        <Label x:Name="lblCaloriasMax" Text="Max:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False" />
-                    <Entry x:Name="entryCaloriasMax"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroCaloriasMax}"/>
-                    </StackLayout>
+                    <Button x:Name="BtnCambiarCont" Grid.Column="0" Grid.Row="37" Grid.ColumnSpan="2" Text="Cambiar Contraseña"  Clicked="BtnCambiarCont_Clicked"  TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
-                    <StackLayout x:Name="stkPrecio" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Precio:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togPrecio"  IsToggled="{Binding FiltroPrecio}"  Toggled="TogPrecio_Toggled"></Switch>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="0, 5">
-                        <Label x:Name="lblCostoMayorIgual"  Text="Mayor a:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryCostoMayorIgual"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroPrecioMin}"/>
-                        <Label x:Name="lblCostoMenorIgual" Text="Menor a:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryCostoMenorIgual"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroPrecioMax}"/>
-                    </StackLayout>
-
-                    <StackLayout x:Name="stkPlatos" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Cantidad de porciones:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togCantPlatos"  IsToggled="{Binding FiltroCantPlatos}" Toggled="TogCantPlatos_Toggled"></Switch>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="0, 5">
-                        <Label x:Name="lblCantPlatosMayorIgual"  Text="Mayor a:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryCantPlatosMayorIgual"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroCantPlatosMin}"/>
-                        <Label x:Name="lblCantPlatosMenorIgual" Text="Menor a:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryCantPlatosMenorIgual"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroCantPlatosMax}"/>
-                    </StackLayout>
-
-                    <StackLayout x:Name="stkTiempo" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Tiempo de preparación:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togTiempoPreparacion" IsToggled="{Binding FiltroTiempoPreparacion}"  Toggled="TogTiempoPreparacion_Toggled"></Switch>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="0, 5">
-                        <Label x:Name="lblTiempoPreparacionMayorIgual"  Text="Mayor a:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryTiempoPreparacionMayorIgual"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroTiempoPreparacionMin}"/>
-                        <Label x:Name="lblTiempoPreparacionMenorIgual" Text="Menor a:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryTiempoPreparacionMenorIgual"  Placeholder="0" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroTiempoPreparacionMax}"/>
-                    </StackLayout>
-
-                    <StackLayout x:Name="stkPuntaje" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Puntaje total:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                    <Switch x:Name="togPuntajeTotal"  IsToggled="{Binding FiltroPuntuacion}"  Toggled="TogPuntajeTotal_Toggled"></Switch>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="0, 5">
-                        <Label x:Name="lblPuntajeTotalMayorIgual"  Text="Mayor Igual:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryPuntajeTotalMayorIgual"  Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroPuntuacionMin}"/>
-                        <Label x:Name="lblPuntajeTotalMenorIgual" Text="Menor Igual:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryPuntajeTotalMenorIgual"  Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroPuntuacionMax}"/>
-                    </StackLayout>
-
-                    <StackLayout x:Name="stkDificultad" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Dificultad:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togDificultad"  IsToggled="{Binding FiltroDificultad}"  Toggled="TogDificultad_Toggled"></Switch>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="0, 5">
-                        <Label x:Name="lblDificultadMayorIgual"  Text="Mayor Igual:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryDificultadMayorIgual"  Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroDificultadMin}"/>
-                        <Label x:Name="lblDificultadMenorIgual" Text="Menor Igual:"  TextColor="Black" FontAttributes="None" FontSize="Small" VerticalOptions="Center" IsVisible="False"/>
-                    <Entry x:Name="entryDificultadMenorIgual"  Placeholder="1" PlaceholderColor="Black" Keyboard="Numeric" MaxLength="4" VerticalOptions="Center" IsVisible="False" Text="{Binding FiltroDificultadMax}"/>
-                </StackLayout>
-
-                    <StackLayout x:Name="stkMomento" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Momento del día:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togMomentoDia"  IsToggled="{Binding FiltroMomentoDia}"  Toggled="TogMomentoDia_Toggled"></Switch>
-                    </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="0, 5">
-                    <Picker x:Name="picMomentoDia"  Title="--- Selecionar ---" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroMomentoDiaId}" IsVisible="{Binding FiltroMomentoDia}" MinimumWidthRequest="100"/>
-                </StackLayout>
-
-                    <StackLayout x:Name="stkEstacion" Orientation="Horizontal" Margin="0, 5" IsVisible="False">
-                        <Label Text="Estación:" TextColor="Black" FontAttributes="None" FontSize="Small"/>
-                        <Switch x:Name="togEstacion"  IsToggled="{Binding FiltroEstacion}"  Toggled="TogEstacion_Toggled"></Switch>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="0, 5">
-                    <Picker x:Name="picEstacion"  Title="--- Seleccionar ---" ItemsSource="Ingrediente.Estacion" IsVisible="False" />
-                </StackLayout>
-                    
-                    <StackLayout Orientation="Vertical" Margin="0, 5">
-                        <Button x:Name="GuardarPerfil" Text="Guardar Perfil"  Clicked="BtnGuardarPerfil_Clicked"  TextColor="White" BackgroundColor="#00748A"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" Margin="0, 5">
-                        <Button x:Name="BtnCambiarCont" Text="Cambiar Contraseña"  Clicked="BtnCambiarCont_Clicked"  TextColor="White" BackgroundColor="#00748A"/>
-                    </StackLayout>
-
-                </StackLayout>
-        
-            </Grid>
-
+                </Grid>
+            </StackLayout>
         </ScrollView>
         
     </ContentPage.Content>

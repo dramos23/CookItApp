@@ -17,7 +17,7 @@ namespace CookItApp.Data
 
         public UsuarioService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/Cuenta/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/Cuenta/";
         }
 
 
@@ -30,6 +30,40 @@ namespace CookItApp.Data
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))
             {
                 
+                string json = JsonConvert.SerializeObject(obj);
+                using (StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                {
+                    request.Content = stringContent;
+
+                    using (HttpResponseMessage response = await client
+                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
+                    {
+                        string JsonResult = response.Content.ReadAsStringAsync().Result;
+                        try
+                        {
+                            Token ContentResp = Deseralizar(JsonResult);
+                            return ContentResp;
+                        }
+                        catch (Exception)
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        public async Task<Token> RegistrarFB(Usuario obj)
+        {
+
+            string Url = Web + "RegistrarFB";
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))
+            {
+
                 string json = JsonConvert.SerializeObject(obj);
                 using (StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
                 {
@@ -114,10 +148,32 @@ namespace CookItApp.Data
 
         }
 
-
-        public async Task<bool> RestablecerContraseña(string email)
+        public async Task<Guid?> ObtenerUUID(string idUsuario)
         {
-            string Url = Web + "Restablecer/" + email;
+            Token token = App.DataBase.Token.Obtener();
+            string Url = Web + "ObtenerUUID/" + idUsuario;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+
+
+                using (HttpResponseMessage response = await client
+                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                    .ConfigureAwait(false))
+                {
+                    return JsonConvert.DeserializeObject<Guid?>(response.Content.ReadAsStringAsync().Result);
+                }
+
+            }
+
+        }
+
+
+        public async Task<bool> RestablecerContraseña(string idUsuario)
+        {
+            string Url = Web + "Restablecer/" + idUsuario;
 
             using (HttpClient client = new HttpClient())
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))

@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CookItApp.Servicios
+namespace CookItApp.Data
 {
     public class IngredienteUsuarioService
     {
@@ -15,7 +15,7 @@ namespace CookItApp.Servicios
 
         public IngredienteUsuarioService()
         {
-            Web = "https://cookitprowebapi.azurewebsites.net/api/IngredientesUsuario/";
+            Web = "http://cookitrestapi.azurewebsites.net/api/IngredientesUsuario/";
 
         }
 
