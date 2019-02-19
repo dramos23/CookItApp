@@ -12,30 +12,36 @@
         <controles:AnimacionBase/>
     </pages:PopupPage.Animation>
     <pages:PopupPage.Content>
-        <StackLayout BackgroundColor="{StaticResource colorPrimaryVariant}" Padding="5,5,5,5" VerticalOptions="Center" HorizontalOptions="Center">
-            <Grid VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="LightGray" Padding="10">
+        <StackLayout BackgroundColor="Black" Padding="5,5,5,5" VerticalOptions="Center" HorizontalOptions="Center">
+            <Grid VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" Padding="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3.3*"/>
-                    <RowDefinition Height="3.3*"/>
-                    <RowDefinition Height="3.3*"/>
+                    <RowDefinition Height="2.5*"/>
+                    <RowDefinition Height="2.5*"/>
+                    <RowDefinition Height="2.5*"/>
+                    <RowDefinition Height="2.5*"/>
                 </Grid.RowDefinitions>
                 
-                <Label Grid.Row="0" Grid.Column="0" Text="Menor igual a:" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
-                <Picker x:Name="picMin"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Title="Seleccione"  />
-                <Label Grid.Row="1" Grid.Column="0" Text="Mayor igual a:" FontSize="Small" FontAttributes="Bold" VerticalOptions ="Center" TextColor="{StaticResource colorOnBackground}"/>
-                <Picker x:Name="picMax"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Title="Seleccione"  />
+                <Label Text="Puntuación" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalTextAlignment="Center" FontSize="Medium" FontAttributes="Bold" BackgroundColor="{StaticResource colorSecondary}"/>
+                
+                <Label Grid.Row="1" Grid.Column="0" Text="Menor igual a:" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
+                <Picker x:Name="picMin"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Title="Seleccione"  />
+                <Label Grid.Row="2" Grid.Column="0" Text="Mayor igual a:" FontSize="Small" FontAttributes="Bold" VerticalOptions ="Center" TextColor="{StaticResource colorOnBackground}"/>
+                <Picker x:Name="picMax"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Title="Seleccione"  />
 
-                <Image  Grid.Row="2" Grid.Column="0"
+                <Image Grid.Row="3" Grid.Column="0"
                     Source="iconOk.png"
-                   Style="{StaticResource estiloBotonImagen}">
+                   Style="{StaticResource estiloBotonImagen}"
+                        HorizontalOptions="Center">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Ok_Tapped" NumberOfTapsRequired="1"/>
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Grid.Row="2" Grid.Column="1"
+                <Image Grid.Row="3" Grid.Column="1"
                     Source="iconCancel.png"
                    Style="{StaticResource estiloBotonImagen}"
-                       >
+                       HorizontalOptions="Center">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Cancel_Tapped" NumberOfTapsRequired="1"/>
                     </Image.GestureRecognizers>

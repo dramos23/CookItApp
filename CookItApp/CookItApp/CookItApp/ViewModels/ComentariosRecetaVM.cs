@@ -33,7 +33,6 @@ namespace CookItApp.ViewModels
 
         internal void AgregarComentario(ComentarioReceta nuevo)
         {
-            _ComentariosReceta.Add(nuevo);
             GenerarListaObservable();
         }
     }

@@ -33,12 +33,12 @@ namespace CookItApp.Views.PopupFiltros
             try
             {
                 int id = picEstacion.SelectedIndex;
-                if (picEstacion.SelectedIndex == -1) throw new Exception("Tienes que seleccionar una opcion");
+                if (picEstacion.SelectedIndex == -1) throw new Exception("Tienes que seleccionar una opcion.");
                 ViewModel.IngresarFiltroEstacion(id);
                 CerrarPopup();
             }catch(Exception ex)
             {
-                await PopupNavigation.Instance.PushAsync(new PopupMensaje(ViewModel.Usuario, "Error en tu filtro", ex.Message));
+                await PopupNavigation.Instance.PushAsync(new PopupMensaje(ViewModel.Usuario, "Error en filtro", ex.Message));
             }
         }
 

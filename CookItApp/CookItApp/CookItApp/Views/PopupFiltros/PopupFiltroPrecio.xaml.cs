@@ -26,9 +26,9 @@ namespace CookItApp.Views.PopupFiltros
         {
             if (!ValidarCasillas()) return;
             int min = -1;
-            if(entMinimo.Text != "" && entMinimo.Text.Trim() != "") min = Convert.ToInt32(entMinimo.Text);
+            if(entMinimo.Text != null && entMinimo.Text.Trim() != "") min = Convert.ToInt32(entMinimo.Text);
             int max = -1;
-            if (entMaximo.Text != "" && entMaximo.Text.Trim() != "") max = Convert.ToInt32(entMaximo.Text);
+            if (entMaximo.Text != null && entMaximo.Text.Trim() != "") max = Convert.ToInt32(entMaximo.Text);
             if(min != -1 && max != -1)
             {
                 if (min > max)
