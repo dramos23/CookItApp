@@ -42,6 +42,12 @@ namespace CookItApp.Models
             _Fecha = Fecha;
             _Puntaje = Puntaje;
         }
+
+        public void Validar()
+        {
+            if (this._Comentario.Trim() == "") throw new Exception("Se tiene que insertar un texto para el comentario.");
+            if (this._Puntaje < 1) throw new Exception("Se debe elegir un puntaje para la receta.");
+        }
     }
 
 }

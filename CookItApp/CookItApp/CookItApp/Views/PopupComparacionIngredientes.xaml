@@ -13,48 +13,48 @@
         <controles:AnimacionBase/>
     </pages:PopupPage.Animation>
     <pages:PopupPage.Content>
-        <Grid>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="4">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
                 <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Grid Padding="5" BackgroundColor="White" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="2.5*"/>
-            </Grid.RowDefinitions>
+            <Grid Padding="5" BackgroundColor="White" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="2.5*"/>
+                </Grid.RowDefinitions>
 
-            <Label Text="Ingredientes listos" HorizontalOptions="Center" VerticalOptions="Center"
+                <Label Text="Ingredientes listos" HorizontalOptions="Center" VerticalOptions="Center"
                    FontAttributes="Bold" FontSize="Small" TextColor="Black" 
                    BackgroundColor="{StaticResource colorSecondary}"
                    Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="Center"/>
-            
-            <xforms:SfListView x:Name="ListaIngredientesHeladera" ItemsSource="{Binding IngredientesEnHeladera}"
+
+                <xforms:SfListView x:Name="ListaIngredientesHeladera" ItemsSource="{Binding IngredientesEnHeladera}"
                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
                                ItemSize="40"
-                               Grid.Row="2" Grid.Column="0">
-                <xforms:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Black" Padding="5">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="7*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                </Grid.ColumnDefinitions>
+                               Grid.Row="1" Grid.Column="0">
+                    <xforms:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Black" Padding="3">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label FontSize="Small" Text="{Binding _Ingrediente._Nombre}" TextColor="{StaticResource colorOnBackground}"
+                                    <Label FontSize="Micro" Text="{Binding _Ingrediente._Nombre}" TextColor="{StaticResource colorOnBackground}"
                                        Grid.Column="0"  HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
-                                
-                                <Label FontSize="Small" Text="{Binding _CantidadMedida}" TextColor="{StaticResource colorOnBackground}"
-                                       Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </xforms:SfListView.ItemTemplate>
-            </xforms:SfListView>
 
-            <Label Text="Ingredientes con cantidad insuficiente" HorizontalOptions="Center" VerticalOptions="Center"
+                                    <Label FontSize="Micro" Text="{Binding _CantidadMedida}" TextColor="{StaticResource colorOnBackground}"
+                                       Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </xforms:SfListView.ItemTemplate>
+                </xforms:SfListView>
+
+                <Label Text="Ingredientes con cantidad insuficiente" HorizontalOptions="Center" VerticalOptions="Center"
                    FontAttributes="Bold" FontSize="Small" TextColor="Black"
                    BackgroundColor="{StaticResource colorPrimaryVariant}"
                    Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center"/>
@@ -65,17 +65,17 @@
                                Grid.Row="1" Grid.Column="1">
                 <xforms:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BorderColor="Black" Padding="5">
+                        <Frame BorderColor="Black" Padding="3">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="7*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label FontSize="Small" Text="{Binding _Ingrediente._Nombre}" TextColor="{StaticResource colorOnBackground}"
+                                <Label FontSize="Micro" Text="{Binding _Ingrediente._Nombre}" TextColor="{StaticResource colorOnBackground}"
                                        Grid.Column="0"  HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
 
-                                <Label FontSize="Small" Text="{Binding _CantidadMedida}" TextColor="{StaticResource colorOnBackground}"
+                                <Label FontSize="Micro" Text="{Binding _CantidadMedida}" TextColor="{StaticResource colorOnBackground}"
                                        Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                             </Grid>
                         </Frame>
@@ -88,36 +88,37 @@
                    BackgroundColor="{StaticResource colorPrimary}"
                    Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Center"/>
 
-            <xforms:SfListView x:Name="ListaIngredientesFaltantes" ItemsSource="{Binding IngredientesFaltantes}"
+                <xforms:SfListView x:Name="ListaIngredientesFaltantes" ItemsSource="{Binding IngredientesFaltantes}"
                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
                                Grid.Row="1" Grid.Column="2">
-                <xforms:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Black" Padding="5">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="7*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                </Grid.ColumnDefinitions>
+                    <xforms:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Black" Padding="3">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label FontSize="Small" Text="{Binding _Ingrediente._Nombre}" TextColor="Black"                                      
+                                    <Label FontSize="Micro" Text="{Binding _Ingrediente._Nombre}" TextColor="Black"                                      
                                        Grid.Column="0"  HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
 
-                                <Label FontSize="Small" Text="{Binding _CantidadMedida}" TextColor="Black"
+                                    <Label FontSize="Micro" Text="{Binding _CantidadMedida}" TextColor="Black"
                                        Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </xforms:SfListView.ItemTemplate>
-            </xforms:SfListView>
-
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </xforms:SfListView.ItemTemplate>
+                </xforms:SfListView>
+            </Grid>
+            
             <Image x:Name="imgCerrar" Style="{StaticResource estiloBotonImagenGrande}"
-                   Grid.Row="2" Grid.ColumnSpan="3" Source="volverReceta.png">
+                   Grid.Row="1" Source="volverReceta.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ImgCerrar_Tapped" NumberOfTapsRequired="1"/>
                 </Image.GestureRecognizers>
             </Image>
-            </Grid>
         </Grid>
+
     </pages:PopupPage.Content>
 </pages:PopupPage>

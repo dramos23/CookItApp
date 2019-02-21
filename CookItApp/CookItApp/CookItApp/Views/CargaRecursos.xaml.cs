@@ -64,7 +64,7 @@ namespace CookItApp.Views
             {
                 App.DataBase.Supermercado.GuardarList(supermercados);
             }
-
+            
             //lblTexto.Text = "Cargando recetas..";
             UserDialogs.Instance.ShowLoading("Cargando recetas..");
             List<Receta> recetas = await App.RecetaService.ObtenerList(usuario);
@@ -81,7 +81,7 @@ namespace CookItApp.Views
             {                
                 App.DataBase.HistorialReceta.GuardarList(historialReceta);
             }
-
+            
             //lblTexto.Text = "Cargando perfil..";
             UserDialogs.Instance.ShowLoading("Cargando perfil..");
             Perfil perfil = await App.PerfilService.Obtener(usuario);
@@ -94,7 +94,7 @@ namespace CookItApp.Views
 
 
             }
-
+            
             UserDialogs.Instance.HideLoading();
             await Navigation.PushAsync(new MasterPage(usuario), true);
             Navigation.RemovePage(this);

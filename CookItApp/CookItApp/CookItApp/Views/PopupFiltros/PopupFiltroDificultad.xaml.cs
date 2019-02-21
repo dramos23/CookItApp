@@ -35,25 +35,28 @@ namespace CookItApp.Views.PopupFiltros
 
             picMax.ItemsSource = ListaPicker;
             picMin.ItemsSource = ListaPicker;
+            picMax.SelectedIndex = 0;
+            picMin.SelectedIndex = 0;
         }
 
         private void Ok_Tapped(object sender, EventArgs e)
         {
-            string picMinStr = picMin.SelectedItem.ToString();
+
             int min = -1;
-            string picMaxStr = picMax.SelectedItem.ToString();
             int max = -1;
 
-            if (picMin.SelectedIndex != -1 && picMin.SelectedItem.ToString() != "Ignorar")
-                min = Convert.ToInt32(picMinStr);
-            if (picMax.SelectedIndex != -1 && picMax.SelectedItem.ToString() != "Ignorar")
-                max = Convert.ToInt32(picMaxStr);
-
-            if (picMaxStr.Equals("Ignorar") && picMinStr.Equals("Ignorar"))
+            if (picMin.SelectedItem.ToString().Equals("Ignorar") && picMax.SelectedItem.ToString().Equals("Ignorar"))
             {
                 MensajeError("Por favor, seleccione al menos uno de los filtros.");
                 return;
             }
+
+            if (picMin.SelectedItem.ToString() != "Ignorar")
+                min = Convert.ToInt32(picMin.SelectedItem.ToString());
+
+            if (picMax.SelectedItem.ToString() != "Ignorar")
+                max = Convert.ToInt32(picMax.SelectedItem.ToString());
+
 
             if (min != -1 && max != -1)
             {
@@ -68,6 +71,7 @@ namespace CookItApp.Views.PopupFiltros
                     return;
                 }
             }
+
             ViewModel.IngresarFiltroDificultad(min, max);
             CerrarPopup();
         }

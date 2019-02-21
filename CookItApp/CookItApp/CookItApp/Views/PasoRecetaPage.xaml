@@ -12,15 +12,12 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Label Text="" Grid.Row="0"  Grid.ColumnSpan="50" x:Name="txtCantPasos" FontSize="Medium" FontAttributes="Bold"
+            <Label Text="" Grid.Row="0" x:Name="txtCantPasos" FontSize="Medium" FontAttributes="Bold"
                    TextColor="Black" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
-            <!--Control, se genera desde codebehind -->
+            
             <Grid Grid.Row="1" Grid.Column ="0" x:Name="layoutControl"  HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
-                <Grid x:Name="gridTimer" Opacity="0" Grid.Column="0" Grid.ColumnSpan="50">
+                <Grid x:Name="gridTimer" Opacity="0" Grid.Column="0" >
 
                     <Label Grid.Row="0" Grid.Column="0" x:Name="lblTimer" Grid.ColumnSpan="3"/>
                     <Image x:Name="imgPlayTimer"
@@ -69,12 +66,12 @@
                        HorizontalOptions="Start"
                        LineBreakMode="WordWrap"
                        TextColor="Black"
-                       Grid.ColumnSpan="50"
+                       
                        Text="{Binding Descripcion}">
                 </Label>
             </Grid>
             <!--Tercera fila, botones-->
-            <Grid Grid.Row="3" Grid.ColumnSpan="50">
+            <Grid Grid.Row="3" >
                 <Image x:Name="btnAnterior"
                        Grid.Column="0"
                        Source="flechaAnterior.png"

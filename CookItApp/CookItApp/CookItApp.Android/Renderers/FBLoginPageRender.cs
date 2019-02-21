@@ -23,7 +23,7 @@ namespace CookItApp.Droid
         {
             Activity activity = Context as Activity;
             var auth = new OAuth2Authenticator(
-                clientId: "276895199617406",   //  seu cliente id OAuth2 client id
+                clientId: "276895199617406",
                 scope: "",
                 authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
                 redirectUrl: new Uri("http://www.facebook.com/connect/login_success.html"));
@@ -42,10 +42,8 @@ namespace CookItApp.Droid
                     var fbUser = await response.GetResponseTextAsync();
 
                     UsuarioFacebook fB = JsonConvert.DeserializeObject<UsuarioFacebook>(fbUser);
-
                     
                     fBLoginPage.Procesar(fB);
-
                     
                 }
                 else
@@ -59,7 +57,7 @@ namespace CookItApp.Droid
         protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
         {
             base.OnElementChanged(e);
-            fBLoginPage = (FBLoginPage)e.NewElement;            
+            fBLoginPage = (FBLoginPage)e.NewElement;
         }
 
 

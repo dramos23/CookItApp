@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controles="clr-namespace:CookItApp.Controles"
+             x:Class="CookItApp.Views.PopupIngresarComentario"
+             CloseWhenBackgroundIsClicked="True"
+             Padding="10"
+             Opacity="1">
+    <pages:PopupPage.Animation>
+        <controles:AnimacionBase/>
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Content>
+        <Frame BorderColor="Black" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="1.5*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Puntaje"
+                       TextColor="Black"
+                       Grid.Column="0"
+                       FontSize="Small">
+                    </Label>
+                    <Image x:Name="BtnPuntaje1"
+                                         Source="estrellaOff.png"
+                                         Grid.Column="1"
+                                         WidthRequest="15"
+                                         HeightRequest="15">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnPuntaje1_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="BtnPuntaje2"
+                           Grid.Column="2"
+                                         Source="estrellaOff.png"
+                                         WidthRequest="15"
+                                         HeightRequest="15">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnPuntaje2_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+
+                    </Image>
+                    <Image x:Name="BtnPuntaje3"
+                           Grid.Column="3"
+                                         Source="estrellaOff.png"
+                                         WidthRequest="15"
+                                         HeightRequest="15">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnPuntaje3_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="BtnPuntaje4"
+                           Grid.Column="4"
+                                         Source="estrellaOff.png"
+                                         WidthRequest="15"
+                                         HeightRequest="15">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnPuntaje4_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="BtnPuntaje5" Grid.Column="5"
+                                  Source="estrellaOff.png" WidthRequest="15" HeightRequest="15">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnPuntaje5_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+
+                <Frame BorderColor="Black" Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                       Padding="5">
+                    <Entry VerticalOptions="FillAndExpand"
+                           HorizontalOptions="FillAndExpand"
+                           FontSize="Small"
+                           x:Name="txtComentario">
+                    </Entry>
+                </Frame>
+                <Grid Grid.Row="2" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                    <Button x:Name="BtnInsertarComentario" Clicked="BtnIngresarComentario_Clicked" Grid.Column="0"
+                            HeightRequest="50" WidthRequest="90" FontSize="Small" Text="Insertar comentario">
+                    </Button>
+
+                    <Button x:Name="BtnCancelar" Clicked="BtnCancelar_Clicked" Grid.Column="1"
+                            HeightRequest="50" WidthRequest="90" FontSize="Small" Text="Volver">
+                    </Button>
+                </Grid>
+            </Grid>
+        </Frame>
+    </pages:PopupPage.Content>
+</pages:PopupPage>
