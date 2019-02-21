@@ -20,7 +20,7 @@ namespace CookItApp.Models
         public string _UrlVideo { set; get; }
         public byte[] _Foto { set; get; }
 
-        internal ImageSource GenerarFoto()
+        public ImageSource GenerarImageSource()
         {
             Image image = new Image();
             if (_Foto != null)
@@ -31,8 +31,29 @@ namespace CookItApp.Models
             }
             else
             {
+                image.Source = "noimage.png";
+                return image.Source;
+            }
+        }
+
+        public Image GenerarImage()
+        {
+            Image image = new Image();
+            if (_Foto != null)
+            {
+                Stream stream = new MemoryStream(_Foto);
+                image.Source = ImageSource.FromStream(() => { return stream; });
+                return image;
+            }
+            else
+            {
                 return null;
             }
+        }
+
+        internal void AsignarId(int idReceta)
+        {
+            _IdReceta = idReceta;
         }
     }
 }

@@ -280,6 +280,7 @@ namespace CookItApp.Views
                 if (Foto != null)
                 {
                     imgPerfil.Source = ImageSource.FromStream(Foto.GetStream);
+                    
                 }
             }
             else

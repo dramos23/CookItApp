@@ -20,7 +20,7 @@ namespace CookItApp.Data
         }
 
 
-        public async Task<HistorialReceta> Alta(HistorialReceta obj)
+        public async Task<bool> Alta(HistorialReceta obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -38,16 +38,7 @@ namespace CookItApp.Data
                         .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
                         .ConfigureAwait(false))
                     {
-                        string JsonResult = response.Content.ReadAsStringAsync().Result;
-                        try
-                        {
-                            HistorialReceta ContentResp = Deseralizar(JsonResult);
-                            return ContentResp;
-                        }
-                        catch (Exception)
-                        {
-                            return null;
-                        }
+                        return response.IsSuccessStatusCode;
                     }
                 }
             }

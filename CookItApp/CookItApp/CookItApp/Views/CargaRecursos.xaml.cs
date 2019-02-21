@@ -67,14 +67,14 @@ namespace CookItApp.Views
 
             //lblTexto.Text = "Cargando recetas..";
             UserDialogs.Instance.ShowLoading("Cargando recetas..");
-            List<Receta> recetas = await App.RecetaService.ObtenerList();
+            List<Receta> recetas = await App.RecetaService.ObtenerList(usuario);
             if (recetas != null)
             {
                 App.DataBase.Receta.GuardarList(recetas);
                 
             }
 
-            //lblTexto.Text = "Cargando hitorial de recetas..";
+            //lblTexto.Text = "Cargando historial de recetas..";
             UserDialogs.Instance.ShowLoading("Cargando hitorial de recetas..");
             List<HistorialReceta> historialReceta = await App.HistorialRecetaService.ObtenerList(usuario);
             if (historialReceta != null)
@@ -130,11 +130,16 @@ namespace CookItApp.Views
             }
 
             UserDialogs.Instance.ShowLoading("Descargando recetas..");
-            List<Receta> recetas = await App.RecetaService.ObtenerList();
+            List<Receta> recetas = await App.RecetaService.ObtenerList(usuario);
             if (recetas != null)
             {
                 UserDialogs.Instance.ShowLoading("Borrando recetas..");
+
                 App.DataBase.Receta.BorrarTodo();
+                App.DataBase.IngredienteReceta.BorrarTodo();
+                App.DataBase.ComentarioReceta.BorrarTodo();
+                App.DataBase.PasoReceta.BorrarTodo();
+
                 UserDialogs.Instance.ShowLoading("Guardando recetas..");
                 App.DataBase.Receta.GuardarList(recetas);
 

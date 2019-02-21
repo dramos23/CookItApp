@@ -52,9 +52,32 @@ namespace CookItApp.Data
                     receta._ListaIngredientesReceta = ingredienteRecetas ?? null;
                     receta._ListaComentariosReceta = comentarioRecetas ?? null;
                     receta._ListaPasosReceta = pasoRecetas ?? null;
+                    receta._MomentoDia = momentoDia ?? null;
+                    receta._Estacion = estacion ?? null;
 
 
                     return receta;
+                }
+            }
+        }
+
+        public int Guardar(Receta receta)
+        {
+
+            lock (locker)
+            {
+
+                Receta p = Obtener(receta._IdReceta);
+
+                if (p == null)
+                {
+                    database.Insert(receta);
+                    receta.InsertarBD();
+                    return 1;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }

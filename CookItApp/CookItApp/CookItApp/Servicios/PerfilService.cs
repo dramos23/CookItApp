@@ -47,8 +47,9 @@ namespace CookItApp.Data
         }
 
 
-        public async Task<bool> AltaFB(Perfil obj, Token token)
-        {            
+        public async Task<bool> AltaFB(Perfil obj)
+        {
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + "PerfilFB";
 
             using (HttpClient client = new HttpClient())

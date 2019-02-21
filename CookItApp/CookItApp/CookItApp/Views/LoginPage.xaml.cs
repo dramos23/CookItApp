@@ -133,7 +133,7 @@ namespace CookItApp.Views
         {           
 
             await Navigation.PushAsync(new FBLoginPage(), true);
-            Navigation.RemovePage(this);
+            //Navigation.RemovePage(this);
         }
     }
 }

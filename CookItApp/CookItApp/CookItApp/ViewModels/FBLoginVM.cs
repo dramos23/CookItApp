@@ -25,7 +25,8 @@ namespace CookItApp.ViewModels
                 bool creado = await Crear_Perfil_Usuario(usuarioFacebook);
 
                 if (creado)
-                {                    
+                {
+                    App.DataBase.Usuario.Guardar(usuario);
                     return usuario;
                 }
 
@@ -39,7 +40,7 @@ namespace CookItApp.ViewModels
             Perfil perfil = new Perfil()
             {
 
-                _Email = usuarioFacebook.id,
+                _Email = "FACEBOOK" + usuarioFacebook.id,
                 _Apellido = usuarioFacebook.last_name,
                 _Nombre = usuarioFacebook.first_name,
                 _NombreUsuario = usuarioFacebook.first_name + " " + usuarioFacebook.last_name,
@@ -51,7 +52,7 @@ namespace CookItApp.ViewModels
 
             if (perfil != null)
             {
-                bool creado = await App.PerfilService.AltaFB(perfil, token);
+                bool creado = await App.PerfilService.AltaFB(perfil);
 
                 if (creado) {
                    
@@ -71,7 +72,7 @@ namespace CookItApp.ViewModels
             Usuario usuario = new Usuario()
             {
 
-                _Email = usuarioFacebook.id,                
+                _Email = "FACEBOOK" + usuarioFacebook.id,                
                 _DeviceId = null,
                 _TipoCuenta = Usuario.TipoCuenta.Facebook,
                 _TipoUsuario = Usuario.TipoUsuario.Cliente,
@@ -86,6 +87,7 @@ namespace CookItApp.ViewModels
 
                 if (token._AccessToken != null)
                 {
+                    App.DataBase.Token.Guardar(token);
                     this.token = token;
                     return usuario;
                 }

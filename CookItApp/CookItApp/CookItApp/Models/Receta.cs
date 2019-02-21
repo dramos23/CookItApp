@@ -10,7 +10,6 @@ namespace CookItApp.Models
 {
     public class Receta
     {
-
         public int _IdReceta { get; set; }
         public string _Titulo { get; set; }
         public string _Descripcion { get; set; }
@@ -58,7 +57,7 @@ namespace CookItApp.Models
                 }
                 else
                 {                    
-                    return "fondoFrutillas.jpg";
+                    return "noimage.png";
                 }
 
             }
@@ -82,16 +81,37 @@ namespace CookItApp.Models
 
             int ret = 0;
 
-            if (ret == 0) { ret = App.DataBase.IngredienteReceta.GuardarList(_ListaIngredientesReceta); }
-            if (ret == 0) { ret = App.DataBase.PasoReceta.GuardarList(_ListaPasosReceta); }
-            if (ret == 0) { ret = App.DataBase.ComentarioReceta.GuardarList(_ListaComentariosReceta); }
+            
+                ret = App.DataBase.IngredienteReceta.GuardarList(_ListaIngredientesReceta);
+            
+            
+                ret = App.DataBase.PasoReceta.GuardarList(_ListaPasosReceta);
+            
+                ret = App.DataBase.ComentarioReceta.GuardarList(_ListaComentariosReceta);
+            
 
 
             return ret;
 
 
         }
-        
+
+        public void AsignarId(int idReceta)
+        {
+            _IdReceta = idReceta;
+            
+            foreach(IngredienteReceta ir in _ListaIngredientesReceta)
+            {
+                ir.AsignarId(idReceta);
+            }
+
+            foreach (PasoReceta pr in _ListaPasosReceta)
+            {
+                pr.AsignarId(idReceta);
+            }
+
+        }
+
         //public string _DificultadString
         //{
         //    get

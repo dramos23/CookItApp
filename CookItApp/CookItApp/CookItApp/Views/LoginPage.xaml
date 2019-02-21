@@ -36,7 +36,7 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
-                <Button x:Name="BtnFacebok" ContentLayout="Left,0" Image="sinleer.png" Text="Continuar con Facebook"  Clicked="FacebookLogin_Clicked" TextColor="Black" BorderRadius="20" HeightRequest="50"/>
+                <Button x:Name="BtnFacebok" ContentLayout="Left,10" Image="facebook.png" Text="Continuar con Facebook"  Clicked="FacebookLogin_Clicked" TextColor="Black" BorderRadius="20" HeightRequest="50" Margin="0,10"/>
 
 
 

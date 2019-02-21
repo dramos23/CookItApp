@@ -6,8 +6,7 @@ namespace CookItApp.Models
 {
     public class HistorialReceta
     {
-        
-        public int _IdHistorialReceta { get; set; }
+                
         public string _Email { get; set; }       
         public int _IdReceta { set; get; }
         [JsonIgnore]

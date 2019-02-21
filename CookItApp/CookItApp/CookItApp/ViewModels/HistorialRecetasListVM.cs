@@ -33,21 +33,6 @@ namespace CookItApp.ViewModels
         {
             var historiales = App.DataBase.HistorialReceta.ObtenerList();
 
-            //if (historiales != null)
-            //{
-            //    foreach (HistorialReceta h in historiales)
-            //    {
-            //        h._Receta = App.DataBase.Receta.Obtener(h._IdReceta);
-            //        HistorialRecetas.Add(h);                    
-            //    }
-            //    Lista = true;
-            //}
-            //else
-            //{
-            //    Vacio = true;
-            //    Text = "Aún no tiene nada en su historial!.";
-            //}
-
             if (historiales == null) {
 
                 Lista = false;

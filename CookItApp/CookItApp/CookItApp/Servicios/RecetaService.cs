@@ -19,10 +19,36 @@ namespace CookItApp.Data
             Web = "http://cookitrestapi.azurewebsites.net/api/Recetas/";
         }
 
-        public async Task<List<Receta>> ObtenerList()
+        public async Task<int> Alta(Receta obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token._AccessToken);
+                string json = JsonConvert.SerializeObject(obj);
+                using (StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                {
+                    request.Content = stringContent;
+
+                    using (HttpResponseMessage response = await client
+                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
+                    {
+                        string JsonResult = response.Content.ReadAsStringAsync().Result;
+                        return JsonConvert.DeserializeObject<int>(JsonResult);
+                    }
+                }
+            }
+
+        }
+
+        public async Task<List<Receta>> ObtenerList(Usuario obj)
+        {
+            Token token = App.DataBase.Token.Obtener();
+            string Url = Web + obj._Email;
 
             using (HttpClient client = new HttpClient())
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Url))

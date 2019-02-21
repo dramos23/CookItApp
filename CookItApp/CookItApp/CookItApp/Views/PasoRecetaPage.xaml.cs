@@ -106,7 +106,7 @@ namespace CookItApp.Views
         {
             Image imagen = new Image
             {
-                Source = paso.GenerarFoto(),
+                Source = paso.GenerarImageSource(),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
                 Aspect = Aspect.AspectFill
