@@ -67,7 +67,7 @@ namespace CookItApp.Views
                 reto._EstadoReto = App.DataBase.EstadoReto.Obtener(reto._IdEstadoReto);
                 reto._Receta = App.DataBase.Receta.Obtener(reto._RecetaId);
                 UserDialogs.Instance.HideLoading();
-                await Navigation.PushAsync(new RetoPage(reto, _Usuario, null));
+                await Navigation.PushAsync(new DesafioPage(reto, _Usuario, null));
 
             }
 

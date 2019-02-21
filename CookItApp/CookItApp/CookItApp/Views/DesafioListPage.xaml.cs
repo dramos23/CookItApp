@@ -67,7 +67,7 @@ namespace CookItApp.Views
             Button button = sender as Button;
             if (button?.BindingContext is Reto reto)
             {                
-                await Navigation.PushAsync(new RetoPage(reto, _Usuario, this));
+                await Navigation.PushAsync(new DesafioPage(reto, _Usuario, this));
             }
         }
     }

@@ -39,6 +39,8 @@ namespace CookItApp.Views
             MostrarMsjCons = true;
             
             Notificaciones();
+            //VerificarEstadoNoti();
+
 
             NavigationPage.SetHasNavigationBar(this, false);
 
@@ -47,17 +49,23 @@ namespace CookItApp.Views
 
         }
 
+        //private void VerificarEstadoNoti()
+        //{
+        //    bool isEnabled = await Push.IsEnabledAsync();
 
+        //    if (isEnabled) {
 
+        //        Push.SetEnabledAsync(true);
 
-        private async void Notificaciones()
+        //    }
+
+        //}
+        private void Notificaciones()
         {
 
-            if (!AppCenter.Configured)
+
+            if (AppCenter.Configured)
             {
-
-
-                await Push.SetEnabledAsync(true);
 
                 Push.PushNotificationReceived += async (sender, e) =>
                 {
@@ -74,20 +82,13 @@ namespace CookItApp.Views
                         await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
                     }
 
-                };                    
+                };
 
             }
 
-            AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
-
-            System.Guid? uuid = await AppCenter.GetInstallIdAsync();
-
-            Usuario._DeviceId = uuid;
-
-            bool ret = await App.RestService.UpdateUUID(Usuario);
-
 
         }
+
 
         private async Task ProcesarNotificacion(PushNotificationReceivedEventArgs e, int idNoti,int idReto)
         {
@@ -134,12 +135,12 @@ namespace CookItApp.Views
                 int notificaciones = App.DataBase.Notificacion.SinLeer();
                 if (notificaciones > 0)
                 {
-                    mensaje += "Tienes " + notificaciones.ToString() + " notificaciones sin leer.\\n";
+                    mensaje += "Tienes " + notificaciones.ToString() + " notificacion/es sin leer.\\n";
                 }
                 int retos = App.DataBase.Reto.RetosActivos();
                 if (retos > 0)
                 {
-                    mensaje += "Tienes " + retos.ToString() + " retos activos.";
+                    mensaje += "Tienes " + retos.ToString() + " desafio/s activos.";
                 }
                 if (notificaciones > 0 || retos > 0)
                 {

@@ -19,5 +19,7 @@
 				<category android:name="${applicationId}" />
 			</intent-filter>
 		</receiver>
+
 	</application>
+
 </manifest>

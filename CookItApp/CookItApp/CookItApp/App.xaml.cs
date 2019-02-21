@@ -76,9 +76,11 @@ namespace CookItApp
 
 
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
-            
+            AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
+
+            Push.SetEnabledAsync(true);
         }
 
         protected override void OnSleep()

@@ -17,7 +17,7 @@ using Xamarin.Forms.Xaml;
 namespace CookItApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RetoPage : ContentPage
+	public partial class DesafioPage : ContentPage
 	{
         private RetoVM VMReto { get; set; }
 
@@ -27,7 +27,7 @@ namespace CookItApp.Views
 
         private IViewDesafioList Vista { get; set; }
 
-        public RetoPage (Reto reto, Usuario usuario, IViewDesafioList vista)
+        public DesafioPage(Reto reto, Usuario usuario, IViewDesafioList vista)
 		{
 			InitializeComponent ();
 

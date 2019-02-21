@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CookItApp.Views.RetoPage"
+             x:Class="CookItApp.Views.DesafioPage"
              xmlns:local="clr-namespace:CookItApp;assembly=CookItApp"
              Title="Desafío">
     
@@ -107,8 +107,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="BtnAceptar" Grid.Column="0" Grid.Row="0" Text="{Binding Acepto}" Clicked="BtnAceptar_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
-                        <Button x:Name="BtnCanelar" Grid.Column="1" Grid.Row="0" Text="{Binding Cancelo}" Clicked="BtnCancelar_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
+                        <Button x:Name="BtnAceptar" Grid.Column="0" Grid.Row="0" Text="{Binding Acepto}" Clicked="BtnAceptar_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
+                        <Button x:Name="BtnCanelar" Grid.Column="1" Grid.Row="0" Text="{Binding Cancelo}" Clicked="BtnCancelar_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
                     </Grid>
                     
@@ -116,9 +116,9 @@
 
                     <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Text="Sube lo que has hecho y finaliza el desafío!" LineBreakMode="NoWrap" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding EtapaTres}" TextColor="Black"/>
                     <Image Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" x:Name="imgRetoPresentacion" Style="Border: 1px" IsVisible="{Binding EtapaTres}"/> <!--Source="{Binding Foto}"-->
-                    <Button Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" x:Name="BtnSacarFoto" Image="photo.png" Clicked="BtnSacarFoto_Clicked" IsVisible="{Binding EtapaTres}" BackgroundColor="#00748A"/>
+                    <Button Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" x:Name="BtnSacarFoto" Image="photo.png" Clicked="BtnSacarFoto_Clicked" IsVisible="{Binding EtapaTres}" BackgroundColor="#00748A" HeightRequest="50"/>
                     <local:EditorXF x:Name="txtComentario" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Placeholder="Deja un comentario.." FontSize="16" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" MaxLength="200" IsVisible="{Binding EtapaTres}" TextColor="Black"/>
-                    <Button Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" x:Name="BtnFinalizar" Text="Desafío terminado!" Clicked="BtnFinalizar_Clicked" IsVisible="{Binding EtapaTres}" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
+                    <Button Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" x:Name="BtnFinalizar" Text="Desafío terminado!" Clicked="BtnFinalizar_Clicked" IsVisible="{Binding EtapaTres}" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
                     <!--ETAPA CUATRO-->
                     <Frame x:Name="frameFinaliza" Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" CornerRadius="10" IsVisible="{Binding EtapaCuatro}">
@@ -151,8 +151,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="BtnAprobado" Grid.Column="0" Grid.Row="0" Text="Aprobado" Clicked="BtnAprobado_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
-                        <Button x:Name="BtnRechazado" Grid.Column="1" Grid.Row="0" Text="Rechazado" Clicked="BtnRechazado_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
+                        <Button x:Name="BtnAprobado" Grid.Column="0" Grid.Row="0" Text="Aprobado" Clicked="BtnAprobado_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
+                        <Button x:Name="BtnRechazado" Grid.Column="1" Grid.Row="0" Text="Rechazado" Clicked="BtnRechazado_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
                     </Grid>
                     

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+
 namespace CookItApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -57,9 +58,11 @@ namespace CookItApp.Views
                 return;
             }
 
+            System.Guid? uuid = await AppCenter.GetInstallIdAsync();
+
             UserDialogs.Instance.ShowLoading("Ingresando..");
 
-            Usuario = new Usuario(entryEmail.Text, entryPass.Text, null, DateTime.Now);
+            Usuario = new Usuario(entryEmail.Text, entryPass.Text, uuid, DateTime.Now);
 
             if (Usuario.IsValid())
             {

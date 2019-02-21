@@ -1,5 +1,8 @@
-﻿using CookItApp.Models;
+﻿using Android.Content;
+using CookItApp.Models;
 using CookItApp.Views;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Push;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +31,7 @@ namespace CookItApp.ViewModels
             CargarMenu();
             CargarCategoria(usuario._Perfil);
             CalcularProxNivel(usuario._Perfil);
+            
 
         }
 
@@ -124,6 +128,8 @@ namespace CookItApp.ViewModels
             ListMenu.Add(page11);
 
         }
+
+
 
 
     }

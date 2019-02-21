@@ -91,6 +91,9 @@
     <Compile Update="Views\DesafioListPage.xaml.cs">
       <DependentUpon>DesafioListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\DesafioPage.xaml.cs">
+      <DependentUpon>DesafioPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -181,7 +184,7 @@
     <EmbeddedResource Update="Views\DesafioListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RetoPage.xaml">
+    <EmbeddedResource Update="Views\DesafioPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\RetosListPage.xaml">
