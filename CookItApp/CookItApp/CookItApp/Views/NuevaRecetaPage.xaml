@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CookItApp"
-             x:Class="CookItApp.Views.NuevaRecetaPage">
+             x:Class="CookItApp.Views.NuevaRecetaPage"
+             x:Name="TituloNuevaReceta">
     <ContentPage.Content>
 
         <ScrollView x:Name="scroll" Orientation="Vertical">
@@ -14,6 +15,9 @@
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -47,29 +51,32 @@
                     <Entry x:Name="entryEmail" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" PlaceholderColor="Black" Margin="0, 5" IsEnabled="False" Text="{Binding Email}"/>
 
                     <Label Text="Titulo:" Grid.Column="0" Grid.Row="6" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                    <Entry x:Name="entryTitulo" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Placeholder="Ingresa un titulo a la receta" PlaceholderColor="Black" Margin="0, 5"/>
+                    <Entry x:Name="entryTitulo" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Placeholder="Ingresa un titulo a la receta" PlaceholderColor="Black" Margin="0, 5" TextChanged="EntryTitulo_TextChanged"/>
 
                     <Label Text="Descripcion:" Grid.Column="0" Grid.Row="8" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
                     <local:EditorXF x:Name="entryDescripcion" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Placeholder="Ingresa una descripción" PlaceholderColor="Black" Margin="0, 5" MaxLength="200"/>
                     
                     <Label Text="Tiempo Preparación (min):" Grid.Column="0" Grid.Row="10" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                    <Entry x:Name="entryTiempo" Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Placeholder="Ingresa un titulo a la receta" PlaceholderColor="Black" Margin="0, 5" Keyboard="Numeric"/>
+                    <Entry x:Name="entryTiempo" Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Placeholder="Ingresa un tiempo de preparacion" PlaceholderColor="Black" Margin="0, 5" Keyboard="Numeric"/>
 
-                    <Label Text="Dificultad:" Grid.Column="0" Grid.Row="12" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                    <Picker x:Name="picDificultad" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Title="--- Seleccionar ---" ItemsSource="{Binding ItemsDificultad}" ItemDisplayBinding="{Binding value}" Margin="0, 5"/>
+                    <Label Text="Cantidad de paltos:" Grid.Column="0" Grid.Row="12" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Entry x:Name="entryPlatos" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Placeholder="Ingresa la cantidad de paltos que rinde" PlaceholderColor="Black" Margin="0, 5" Keyboard="Numeric"/>
+
+                    <Label Text="Dificultad:" Grid.Column="0" Grid.Row="14" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Picker x:Name="picDificultad" Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" Title="--- Seleccionar ---" ItemsSource="{Binding ItemsDificultad}" ItemDisplayBinding="{Binding value}" Margin="0, 5"/>
 
 
-                    <Label Text="Momento del día:" Grid.Column="0" Grid.Row="14" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                    <Picker x:Name="picMomentoDia" Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" Title="--- Selecionar ---" ItemsSource="{Binding ItemsMomentoDia}" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroMomentoDiaId}" IsVisible="{Binding FiltroMomentoDia}" Margin="0, 5"/>
+                    <Label Text="Momento del día:" Grid.Column="0" Grid.Row="16" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Picker x:Name="picMomentoDia" Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="2" Title="--- Selecionar ---" ItemsSource="{Binding ItemsMomentoDia}" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroMomentoDiaId}" IsVisible="{Binding FiltroMomentoDia}" Margin="0, 5"/>
 
-                    <Label Text="Estación:" Grid.Column="0" Grid.Row="16" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
-                    <Picker x:Name="picEstacion" Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="2" Title="--- Seleccionar ---" ItemsSource="{Binding ItemsEstacion}" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroEstacionId}" IsVisible="{Binding FiltroEstacion}" Margin="0, 5"/>
+                    <Label Text="Estación:" Grid.Column="0" Grid.Row="18" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Picker x:Name="picEstacion" Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="2" Title="--- Seleccionar ---" ItemsSource="{Binding ItemsEstacion}" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding FiltroEstacionId}" IsVisible="{Binding FiltroEstacion}" Margin="0, 5"/>
 
                     
-                    <Button Grid.Column="0" Grid.Row="18" x:Name="BtnIngredientes" Text="Cargar Ingredientes" Clicked="BtnIngredientes_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
-                    <Button Grid.Column="1" Grid.Row="18" x:Name="BtnPasosReceta" Text="Cargar Pasos" Clicked="BtnPasosReceta_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
+                    <Button Grid.Column="0" Grid.Row="20" x:Name="BtnIngredientes" Text="Cargar Ingredientes" Clicked="BtnIngredientes_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
+                    <Button Grid.Column="1" Grid.Row="20" x:Name="BtnPasosReceta" Text="Cargar Pasos" Clicked="BtnPasosReceta_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
 
-                    <Button x:Name="BtnSubirReceta" Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="2" Text="Subir Receta"  Clicked="BtnSubirReceta_Clicked"  TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
+                    <Button x:Name="BtnSubirReceta" Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="2" Text="Subir Receta"  Clicked="BtnSubirReceta_Clicked"  TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
                 </Grid>
             </StackLayout>

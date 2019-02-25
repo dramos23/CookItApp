@@ -138,24 +138,27 @@ namespace CookItApp.Views
         {
             await CrossMedia.Current.Initialize();
 
-
-            if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
+            try
             {
-                Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
                 {
-                    Name = "miPerfil.jpg",
-                    PhotoSize = PhotoSize.Small
-                });
+                    Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                    {
+                        Name = "miPerfil.jpg",
+                        PhotoSize = PhotoSize.Small
+                    });
 
-                if (Foto != null)
+                    if (Foto != null)
+                    {
+                        imgRetoPresentacion.Source = ImageSource.FromStream(Foto.GetStream);
+                    }
+                }
+                else
                 {
-                    imgRetoPresentacion.Source = ImageSource.FromStream(Foto.GetStream);
+                    await DisplayAlert("No Camera", "Camera unavailable.", "OK");
                 }
             }
-            else
-            {
-                await DisplayAlert("No Camera", "Camera unavailable.", "OK");
-            }
+            catch { }
         }
 
 

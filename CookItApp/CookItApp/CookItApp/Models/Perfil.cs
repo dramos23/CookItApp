@@ -166,7 +166,8 @@ namespace CookItApp.Models
                 {
                     _Categoria = (Perfil.Categoria)Convert.ToInt32(dic["Categoria"]);
                     _Puntuacion = Convert.ToInt32(dic["Puntuacion"]);
-                    masterPage.Gamificacion(_Categoria, _Puntuacion);
+                    //masterPage.Gamificacion(_Categoria, _Puntuacion);
+                    masterPage.Gamificacion();
                 }
             }
 

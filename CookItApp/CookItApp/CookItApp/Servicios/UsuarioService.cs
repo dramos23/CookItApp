@@ -17,7 +17,7 @@ namespace CookItApp.Data
 
         public UsuarioService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Cuenta/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Cuenta/";
         }
 
 

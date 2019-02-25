@@ -32,6 +32,19 @@ namespace CookItApp.Views
             BindingContext = VMRecetas;
         }
 
+        private void RevisarMensajeNoHayRecetas()
+        {
+            if (VMRecetas.Recetas.Count == 0)
+            {
+                ListaRecetas.IsVisible = false;
+                lblSinSuper.IsVisible = true;
+            }
+            else {
+                ListaRecetas.IsVisible = true;
+                lblSinSuper.IsVisible = false;
+            }
+        }
+
         private void InicializarControladorFiltros()
         {
             if (!Application.Current.Properties.ContainsKey("ViewModelFiltro"))
@@ -336,6 +349,7 @@ namespace CookItApp.Views
             List<Receta> filtrada = VMRecetas.DevolverListaFiltrada(recetas);
             VMRecetas = new RecetaListVM(filtrada);
             BindingContext = VMRecetas;
+            RevisarMensajeNoHayRecetas();                                                                                                                                                                               
         }
 
         private async Task AgregarRecetaHistorial(Receta receta) {

@@ -73,33 +73,10 @@ namespace CookItApp.Views
 
         }
 
-        //private async void ListaNotificacion_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-        //    //Se levanta y castea la receta recibida del evento.
-        //    if (!(e.SelectedItem is Notificacion notificacion))
-        //    {
-        //        return;
-        //    }
-
-        //    if (notificacion._Estado.Equals(Notificacion.Estado.SinLeer))
-        //    {
-        //        notificacion._Estado = Notificacion.Estado.Leido;
-
-        //        bool actualizo = await App.NotificacionService.Modificar(notificacion);
-
-        //        if (actualizo)
-        //        {
-        //            App.DataBase.Notificacion.Modificar(notificacion);
-
-        //            VMNotificacion = new NotificacionListVM();
-        //            BindingContext = VMNotificacion;
-
-        //        }
-
-        //    }
-
-
-        //}
+        public void ListaNotificacion_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ListaNotificacion.SelectedItem = null;
+        }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {           

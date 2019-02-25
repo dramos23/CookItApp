@@ -70,7 +70,7 @@ namespace CookItApp.ViewModels
             return 3;
         }
 
-        internal void CargarDatosReceta(MediaFile foto, string titulo, string descripcion, int tiempo, int dificultad, int momento, int estacion)
+        internal void CargarDatosReceta(MediaFile foto, string titulo, string descripcion, int tiempo, int platos ,int dificultad, int momento, int estacion)
         {
             Receta._Foto = ImageToByteArray(foto);
             Receta._Titulo = titulo;
@@ -79,6 +79,7 @@ namespace CookItApp.ViewModels
             Receta._Dificultad = dificultad;
             Receta._IdMomentoDia = momento;
             Receta._IdEstacion = estacion;
+            Receta._CantPlatos = platos;
 
         }
 

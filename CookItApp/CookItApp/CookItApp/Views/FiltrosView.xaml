@@ -164,7 +164,7 @@
                         </Image>
                     </layouts:WrapLayout>
                         
-                    <Image Source="okIcon.png" Grid.Row="0" Style="{StaticResource estiloBotonImagenGrande}">
+                    <Image Source="iconOk.png" Grid.Row="2" Style="{StaticResource estiloBotonImagenGrande}">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnClose" NumberOfTapsRequired="1"/>
                         </Image.GestureRecognizers>

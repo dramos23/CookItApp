@@ -16,7 +16,7 @@ namespace CookItApp.Data
 
         public HistorialRecetaService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/HistorialReceta/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/HistorialReceta/";
         }
 
 

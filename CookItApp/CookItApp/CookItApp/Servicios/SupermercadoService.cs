@@ -15,7 +15,7 @@ namespace CookItApp.Data
 
         public SupermercadoService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Supermercados/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Supermercados/";
 
         }
 

@@ -13,7 +13,7 @@
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
          
-            <ListView ItemsSource="{Binding MisRecetas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada"  IsVisible="{Binding  Lista}">
+            <ListView x:Name="MisRecetas" ItemsSource="{Binding MisRecetas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada"  IsVisible="{Binding  Lista}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

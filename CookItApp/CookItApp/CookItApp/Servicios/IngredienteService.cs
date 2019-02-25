@@ -16,7 +16,7 @@ namespace CookItApp.Data
 
         public IngredienteService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Ingredientes/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Ingredientes/";
 
         }
 

@@ -20,6 +20,8 @@ namespace CookItApp.Views
         private Receta Receta { get; set;}
         private string Email { get; set; }
         private Usuario Usuario { get; set; }
+
+        private NavigationPage nuevaNav { get; set; }
         
 
 
@@ -60,7 +62,10 @@ namespace CookItApp.Views
         {
             try
             {
-                await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario));
+                var paginaActual = this.Navigation.NavigationStack.Count;
+                var paginaSiguiente = paginaActual + 1; 
+                
+                await Navigation.PushAsync(new PasoRecetaPage(Receta, Receta._ListaPasosReceta[0], Usuario, paginaActual, paginaSiguiente));
             }
             catch
             {

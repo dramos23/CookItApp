@@ -89,7 +89,7 @@
                        VerticalOptions="Center"
                        Source="volverReceta.png">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="btnVolverReceta_Clicked" NumberOfTapsRequired="1"/>
+                        <TapGestureRecognizer Tapped="BtnVolverReceta_Clicked" NumberOfTapsRequired="1"/>
                     </Image.GestureRecognizers>
                 </Image>
 

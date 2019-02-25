@@ -59,6 +59,7 @@ namespace CookItApp.Views
                 string Titulo = entryTitulo.Text;
                 string Descripcion = entryDescripcion.Text;
                 int Tiempo = Convert.ToInt32(entryTiempo.Text);
+                int Platos = Convert.ToInt32(entryPlatos.Text);
                 Dificultad dificultad = picDificultad.ItemsSource[picDificultad.SelectedIndex] as Dificultad;
                 int Dificultad = dificultad.value;
                 MomentoDia momento = picMomentoDia.ItemsSource[picMomentoDia.SelectedIndex] as MomentoDia;
@@ -67,7 +68,9 @@ namespace CookItApp.Views
                 int Estacion = estacion._IdEstacion;
 
 
-                VMNuevaReceta.CargarDatosReceta(foto, Titulo, Descripcion, Tiempo, Dificultad, Momento, Estacion);
+                VMNuevaReceta.CargarDatosReceta(foto, Titulo, Descripcion, Tiempo, Platos, Dificultad, Momento, Estacion);
+                
+
                 int estado = await VMNuevaReceta.SubirReceta();
 
                 if (estado == 1)
@@ -75,6 +78,7 @@ namespace CookItApp.Views
                     UserDialogs.Instance.HideLoading();
                     await UserDialogs.Instance.AlertAsync("Se ha dado de alta tú receta, en cuanto la habiliten ya la podras ver en el listado!.", "Receta", "Continuar");
                     Vista.Actualizar();
+                    await Navigation.PopAsync();
                 }
                 if (estado == 2)
                 {
@@ -93,25 +97,45 @@ namespace CookItApp.Views
 
         private async void BtnSacarFoto_Clicked(object sender, EventArgs e)
         {
-            await CrossMedia.Current.Initialize();
+            //await CrossMedia.Current.Initialize();
 
-            if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
+            try
             {
-                Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    await UserDialogs.Instance.AlertAsync("Se ha producido un error con el dispositivo!.", "Error!.", "Continuar");
+                    return;
+                }
+
+
+                Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     Name = "miReceta.jpg",
-                    PhotoSize = PhotoSize.Large
+                    //Directory = "Test",
+                    //SaveToAlbum = true,
+                    CompressionQuality = 75,
+                    CustomPhotoSize = 50,
+                    PhotoSize = PhotoSize.MaxWidthHeight,
+                    MaxWidthHeight = 1280,
+                    DefaultCamera = CameraDevice.Front
                 });
 
-                if (Foto != null)
+                if (Foto == null)
+                    return;
+
+                //if (Foto != null)
+                //{
+                //    imgPresentacion.Source = ImageSource.FromStream(Foto.GetStream);
+                //}
+
+                imgPresentacion.Source = ImageSource.FromStream(() =>
                 {
-                    imgPresentacion.Source = ImageSource.FromStream(Foto.GetStream);
-                }
+                    var stream = Foto.GetStream();                    
+                    return stream;
+                });
+
             }
-            else
-            {                
-                await UserDialogs.Instance.AlertAsync("Se ha producido un error con el dispositivo!.", "Error!.", "Continuar");
-            }
+            catch { }
         }
 
         public void CargarIngredientes(List<IngredienteReceta> ingredientes)
@@ -154,6 +178,11 @@ namespace CookItApp.Views
                 await UserDialogs.Instance.AlertAsync("El tiempo de preparación no puede ser menor a 0 minutos!.", "Atención!", "Continuar");
                 return false;
             }
+            if (entryPlatos.Text == null || Convert.ToInt32(entryPlatos.Text) < 0)
+            {
+                await UserDialogs.Instance.AlertAsync("La cantidad minima de platos tiene que ser uno.", "Atención!", "Continuar");
+                return false;
+            }
 
             if (!(picDificultad.ItemsSource[picDificultad.SelectedIndex] is Dificultad dificultad))
             {
@@ -170,12 +199,12 @@ namespace CookItApp.Views
                 await UserDialogs.Instance.AlertAsync("Debe seleccionar una estacion de año!.", "Atención!", "Continuar");
                 return false;
             }
-            if (VMNuevaReceta.Receta._ListaIngredientesReceta == null)
+            if (VMNuevaReceta.Receta._ListaIngredientesReceta == null || VMNuevaReceta.Receta._ListaIngredientesReceta.Count() == 0)
             {
                 await UserDialogs.Instance.AlertAsync("Debe dar de alta los ingredientes de la receta!.", "Atención!", "Continuar");
                 return false;
             }
-            if (VMNuevaReceta.Receta._ListaPasosReceta == null)
+            if (VMNuevaReceta.Receta._ListaPasosReceta == null || VMNuevaReceta.Receta._ListaPasosReceta.Count() == 0)
             {
                 await UserDialogs.Instance.AlertAsync("Debe dar de alta los pasos de la receta!.", "Atención!", "Continuar");
                 return false;
@@ -184,5 +213,9 @@ namespace CookItApp.Views
             return true;
         }
 
+        private void EntryTitulo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TituloNuevaReceta.Title = entryTitulo.Text;
+        }
     }
 }

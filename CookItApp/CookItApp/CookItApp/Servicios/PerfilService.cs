@@ -16,7 +16,7 @@ namespace CookItApp.Data
 
         public PerfilService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Perfiles/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Perfiles/";
 
         }
 

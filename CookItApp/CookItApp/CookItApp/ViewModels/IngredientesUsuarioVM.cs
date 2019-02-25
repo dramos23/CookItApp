@@ -52,15 +52,21 @@ namespace CookItApp.ViewModels
 
                 if (borrado)
                 {
-                    App.DataBase.IngredienteUsuario.Borrar(ing);
-                    List<IngredienteUsuario> ingredientesUsuario = App.DataBase.IngredienteUsuario.ObtenerList();
-                    IngredientesUsuario = new ObservableCollection<IngredienteUsuario>(ingredientesUsuario);
+                    int estado = App.DataBase.IngredienteUsuario.Borrar(ing);
+                    IngredientesUsuario.Remove(ing);
+                    //if (ingredientesUsuario != null)
+                    //{
+                    //    IngredientesUsuario = new ObservableCollection<IngredienteUsuario>(ingredientesUsuario);
+                    //}
+                    //else
+                    //{
+                    //    IngredientesUsuario = new ObservableCollection<IngredienteUsuario>();
+                    //}
                     Vista.RefrescarListaIng();
                 }
                 else {
 
-                    Vista.Mensaje("Error al borrar ingrediente, por favor intentelo nuevamente!.");
-
+                    Vista.Mensaje("Error al borrar ingrediente, por favor intentelo nuevamente!");
                 }
                 
             }

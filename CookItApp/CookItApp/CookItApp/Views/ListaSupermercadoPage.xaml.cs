@@ -27,8 +27,21 @@ namespace CookItApp.Views
             Punto = position;
             VMSupermercadoList = new SupermercadoListVM(position);
             BindingContext = VMSupermercadoList;
+            RevisarMensajeFaltaSupermercados();
+        }
 
-		}
+        private void RevisarMensajeFaltaSupermercados()
+        {
+            if (VMSupermercadoList.SuperList.Count == 0)
+            {
+                lblSinSuper.IsVisible = true;
+                ListaSuper.IsVisible = false;
+            }
+            else {
+                lblSinSuper.IsVisible = false;
+                ListaSuper.IsVisible = true;
+            }
+        }
 
         private async void BtnVerMapa_Clicked(object sender, EventArgs e)
         {
@@ -51,6 +64,11 @@ namespace CookItApp.Views
             
 
             UserDialogs.Instance.HideLoading();
+        }
+
+        private void ListaSuper_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ListaSuper.SelectedItem = null;
         }
     }
 }

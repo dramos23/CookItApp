@@ -2,6 +2,7 @@
 using CookItApp.Data;
 using CookItApp.Models;
 using CookItApp.ViewModels;
+using Microsoft.AppCenter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,11 @@ namespace CookItApp.Views
 
                 if (usuario != null)
                 {
+                    System.Guid? uuid = await AppCenter.GetInstallIdAsync();
 
+                    usuario._DeviceId = uuid;
+
+                    bool estado = await App.RestService.UpdateUUID(usuario);
 
                     UserDialogs.Instance.HideLoading();
                     await Navigation.PushAsync(new CargaRecursos(usuario, "INS"), true);

@@ -43,20 +43,26 @@ namespace CookItApp.Data
                 {
 
                     Receta receta = database.Table<Receta>().FirstOrDefault(r => r._IdReceta == idReceta);
-                    List<IngredienteReceta> ingredienteRecetas = App.DataBase.IngredienteReceta.ObtenerList(idReceta);
-                    List<ComentarioReceta> comentarioRecetas = App.DataBase.ComentarioReceta.ObtenerList(idReceta);
-                    List<PasoReceta> pasoRecetas = App.DataBase.PasoReceta.ObtenerList(idReceta);
-                    MomentoDia momentoDia = App.DataBase.MomentoDia.Obtener(receta._IdMomentoDia);
-                    Estacion estacion = App.DataBase.Estacion.Obtener(receta._IdEstacion);
 
-                    receta._ListaIngredientesReceta = ingredienteRecetas ?? null;
-                    receta._ListaComentariosReceta = comentarioRecetas ?? null;
-                    receta._ListaPasosReceta = pasoRecetas ?? null;
-                    receta._MomentoDia = momentoDia ?? null;
-                    receta._Estacion = estacion ?? null;
+                    if (receta != null)
+                    {
+                        List<IngredienteReceta> ingredienteRecetas = App.DataBase.IngredienteReceta.ObtenerList(idReceta);
+                        List<ComentarioReceta> comentarioRecetas = App.DataBase.ComentarioReceta.ObtenerList(idReceta);
+                        List<PasoReceta> pasoRecetas = App.DataBase.PasoReceta.ObtenerList(idReceta);
+                        MomentoDia momentoDia = App.DataBase.MomentoDia.Obtener(receta._IdMomentoDia);
+                        Estacion estacion = App.DataBase.Estacion.Obtener(receta._IdEstacion);
+
+                        receta._ListaIngredientesReceta = ingredienteRecetas ?? null;
+                        receta._ListaComentariosReceta = comentarioRecetas ?? null;
+                        receta._ListaPasosReceta = pasoRecetas ?? null;
+                        receta._MomentoDia = momentoDia ?? null;
+                        receta._Estacion = estacion ?? null;
 
 
-                    return receta;
+                        return receta;
+                    }
+
+                    return null;
                 }
             }
         }

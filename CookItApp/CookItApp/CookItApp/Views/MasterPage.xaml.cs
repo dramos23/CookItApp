@@ -37,10 +37,8 @@ namespace CookItApp.Views
 			InitializeComponent ();
             Usuario = usuario;
             MostrarMsjCons = true;
-            
-            Notificaciones();
-            //VerificarEstadoNoti();
 
+            App.Vista = this;
 
             NavigationPage.SetHasNavigationBar(this, false);
 
@@ -49,45 +47,30 @@ namespace CookItApp.Views
 
         }
 
-        //private void VerificarEstadoNoti()
-        //{
-        //    bool isEnabled = await Push.IsEnabledAsync();
+        public void Notificacion(PushNotificationReceivedEventArgs e)
+        {
+            Notificaciones(e);
+        }
 
-        //    if (isEnabled) {
 
-        //        Push.SetEnabledAsync(true);
-
-        //    }
-
-        //}
-        private void Notificaciones()
+        private async Task Notificaciones(PushNotificationReceivedEventArgs e)
         {
 
-
-            if (AppCenter.Configured)
+            if (e.CustomData.Keys.Contains("Reto"))
             {
+                int idReto = Convert.ToInt32(e.CustomData["RetoID"]);
+                int idNoti = Convert.ToInt32(e.CustomData["NotificacionID"]);
 
-                Push.PushNotificationReceived += async (sender, e) =>
-                {
-
-                    if (e.CustomData.Keys.Contains("Reto"))
-                    {
-                        int idReto = Convert.ToInt32(e.CustomData["RetoID"]);
-                        int idNoti = Convert.ToInt32(e.CustomData["NotificacionID"]);
-
-                        await ProcesarNotificacion(e, idNoti, idReto);
-                    }
-                    else
-                    {
-                        await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
-                    }
-
-                };
-
+                await ProcesarNotificacion(e, idNoti, idReto);
+            }
+            else
+            {
+                await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
             }
 
-
         }
+
+        
 
 
         private async Task ProcesarNotificacion(PushNotificationReceivedEventArgs e, int idNoti,int idReto)
@@ -98,10 +81,11 @@ namespace CookItApp.Views
                 bool reto = await Usuario._Perfil.TraerReto(idReto, this);
                 if (reto)
                 {
+                    
 
                     await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
 
-                    await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
+                    //await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
 
                 }
 
@@ -110,6 +94,7 @@ namespace CookItApp.Views
 
         protected override void OnAppearing()
         {
+
             if (MostrarMsjCons)
             {
                 MostrarMsjCons = false;
@@ -120,7 +105,6 @@ namespace CookItApp.Views
                     ControlPerfil();
                 }
             }
-
         }
 
         private bool Mensajes()
@@ -157,11 +141,13 @@ namespace CookItApp.Views
         {
 
             var item = (MasterPageItem)e.SelectedItem;
-            Type page = item.TargetType;
+            Type page = item.TargetType;            
 
             if (page == typeof(ExitPage))
             {
+                VMMaster.ActualizarUUID(Usuario);
                 EliminarDatosBD();
+                
                 await Navigation.PushAsync(new LoginPage(), true);
                 Navigation.RemovePage(this);
 
@@ -211,6 +197,8 @@ namespace CookItApp.Views
                     }
                 }
             }
+            
+            //ListMenu.SelectedItem = null;
         }
 
         private async Task<Position> Ubicacion()
@@ -273,8 +261,7 @@ namespace CookItApp.Views
         }
 
         private void EliminarDatosBD()
-        {
-            App.ConfigNoti = false;
+        {            
             App.DataBase.BorrarTodo();                        
         }
 
@@ -291,10 +278,15 @@ namespace CookItApp.Views
             BindingContext = VMMaster;
         }
 
-        public void Gamificacion(Perfil.Categoria categoria, int puntuacion)
+        public void Gamificacion()
         {
-            LblCat.Text = categoria.ToString();
-            LblNiv.Text = puntuacion.ToString();
+            VMMaster = new MasterPageVM(Usuario, this);
+            LblCat.Text = VMMaster.Categoria;
+            LblNiv.Text = VMMaster.ProxNivel;
+            
+            
         }
+
+
     }
 }

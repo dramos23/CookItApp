@@ -7,15 +7,15 @@
              xmlns:image="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin">
 
     <MasterDetailPage.Master>
-        <ContentPage Title="Menu">
+        <ContentPage Title="Menu" BackgroundColor="#e8e8e8">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="190" />                    <!--0 FECHA-->
-                    <RowDefinition Height="auto" />                    <!--1 ESTADO-->
+                    <RowDefinition Height="190" />                    
+                    <RowDefinition Height="auto" />                   
                 </Grid.RowDefinitions>
 
 

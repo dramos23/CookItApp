@@ -62,24 +62,28 @@ namespace CookItApp.Views
         {
             await CrossMedia.Current.Initialize();
 
-            if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
+            try
             {
-                FotoFile = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
                 {
-                    Name = "miReceta.jpg",
-                    PhotoSize = PhotoSize.Large
-                });
-                
+                    FotoFile = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                    {
+                        Name = "miReceta.jpg",
+                        PhotoSize = PhotoSize.Large
+                    });
 
-                if (FotoFile != null)
+
+                    if (FotoFile != null)
+                    {
+                        imgPresentacion.Source = ImageSource.FromStream(FotoFile.GetStream);
+                    }
+                }
+                else
                 {
-                    imgPresentacion.Source = ImageSource.FromStream(FotoFile.GetStream);
+                    await UserDialogs.Instance.AlertAsync("Se ha producido un error con el dispositivo!.", "Error!.", "Continuar");
                 }
             }
-            else
-            {
-                await UserDialogs.Instance.AlertAsync("Se ha producido un error con el dispositivo!.", "Error!.", "Continuar");
-            }
+            catch { }
         }
 
         private async void BtnGuardar_Clicked(object sender, EventArgs e)

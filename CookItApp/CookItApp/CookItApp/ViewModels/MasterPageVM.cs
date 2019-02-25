@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace CookItApp.ViewModels
@@ -57,7 +58,7 @@ namespace CookItApp.ViewModels
                 if (puntaje < 250) //proximo nivel AMATÉR
                 {                    
                     int PuntajeMax = 250;
-                    ProxNivel = "Próximo Nivel " + puntaje + "/" + PuntajeMax;
+                    ProxNivel = "Próximo Nivel" + Environment.NewLine + puntaje + "/" + PuntajeMax;
                 }
                 if (puntaje >= 250 && puntaje < 500) // cocinero
                 {
@@ -66,7 +67,7 @@ namespace CookItApp.ViewModels
 
                     int punt = puntaje - PuntajeMin;
 
-                    ProxNivel = "Próximo Nivel " + punt + "/" + PuntajeMax;
+                    ProxNivel = "Próximo Nivel" + Environment.NewLine + punt + "/" + PuntajeMax;
                 }
                 if (puntaje >= 500 && puntaje < 750) // subchef
                 {
@@ -75,7 +76,7 @@ namespace CookItApp.ViewModels
 
                     int punt = puntaje - PuntajeMin;
 
-                    ProxNivel = "Próximo Nivel " + punt + "/" + PuntajeMax;
+                    ProxNivel = "Próximo Nivel" + Environment.NewLine + punt + "/" + PuntajeMax;
                 }
                 if (puntaje >= 750 && puntaje < 1000) //chef
                 {
@@ -84,7 +85,7 @@ namespace CookItApp.ViewModels
 
                     int punt = puntaje - PuntajeMin;
 
-                    ProxNivel = "Próximo Nivel " + punt + "/" + PuntajeMax;
+                    ProxNivel = "Próximo Nivel" + Environment.NewLine + punt + "/" + PuntajeMax;
                 }
                 if (puntaje >= 1000 && puntaje < 1250) //master
                 {
@@ -93,7 +94,7 @@ namespace CookItApp.ViewModels
 
                     int punt = puntaje - PuntajeMin;
 
-                    ProxNivel = "Próximo Nivel " + punt + "/" + PuntajeMax;
+                    ProxNivel = "Próximo Nivel" + Environment.NewLine + punt + "/" + PuntajeMax;
                 }
 
             }
@@ -129,8 +130,10 @@ namespace CookItApp.ViewModels
 
         }
 
-
-
-
+        public async Task ActualizarUUID(Usuario usuario)
+        {
+            usuario._DeviceId = null;
+            var estado = await App.RestService.UpdateUUID(usuario);
+        }
     }
 }

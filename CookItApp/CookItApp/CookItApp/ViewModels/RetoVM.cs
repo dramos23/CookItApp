@@ -22,6 +22,7 @@ namespace CookItApp.ViewModels
         public string Cancelo { get; set; }
         public string DescDesafio { get; set; }
         public string Preg { get; set; }
+        public string Puntaje { get; set; }
 
         
 
@@ -34,6 +35,8 @@ namespace CookItApp.ViewModels
 
             Reto = reto;            
             ConfEtapaUno(usuario);
+
+            Puntaje = reto._Puntaje.ToString() + " pts";
         }
 
 

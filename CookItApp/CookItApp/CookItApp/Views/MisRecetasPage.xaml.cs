@@ -44,7 +44,10 @@ namespace CookItApp.Views
             {
                 return;
             }
-            
+
+            MisRecetas.SelectedItem = null;
+
+            receta = App.DataBase.Receta.Obtener(receta._IdReceta);
 
             if (receta != null)
             {

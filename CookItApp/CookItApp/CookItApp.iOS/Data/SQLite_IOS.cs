@@ -17,7 +17,7 @@ namespace CookItApp.iOS.Data
         public SQLite_IOS() { }
         public SQLiteConnection GetConnection()
         {
-            var fileName = "CookItAppBD2.db3";
+            var fileName = "CookItAppBD3.db3";
             var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var libraryPath = Path.Combine(documentPath, "..", "Library");
             var path = Path.Combine(libraryPath, fileName);

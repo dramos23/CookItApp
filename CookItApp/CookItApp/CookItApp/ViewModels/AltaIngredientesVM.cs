@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CookItApp.ViewModels
 {
@@ -45,7 +46,7 @@ namespace CookItApp.ViewModels
         }
 
         //Se pone mensaje si el usuario ya tiene el ingrediente insertado para avisar que se actualizó la cantidad?
-        public async void AgregarIngrediente(Ingrediente ing, int cantidad)
+        public async Task AgregarIngrediente(Ingrediente ing, int cantidad)
         {
             IngredienteUsuario ingUs = new IngredienteUsuario
             {

@@ -10,7 +10,7 @@
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
 
-        <ListView x:Name="ListaRetos" ItemsSource="{Binding Retos}" HasUnevenRows="True" SelectedItem="none" IsVisible="{Binding Lista}">
+        <ListView x:Name="ListaRetos" ItemsSource="{Binding Retos}" HasUnevenRows="True" SelectedItem="RetoSeleccionado" IsVisible="{Binding Lista}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
