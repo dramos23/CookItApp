@@ -216,7 +216,7 @@ namespace CookItApp.Views
        */
         private void AgregarLabelATimer()
         {
-            TimeSpan ts = TimeSpan.FromSeconds(_PasoRecetaVM._Paso._TiempoReloj);
+            TimeSpan ts = TimeSpan.FromMinutes(_PasoRecetaVM._Paso._TiempoReloj);
 
             lblTimer = new Label
             {
