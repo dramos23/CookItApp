@@ -34,14 +34,15 @@ namespace CookItApp.Views
                 return;
             }
 
+            int idReceta = recetaFavorita._Receta._IdReceta;
             MisFavoritos.SelectedItem = null;
-            Receta rec = await App.RecetaService.Obtener(recetaFavorita._Receta);
+            Receta receta = App.DataBase.Receta.Obtener(idReceta);
 
-            if (rec != null)
+            if (receta != null)
             {
                 
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
-                await Navigation.PushAsync(new RecetaPage(rec, Usuario));
+                await Navigation.PushAsync(new RecetaPage(receta, Usuario));
                 UserDialogs.Instance.HideLoading();
 
             }

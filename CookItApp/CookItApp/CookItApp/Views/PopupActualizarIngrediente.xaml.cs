@@ -34,7 +34,6 @@ namespace CookItApp.Views
         private async void ActualizarIngrediente_Tapped(object sender, EventArgs e)
         {           
             int cantidad = Convert.ToInt32(txtCantidad.Text);
-
             ViewModel.ActualizarIngrediente(Ing, cantidad);
             await PopupNavigation.Instance.PopAsync();
         }

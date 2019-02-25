@@ -51,7 +51,7 @@ namespace CookItApp.Views
                 Ingrediente ing = (Ingrediente)ListaIngredientes.SelectedItem;
                 try
                 {
-                    await ViewModel.AgregarIngrediente(ing, cantidad);
+                    ViewModel.AgregarIngrediente(ing, cantidad);
                     await PopupNavigation.Instance.PopAsync();
                 }
                 catch

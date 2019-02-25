@@ -9,7 +9,7 @@ namespace CookItApp.Controladores
 {
     public class IngredienteUsuarioDataBaseController
     {
-        private static object locker = new object();
+        private static readonly object locker = new object();
 
         private SQLiteConnection database;
 
@@ -68,8 +68,9 @@ namespace CookItApp.Controladores
                 if (ingredienteUsuario != null)
                 {
 
-                    ingredienteUsuario._Cantidad = obj._Cantidad;
-                    database.Update(ingredienteUsuario);
+                    var Cantidad = obj._Cantidad.ToString();
+                    var Id = obj._IdIngrediente.ToString();
+                    database.Query<IngredienteUsuario>("Update IngredienteUsuario Set _Cantidad = " + Cantidad + " Where _IdIngrediente = " + Id);
                     return 1;
                 }
                 else

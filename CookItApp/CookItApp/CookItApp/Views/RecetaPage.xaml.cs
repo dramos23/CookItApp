@@ -21,9 +21,6 @@ namespace CookItApp.Views
         private string Email { get; set; }
         private Usuario Usuario { get; set; }
 
-        private NavigationPage nuevaNav { get; set; }
-        
-
 
         public RecetaPage(Receta receta, Usuario usuario)
         {

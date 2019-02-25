@@ -41,11 +41,11 @@ namespace CookItApp.ViewModels
         {
             List<Dificultad> list = new List<Dificultad>()
             {
-                new Dificultad(){ Key = "1", value = 1 },
-                new Dificultad(){ Key = "2", value = 2 },
-                new Dificultad(){ Key = "3", value = 3 },
-                new Dificultad(){ Key = "4", value = 4 },
-                new Dificultad(){ Key = "5", value = 5 },
+                new Dificultad(){ Key = "1", Value = 1 },
+                new Dificultad(){ Key = "2", Value = 2 },
+                new Dificultad(){ Key = "3", Value = 3 },
+                new Dificultad(){ Key = "4", Value = 4 },
+                new Dificultad(){ Key = "5", Value = 5 },
             };
 
             ItemsDificultad = new ObservableCollection<Dificultad>(list);
@@ -151,6 +151,6 @@ namespace CookItApp.ViewModels
     public class Dificultad
     {
         public string Key { get; set; }
-        public int value { get; set; }
+        public int Value { get; set; }
     }
 }

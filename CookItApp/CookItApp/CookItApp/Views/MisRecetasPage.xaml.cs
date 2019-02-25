@@ -51,9 +51,11 @@ namespace CookItApp.Views
 
             if (receta != null)
             {
-                UserDialogs.Instance.HideLoading();
+                
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(receta, Usuario));
+
+                UserDialogs.Instance.HideLoading();
             }
             else
             {

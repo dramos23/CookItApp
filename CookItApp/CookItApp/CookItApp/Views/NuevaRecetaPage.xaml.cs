@@ -61,7 +61,7 @@ namespace CookItApp.Views
                 int Tiempo = Convert.ToInt32(entryTiempo.Text);
                 int Platos = Convert.ToInt32(entryPlatos.Text);
                 Dificultad dificultad = picDificultad.ItemsSource[picDificultad.SelectedIndex] as Dificultad;
-                int Dificultad = dificultad.value;
+                int Dificultad = dificultad.Value;
                 MomentoDia momento = picMomentoDia.ItemsSource[picMomentoDia.SelectedIndex] as MomentoDia;
                 int Momento = momento._IdMomentoDia;
                 Estacion estacion = picEstacion.ItemsSource[picEstacion.SelectedIndex] as Estacion;
