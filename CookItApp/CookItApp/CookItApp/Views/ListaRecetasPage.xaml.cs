@@ -27,11 +27,12 @@ namespace CookItApp.Views
 		{
 			InitializeComponent ();
             Usuario = usuario;
-            VMRecetas = new RecetaListVM(null);
             InicializarControladorFiltros();
+            VMRecetas = new RecetaListVM(null);
             BindingContext = VMRecetas;
         }
 
+       
         private void RevisarMensajeNoHayRecetas()
         {
             if (VMRecetas.Recetas.Count == 0)
@@ -47,7 +48,8 @@ namespace CookItApp.Views
 
         private void InicializarControladorFiltros()
         {
-            if (!Application.Current.Properties.ContainsKey("ViewModelFiltro"))
+            var quehay = Application.Current.Properties.ContainsKey("ViewModelFiltro");
+            if (!quehay)
             {
                 FiltrosVM vm = new FiltrosVM(Usuario);
                 Application.Current.Properties.Add("ViewModelFiltro", vm);
@@ -65,18 +67,20 @@ namespace CookItApp.Views
                 return;
             }
 
+            ListaRecetas.SelectedItem = null;
+
             Receta rec = App.DataBase.Receta.Obtener(receta._IdReceta);
             //Receta rec = await App.RecetaService.Obtener(receta);
 
             if (rec != null)
             {
                 //Agrego receta al historial del usuario
-                await AgregarRecetaHistorial(rec);
+                AgregarRecetaHistorial(rec);
 
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(rec, Usuario));
 
-                ListaRecetas.SelectedItem = null;
+                
                 UserDialogs.Instance.HideLoading();
             }
             else {

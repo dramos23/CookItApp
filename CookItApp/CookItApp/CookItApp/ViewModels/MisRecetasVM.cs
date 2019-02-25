@@ -30,7 +30,7 @@ namespace CookItApp.ViewModels
         {
             var recetas = App.DataBase.Receta.ObtenerList().Where(r => r._Email == usuario._Email).ToList();
             
-            if (recetas == null)
+            if (recetas == null || recetas.Count == 0)
             {
 
                 Lista = false;

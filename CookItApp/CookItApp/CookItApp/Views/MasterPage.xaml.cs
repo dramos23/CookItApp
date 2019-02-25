@@ -141,6 +141,9 @@ namespace CookItApp.Views
         {
 
             var item = (MasterPageItem)e.SelectedItem;
+
+            
+
             Type page = item.TargetType;            
 
             if (page == typeof(ExitPage))
@@ -198,7 +201,7 @@ namespace CookItApp.Views
                 }
             }
             
-            //ListMenu.SelectedItem = null;
+            
         }
 
         private async Task<Position> Ubicacion()

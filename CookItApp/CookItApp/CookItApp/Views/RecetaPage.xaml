@@ -3,21 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              x:Class="CookItApp.Views.RecetaPage"
-             BackgroundColor="{StaticResource colorBackground}">
+             BackgroundColor="{StaticResource colorBackground}"
+             Title="{Binding  _Receta._Titulo}">
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource colorBackground}" HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
+
+        <StackLayout  Orientation="Vertical">
+
+            <Grid BackgroundColor="{StaticResource colorBackground}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50*"/>
+
+                    <RowDefinition Height="auto"/>
+                    <!--<RowDefinition Height="2*"/>-->
+                </Grid.RowDefinitions>
 
 
-           <Label Grid.Row="0" Grid.ColumnSpan="5"
+                <!--<Label Grid.Row="0" Grid.ColumnSpan="5"
                 Text="{Binding _Receta._Titulo}"
                    FontSize="Large"
                    Margin="0"
@@ -26,45 +29,57 @@
                    HorizontalOptions="Center"
                    LineBreakMode="TailTruncation"
                    MaxLines="2"
-                   TextColor="{StaticResource colorOnBackground}"/>
+                   TextColor="{StaticResource colorOnBackground}"/>-->
 
-            <Button Grid.Row="1" Grid.ColumnSpan="5" Text="Información de receta"
-                    TextColor="Black" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center"
-                    Clicked="BtnVerInfoReceta_Clicked"/>
-
-            <Image Grid.Row="2" Grid.ColumnSpan="5"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand"
-                   Source="{Binding _Receta._FotoCompleta}"
-                   Aspect="AspectFill" />
-
-
-            <Label Grid.Row="3" Grid.ColumnSpan="5"
-                   Text="{Binding _Receta._Descripcion}"
-                   FontSize="Medium"
-                   Margin="10"
-                   VerticalOptions="Start" HorizontalOptions="Start"
-                   MaxLines="3"
-                   LineBreakMode="TailTruncation"
-                   TextColor="{StaticResource colorOnBackground}"/>
-
-            <Grid Grid.Row="4" Grid.ColumnSpan="5">
-                <Label Text="Dificultad: " Margin="5,5,0,0" FontSize="Medium"
-                       VerticalOptions="Start" HorizontalOptions="Start"
-                       Grid.Column="0"/>
                 
-                <Image Margin="0" HeightRequest="30" HorizontalOptions="StartAndExpand" VerticalOptions="Start"
+                <Image Grid.Row="0" Grid.ColumnSpan="5"
+
+                   Source="{Binding _Receta._FotoCompleta}"
+                   Aspect="AspectFill" Margin="10,20"/>
+
+                <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Orientation="Horizontal" VerticalOptions="Center" Margin="10,0">
+
+                    <Label Text="Dificultad: " FontSize="14" HorizontalOptions="Start"  VerticalOptions="Center" />
+
+                    <Image HeightRequest="20" HorizontalOptions="Center" Source="{Binding _Receta._RutaFotoDificultad}"  VerticalOptions="Center"/>
+
+                    <Label Text="Puntuación: " FontSize="14" HorizontalOptions="Start"  VerticalOptions="Center"/>
+
+                    <Image HeightRequest="20" HorizontalOptions="Center" Source="{Binding _Receta._RutaFotoPuntajeTotal}" VerticalOptions="Center" />
+
+                </StackLayout>
+                <!--<Grid Grid.Row="1" Grid.ColumnSpan="5" Margin="10,0">
+
+                    <Label Text="Dificultad: " FontSize="Medium"
+                       VerticalOptions="Center" HorizontalOptions="Center"
+                       Grid.Column="0"/>
+
+                    <Image Margin="0" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center"
                        Source="{Binding _Receta._RutaFotoDificultad}" Grid.Column="1" />
 
-                <Label Text="Puntuación: " Margin="5,5,0,0" FontSize="Medium"
-                       VerticalOptions="Start" HorizontalOptions="Start"
+                    <Label Text="Puntuación: " FontSize="Medium"
+                       VerticalOptions="Center" HorizontalOptions="Center"
                        Grid.Column="2"/>
 
-                <Image Margin="0" HeightRequest="30" HorizontalOptions="StartAndExpand" VerticalOptions="Start"
+                    <Image Margin="0" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center"
                        Source="{Binding _Receta._RutaFotoPuntajeTotal}" Grid.Column="3"/>
-            </Grid>
+                </Grid>-->
 
-            <Grid Grid.Row="5" Grid.ColumnSpan="5" Padding="0">
+                <!--LineBreakMode="TailTruncation"-->
+                <ScrollView Grid.Row="2" Grid.ColumnSpan="5" Margin="10,10" VerticalOptions="Start" HorizontalOptions="Start">
+                    <Label  Text="{Binding _Receta._Descripcion}" FontSize="13" TextColor="Black"/>
+                </ScrollView>
+
+                <!--<Button Grid.Row="2" Grid.ColumnSpan="5" Text="Información de receta"
+                    TextColor="Black" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center"
+                    Clicked="BtnVerInfoReceta_Clicked"/>-->
+
+
+                <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" Text="Información de receta" Clicked="BtnVerInfoReceta_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  
+                        TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="10,0"/>
+
+
+                <!--<Grid Grid.Row="5" Grid.ColumnSpan="5">
 
                 <Image x:Name="btnPrepararReceta"
                              Grid.Column="0" 
@@ -110,7 +125,65 @@
                     </Image.GestureRecognizers>
                 </Image>
 
+            </Grid>-->
             </Grid>
-        </Grid>
+
+            
+
+            <StackLayout Orientation="Horizontal" >
+
+                    <Image x:Name="btnPrepararReceta"
+                
+                             Style="{StaticResource estiloBotonImagenGrande}"
+                             Source="iconPreparar.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnPrepararReceta_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image x:Name="btnVerIngredientes"
+                
+                                   Style="{StaticResource estiloBotonImagenGrande}"
+                                   Source="iconVerIngredientes.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnVerIngredientes_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image x:Name="btnAgregarFavoritos"
+                
+                       Style="{StaticResource estiloBotonImagenGrande}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnAgregarFavoritos_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image x:Name="btnComentarios"
+                
+                                   Style="{StaticResource estiloBotonImagenGrande}"
+                                   Source="iconComentar.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnComentarios_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image x:Name="btnRetar"
+                
+                       Source="iconReto.png"
+                       Style="{StaticResource estiloBotonImagenGrande}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BtnRetar_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                
+
+            </StackLayout>
+            
+            
+        </StackLayout>
+
+        
+        
     </ContentPage.Content>
 </ContentPage>

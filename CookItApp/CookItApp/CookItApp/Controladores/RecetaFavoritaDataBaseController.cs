@@ -86,5 +86,14 @@ namespace CookItApp.Controladores
                 return database.Delete<RecetaFavorita>(obj._IdReceta);
             }
         }
+
+        public RecetaFavorita Obtener(int idReceta)
+        {
+            lock (locker) {
+
+                return database.Table<RecetaFavorita>().FirstOrDefault(x => x._IdReceta == idReceta);
+
+            }
+        }
     }
 }

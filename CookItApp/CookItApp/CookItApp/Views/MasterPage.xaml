@@ -37,7 +37,7 @@
                     
 
                 <StackLayout Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="#e8e8e8" Margin="0,0">
-                    <ListView x:Name="ListMenu" SeparatorVisibility="Default" ItemSelected="OnMenuItemSelected" ItemsSource="{Binding ListMenu}">
+                    <ListView x:Name="ListaMenu" SeparatorVisibility="Default" ItemSelected="OnMenuItemSelected" ItemsSource="{Binding ListMenu}">
 
                         <ListView.ItemTemplate>
                             <DataTemplate>

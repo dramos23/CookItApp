@@ -11,7 +11,7 @@
 
             <Label Text="{Binding Text}" 
            HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
+           VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}" Margin="10,0"/>
          
             <ListView x:Name="MisRecetas" ItemsSource="{Binding MisRecetas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada"  IsVisible="{Binding  Lista}">
                 <ListView.ItemTemplate>

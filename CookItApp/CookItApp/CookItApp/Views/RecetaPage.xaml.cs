@@ -135,8 +135,14 @@ namespace CookItApp.Views
                 }
                 else
                 {
-                    await App.RecetaFavoritaService.Eliminar(rf);
-                    btnAgregarFavoritos.Source = "iconFavoritoOff.png";
+                    bool estado = await App.RecetaFavoritaService.Eliminar(rf);
+                    if (estado)
+                    {
+                        App.DataBase.RecetaFavorita.Borrar(rf);
+                        btnAgregarFavoritos.Source = "iconFavoritoOff.png";
+
+                    }
+                    
                 }
             }
             

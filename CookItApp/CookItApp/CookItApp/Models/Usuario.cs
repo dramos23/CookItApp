@@ -70,8 +70,9 @@ namespace CookItApp.Models
         {
             if (_Perfil != null)
             {
-                RecetaFavorita recFav = new RecetaFavorita { _IdReceta = rec._IdReceta };
-                return _Perfil._ListaRecetasFavoritas.Contains(recFav) ? true : false;
+                RecetaFavorita recFav = App.DataBase.RecetaFavorita.Obtener(rec._IdReceta);
+
+                return recFav != null ? true : false;
             }
             else {
                 return false;

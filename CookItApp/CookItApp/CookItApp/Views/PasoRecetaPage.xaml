@@ -5,6 +5,7 @@
              x:Class="CookItApp.Views.PasoRecetaPage"
              BackgroundColor="{StaticResource colorBackground}">
     <ContentPage.Content>
+        
         <Grid x:Name="gridPrimaria" Padding="5,5,5,5" Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -12,6 +13,7 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
+            
             <Label Text="" Grid.Row="0" x:Name="txtCantPasos" FontSize="Medium" FontAttributes="Bold"
                    TextColor="Black" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
@@ -20,18 +22,11 @@
                 <Grid x:Name="gridTimer" Opacity="0" Grid.Column="0" >
 
                     <Label Grid.Row="0" Grid.Column="0" x:Name="lblTimer" Grid.ColumnSpan="3"/>
-                    <Image x:Name="imgPlayTimer"
-                           Grid.Row="1" Grid.Column="0"
-                       Source="playTimer.png"
-                       Style="{StaticResource estiloBotonImagenGrande}">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ComenzarTimer" NumberOfTapsRequired="1"/>
-                        </Image.GestureRecognizers>
-                    </Image>
+
 
 
                     <Image x:Name="imgPausarTimer"
-                           Grid.Row="1" Grid.Column="1"
+                           Grid.Row="1" Grid.Column="0"
                            Source="pauseTimer.png"                           
                        Style="{StaticResource estiloBotonImagenGrande}">
                         <Image.GestureRecognizers>
@@ -39,6 +34,14 @@
                         </Image.GestureRecognizers>
                     </Image>
 
+                    <Image x:Name="imgPlayTimer"
+                           Grid.Row="1" Grid.Column="1"
+                       Source="playTimer.png"
+                       Style="{StaticResource estiloBotonImagenGrande}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ComenzarTimer" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
                     <Image x:Name="imgResetearTimer"
                            Grid.Row="1" Grid.Column="2"
