@@ -40,14 +40,16 @@ namespace CookItApp.Views
                 return;
             }
 
+            MiHistorial.SelectedItem = null;
 
-            Receta rec = await App.RecetaService.Obtener(historialReceta._Receta);
+            Receta receta = App.DataBase.Receta.Obtener(historialReceta._IdReceta);
 
-            if (rec != null)
+            if (receta != null)
             {
-                UserDialogs.Instance.HideLoading();
+                
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
-                await Navigation.PushAsync(new RecetaPage(rec, _Usuario));
+                await Navigation.PushAsync(new RecetaPage(receta, _Usuario));
+                UserDialogs.Instance.HideLoading();
             }
             else
             {

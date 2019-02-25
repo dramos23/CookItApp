@@ -31,12 +31,13 @@
                           BackgroundColor="{StaticResource colorBackground}" 
                           ItemSelected="RecetaSeleccionada"
                           RowHeight="80"
+                          Grid.Row="0"
                           Margin="0,1,0,0"> 
                     <ListView.ItemTemplate>
                         <DataTemplate x:Name="dtListaRecetas">
                             <ViewCell>
                                 <ViewCell.View>
-                                    
+
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="4*" />
@@ -88,12 +89,16 @@
                                                    TextColor="{StaticResource bluePinkDark}"/>
                                         </Grid>
                                     </Grid>
-                                    
+
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
+                <Label Grid.Column="0" Grid.Row="0" VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"
+                   MaxLines="10" VerticalOptions="CenterAndExpand" FontSize="Large" IsVisible="False" 
+                   Text="No encontramos ninguna receta con tus especificaciones." x:Name="lblSinSuper"/>
             </Grid>
         </Grid>
     </ContentPage.Content>

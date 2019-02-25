@@ -15,7 +15,7 @@ namespace CookItApp.ViewModels
         public RecetaListVM(List<Receta> filtrada)
         {
 
-            if (filtrada != null && filtrada.Count > 0)
+            if (filtrada != null)
             {
                 CargarRecetasF(filtrada);
             }
@@ -32,6 +32,7 @@ namespace CookItApp.ViewModels
         {
 
             var recetas = App.DataBase.Receta.ObtenerList();
+            recetas = recetas.Where(r => r._Habilitada == true).ToList();
 
             if (recetas.Count > 0)
             {
@@ -44,22 +45,14 @@ namespace CookItApp.ViewModels
                 Recetas = new ObservableCollection<Receta>();
 
             }
-            //List<Receta> recetas = new List<Receta>();
-
-            //recetas = receta ?? App.DataBase.Receta.ObtenerList();
-
-            //if (recetas != null)
-            //{
-            //    foreach (Receta r in recetas)
-            //    {
-            //        Recetas.Add(r);
-            //    }
-            //}
         }
 
         public List<Receta> FiltrarRecetasPorNombre(string keyword)
         {
-            return App.DataBase.Receta.ObtenerList().Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();
+            List<Receta> recetas = App.DataBase.Receta.ObtenerList();
+            recetas = recetas.Where(r => r._Habilitada == true).ToList();
+            recetas = recetas.Where(c => c._Titulo.ToLower().Contains(keyword.ToLower())).ToList();
+            return recetas;
         }
 
         internal List<Receta> DevolverListaFiltrada(List<Receta> recetas)

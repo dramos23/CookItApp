@@ -59,5 +59,7 @@ namespace CookItApp.Droid
             base.OnElementChanged(e);
             fBLoginPage = (FBLoginPage)e.NewElement;
         }
+
+
     }
 }

@@ -37,8 +37,8 @@ namespace CookItApp.Views
 			InitializeComponent ();
             Usuario = usuario;
             MostrarMsjCons = true;
-            
-            Notificaciones();
+
+            App.Vista = this;
 
             NavigationPage.SetHasNavigationBar(this, false);
 
@@ -47,47 +47,31 @@ namespace CookItApp.Views
 
         }
 
+        public void Notificacion(PushNotificationReceivedEventArgs e)
+        {
+            Notificaciones(e);
+        }
 
 
-
-        private async void Notificaciones()
+        private async Task Notificaciones(PushNotificationReceivedEventArgs e)
         {
 
-            if (!AppCenter.Configured)
+            if (e.CustomData.Keys.Contains("Reto"))
             {
+                int idReto = Convert.ToInt32(e.CustomData["RetoID"]);
+                int idNoti = Convert.ToInt32(e.CustomData["NotificacionID"]);
 
-
-                await Push.SetEnabledAsync(true);
-
-                Push.PushNotificationReceived += async (sender, e) =>
-                {
-
-                    if (e.CustomData.Keys.Contains("Reto"))
-                    {
-                        int idReto = Convert.ToInt32(e.CustomData["RetoID"]);
-                        int idNoti = Convert.ToInt32(e.CustomData["NotificacionID"]);
-
-                        await ProcesarNotificacion(e, idNoti, idReto);
-                    }
-                    else
-                    {
-                        await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
-                    }
-
-                };                    
-
+                await ProcesarNotificacion(e, idNoti, idReto);
+            }
+            else
+            {
+                await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
             }
 
-            AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
-
-            System.Guid? uuid = await AppCenter.GetInstallIdAsync();
-
-            Usuario._DeviceId = uuid;
-
-            bool ret = await App.RestService.UpdateUUID(Usuario);
-
-
         }
+
+        
+
 
         private async Task ProcesarNotificacion(PushNotificationReceivedEventArgs e, int idNoti,int idReto)
         {
@@ -97,10 +81,11 @@ namespace CookItApp.Views
                 bool reto = await Usuario._Perfil.TraerReto(idReto, this);
                 if (reto)
                 {
+                    
 
                     await UserDialogs.Instance.AlertAsync(e.Message, e.Title, "Continuar");
 
-                    await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
+                    //await Navigation.PushAsync(new ListaNotificacionesPage(Usuario));
 
                 }
 
@@ -109,6 +94,7 @@ namespace CookItApp.Views
 
         protected override void OnAppearing()
         {
+
             if (MostrarMsjCons)
             {
                 MostrarMsjCons = false;
@@ -119,7 +105,6 @@ namespace CookItApp.Views
                     ControlPerfil();
                 }
             }
-
         }
 
         private bool Mensajes()
@@ -134,12 +119,12 @@ namespace CookItApp.Views
                 int notificaciones = App.DataBase.Notificacion.SinLeer();
                 if (notificaciones > 0)
                 {
-                    mensaje += "Tienes " + notificaciones.ToString() + " notificaciones sin leer.\\n";
+                    mensaje += "Tienes " + notificaciones.ToString() + " notificacion/es sin leer.\\n";
                 }
                 int retos = App.DataBase.Reto.RetosActivos();
                 if (retos > 0)
                 {
-                    mensaje += "Tienes " + retos.ToString() + " retos activos.";
+                    mensaje += "Tienes " + retos.ToString() + " desafio/s activos.";
                 }
                 if (notificaciones > 0 || retos > 0)
                 {
@@ -156,11 +141,13 @@ namespace CookItApp.Views
         {
 
             var item = (MasterPageItem)e.SelectedItem;
-            Type page = item.TargetType;
+            Type page = item.TargetType;            
 
             if (page == typeof(ExitPage))
             {
+                VMMaster.ActualizarUUID(Usuario);
                 EliminarDatosBD();
+                
                 await Navigation.PushAsync(new LoginPage(), true);
                 Navigation.RemovePage(this);
 
@@ -210,6 +197,8 @@ namespace CookItApp.Views
                     }
                 }
             }
+            
+            //ListMenu.SelectedItem = null;
         }
 
         private async Task<Position> Ubicacion()
@@ -272,8 +261,7 @@ namespace CookItApp.Views
         }
 
         private void EliminarDatosBD()
-        {
-            App.ConfigNoti = false;
+        {            
             App.DataBase.BorrarTodo();                        
         }
 
@@ -290,10 +278,15 @@ namespace CookItApp.Views
             BindingContext = VMMaster;
         }
 
-        public void Gamificacion(Perfil.Categoria categoria, int puntuacion)
+        public void Gamificacion()
         {
-            LblCat.Text = categoria.ToString();
-            LblNiv.Text = puntuacion.ToString();
+            VMMaster = new MasterPageVM(Usuario, this);
+            LblCat.Text = VMMaster.Categoria;
+            LblNiv.Text = VMMaster.ProxNivel;
+            
+            
         }
+
+
     }
 }

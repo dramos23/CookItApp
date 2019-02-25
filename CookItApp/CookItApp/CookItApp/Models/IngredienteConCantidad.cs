@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace CookItApp.Models
-{ 
+{
     public abstract class IngredienteConCantidad
     {
-
+  
         public int _IdIngrediente { set; get; }
   
         public int _Cantidad { get; set; }

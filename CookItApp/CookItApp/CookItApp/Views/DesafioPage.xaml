@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CookItApp.Views.RetoPage"
+             x:Class="CookItApp.Views.DesafioPage"
              xmlns:local="clr-namespace:CookItApp;assembly=CookItApp"
              Title="Desafío">
     
@@ -43,13 +43,15 @@
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Reto._Fecha}" LineBreakMode="NoWrap" HorizontalOptions="End" FontSize="13" TextColor="Black"/>
                     <Label Grid.Column="0" Grid.Row="1" Text="Estado:" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
                     <Label Grid.Column="1" Grid.Row="1" Text="{Binding Reto._EstadoReto._Estado}" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
-                    <Label Grid.Column="0" Grid.Row="2" Text="Retador:" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
-                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding Reto._NomUsuOri}" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
-                    <Label Grid.Column="0" Grid.Row="3" Text="Comentario:" LineBreakMode="NoWrap" FontSize="16" VerticalOptions="Start" TextColor="Black"/>
-                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding Reto._ComentarioOrigen}" LineBreakMode="NoWrap" FontSize="16" MaxLines="10" VerticalOptions="Start" TextColor="Black"/>
-                    <Label Grid.Column="0" Grid.Row="4" Text="Receta:" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
+                    <Label Grid.Column="0" Grid.Row="2" Text="Puntaje:" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding Puntaje}" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
+                    <Label Grid.Column="0" Grid.Row="3" Text="Retador:" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
+                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding Reto._NomUsuOri}" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
+                    <Label Grid.Column="0" Grid.Row="4" Text="Comentario:" LineBreakMode="NoWrap" FontSize="16" VerticalOptions="Start" TextColor="Black"/>
+                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding Reto._ComentarioOrigen}" LineBreakMode="NoWrap" FontSize="16" MaxLines="10" VerticalOptions="Start" TextColor="Black"/>
+                    <Label Grid.Column="0" Grid.Row="5" Text="Receta:" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
                     
-                    <Frame x:Name="frameReceta" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" CornerRadius="10" >
+                    <Frame x:Name="frameReceta" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" CornerRadius="10" >
                         <StackLayout>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -69,7 +71,7 @@
                         </StackLayout>
                     </Frame>
 
-                    <Frame x:Name="frameReto" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" CornerRadius="10" IsVisible="{Binding Finalizado}">
+                    <Frame x:Name="frameReto" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" CornerRadius="10" IsVisible="{Binding Finalizado}">
                         <StackLayout>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -95,9 +97,9 @@
 
                     <!--ETAPA DOS-->
 
-                    <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding Preg}" LineBreakMode="NoWrap" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding EtapaDos}" TextColor="Black"/>
-                    <Label Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Text="{Binding DescDesafio}" LineBreakMode="NoWrap" FontSize="13" HorizontalOptions="Start" VerticalOptions="Center" MaxLines="7" IsVisible="{Binding EtapaDos}" TextColor="Black"/>
-                    <Grid Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" IsVisible="{Binding EtapaDos}">
+                    <Label Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Text="{Binding Preg}" LineBreakMode="NoWrap" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding EtapaDos}" TextColor="Black"/>
+                    <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Text="{Binding DescDesafio}" LineBreakMode="NoWrap" FontSize="13" HorizontalOptions="Start" VerticalOptions="Center" MaxLines="7" IsVisible="{Binding EtapaDos}" TextColor="Black"/>
+                    <Grid Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" IsVisible="{Binding EtapaDos}">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50*"/>
@@ -107,21 +109,21 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="BtnAceptar" Grid.Column="0" Grid.Row="0" Text="{Binding Acepto}" Clicked="BtnAceptar_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
-                        <Button x:Name="BtnCanelar" Grid.Column="1" Grid.Row="0" Text="{Binding Cancelo}" Clicked="BtnCancelar_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
+                        <Button x:Name="BtnAceptar" Grid.Column="0" Grid.Row="0" Text="{Binding Acepto}" Clicked="BtnAceptar_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
+                        <Button x:Name="BtnCanelar" Grid.Column="1" Grid.Row="0" Text="{Binding Cancelo}" Clicked="BtnCancelar_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
                     </Grid>
                     
                     <!--ETAPA TRES-->
 
-                    <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Text="Sube lo que has hecho y finaliza el desafío!" LineBreakMode="NoWrap" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding EtapaTres}" TextColor="Black"/>
-                    <Image Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" x:Name="imgRetoPresentacion" Style="Border: 1px" IsVisible="{Binding EtapaTres}"/> <!--Source="{Binding Foto}"-->
-                    <Button Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" x:Name="BtnSacarFoto" Image="photo.png" Clicked="BtnSacarFoto_Clicked" IsVisible="{Binding EtapaTres}" BackgroundColor="#00748A"/>
-                    <local:EditorXF x:Name="txtComentario" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Placeholder="Deja un comentario.." FontSize="16" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" MaxLength="200" IsVisible="{Binding EtapaTres}" TextColor="Black"/>
-                    <Button Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" x:Name="BtnFinalizar" Text="Desafío terminado!" Clicked="BtnFinalizar_Clicked" IsVisible="{Binding EtapaTres}" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
+                    <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Text="Sube lo que has hecho y finaliza el desafío!" LineBreakMode="NoWrap" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding EtapaTres}" TextColor="Black"/>
+                    <Image Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" x:Name="imgRetoPresentacion" Style="Border: 1px" IsVisible="{Binding EtapaTres}"/> <!--Source="{Binding Foto}"-->
+                    <Button Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" x:Name="BtnSacarFoto" Image="photo.png" Clicked="BtnSacarFoto_Clicked" IsVisible="{Binding EtapaTres}" BackgroundColor="#00748A" HeightRequest="50"/>
+                    <local:EditorXF x:Name="txtComentario" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" Placeholder="Deja un comentario.." FontSize="16" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" MaxLength="200" IsVisible="{Binding EtapaTres}" TextColor="Black"/>
+                    <Button Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" x:Name="BtnFinalizar" Text="Desafío terminado!" Clicked="BtnFinalizar_Clicked" IsVisible="{Binding EtapaTres}" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
                     <!--ETAPA CUATRO-->
-                    <Frame x:Name="frameFinaliza" Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" CornerRadius="10" IsVisible="{Binding EtapaCuatro}">
+                    <Frame x:Name="frameFinaliza" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" CornerRadius="10" IsVisible="{Binding EtapaCuatro}">
                         <StackLayout>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -151,8 +153,8 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="BtnAprobado" Grid.Column="0" Grid.Row="0" Text="Aprobado" Clicked="BtnAprobado_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
-                        <Button x:Name="BtnRechazado" Grid.Column="1" Grid.Row="0" Text="Rechazado" Clicked="BtnRechazado_Clicked" TextColor="White" BackgroundColor="#00748A" BorderRadius="10"/>
+                        <Button x:Name="BtnAprobado" Grid.Column="0" Grid.Row="0" Text="Aprobado" Clicked="BtnAprobado_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
+                        <Button x:Name="BtnRechazado" Grid.Column="1" Grid.Row="0" Text="Rechazado" Clicked="BtnRechazado_Clicked" TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
 
                     </Grid>
                     

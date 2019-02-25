@@ -104,12 +104,17 @@ namespace CookItApp.Views
 
         public void RefrescarListaIng()
         {
-            ListaIngredientes.ItemsSource = viewModel.DevolverListaIngUsuario();
-            if (ListaIngredientes.IsVisible == false)
+            var ingredientes = viewModel.DevolverListaIngUsuario();
+            ListaIngredientes.ItemsSource = ingredientes;
+            if (ingredientes != null && ingredientes.Count > 0)
             {
                 ListaIngredientes.IsVisible = true;
                 layoutMensaje.IsVisible = false;
+                return;
             }
+
+            ListaIngredientes.IsVisible = false;
+            layoutMensaje.IsVisible = true;
         }
 
         public async void Mensaje(string v)

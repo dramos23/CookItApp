@@ -16,7 +16,7 @@ namespace CookItApp.Data
 
         public PerfilService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Perfiles/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Perfiles/";
 
         }
 
@@ -47,8 +47,9 @@ namespace CookItApp.Data
         }
 
 
-        public async Task<bool> AltaFB(Perfil obj, Token token)
-        {            
+        public async Task<bool> AltaFB(Perfil obj)
+        {
+            Token token = App.DataBase.Token.Obtener();
             string Url = Web + "PerfilFB";
 
             using (HttpClient client = new HttpClient())

@@ -22,8 +22,10 @@ namespace CookItApp.Views
         Usuario Usuario;
         private double width;
         private double height;
+        private int PaginaSiguiente { get; set; }
+        private int PaginaActual { get; set; }
 
-        public PasoRecetaPage(Receta rec, PasoReceta pas, Usuario usr)
+        public PasoRecetaPage(Receta rec, PasoReceta pas, Usuario usr, int paginaActual, int paginaSiguiente)
         {
             InitializeComponent();
             _PasoRecetaVM = new PasoRecetaVM(rec, pas);
@@ -34,7 +36,12 @@ namespace CookItApp.Views
             BindingContext = _PasoRecetaVM;
             GenerarTextoCantPasos();
 
+            PaginaSiguiente = paginaSiguiente;
+            PaginaActual = paginaActual;
+
             Navigation.RemovePage(this);
+            NavigationPage.SetHasBackButton(this, false);
+
         }
 
         private void GenerarTextoCantPasos()
@@ -106,7 +113,7 @@ namespace CookItApp.Views
         {
             Image imagen = new Image
             {
-                Source = paso.GenerarFoto(),
+                Source = paso.GenerarImageSource(),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
                 Aspect = Aspect.AspectFill
@@ -307,9 +314,10 @@ namespace CookItApp.Views
         {
             try
             {
+                
                 videoPlayer.Pause();
                 PasoReceta proxPaso = _PasoRecetaVM.DevolverProximoPaso(); ;
-                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, proxPaso, Usuario));
+                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, proxPaso, Usuario, PaginaActual ,PaginaSiguiente + 1));
             }
             catch
             {
@@ -324,7 +332,7 @@ namespace CookItApp.Views
             {
                 videoPlayer.Pause();
                 PasoReceta pasoAnterior = _PasoRecetaVM.DevolverPasoAnterior();
-                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, pasoAnterior, Usuario));
+                await Navigation.PushAsync(new PasoRecetaPage(_PasoRecetaVM._Receta, pasoAnterior, Usuario, PaginaActual, PaginaSiguiente - 1));
             }
             catch
             {
@@ -365,27 +373,33 @@ namespace CookItApp.Views
             }
         }
 
-        private void btnVolverReceta_Clicked(object sender, EventArgs e)
+        private void BtnVolverReceta_Clicked(object sender, EventArgs e)
         {
             VolverReceta();
         }
 
         private async void VolverReceta()
         {
-            await Navigation.PushAsync(new RecetaPage(_PasoRecetaVM._Receta, Usuario));
-        }
 
-
-        protected override bool OnBackButtonPressed()
-        {
-            if (_PasoRecetaVM.HayAnterior()) PasoAnterior();
-            else
-            {
-                VolverReceta();
+            while (Navigation.NavigationStack.Count - 1 > PaginaActual) {
+                Navigation.RemovePage(Navigation.NavigationStack.ElementAt(PaginaActual));
             }
 
-            return true;
+            await Navigation.PopAsync();
+            Navigation.RemovePage(this);
         }
+
+
+        //protected override bool OnBackButtonPressed()
+        //{
+        //    if (_PasoRecetaVM.HayAnterior()) PasoAnterior();
+        //    else
+        //    {
+        //        VolverReceta();
+        //    }
+
+        //    return true;
+        //}
 
     }
 }

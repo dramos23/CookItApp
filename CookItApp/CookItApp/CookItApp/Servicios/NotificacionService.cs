@@ -15,7 +15,7 @@ namespace CookItApp.Data
 
         public NotificacionService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Notificacion/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Notificacion/";
 
         }
 

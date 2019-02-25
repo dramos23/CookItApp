@@ -15,7 +15,7 @@ namespace CookItApp.Data
 
         public RetoService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Retos/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Retos/";
 
         }
 

@@ -13,16 +13,16 @@ using Xamarin.Forms.Xaml;
 
 namespace CookItApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DesafioListPage : ContentPage, IViewDesafioList
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class DesafioListPage : ContentPage, IViewDesafioList
+    {
         DesafioListVM _ViewModelRetosList;
 
         Usuario _Usuario;
 
-        public DesafioListPage (Usuario usuario)
-		{            
-			InitializeComponent ();
+        public DesafioListPage(Usuario usuario)
+        {
+            InitializeComponent();
 
             _Usuario = usuario;
 
@@ -66,9 +66,15 @@ namespace CookItApp.Views
 
             Button button = sender as Button;
             if (button?.BindingContext is Reto reto)
-            {                
-                await Navigation.PushAsync(new RetoPage(reto, _Usuario, this));
+            {
+                await Navigation.PushAsync(new DesafioPage(reto, _Usuario, this));
             }
+        }
+
+        public void RetoSeleccionado_Selected(object sender, SelectedItemChangedEventArgs args) {
+
+            ListaRetos.SelectedItem = null;
+
         }
     }
 }

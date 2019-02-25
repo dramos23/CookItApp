@@ -295,6 +295,7 @@ namespace CookItApp.ViewModels
             ResetMomentoDia();
             ResetCalorias();
             ResetEstacion();
+            ResetTiempoPreparacion();
             ResetPuntuacion();
             ResetDificultad();
             ResetCantPlatos();

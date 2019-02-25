@@ -32,6 +32,19 @@ namespace CookItApp.Views
             BindingContext = VMRecetas;
         }
 
+        private void RevisarMensajeNoHayRecetas()
+        {
+            if (VMRecetas.Recetas.Count == 0)
+            {
+                ListaRecetas.IsVisible = false;
+                lblSinSuper.IsVisible = true;
+            }
+            else {
+                ListaRecetas.IsVisible = true;
+                lblSinSuper.IsVisible = false;
+            }
+        }
+
         private void InicializarControladorFiltros()
         {
             if (!Application.Current.Properties.ContainsKey("ViewModelFiltro"))
@@ -52,13 +65,13 @@ namespace CookItApp.Views
                 return;
             }
 
-            //Receta rec = App.DataBase.Receta.Obtener(receta._IdReceta);
-            Receta rec = await App.RecetaService.Obtener(receta);
+            Receta rec = App.DataBase.Receta.Obtener(receta._IdReceta);
+            //Receta rec = await App.RecetaService.Obtener(receta);
 
             if (rec != null)
             {
                 //Agrego receta al historial del usuario
-                AgregarRecetaHistorial(rec);
+                await AgregarRecetaHistorial(rec);
 
                 //Se cambia a una nueva página tipo RecetaPage que muestra la receta en mas detalle.
                 await Navigation.PushAsync(new RecetaPage(rec, Usuario));
@@ -336,9 +349,10 @@ namespace CookItApp.Views
             List<Receta> filtrada = VMRecetas.DevolverListaFiltrada(recetas);
             VMRecetas = new RecetaListVM(filtrada);
             BindingContext = VMRecetas;
+            RevisarMensajeNoHayRecetas();                                                                                                                                                                               
         }
 
-        private async void AgregarRecetaHistorial(Receta receta) {
+        private async Task AgregarRecetaHistorial(Receta receta) {
 
             HistorialReceta historialReceta = new HistorialReceta()
             {
@@ -347,11 +361,11 @@ namespace CookItApp.Views
                 _FechaHora = DateTime.Now                
             };
 
-            HistorialReceta historial = await App.HistorialRecetaService.Alta(historialReceta);
+            bool estado = await App.HistorialRecetaService.Alta(historialReceta);
 
-            if (historial != null) {
+            if (estado) {
 
-                App.DataBase.HistorialReceta.Guardar(historial);
+                App.DataBase.HistorialReceta.Guardar(historialReceta);
             }
         }
 

@@ -17,7 +17,7 @@ using Xamarin.Forms.Xaml;
 namespace CookItApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RetoPage : ContentPage
+	public partial class DesafioPage : ContentPage
 	{
         private RetoVM VMReto { get; set; }
 
@@ -27,7 +27,7 @@ namespace CookItApp.Views
 
         private IViewDesafioList Vista { get; set; }
 
-        public RetoPage (Reto reto, Usuario usuario, IViewDesafioList vista)
+        public DesafioPage(Reto reto, Usuario usuario, IViewDesafioList vista)
 		{
 			InitializeComponent ();
 
@@ -138,24 +138,27 @@ namespace CookItApp.Views
         {
             await CrossMedia.Current.Initialize();
 
-
-            if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
+            try
             {
-                Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
                 {
-                    Name = "miPerfil.jpg",
-                    PhotoSize = PhotoSize.Small
-                });
+                    Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                    {
+                        Name = "miPerfil.jpg",
+                        PhotoSize = PhotoSize.Small
+                    });
 
-                if (Foto != null)
+                    if (Foto != null)
+                    {
+                        imgRetoPresentacion.Source = ImageSource.FromStream(Foto.GetStream);
+                    }
+                }
+                else
                 {
-                    imgRetoPresentacion.Source = ImageSource.FromStream(Foto.GetStream);
+                    await DisplayAlert("No Camera", "Camera unavailable.", "OK");
                 }
             }
-            else
-            {
-                await DisplayAlert("No Camera", "Camera unavailable.", "OK");
-            }
+            catch { }
         }
 
 

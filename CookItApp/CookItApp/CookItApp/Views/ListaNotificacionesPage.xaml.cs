@@ -67,39 +67,16 @@ namespace CookItApp.Views
                 reto._EstadoReto = App.DataBase.EstadoReto.Obtener(reto._IdEstadoReto);
                 reto._Receta = App.DataBase.Receta.Obtener(reto._RecetaId);
                 UserDialogs.Instance.HideLoading();
-                await Navigation.PushAsync(new RetoPage(reto, _Usuario, null));
+                await Navigation.PushAsync(new DesafioPage(reto, _Usuario, null));
 
             }
 
         }
 
-        //private async void ListaNotificacion_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-        //    //Se levanta y castea la receta recibida del evento.
-        //    if (!(e.SelectedItem is Notificacion notificacion))
-        //    {
-        //        return;
-        //    }
-
-        //    if (notificacion._Estado.Equals(Notificacion.Estado.SinLeer))
-        //    {
-        //        notificacion._Estado = Notificacion.Estado.Leido;
-
-        //        bool actualizo = await App.NotificacionService.Modificar(notificacion);
-
-        //        if (actualizo)
-        //        {
-        //            App.DataBase.Notificacion.Modificar(notificacion);
-
-        //            VMNotificacion = new NotificacionListVM();
-        //            BindingContext = VMNotificacion;
-
-        //        }
-
-        //    }
-
-
-        //}
+        public void ListaNotificacion_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ListaNotificacion.SelectedItem = null;
+        }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {           

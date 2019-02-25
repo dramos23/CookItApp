@@ -16,11 +16,11 @@ namespace CookItApp.Data
 
         public HistorialRecetaService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/HistorialReceta/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/HistorialReceta/";
         }
 
 
-        public async Task<HistorialReceta> Alta(HistorialReceta obj)
+        public async Task<bool> Alta(HistorialReceta obj)
         {
             Token token = App.DataBase.Token.Obtener();
             string Url = Web;
@@ -38,16 +38,7 @@ namespace CookItApp.Data
                         .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
                         .ConfigureAwait(false))
                     {
-                        string JsonResult = response.Content.ReadAsStringAsync().Result;
-                        try
-                        {
-                            HistorialReceta ContentResp = Deseralizar(JsonResult);
-                            return ContentResp;
-                        }
-                        catch (Exception)
-                        {
-                            return null;
-                        }
+                        return response.IsSuccessStatusCode;
                     }
                 }
             }

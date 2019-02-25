@@ -40,12 +40,14 @@ namespace CookItApp
         static SupermercadoService _SupermercadoService;
         static AppCenterNotiService _AppCenterNotiService;
 
+        public static IViewMaster Vista { get; set; }
+
         public App()
         {
-            
+
             InitializeComponent();
 
-            
+
             ConfigNoti = false;
 
             try
@@ -77,8 +79,23 @@ namespace CookItApp
 
 
         protected override void OnStart()
-        {
-            
+        {          
+            if (!AppCenter.Configured)
+            {
+
+                Push.PushNotificationReceived += (sender, e) =>
+                {
+                    if (Vista != null)
+                    {
+                        Vista.Notificacion(e);
+                    }
+                };
+
+            }
+
+            AppCenter.Start("4cf52d65-8fd4-4f10-85a4-cdb18647417e", typeof(Push));
+
+            Push.SetEnabledAsync(true);
         }
 
         protected override void OnSleep()
@@ -94,7 +111,7 @@ namespace CookItApp
 
         protected override void OnResume()
         {
-           // Mensajes();
+            // Mensajes();
         }
 
 
@@ -264,6 +281,9 @@ namespace CookItApp
                 return _AppCenterNotiService;
             }
         }
+
+
+
 
 
     }

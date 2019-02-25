@@ -38,34 +38,33 @@ namespace CookItApp.Views
             {
 
                 if (!entryPass.Text.Equals(entryRePass.Text))
-                    await DisplayAlert("Registro", "Error: las contraseñas no coinciden.", "Ok");
+                {
+                    UserDialogs.Instance.HideLoading();
+                    await UserDialogs.Instance.AlertAsync("Error: las contraseñas no coinciden.", "Error!", "Continuar");                    
+                }
                 else
                 {
                     UserDialogs.Instance.ShowLoading("Registrando..");
 
-                    System.Guid? uuid = await AppCenter.GetInstallIdAsync();
-
-                    if (uuid != null)
+                    Usuario user = new Usuario(entryEmail.Text, entryPass.Text, null, Usuario.TipoCuenta.Local, Usuario.TipoUsuario.Cliente, DateTime.Now);
+                    if (user.IsValid())
                     {
-                        Usuario user = new Usuario(entryEmail.Text, entryEmail.Text, entryPass.Text, uuid, Usuario.TipoCuenta.Local, Usuario.TipoUsuario.Cliente, DateTime.Now);
-                        if (user.IsValid())
-                        {
 
-                            var result = await App.RestService.Registrar(user);
-                            if (result._AccessToken != null)
-                            {
-                                GuardarUsuPas();
-                                UserDialogs.Instance.HideLoading();
-                                await DisplayAlert("Registro", "Registro Satisfactorio", "Continuar");
-                                await Navigation.PopAsync();
-                            }
-                        }
-                        else
+                        var result = await App.RestService.Registrar(user);
+                        if (result._AccessToken != null)
                         {
-                            UserDialogs.Instance.HideLoading();
-                            await DisplayAlert("Registro", "Error al ingresar, usuario y/o contraseña incorrectos", "Ok");
+                            GuardarUsuPas();
+                            UserDialogs.Instance.HideLoading();                            
+                            await UserDialogs.Instance.AlertAsync("Registro completado!", "Registro", "Continuar");
+                            await Navigation.PopAsync();
                         }
                     }
+                    else
+                    {
+                        UserDialogs.Instance.HideLoading();                        
+                        await UserDialogs.Instance.AlertAsync("Error al ingresar, usuario y/o contraseña incorrectos", "Error!", "Continuar");
+                    }
+
                 }
             }
             else
@@ -85,7 +84,7 @@ namespace CookItApp.Views
                                  "- Al menos una letra mayuscula,\\n" +
                                  "- Al menos un carácter especial,\\n" +
                                  "- Al menos un número,\\n" +
-                                 "- Al menos 10 caracteres de longitud";
+                                 "- Al menos 8 caracteres de longitud";
 
                     msj = (msj as string).Replace("\\n", Environment.NewLine + Environment.NewLine);
 
@@ -129,7 +128,7 @@ namespace CookItApp.Views
                 return false;
             }
 
-            Regex regex = new Regex(@"^.*(?=.{10,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$");
+            Regex regex = new Regex(@"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=.]).*$");
             Match match = regex.Match(value);
 
             return match.Success;

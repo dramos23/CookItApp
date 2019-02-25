@@ -78,7 +78,7 @@ namespace CookItApp.Views
                                  "- Al menos una letra mayuscula,\\n" +
                                  "- Al menos un carácter especial,\\n" +
                                  "- Al menos un número,\\n" +
-                                 "- Al menos 10 caracteres de longitud";
+                                 "- Al menos 8 caracteres de longitud";
 
                     msj = (msj as string).Replace("\\n", Environment.NewLine + Environment.NewLine);
 
@@ -100,7 +100,7 @@ namespace CookItApp.Views
                 return false;
             }
 
-            Regex regex = new Regex(@"^.*(?=.{10,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*.@#$%^&+=]).*$");
+            Regex regex = new Regex(@"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*.@#$%^&+=]).*$");
             Match match = regex.Match(value);
 
             return match.Success;

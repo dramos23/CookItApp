@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.ListIngredientesRecetaPage"
+             Title="Ingredientes Receta">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="NuevoIngrediente" Clicked="NuevoIngrediente_Clicked"  Priority="0" Order="Primary" Icon="agregar.png"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label Text="{Binding Text}" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}" Margin="10,0"/>
+
+            <ListView x:Name="IngredientesReceta" ItemsSource="{Binding IngredientesReceta}" HasUnevenRows="True" ItemSelected="IngredientesReceta_ItemSelected"  IsVisible="{Binding Lista}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame HasShadow="true" Margin="5">
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Ingrediente ID:" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                        <Label Text="{Binding _IdIngrediente}" TextColor="Black" FontSize="16" FontFamily="Bold" />    
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Nombre:" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                        <Label Text="{Binding _Ingrediente._Nombre}" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Cantidad:" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                        <Label Text="{Binding _Cantidad}" TextColor="Black" FontSize="16" MaxLines="4" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Medida:" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                        <Label Text="{Binding _Medida}" TextColor="Black" FontSize="16"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="BtnGuardarIngRec" Text="Guardar Ing. Receta"  Clicked="BtnGuardarIngRec_Clicked"  TextColor="White" BackgroundColor="#00748A" HeightRequest="50"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

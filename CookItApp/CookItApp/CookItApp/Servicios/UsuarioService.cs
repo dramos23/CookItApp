@@ -17,7 +17,7 @@ namespace CookItApp.Data
 
         public UsuarioService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Cuenta/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Cuenta/";
         }
 
 
@@ -171,9 +171,9 @@ namespace CookItApp.Data
         }
 
 
-        public async Task<bool> RestablecerContraseña(string idUsuario)
+        public async Task<bool> RestablecerContraseña(string email)
         {
-            string Url = Web + "Restablecer/" + idUsuario;
+            string Url = Web + "Restablecer/" + email;
 
             using (HttpClient client = new HttpClient())
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Url))

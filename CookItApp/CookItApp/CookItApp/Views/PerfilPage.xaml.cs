@@ -200,6 +200,8 @@ namespace CookItApp.Views
 
             if (await ValidarEntrys())
             {
+                var momento = picMomentoDia.ItemsSource[picMomentoDia.SelectedIndex] as MomentoDia;                
+                var estacion = picEstacion.ItemsSource[picEstacion.SelectedIndex] as Estacion;
 
                 Perfil p = new Perfil
                 {
@@ -244,11 +246,13 @@ namespace CookItApp.Views
                     _FiltroDificultadMin = (togDificultad.IsToggled == true) ? Convert.ToInt16(entryDificultadMax.Text) : 0,
                     _FiltroDificultadMax = (togDificultad.IsToggled == true) ? Convert.ToInt16(entryDificultadMin.Text) : 0,
 
+                    
+
                     _FiltroMomentoDia = (togFiltrosAutomaticos.IsToggled == true && togMomentoDia.IsToggled == true) ? true : false,
-                    _FiltroMomentoDiaId = (togMomentoDia.IsToggled == true) ? picMomentoDia.SelectedIndex : 1,
+                    _FiltroMomentoDiaId = (togMomentoDia.IsToggled == true) ? momento._IdMomentoDia : 1,
 
                     _FiltroEstacion = (togFiltrosAutomaticos.IsToggled == true && togEstacion.IsToggled == true) ? true : false,
-                    _FiltroEstacionId = (togEstacion.IsToggled == true) ? picEstacion.SelectedIndex : 1
+                    _FiltroEstacionId = (togEstacion.IsToggled == true) ? estacion._IdEstacion : 1
                 };
 
                 return p;
@@ -268,24 +272,32 @@ namespace CookItApp.Views
         {
             await CrossMedia.Current.Initialize();
 
-
-            if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
+            try
             {
-                Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
-                {
-                    Name = "miPerfil.jpg",
-                    PhotoSize = PhotoSize.Small
-                });
 
-                if (Foto != null)
+                if (CrossMedia.Current.IsCameraAvailable & CrossMedia.Current.IsTakePhotoSupported)
                 {
-                    imgPerfil.Source = ImageSource.FromStream(Foto.GetStream);
+                    Foto = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions()
+                    {
+                        Name = "miPerfil.jpg",
+                        PhotoSize = PhotoSize.Small
+                    });
+
+                    if (Foto != null)
+                    {
+                        imgPerfil.Source = ImageSource.FromStream(Foto.GetStream);
+
+                    }
                 }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error de camara", "Hay un error con tu camara, " +
+                    "no se puede sacar la foto."));
+                }
+
             }
-            else
-            {
-                await PopupNavigation.Instance.PushAsync(new PopupMensaje(Usuario, "Error de camara", "Hay un error con tu camara, " +
-                "no se puede sacar la foto."));
+            catch {
+
             }
 
         }

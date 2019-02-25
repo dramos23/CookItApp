@@ -42,5 +42,9 @@ namespace CookItApp.Models
 
         }
 
+        public void AsignarId(int idReceta)
+        {
+            _IdReceta = idReceta;
+        }
     }
 }

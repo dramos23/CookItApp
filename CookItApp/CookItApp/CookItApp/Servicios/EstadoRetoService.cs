@@ -15,7 +15,7 @@ namespace CookItApp.Data
 
         public EstadoRetoService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/EstadoReto/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/EstadoReto/";
 
         }
 

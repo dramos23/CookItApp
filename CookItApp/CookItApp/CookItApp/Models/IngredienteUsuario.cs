@@ -8,7 +8,7 @@ using System.Text;
 namespace CookItApp.Models
 {
     public class IngredienteUsuario : IngredienteConCantidad
-    {        
+    {
         public string _Email { set; get; }
         [JsonIgnore]
         [Ignore]

@@ -9,9 +9,9 @@ namespace CookItApp.Controladores
 {
     public class IngredienteUsuarioDataBaseController
     {
-        static readonly object locker = new object();
+        private static readonly object locker = new object();
 
-        SQLiteConnection database;
+        private SQLiteConnection database;
 
         public IngredienteUsuarioDataBaseController()
         {
@@ -68,8 +68,9 @@ namespace CookItApp.Controladores
                 if (ingredienteUsuario != null)
                 {
 
-                    ingredienteUsuario._Cantidad = obj._Cantidad;
-                    database.Update(ingredienteUsuario);
+                    var Cantidad = obj._Cantidad.ToString();
+                    var Id = obj._IdIngrediente.ToString();
+                    database.Query<IngredienteUsuario>("Update IngredienteUsuario Set _Cantidad = " + Cantidad + " Where _IdIngrediente = " + Id);
                     return 1;
                 }
                 else
@@ -97,19 +98,28 @@ namespace CookItApp.Controladores
         }
 
         public int Borrar(IngredienteUsuario obj)
-        {            
-
-            lock (locker)
+        {
+            var id = obj._IdIngrediente;
+            if (id != 0)
             {
-                return database.Delete<IngredienteUsuario>(obj._IdIngrediente);
+                lock (locker)
+                {
+                    database.Query<IngredienteUsuario>("Delete FROM IngredienteUsuario WHERE _IdIngrediente = " + id.ToString());
+                    return 1;
+                }
             }
+            return id;
         }
 
         public int BorrarTodo()
         {
             lock (locker)
             {
-                return database.DeleteAll<IngredienteUsuario>();
+                   
+                database.DropTable<IngredienteUsuario>();
+                database.CreateTable<IngredienteUsuario>();
+                //return database.DeleteAll<IngredienteUsuario>();
+                return 1;
             }
         }
     }

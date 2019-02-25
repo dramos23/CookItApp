@@ -5,35 +5,39 @@
              Title="Supermercados">
 
     <StackLayout>
+        <Grid>
+            <ListView x:Name="ListaSuper" Grid.Column="0" ItemsSource="{Binding SuperList}" HasUnevenRows="True" ItemSelected="ListaSuper_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame HasShadow="true" Margin="5">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding _Nombre}" TextColor="Black" FontSize="16" FontFamily="Bold"/>
+                                    <Label Text="{Binding _Empresa}" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                    <Image Source="{Binding _FotoCompleta}" VerticalOptions="CenterAndExpand" Margin="0,5"/>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="direccion.png" HorizontalOptions="Start"/>
+                                        <Label Text="{Binding _Dirección}" TextColor="Black" FontSize="14" MaxLines="4" HorizontalOptions="StartAndExpand" Margin="5,0" VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="telefono.png" HorizontalOptions="Start"/>
+                                        <Label Text="{Binding _Telefono}" TextColor="Black" FontSize="14" MaxLines="4" HorizontalOptions="StartAndExpand" Margin="5,0" VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <Label Text="{Binding _Distancia}" TextColor="Black" FontSize="14" MaxLines="4" IsVisible="{Binding DistVis}"/>
+                                    <Button x:Name="BtnVerMapa" Text="Ver mapa" Clicked="BtnVerMapa_Clicked" TextColor="White" BackgroundColor="#00748A"/>
 
-        <ListView ItemsSource="{Binding SuperList}" HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Frame HasShadow="true" Margin="5">
-                            <StackLayout Orientation="Vertical">
-                                <Label Text="{Binding _Nombre}" TextColor="Black" FontSize="16" FontFamily="Bold"/>
-                                <Label Text="{Binding _Empresa}" TextColor="Black" FontSize="16" FontFamily="Bold" />
-                                <Image Source="{Binding _FotoCompleta}" VerticalOptions="CenterAndExpand" Margin="0,5"/>
-                                <StackLayout Orientation="Horizontal" >
-                                    <Image Source="direccion.png" HorizontalOptions="Start"/>
-                                    <Label Text="{Binding _Dirección}" TextColor="Black" FontSize="14" MaxLines="4" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal" >
-                                    <Image Source="telefono.png" HorizontalOptions="Start"/>
-                                    <Label Text="{Binding _Telefono}" TextColor="Black" FontSize="14" MaxLines="4" HorizontalOptions="StartAndExpand" Margin="5,0" VerticalOptions="Center" />
-                                </StackLayout>
-                                <Label Text="{Binding _Distancia}" TextColor="Black" FontSize="14" MaxLines="4" IsVisible="{Binding DistVis}"/>
-                                <Button x:Name="BtnVerMapa" Text="Ver mapa" Clicked="BtnVerMapa_Clicked" TextColor="White" BackgroundColor="#00748A"/>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-                            </StackLayout>
-                        </Frame>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-
+            <Label Grid.Column="0" VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"
+                   MaxLines="10" VerticalOptions="CenterAndExpand" FontSize="Large" IsVisible="False" 
+                   Text="No detectamos ningun supermercado cercano en nuestra base de datos." x:Name="lblSinSuper"/>
+            
+        </Grid>
     </StackLayout>
 
 </ContentPage>

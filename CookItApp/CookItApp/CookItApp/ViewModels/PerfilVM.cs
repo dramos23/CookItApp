@@ -50,8 +50,8 @@ namespace CookItApp.ViewModels
         public int FiltroTiempoPreparacionMin { set; get; }
         public int FiltroTiempoPreparacionMax { set; get; }        
         
-        public ObservableCollection<Estacion> ItemsEstacion { get; set; }
-        public ObservableCollection<MomentoDia> ItemsMomentoDia { get; set; }
+        public List<Estacion> ItemsEstacion { get; set; }
+        public List<MomentoDia> ItemsMomentoDia { get; set; }
 
         private Usuario Usuario { get; set; }
 
@@ -59,6 +59,13 @@ namespace CookItApp.ViewModels
 
             Usuario = usuario;
 
+            CargarPickerEstacion();
+            CargarPickerMomentoDia();
+            CargarDatos(usuario);
+        }
+
+        private void CargarDatos(Usuario usuario)
+        {
             Email = usuario._Email;
             Foto = (usuario._Perfil != null && usuario._Perfil._Foto != null) ? usuario._Perfil.ImageFoto() : "img_user.png";
             NombreUsuario = usuario._Perfil?._NombreUsuario;
@@ -78,14 +85,14 @@ namespace CookItApp.ViewModels
             FiltroIngredientes = (usuario._Perfil != null) ? usuario._Perfil._FiltroIngredientes : false;
             FiltroCalorias = (usuario._Perfil != null) ? usuario._Perfil._FiltroCalorias : false;
             FiltroCaloriasMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMin : 1;
-            FiltroCaloriasMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMax : 9999;            
+            FiltroCaloriasMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroCaloriasMax : 9999;
             FiltroMomentoDia = (usuario._Perfil != null) ? usuario._Perfil._FiltroMomentoDia : false;
-            FiltroMomentoDiaId = (usuario._Perfil != null) ? usuario._Perfil._FiltroMomentoDiaId : 0;
+            FiltroMomentoDiaId = (usuario._Perfil != null) ? BuscarIndexPickerMomento(usuario._Perfil._FiltroMomentoDiaId) : 0;
             FiltroPuntuacion = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacion : false;
             FiltroPuntuacionMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMin : 1;
             FiltroPuntuacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroPuntuacionMax : 5;
             FiltroEstacion = (usuario._Perfil != null) ? usuario._Perfil._FiltroEstacion : false;
-            FiltroEstacionId = (usuario._Perfil != null) ? usuario._Perfil._FiltroEstacionId : 0;
+            FiltroEstacionId = (usuario._Perfil != null) ? BuscarIndexPickerEstacion(usuario._Perfil._FiltroEstacionId) : 0;
             FiltroDificultad = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultad : false;
             FiltroDificultadMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMin : 1;
             FiltroDificultadMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroDificultadMax : 5;
@@ -96,9 +103,7 @@ namespace CookItApp.ViewModels
             FiltroTiempoPreparacionMin = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacionMin : 1;
             FiltroTiempoPreparacionMax = (usuario._Perfil != null) ? usuario._Perfil._FiltroTiempoPreparacionMax : 9999;
 
-            CargarPickerEstacion();
-            CargarPickerMomentoDia();
-
+            
         }
 
         private void CargarPickerEstacion()
@@ -106,11 +111,11 @@ namespace CookItApp.ViewModels
             List<Estacion> estaciones = App.DataBase.Estacion.ObtenerList();
             if (estaciones != null && estaciones.Count > 0)
             {
-                ItemsEstacion = new ObservableCollection<Estacion>(estaciones);
+                ItemsEstacion = new List<Estacion>(estaciones);
             }
             else
             {
-                ItemsEstacion = new ObservableCollection<Estacion>();
+                ItemsEstacion = new List<Estacion>();
             }
         }
 
@@ -119,11 +124,11 @@ namespace CookItApp.ViewModels
             List<MomentoDia> momentoDias = App.DataBase.MomentoDia.ObtenerList();
             if (momentoDias != null && momentoDias.Count > 0)
             {
-                ItemsMomentoDia = new ObservableCollection<MomentoDia>(momentoDias);
+                ItemsMomentoDia = new List<MomentoDia>(momentoDias);
             }
             else
             {
-                ItemsMomentoDia = new ObservableCollection<MomentoDia>();
+                ItemsMomentoDia = new List<MomentoDia>();
             }
 
         }
@@ -158,6 +163,16 @@ namespace CookItApp.ViewModels
                 return 2;                
             }            
 
+        }
+
+        private int BuscarIndexPickerEstacion(int? id)
+        {
+            return ItemsEstacion.FindIndex(i => i._IdEstacion == id);
+        }
+
+        private int BuscarIndexPickerMomento(int? id)
+        {
+            return ItemsMomentoDia.FindIndex(i => i._IdMomentoDia == id);
         }
     }
 }

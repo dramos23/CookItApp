@@ -2,6 +2,7 @@
 using CookItApp.Data;
 using CookItApp.Models;
 using CookItApp.ViewModels;
+using Microsoft.AppCenter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,33 +22,54 @@ namespace CookItApp.Views
 		public FBLoginPage ()
 		{
 			InitializeComponent ();
-            NavigationPage.SetHasNavigationBar(this, false);
+            //NavigationPage.SetHasNavigationBar(this, false);
             VMFBLogin = new FBLoginVM();
+
         }
 
-        //public event EventHandler ItemAdded;
 
-        //public void RaiseItemAdded()
-        //{
-        //    ItemAdded(this, EventArgs.Empty);
-        //}
-        
+
         public async void Procesar(UsuarioFacebook UsuarioFacebook)
-        {            
+        {
+            
 
-            Usuario usuario = await VMFBLogin.Ingresar(UsuarioFacebook);
-
-            if (usuario != null)
+            if (UsuarioFacebook != null)
             {
-                await Navigation.PushAsync(new CargaRecursos(usuario, "INS"), true);
-                Navigation.RemovePage(this);
+                UserDialogs.Instance.ShowLoading("Ingresando..");
+
+                Usuario usuario = await VMFBLogin.Ingresar(UsuarioFacebook);
+
+                if (usuario != null)
+                {
+                    System.Guid? uuid = await AppCenter.GetInstallIdAsync();
+
+                    usuario._DeviceId = uuid;
+
+                    bool estado = await App.RestService.UpdateUUID(usuario);
+
+                    UserDialogs.Instance.HideLoading();
+                    await Navigation.PushAsync(new CargaRecursos(usuario, "INS"), true);
+                    Navigation.RemovePage(this);
+
+                }
+                else
+                {
+
+                    UserDialogs.Instance.HideLoading();
+                    await UserDialogs.Instance.AlertAsync("Ha ocurrido un error vuelve a intentarlo!.", "Error!", "Continuar");
+                    new NavigationPage(new LoginPage());
+
+                }
+
             }
             else {
 
-                await UserDialogs.Instance.AlertAsync("Ha ocurrido un error, vuelve a intentarlo!", "Error!", "Continuar");
-                new NavigationPage(new LoginPage());
+                await Navigation.PushAsync(new LoginPage(), true);
+                Navigation.RemovePage(this);
+
             }
 
         }
+
     }
 }

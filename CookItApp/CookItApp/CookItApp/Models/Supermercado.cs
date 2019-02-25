@@ -76,7 +76,7 @@ namespace CookItApp.Models
                 }
                 else
                 {
-                    return "no-image.png";
+                    return "noimage.png";
                 }
 
             }

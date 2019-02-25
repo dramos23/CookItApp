@@ -29,7 +29,8 @@ namespace CookItApp.Controladores
                 }
                 else
                 {
-                    return database.Table<PasoReceta>().Where(pr => pr._IdReceta == IdReceta).ToList();
+                    List<PasoReceta> pasoRecetas  = database.Table<PasoReceta>().Where(pr => pr._IdReceta == IdReceta).ToList();
+                    return pasoRecetas;
                 }
             }
         }

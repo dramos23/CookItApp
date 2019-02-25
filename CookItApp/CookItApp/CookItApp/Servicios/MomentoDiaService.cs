@@ -16,7 +16,7 @@ namespace CookItApp.Data
 
         public MomentoDiaService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/MomentoDia/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/MomentoDia/";
 
         }
 

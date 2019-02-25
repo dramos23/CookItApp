@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.MisRecetasPage"
+             Title="Mis Recetas">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="NuevaReceta" Clicked="NuevaReceta_Clicked"  Priority="0" Order="Primary" Icon="agregar.png"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label Text="{Binding Text}" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
+         
+            <ListView x:Name="MisRecetas" ItemsSource="{Binding MisRecetas}" HasUnevenRows="True" ItemSelected="RecetaSeleccionada"  IsVisible="{Binding  Lista}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame HasShadow="true" Margin="5">
+                                <StackLayout Orientation="Vertical">
+                                    
+                                    <Label Text="{Binding _Titulo}" TextColor="Black" FontSize="16" FontFamily="Bold" />
+                                    <Image Source="{Binding _FotoCompleta}" VerticalOptions="CenterAndExpand" Margin="0,5"/>
+                                    <Label Text="{Binding _Descripcion}" TextColor="Black" FontSize="14" MaxLines="4" />
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <Label Text="Estado:" TextColor="Black" FontSize="14" HorizontalOptions="Start"/>
+                                        <Label Text="{Binding _Habilitada}" TextColor="Black" FontSize="14" HorizontalOptions="StartAndExpand" />
+
+                                    </StackLayout>
+                                    
+
+
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

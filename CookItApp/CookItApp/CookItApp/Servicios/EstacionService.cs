@@ -15,7 +15,7 @@ namespace CookItApp.Data
 
         public EstacionService()
         {
-            Web = "http://cookitrestapi.azurewebsites.net/api/Estacion/";
+            Web = "https://cookitprowebapi.azurewebsites.net/api/Estacion/";
 
         }
 

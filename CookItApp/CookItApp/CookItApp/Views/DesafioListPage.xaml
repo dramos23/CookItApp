@@ -10,81 +10,60 @@
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" FontSize="16" TextColor="Black" IsVisible="{Binding Vacio}"/>
 
-        <ListView x:Name="ListaRetos" ItemsSource="{Binding Retos}" HasUnevenRows="True" SelectedItem="none" IsVisible="{Binding Lista}">
+        <ListView x:Name="ListaRetos" ItemsSource="{Binding Retos}" HasUnevenRows="True" SelectedItem="RetoSeleccionado" IsVisible="{Binding Lista}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="10" Orientation="Vertical">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Padding="1"  Margin="0" VerticalOptions="Center">
-
-                                    <Label Text="{Binding _Fecha}" LineBreakMode="NoWrap" HorizontalOptions="End" FontSize="13" TextColor="Black"/>
-
-                                </Grid>
-                                <Grid Grid.Row="1" Padding="1"  Margin="0">
+                        <Frame CornerRadius="10" Margin="10">
+                            <StackLayout >
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="8*"/>
                                     </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
 
-                                    <Label Grid.Column="0" Text="Retador:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
-                                    <Label Grid.Column="1" Text="{Binding _NomUsuOri}" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
 
-                                </Grid>
-                                <Grid Grid.Row="2" Padding="1"  Margin="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="8*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding _Fecha}" LineBreakMode="NoWrap" HorizontalOptions="End" FontSize="13" TextColor="Black"/>
 
-                                    <Label Grid.Column="0" Text="Retado:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
-                                    <Label Grid.Column="1" Text="{Binding _NomUsuDes}" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
 
-                                </Grid>
-                                <Grid Grid.Row="3" Padding="1"  Margin="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="8*"/>
-                                    </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Column="0" Text="Receta:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
-                                    <Label Grid.Column="1" Text="{Binding _Receta._Titulo}" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
 
-                                </Grid>
-                                <Grid Grid.Row="4" Padding="1"  Margin="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="8*"/>
-                                    </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Column="0" Text="Estado:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
-                                    <Label Grid.Column="1" Text="{Binding _EstadoReto._Estado}" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
+                                    <Label  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Text="Retador:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
+                                    <Label  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding _NomUsuOri}" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
 
-                                </Grid>
-                                <Grid Grid.Row="5" Padding="1"  Margin="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="3*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="3*"/>
-                                    </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0" x:Name="IrReceta" Image="breakfast.png" Clicked="IrReceta_Clicked" VerticalOptions="Center" TextColor="White" BackgroundColor="#00748A"/>
+
+                                    <Label  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" Text="Retado:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
+                                    <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding _NomUsuDes}" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
+
+                                    <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="1" Text="Receta:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
+                                    <Label Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Text="{Binding _Receta._Titulo}" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
+
+                                    <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="1" Text="Estado:" LineBreakMode="NoWrap"  FontSize="16" TextColor="Black"/>
+                                    <Label Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Text="{Binding _EstadoReto._Estado}" LineBreakMode="NoWrap" FontSize="16" TextColor="Black"/>
+
+
+                                    <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" x:Name="IrReceta"  Text="Mostrar Receta" Clicked="IrReceta_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
+                                    <Button Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" x:Name="IrReto" Text="Mostrar Desafío" Clicked="IrReto_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
+
+                                    <!--<Button Grid.Column="0" x:Name="IrReceta" Image="breakfast.png" Clicked="IrReceta_Clicked" VerticalOptions="Center" TextColor="White" BackgroundColor="#00748A"/>
                                     <Label Grid.Column="1" Text="Ver receta." LineBreakMode="NoWrap" FontSize="16" VerticalOptions="Center" TextColor="Black"/>
                                     <Button Grid.Column="2" x:Name="IrReto" Image="reto.png" Clicked="IrReto_Clicked" VerticalOptions="Center" TextColor="White" BackgroundColor="#00748A"/>
-                                    <Label Grid.Column="3" Text="Ver reto." LineBreakMode="NoWrap" FontSize="16" VerticalOptions="Center" TextColor="Black"/>
+                                    <Label Grid.Column="3" Text="Ver reto." LineBreakMode="NoWrap" FontSize="16" VerticalOptions="Center" TextColor="Black"/>-->
 
                                 </Grid>
-                            </Grid>
-                        </StackLayout>
+                            </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

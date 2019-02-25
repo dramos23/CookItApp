@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CookItApp.Views.NuevoIngredienteRecetaPage"
+             Title="{Binding Titulo}">
+    <ContentPage.ToolbarItems >
+        <ToolbarItem x:Name="EliminarIngrediente" Clicked="EliminarIngrediente_Clicked"  Priority="0" Order="Primary" Icon="borrar.png"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+
+        <ScrollView x:Name="scroll" Orientation="Vertical">
+            <StackLayout Padding="10" Orientation="Vertical">
+                <Grid Padding="0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="Ingrediente:" Grid.Column="0" Grid.Row="0" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Picker x:Name="picIngrediente" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Title="--- Seleccionar ---" ItemsSource="{Binding ItemsIngrediente}" ItemDisplayBinding="{Binding _Nombre}" SelectedIndex="{Binding IngredienteID}" Margin="0, 5" SelectedIndexChanged="PicIngrediente_SelectedIndexChanged" IsEnabled="{Binding HabIng}"/>
+
+                    <Label Text="Cantidad:" Grid.Column="0" Grid.Row="2" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5"/>
+                    <Entry x:Name="entryCantidad" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Placeholder="Ingresa una cantidad" PlaceholderColor="Black" Margin="0, 5" Text="{Binding Cantidad}" Keyboard="Numeric"/>
+
+                    <Label Text="Medida:" Grid.Column="0" Grid.Row="4" TextColor="Black" FontAttributes="None" FontSize="Small" Margin="0, 5" />
+                    <Entry x:Name="entryMedida" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" PlaceholderColor="Black" Margin="0, 5" IsEnabled="False" Text="{Binding Medida}"/>
+
+
+                    <Button Grid.Column="1" Grid.Row="6" x:Name="BtnGuardar" Text="Guardar" Clicked="BtnGuardar_Clicked" VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2"  TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="0,5"/>
+
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>
