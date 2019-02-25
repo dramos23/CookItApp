@@ -20,9 +20,10 @@ namespace CookItApp.Views
         private Usuario Usuario { get; set; }
 		public ComentariosRecetaPage (Receta rec, Usuario user)
 		{
-            _ViewModel = new ComentariosRecetaVM(rec);
+            
 			InitializeComponent ();
             Usuario = user;
+            _ViewModel = new ComentariosRecetaVM(rec);
             BindingContext = _ViewModel;
 		}
 
@@ -32,10 +33,10 @@ namespace CookItApp.Views
             PopupNavigation.Instance.PushAsync(new PopupIngresarComentario(Usuario, _ViewModel._Receta, this));
         }
 
-        private async void BtnVolverReceta_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new RecetaPage(_ViewModel._Receta, Usuario));
-        }
+        //private async void BtnVolverReceta_Clicked(object sender, EventArgs e)
+        //{
+        //    await Navigation.PushAsync(new RecetaPage(_ViewModel._Receta, Usuario));
+        //}
 
         private void RefrescarComentarios()
         {

@@ -41,10 +41,10 @@ namespace CookItApp.Views
             await PopupNavigation.Instance.PushAsync(new PopupComparacionIngredientes(_Usuario, _Receta));
         }
 
-        private async void BtnVolverReceta_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PopAsync();
-        }
+        //private async void BtnVolverReceta_Clicked(object sender, EventArgs e)
+        //{
+        //    await Navigation.PopAsync();
+        //}
 
         protected override bool OnBackButtonPressed()
         {

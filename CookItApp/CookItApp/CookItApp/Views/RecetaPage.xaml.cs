@@ -189,25 +189,25 @@ namespace CookItApp.Views
 
         /*Override que reemplaza el método invocado cuando el usuario apreta el boton "atras" en su celular, para evitar
          que hayan problemas con el navigation stack y los pasos de receta vistos. */
-        protected override bool OnBackButtonPressed()
-        {
-            try
-            {
-                Navigation.PushAsync(new ListaRecetasPage(Usuario));
+        //protected override bool OnBackButtonPressed()
+        //{
+        //    try
+        //    {
+        //        Navigation.PushAsync(new ListaRecetasPage(Usuario));
 
-                var stackNav = Navigation.NavigationStack.ToList();
-                foreach (var navPage in stackNav)
-                {
-                    Navigation.RemovePage(navPage);
-                }
-            }catch(Exception ex)
-            {
-                Debug.Print(ex.Message);
-            }
+        //        var stackNav = Navigation.NavigationStack.ToList();
+        //        foreach (var navPage in stackNav)
+        //        {
+        //            Navigation.RemovePage(navPage);
+        //        }
+        //    }catch(Exception ex)
+        //    {
+        //        Debug.Print(ex.Message);
+        //    }
 
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public bool ControlPerfil()
         {

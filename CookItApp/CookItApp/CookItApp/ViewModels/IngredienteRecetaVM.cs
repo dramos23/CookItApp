@@ -12,13 +12,24 @@ namespace CookItApp.ViewModels
 
         public IngredienteRecetaVM(int idReceta)
         {
-                 CargarIngredientesReceta(idReceta);
+            CargarIngredientesReceta(idReceta);
         }
 
         private void CargarIngredientesReceta(int idReceta)
         {
             List<IngredienteReceta> ingredienteRecetas = App.DataBase.IngredienteReceta.ObtenerList(idReceta);
-            IngredientesRecetas = new ObservableCollection<IngredienteReceta>(ingredienteRecetas);
+
+            if (ingredienteRecetas != null)
+            {
+
+                IngredientesRecetas = new ObservableCollection<IngredienteReceta>(ingredienteRecetas);
+
+            }
+            else {
+
+                IngredientesRecetas = new ObservableCollection<IngredienteReceta>();
+
+            }
         }
     }
 }

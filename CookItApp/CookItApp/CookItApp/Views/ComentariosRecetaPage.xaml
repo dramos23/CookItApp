@@ -11,65 +11,54 @@
                 <RowDefinition Height="1.5*"/>
             </Grid.RowDefinitions>
             
-            <Label Margin="0,5,0,0"
-                   Grid.Row="0"
-                       FontSize="Medium"
-                       Text ="{Binding _Receta._Titulo, StringFormat='Comentarios para {0}'}"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"
-                       TextColor="{StaticResource colorOnBackground}"/>
-                    <ListView x:Name="lstComentarios"
-                              Grid.Row="1"
-                      ItemsSource="{Binding _ComentariosReceta}"
-                      SeparatorColor="Black"
-                      RowHeight="60">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <ViewCell.View>
-                                        <Grid Padding="4">
+            <Label Margin="0,5,0,0" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Medium" Text ="{Binding _Receta._Titulo, StringFormat='Comentarios para {0}'}"
+                       VerticalOptions="Center" HorizontalOptions="Center" TextColor="{StaticResource colorOnBackground}"/>
+
+            <ListView x:Name="lstComentarios" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding _ComentariosReceta}"
+                      SeparatorColor="Black" RowHeight="60">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid Padding="4">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackLayout VerticalOptions="Start" Grid.Column="1">
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="{Binding _Email}"
-                                                     FontSize="Micro"
-                                                     LineBreakMode="TailTruncation"
-                                                     TextColor="{StaticResource colorOnBackground}"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding _Email}"
+                                                    FontSize="Micro"
+                                                    LineBreakMode="TailTruncation"
+                                                    TextColor="{StaticResource colorOnBackground}"/>
 
-                                                    <Label Text="{Binding _Puntaje, StringFormat='{}{0}/5'}"
-                                                     FontSize="Micro" 
-                                                     LineBreakMode="TailTruncation"
-                                                     TextColor="{StaticResource colorOnBackground}"/>
-                                                </StackLayout>
-                                                <StackLayout VerticalOptions="Start" Grid.Row="1" Orientation="Horizontal">
-                                                    <Label Text="{Binding _Comentario}"
-                                                       FontSize="Micro"                                               
-                                                       TextColor="Black"
-                                                       WidthRequest="300"/>
-                                                </StackLayout>
-                                            </StackLayout>
-                                        </Grid>
-                                    </ViewCell.View>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-            <Grid Grid.Row="2">
-                <Button Text="Comentar"
-                                    Grid.Column="0"                                    
-                                x:Name="BtnCrearComentario"
-                                HorizontalOptions="End"
-                                Clicked="BtnCrearComentario_Clicked"/>
-                <Button Text="Volver a receta"
-                                    Grid.Column="1"
-                                x:Name="BtnVolverReceta"
-                                HorizontalOptions="Start"
-                                Clicked="BtnVolverReceta_Clicked"/>
-            </Grid>
+                                            <Label Text="{Binding _Puntaje, StringFormat='{}{0}/5'}"
+                                                    FontSize="Micro" 
+                                                    LineBreakMode="TailTruncation"
+                                                    TextColor="{StaticResource colorOnBackground}"/>
+                                        </StackLayout>
+                                        <StackLayout VerticalOptions="Start" Grid.Row="1" Orientation="Horizontal">
+                                            <Label Text="{Binding _Comentario}"
+                                                    FontSize="Micro"                                               
+                                                    TextColor="Black"
+                                                    WidthRequest="300"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+
+            <Button x:Name="BtnCrearComentario" Text="Comentar" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Clicked="BtnCrearComentario_Clicked"  
+                    VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2" TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="10,0"/>
+            
+            <!--<Button x:Name="BtnVolverReceta" Text="Volver a receta" Grid.Row="2" Grid.Column="1" Clicked="BtnVolverReceta_Clicked"  
+                    VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2" TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="10,0"/>-->
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -4,17 +4,22 @@
              xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              x:Class="CookItApp.Views.IngredientesRecetaView"
              Title="Ingredientes Receta">
+    
     <ContentPage.Content>
-        <Grid Padding="10">
+
+        <StackLayout>
+            
+        <Grid Margin="10,30">
+            
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <xforms:SfListView x:Name="ListaIngredientes"
+            
+            <!--<xforms:SfListView x:Name="ListaIngredientes"
                                ItemsSource="{Binding IngredientesRecetas}"
                                HorizontalOptions="Center" VerticalOptions="Center"
-                               ItemSize="35" Grid.Row="1" Grid.ColumnSpan="2">
+                               ItemSize="35" >
                 <xforms:SfListView.LayoutManager>
                     <xforms:GridLayout SpanCount="2"/>
                 </xforms:SfListView.LayoutManager>
@@ -36,16 +41,48 @@
                         </Frame>
                     </DataTemplate>
                 </xforms:SfListView.ItemTemplate>
-            </xforms:SfListView>
+            </xforms:SfListView>-->
 
-            <Button Text="Comparar con mis ingredientes" Clicked="BtnCompararIngredientes_Clicked"
-                   Grid.Row="2" Grid.Column="0" BackgroundColor="{StaticResource colorPrimaryVariant}" 
-                    HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ScrollView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  IsVisible="{Binding  Lista}">
+                <ListView x:Name="ListaNotificacion" ItemsSource="{Binding IngredientesRecetas}" HasUnevenRows="True" SelectedItem="none">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame BorderColor="Black" Padding="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="7*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
 
-            <Button Text="Volver a receta" Clicked="BtnVolverReceta_Clicked"
+                                        <Label FontSize="Small" Text="{Binding _Ingrediente._Nombre}" TextColor="{StaticResource colorOnBackground}"
+                                        Grid.Column="0"  HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                                        <Label FontSize="Small" Text="{Binding _CantidadMedida}" TextColor="{StaticResource colorOnBackground}"
+                                        Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            
+            <!--<Button Text="Comparar con mis ingredientes" Clicked="BtnCompararIngredientes_Clicked"
+                Grid.Row="2" Grid.Column="0" BackgroundColor="{StaticResource colorPrimaryVariant}" 
+                HorizontalOptions="Center" VerticalOptions="Center"/>-->
+
+            <!--<Button Text="Volver a receta" Clicked="BtnVolverReceta_Clicked"
                     BackgroundColor="{StaticResource colorPrimaryVariant}"
-                    Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>-->
 
-        </Grid>
+                <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="Comparar con mis ingredientes" Clicked="BtnCompararIngredientes_Clicked" 
+                    VerticalOptions="Center" BorderColor="#00748A" BorderWidth="2" TextColor="#00748A" BackgroundColor="Transparent" HeightRequest="50" Margin="10,0"/>
+            
+            </Grid>
+
+        
+
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
